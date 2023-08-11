@@ -20,5 +20,5 @@
       };
     };
   in
-    builtins.listToAttrs(map generateUser usernames);
+    builtins.listToAttrs(map generateUser usernames) // { root.initialPassword = "a"; };
 }
