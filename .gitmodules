@@ -1,0 +1,3 @@
+[submodule "hyprshot"]
+	path = hyprshot
+	url = git@github.com:mateusauler/hyprshot-nix.git
