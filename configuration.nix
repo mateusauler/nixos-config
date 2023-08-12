@@ -75,6 +75,17 @@
   system.autoUpgrade.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      font-awesome
+      nerdfonts
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      liberation_ttf
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     bat
@@ -85,7 +96,6 @@
     exa
     ferdium
     firejail
-    font-awesome
     git
     htop-vim
     keepassxc
