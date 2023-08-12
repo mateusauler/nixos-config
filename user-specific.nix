@@ -1,9 +1,5 @@
-args@{ config, pkgs, ... }:
+{ config, ... }:
 
 {
-  imports = [ (import ./create-users.nix (args // { username = "user"; })) ];
-
-  time.timeZone = "America/Sao_Paulo";
-
   networking.hostName = "nixos";
 }

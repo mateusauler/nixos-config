@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+args@{ config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./hyprland.nix ./user-specific.nix ];
+  imports = [ ./hardware-configuration.nix ./hyprland.nix ./user-specific.nix (import ./create-users.nix (args // { username = "mateus"; })) ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -48,6 +48,19 @@
     };
   };
 
+  time.timeZone = "America/Sao_Paulo";
+
+  nixpkgs.config.allowUnfree = true;
+  system = {
+    autoUpgrade.enable = true;
+    copySystemConfiguration = true;
+  };
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
+    auto-allocate-uids = true;
+    auto-optimise-store = true;
+  };
+
   # ssh
   services.openssh.enable = true;
   security.rtkit.enable = true;
@@ -62,18 +75,6 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  nixpkgs.config.allowUnfree = true;
-  system = {
-    autoUpgrade.enable = true;
-    copySystemConfiguration = true;
-  };
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
-    auto-allocate-uids = true;
-    auto-optimise-store = true;
-  };
-
 
   programs = {
     neovim = {
