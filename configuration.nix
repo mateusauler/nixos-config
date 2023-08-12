@@ -7,14 +7,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking = {
-    networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-    firewall = {
-      allowedTCPPorts = [ 22 ];
-      allowedUDPPorts = [ 22 ];
-    };
-  };
+  networking.networkmanager.enable = true;
 
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
@@ -32,7 +25,6 @@
   };
 
   sound.enable = true;
-  security.rtkit.enable = true;
 
   services = {
     pipewire = {
@@ -44,7 +36,6 @@
       pulse.enable = true;
       jack.enable = true;
     };
-    openssh.enable = true;
 
     udisks2 = {
       enable = true;
@@ -56,6 +47,33 @@
       openDefaultPorts = true;
     };
   };
+
+  # ssh
+  services.openssh.enable = true;
+  security.rtkit.enable = true;
+  networking.firewall = {
+    allowedTCPPorts = [ 22 ];
+    allowedUDPPorts = [ 22 ];
+  };
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  system = {
+    autoUpgrade.enable = true;
+    copySystemConfiguration = true;
+  };
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
+    auto-allocate-uids = true;
+    auto-optimise-store = true;
+  };
+
 
   programs = {
     neovim = {
@@ -79,22 +97,8 @@
 
     direnv.enable = true; # VSCodium Nix extension
     steam.enable = true;
-
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    mtr.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  #services.xserver.libinput.enable = true;
-
-  system.autoUpgrade.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
@@ -147,11 +151,6 @@
     yt-dlp
     zathura
   ];
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   system.stateVersion = "22.11";
 }
