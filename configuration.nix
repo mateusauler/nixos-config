@@ -46,6 +46,11 @@
     };
     openssh.enable = true;
 
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+    };
+
     syncthing = {
       enable = true;
       openDefaultPorts = true;
@@ -72,6 +77,7 @@
       };
     };
 
+    direnv.enable = true; # VSCodium Nix extension
     steam.enable = true;
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -103,31 +109,39 @@
 
   environment.systemPackages = with pkgs; [
     bat
+    brave
     btop
     du-dust
     easyeffects
     efibootmgr
     exa
     ferdium
+    firefox
     firejail
     git
+    heroic
     htop-vim
     keepassxc
     librewolf
+    lutris
     megasync
     meld
     mpv
     neovide
+    nodejs
     nsxiv
+    onlyoffice-bin
     pcmanfm
     pfetch
     prismlauncher
+    qogir-icon-theme
     refind
     ripgrep
     spotify
     syncthing-tray
     tldr
     tree
+    ungoogled-chromium
     vscodium
     wget
     yt-dlp
