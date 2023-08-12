@@ -25,6 +25,6 @@
     copyq
     hyprpicker
 
-    (builtins.getFlake "path:/etc/nixos/hyprshot").packages.x86_64-linux.default
+    # (builtins.getFlake "path:/etc/nixos/hyprshot").packages.x86_64-linux.default
   ];
 }

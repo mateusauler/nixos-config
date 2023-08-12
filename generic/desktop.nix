@@ -1,19 +1,12 @@
-args@{ config, pkgs, ... }:
+{ config, pkgs, custom, ... }:
 
-{
-  imports = [ ./hardware-configuration.nix ./hyprland.nix ./user-specific.nix (import ./create-users.nix (args // { username = "mateus"; })) ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
+let username = custom.username;
+in {
+  imports = [ ./hyprland.nix ];
 
   networking.networkmanager.enable = true;
 
-  i18n.defaultLocale = "en_GB.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "br-abnt";
-  };
+  time.timeZone = "America/Sao_Paulo";
 
   environment.sessionVariables = rec {
     XDG_CACHE_HOME  = "$HOME/.cache";
@@ -53,32 +46,12 @@ args@{ config, pkgs, ... }:
     };
   };
 
-  time.timeZone = "America/Sao_Paulo";
-
   nixpkgs.config.allowUnfree = true;
-  system = {
-    autoUpgrade.enable = true;
-    copySystemConfiguration = true;
-  };
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
     auto-allocate-uids = true;
     auto-optimise-store = true;
-  };
-
-  # ssh
-  services.openssh.enable = true;
-  security.rtkit.enable = true;
-  networking.firewall = {
-    allowedTCPPorts = [ 22 ];
-    allowedUDPPorts = [ 22 ];
-  };
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+    trusted-users = [ "root" username ];
   };
 
   programs = {
@@ -101,8 +74,7 @@ args@{ config, pkgs, ... }:
       };
     };
 
-    direnv.enable = true; # VSCodium Nix extension
-    steam.enable = true;
+    direnv.enable = true; # VSCodium Nix extension  
   };
 
   fonts = {
@@ -123,17 +95,16 @@ args@{ config, pkgs, ... }:
     btop
     du-dust
     easyeffects
-    efibootmgr
     exa
     ferdium
     firefox
     firejail
     git
     heroic
+    home-manager
     htop-vim
     keepassxc
     librewolf
-    lutris
     megasync
     meld
     mpv
@@ -143,10 +114,8 @@ args@{ config, pkgs, ... }:
     onlyoffice-bin
     pcmanfm
     pfetch
-    prismlauncher
     qbittorrent
     qogir-icon-theme
-    refind
     ripgrep
     spotify
     syncthing-tray
@@ -159,6 +128,25 @@ args@{ config, pkgs, ... }:
     zathura
   ];
 
-  system.stateVersion = "22.11";
-}
+  programs.fish.enable = true;
 
+  users.defaultUserShell = pkgs.fish;
+
+  services.syncthing = {
+    user = "${username}";
+    dataDir = "/home/${username}/Sync";
+    configDir = "/home/${username}/.config/syncthing";
+  };
+
+  users.users = {
+    ${username} = {
+      isNormalUser = true;
+      group = "users";
+      extraGroups = [ "wheel" "input" "networkmanager" ];
+      initialPassword = "a";
+      createHome = true;
+      home = "/home/${username}";
+    };
+    root.initialPassword = "a";
+  };
+}
