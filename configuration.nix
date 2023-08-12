@@ -45,6 +45,11 @@
       jack.enable = true;
     };
     openssh.enable = true;
+
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+    };
   };
 
   programs = {
@@ -120,7 +125,6 @@
     refind
     ripgrep
     spotify
-    syncthing
     syncthing-tray
     tldr
     tree

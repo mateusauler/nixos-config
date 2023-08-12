@@ -5,6 +5,11 @@
 
   users.defaultUserShell = pkgs.fish;
 
+  services.syncthing = {
+    user = "${username}";
+    dataDir = "/home/${username}/Sync";
+    configDir = "/home/${username}/.config/syncthing";
+  };
 
   users.users = {
     ${username} = {
