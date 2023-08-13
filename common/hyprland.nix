@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   programs.hyprland = {
@@ -25,6 +25,6 @@
     copyq
     hyprpicker
 
-    # (builtins.getFlake "path:/etc/nixos/hyprshot").packages.x86_64-linux.default
+    inputs.hyprshot.packages."x86_64-linux".hyprshot
   ];
 }

@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # hyprshot.url = "github:mateusauler/hyprshot-nix";
-    # hyprshot.inputs.nixpkgs.follows = "nixpkgs";
+    hyprshot.url = "git+ssh://git@github.com/mateusauler/hyprshot-nix";
+    hyprshot.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
