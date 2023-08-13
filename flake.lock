@@ -7,17 +7,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1691905349,
-        "narHash": "sha256-1RvFmyYhIf8g/lBawQUesauzgkWfpKxjyY6dxpBEc8E=",
-        "ref": "refs/heads/master",
-        "rev": "a00922137d55b8e7ae8cf14d77650f90b45c7a7a",
-        "revCount": 3,
-        "type": "git",
-        "url": "ssh://git@github.com/mateusauler/hyprshot-nix"
+        "lastModified": 1691907666,
+        "narHash": "sha256-Ipb9mmA7KqVU+rSJEKbjJK6ynXl/TZh4deB52citJSM=",
+        "owner": "mateusauler",
+        "repo": "hyprshot-nix",
+        "rev": "14fb646531dc0f3a264816e2300f24db4f3e7bcf",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/mateusauler/hyprshot-nix"
+        "owner": "mateusauler",
+        "repo": "hyprshot-nix",
+        "type": "github"
       }
     },
     "nixpkgs": {
