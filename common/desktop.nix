@@ -40,16 +40,16 @@ in {
       vimAlias = true;
       defaultEditor = true;
       configure = {
-         customRC = ''
-           set number
-           set relativenumber
-           if &diff
-             colorscheme blue
-           endif
-         '';
-         packages.all.start = with pkgs.vimPlugins; [
-           nvim-treesitter.withAllGrammars
-         ];
+        customRC = ''
+          set number
+          set relativenumber
+          if &diff
+            colorscheme blue
+          endif
+        '';
+        packages.all.start = with pkgs.vimPlugins; [
+          nvim-treesitter.withAllGrammars
+        ];
       };
     };
 
