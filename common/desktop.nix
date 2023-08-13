@@ -47,11 +47,18 @@ in {
   };
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
-    auto-allocate-uids = true;
-    auto-optimise-store = true;
-    trusted-users = [ "root" username ];
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
+      auto-allocate-uids = true;
+      auto-optimise-store = true;
+      trusted-users = [ "root" username ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 1w";
+    };
   };
 
   programs = {
