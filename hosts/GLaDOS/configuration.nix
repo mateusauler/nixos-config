@@ -2,7 +2,7 @@
 
 let username = custom.username;
 in {
-  imports = [ ./hardware-configuration.nix ../../generic/efi.nix ../../generic/desktop.nix ../../generic/openssh.nix ];
+  imports = [ ./hardware-configuration.nix ../../common/efi.nix ../../common/desktop.nix ../../common/openssh.nix ];
 
   networking.hostName = "GLaDOS";
 
