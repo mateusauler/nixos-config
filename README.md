@@ -10,3 +10,9 @@ To deploy it, clone the repo and run this command:
 ```bash
 sudo nixos-rebuild switch --flake /path/to/the/repo
 ```
+
+Or simply run:
+
+```bash
+sudo nixos-rebuild switch --flake 'github:mateusauler/nixos-config'
+```
