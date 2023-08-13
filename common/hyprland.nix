@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, specialArgs, ... }:
 
 {
   programs.hyprland = {
@@ -13,7 +13,7 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with specialArgs.flakePkgs; [
     waybar-hyprland
     mako
     libnotify
@@ -24,7 +24,6 @@
     wlsunset
     copyq
     hyprpicker
-
-    inputs.hyprshot.packages."x86_64-linux".hyprshot
+    hyprshot
   ];
 }
