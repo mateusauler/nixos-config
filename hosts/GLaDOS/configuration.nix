@@ -1,6 +1,7 @@
 { pkgs, custom, ... }:
 
-let username = custom.username;
+let
+  inherit (custom) username;
 in {
   imports = [ ./hardware-configuration.nix ../../common/efi.nix ../../common/desktop.nix ../../common/openssh.nix ];
 

@@ -1,8 +1,8 @@
 { lib, pkgs, custom, ... }:
 
 let
-  username = custom.username;
-  mkDefault = lib.mkDefault;
+  inherit (custom) username;
+  inherit (lib) mkDefault;
 in {
   time.timeZone = mkDefault "America/Sao_Paulo";
   networking.networkmanager.enable = mkDefault true;

@@ -1,6 +1,7 @@
 { pkgs, custom, ... }:
 
-let username = custom.username;
+let
+  inherit (custom) username;
 in {
   imports = [ ./hyprland.nix ./base.nix ];
 
