@@ -46,6 +46,11 @@ args@{ config, pkgs, ... }:
       enable = true;
       openDefaultPorts = true;
     };
+
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -139,6 +144,7 @@ args@{ config, pkgs, ... }:
     pcmanfm
     pfetch
     prismlauncher
+    qbittorrent
     qogir-icon-theme
     refind
     ripgrep
