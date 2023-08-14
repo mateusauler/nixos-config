@@ -8,28 +8,31 @@
         (builtins.readDir path)
       );
 
-  mkNixosSystem = { hostname, system, inputs, pkgs, args ? { }, ... }:
+  mkNixosSystem = { hostname, system, inputs, pkgs, specialArgs ? { }, ... }:
     let
       inherit (inputs) home-manager nixpkgs;
 
       dir = ../hosts + "/${hostname}";
       custom = (import (dir + /custom.nix)) // { inherit hostname; };
       username = custom.username;
-      specialArgs = args // { inherit inputs custom; };
-    in nixpkgs.lib.nixosSystem  {
-      inherit system pkgs specialArgs;
+      intermediary = specialArgs // { inherit inputs custom; };
+    in
+      let
+        specialArgs = intermediary;
+      in nixpkgs.lib.nixosSystem {
+        inherit system pkgs specialArgs;
 
-      modules = [
-        (dir + /configuration.nix)
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            users.${username} = import (dir + /home.nix);
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            extraSpecialArgs = specialArgs;
-          };
-        }
-      ];
-    };
+        modules = [
+          (dir + /configuration.nix)
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              users.${username} = import (dir + /home.nix);
+              useGlobalPkgs = true;
+              useUserPackages = false;
+              extraSpecialArgs = specialArgs;
+            };
+          }
+        ];
+      };
 }

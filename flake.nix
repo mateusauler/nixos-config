@@ -44,7 +44,7 @@
           ${hostname} = 
             lib.my.mkNixosSystem {
               inherit hostname system inputs pkgs;
-              args = { inherit flakePkgs; };
+              specialArgs = { inherit flakePkgs; };
             };
         };
     in
