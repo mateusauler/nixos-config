@@ -37,7 +37,6 @@ in {
     du-dust
     exa
     git
-    home-manager
     htop-vim
     meld
     pfetch

@@ -4,11 +4,16 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprshot.url = "github:mateusauler/hyprshot-nix";
     hyprshot.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
 
@@ -39,7 +44,7 @@
           ${hostname} = 
             lib.my.mkNixosSystem {
               inherit hostname system inputs pkgs;
-              specialArgs = { inherit flakePkgs; };
+              args = { inherit flakePkgs; };
             };
         };
     in
