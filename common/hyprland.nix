@@ -19,7 +19,6 @@
     libnotify
     kitty
     swww
-    rofi-wayland
     rofi-power-menu
     wlsunset
     copyq
