@@ -76,7 +76,6 @@ in {
     firefox
     firejail
     keepassxc
-    librewolf
     megasync
     mpv
     neovide

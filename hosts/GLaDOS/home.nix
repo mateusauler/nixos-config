@@ -5,6 +5,7 @@
 
   modules = {
     rofi.enable = true;
+    librewolf.enable = true;
   };
 
   home.stateVersion = "22.11";

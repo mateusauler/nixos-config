@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./librewolf.nix
     ./rofi
   ];
 }
