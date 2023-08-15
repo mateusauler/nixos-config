@@ -13,11 +13,12 @@ in {
     keyMap = "br-abnt";
   };
 
+  programs.steam.enable = true;
+
   environment.systemPackages = with pkgs; [
     lutris
     heroic
     prismlauncher
-    steam
   ];
 
   system.stateVersion = "22.11";
