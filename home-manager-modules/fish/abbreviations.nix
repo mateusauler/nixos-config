@@ -15,6 +15,8 @@
   gb  =  "git branch";
   gd  =  "git diff";
   gdc =  "git diff --cached";
+  gg  =  "git grep";
+  ggi =  "git grep -i";
 
   pa  =  "patch -p1 <";
 
