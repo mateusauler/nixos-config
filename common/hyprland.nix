@@ -1,11 +1,6 @@
 { pkgs, lib, specialArgs, ... }:
 
 {
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
   hardware.opengl.enable = true;
 
   xdg.portal = {
@@ -14,7 +9,6 @@
   };
 
   environment.systemPackages = with pkgs; with specialArgs.flakePkgs; [
-    waybar-hyprland
     mako
     libnotify
     kitty
