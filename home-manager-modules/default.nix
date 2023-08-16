@@ -9,5 +9,6 @@
     ./hyprland
     ./waybar
     ./common
+    ./kitty
   ];
 }

@@ -25,12 +25,14 @@ in {
   imports = [
     ../waybar
     ../rofi
+    ../kitty
   ];
 
   config = lib.mkIf cfg.enable {
     modules = {
       waybar.enable = mkDefault true;
       rofi.enable = mkDefault true;
+      kitty.enable = mkDefault true;
     };
 
     wayland.windowManager.hyprland = {
@@ -44,7 +46,6 @@ in {
       packages = with pkgs; with specialArgs.flakePkgs; [
         mako
         libnotify
-        kitty
         swww
         rofi-power-menu
         wlsunset
