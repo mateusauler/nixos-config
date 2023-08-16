@@ -19,6 +19,28 @@ jobs:
 
       - run: nix flake update
 
+      - name: Grab repo changes
+        run: |
+          GIT_CHANGES=$(git status -s | sed -E 's/(^\\s|\\s\$)+//g')
+          echo $GIT_CHANGES
+          echo "GIT_CHANGES=$GIT_CHANGES" >> "$GITHUB_ENV"
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3.8.0
+        if: ${{env.GIT_CHANGES}} == 'M flake.lock'
+        with:
+          server_address: smtp.gmail.com
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          server_port: 465
+          secure: true
+          subject: NixOS update available
+          to: ${{secrets.DESTINATION_EMAIL}}
+          from: Flake Bot <actions@github.com>
+          body: NixOS update available
+          ignore_cert: true
+          priority: low
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Bump flake.lock
