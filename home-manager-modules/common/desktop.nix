@@ -6,15 +6,9 @@ let
 in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
-  imports = [
-    ../hyprland
-    ../librewolf.nix
-    ../gtk
-    ../qt.nix
-  ];
-
   config = lib.mkIf cfg.enable {
     modules = {
+      base.enable = true;
       hyprland.enable = mkDefault true;
       gtk.enable = mkDefault true;
       qt.enable = mkDefault true;

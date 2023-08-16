@@ -53,6 +53,7 @@ in {
     wget
   ];
 
+  # TODO: Handle this in home-manager
   programs.fish.enable = true;
 
   users.defaultUserShell = pkgs.fish;

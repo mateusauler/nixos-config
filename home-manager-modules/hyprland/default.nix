@@ -22,12 +22,6 @@ in {
     };
   };
 
-  imports = [
-    ../waybar
-    ../rofi
-    ../kitty
-  ];
-
   config = lib.mkIf cfg.enable {
     modules = {
       waybar.enable = mkDefault true;

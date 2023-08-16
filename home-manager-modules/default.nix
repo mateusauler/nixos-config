@@ -10,5 +10,6 @@
     ./waybar
     ./common
     ./kitty
+    ./fish
   ];
 }
