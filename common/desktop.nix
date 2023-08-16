@@ -70,6 +70,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    at-spi2-core
     brave
     easyeffects
     ferdium

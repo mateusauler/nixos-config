@@ -34,6 +34,7 @@ in {
   environment.systemPackages = with pkgs; [
     bat
     btop
+    dconf
     du-dust
     exa
     git
