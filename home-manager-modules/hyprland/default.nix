@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, specialArgs, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -40,9 +40,23 @@ in {
       settings = config.modules.hyprland.monitors // (import ./settings.nix);
     };
 
-    home.file.".config/hypr/autostart.sh" = {
-      executable = true;
-      source = ./autostart.sh;
+    home = {
+      packages = with pkgs; with specialArgs.flakePkgs; [
+        mako
+        libnotify
+        kitty
+        swww
+        rofi-power-menu
+        wlsunset
+        copyq
+        hyprpicker
+        hyprshot
+      ];
+
+      file.".config/hypr/autostart.sh" = {
+        executable = true;
+        source = ./autostart.sh;
+      };
     };
   };
 }

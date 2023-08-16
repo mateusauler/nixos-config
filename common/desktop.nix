@@ -3,7 +3,12 @@
 let
   inherit (custom) username;
 in {
-  imports = [ ./hyprland.nix ./base.nix ];
+  imports = [ ./base.nix ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   sound.enable = true;
 
