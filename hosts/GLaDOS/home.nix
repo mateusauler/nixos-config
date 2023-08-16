@@ -25,6 +25,7 @@
         "10, monitor:$mon2"
       ];
     };
+    git.gpgKey = "202F1FFC3620EDD81E4C9F93CC20C1FD21A77FB0";
   };
 
   home.stateVersion = "22.11";

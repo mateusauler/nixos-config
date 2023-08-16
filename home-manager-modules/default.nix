@@ -11,5 +11,6 @@
     ./common
     ./kitty
     ./fish
+    ./git.nix
   ];
 }

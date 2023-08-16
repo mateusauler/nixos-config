@@ -33,7 +33,6 @@ in {
     btop
     dconf
     du-dust
-    git
     htop-vim
     meld
     ripgrep
