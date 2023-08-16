@@ -42,11 +42,9 @@ in {
     btop
     dconf
     du-dust
-    exa
     git
     htop-vim
     meld
-    pfetch
     ripgrep
     tldr
     tree

@@ -1,3 +1,5 @@
+{ config }:
+
 {
   gua =	"git remote | sed '/^blacklist/{d}' | xargs -L1 git push --all";
   gsu	= "git remote | sed '/^blacklist/{d}' | xargs -I {} git branch -u {}/(git branch --show-current) (git branch --show-current)";
@@ -5,9 +7,6 @@
   wget = "wget --hsts-file $XDG_CACHE_HOME/wget-hsts";
   sqlite3	= "sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc";
 
-  hexdump = "hexdump -C";
-
-  ls  = "exa --group-directories-first --icons";
   l   =  "ls";
   la  = "ls -a";
   ll  = "ls -lFb";
@@ -15,4 +14,8 @@
 
   rm = "rm -I";
   cp = "cp -r";
-}
+} // (
+  if config.programs.exa.enable
+  then { ls = "exa --group-directories-first --icons"; }
+  else {}
+)

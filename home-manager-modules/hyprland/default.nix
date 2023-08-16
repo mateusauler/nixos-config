@@ -49,7 +49,7 @@ in {
         hyprshot
       ];
 
-      file.".config/hypr/autostart.sh" = {
+      file."${config.xdg.configHome}/hypr/autostart.sh" = {
         executable = true;
         source = ./autostart.sh;
       };

@@ -21,7 +21,7 @@ in {
     };
 
     # TODO: Set colors based on nix-colors
-    home.file.".config/rofi/colors.rasi".text = ''
+    xdg.configFile."rofi/colors.rasi".text = ''
       * {
         bg0:    #2E3440F2;
         bg1:    #3B4252;

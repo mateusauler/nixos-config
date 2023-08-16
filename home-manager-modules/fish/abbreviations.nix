@@ -26,4 +26,6 @@
   ni  =  "neovide";
 
   ns  =  "nsxiv -a";
+
+  hexdump = "hexdump -C";
 }
