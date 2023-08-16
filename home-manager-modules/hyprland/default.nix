@@ -41,13 +41,12 @@ in {
         mako
         libnotify
         swww
-        rofi-power-menu
         wlsunset
         # TODO: Include copyq configs
         copyq
         hyprpicker
         hyprshot
-      ];
+      ] ++ (if config.modules.rofi.enable then [ pkgs.rofi-power-menu ] else []);
 
       file."${config.xdg.configHome}/hypr/autostart.sh" = {
         executable = true;

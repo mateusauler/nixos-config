@@ -18,7 +18,7 @@ in {
     settings = {
       experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
       auto-allocate-uids = true;
-      auto-optimise-store = true;
+      auto-optimise-store = mkDefault true;
       trusted-users = [ "root" username ];
     };
     gc = {
