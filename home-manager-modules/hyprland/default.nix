@@ -33,7 +33,7 @@ in {
       enable = true;
       systemdIntegration = mkDefault true;
       xwayland.enable = mkDefault true;
-      settings = config.modules.hyprland.monitors // (import ./settings.nix);
+      settings = cfg.monitors // (import ./settings.nix);
     };
 
     home = {
