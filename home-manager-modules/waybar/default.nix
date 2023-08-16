@@ -9,7 +9,6 @@ in {
     programs.waybar = {
       enable = true;
       package = lib.mkDefault pkgs.waybar-hyprland;
-      systemd.enable = true;
       settings.mainBar = import ./settings.nix;
       # TODO: Use nix-colors
       style = import ./style.nix;
