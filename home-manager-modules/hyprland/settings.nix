@@ -103,7 +103,7 @@
     "float, class:(com\.github\.hluk\.copyq)"
     "center, class:(com\.github\.hluk\.copyq)"
 
-    "float, class:(nz\.co\.mega\.megasync)"
+    "float, class:(MEGAsync)"
 
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
