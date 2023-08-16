@@ -8,7 +8,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     modules = {
-      base.enable = true;
       hyprland.enable = mkDefault true;
       gtk.enable = mkDefault true;
       qt.enable = mkDefault true;
