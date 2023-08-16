@@ -13,5 +13,28 @@ in {
       qt.enable = mkDefault true;
       librewolf.enable = mkDefault true;
     };
+
+    home.packages = with pkgs; [
+      at-spi2-core
+      brave
+      easyeffects
+      ferdium
+      firefox
+      keepassxc
+      megasync
+      mpv
+      neovide
+      nsxiv
+      onlyoffice-bin
+      pcmanfm
+      qbittorrent
+      qogir-icon-theme
+      spotify
+      syncthing-tray
+      ungoogled-chromium
+      vscodium
+      yt-dlp
+      zathura
+    ];
   };
 }

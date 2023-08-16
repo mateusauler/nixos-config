@@ -30,15 +30,9 @@ in {
 
   environment.systemPackages = with pkgs; [
     bat
-    btop
     dconf
-    du-dust
-    htop-vim
-    meld
     ripgrep
-    tldr
     tree
-    wget
   ];
 
   # TODO: Handle this in home-manager

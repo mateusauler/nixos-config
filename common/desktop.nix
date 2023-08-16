@@ -78,27 +78,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    at-spi2-core
-    brave
-    easyeffects
-    ferdium
-    firefox
     firejail
-    keepassxc
-    megasync
-    mpv
-    neovide
     nodejs
-    nsxiv
-    onlyoffice-bin
-    pcmanfm
-    qbittorrent
-    qogir-icon-theme
-    spotify
-    syncthing-tray
-    ungoogled-chromium
-    vscodium
-    yt-dlp
-    zathura
   ];
 }

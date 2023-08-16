@@ -31,5 +31,14 @@ in {
   {
     inherit username;
     homeDirectory = "/home/${username}";
+
+    packages = with pkgs; [
+      btop
+      du-dust
+      htop-vim
+      meld
+      tldr
+      wget
+    ];
   };
 }
