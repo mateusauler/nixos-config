@@ -31,6 +31,9 @@ in {
     syncthing = {
       enable = true;
       openDefaultPorts = true;
+      user = "${username}";
+      dataDir = "/home/${username}/Sync";
+      configDir = "/home/${username}/.config/syncthing";
     };
 
     mullvad-vpn = {
@@ -98,10 +101,4 @@ in {
     yt-dlp
     zathura
   ];
-
-  services.syncthing = {
-    user = "${username}";
-    dataDir = "/home/${username}/Sync";
-    configDir = "/home/${username}/.config/syncthing";
-  };
 }
