@@ -49,6 +49,7 @@ in {
         swww
         rofi-power-menu
         wlsunset
+        # TODO: Include copyq configs
         copyq
         hyprpicker
         hyprshot
