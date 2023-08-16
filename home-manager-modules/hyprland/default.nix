@@ -4,7 +4,23 @@ let
   cfg = config.modules.hyprland;
   inherit (lib) mkDefault;
 in {
-  options.modules.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.modules.hyprland = {
+    enable = lib.mkEnableOption "hyprland";
+    monitors = lib.mkOption {
+      default = {
+        "$mon1" = "";
+        "$mon2" = "$mon1";
+        "$mon3" = "$mon2";
+
+        # monitor = name,resolution,position,scale
+        monitor = [
+          "$mon1,prefered,auto,1"
+        ];
+
+        workspace = [];
+      };
+    };
+  };
 
   imports = [
     ../waybar
@@ -21,7 +37,7 @@ in {
       enable = true;
       systemdIntegration = mkDefault true;
       xwayland.enable = mkDefault true;
-      settings = import ./settings.nix;
+      settings = config.modules.hyprland.monitors // (import ./settings.nix);
     };
 
     home.file.".config/hypr/autostart.sh" = {

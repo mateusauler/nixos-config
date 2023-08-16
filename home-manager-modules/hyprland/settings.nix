@@ -1,24 +1,4 @@
 {
-  # TODO: Use per-device monitors
-  "$mon1" = "HDMI-A-1";
-  "$mon2" = "DVI-D-1";
-  "$mon3" = "$mon2";
-
-  # monitor = name,resolution,position,scale
-  monitor = [
-    "$mon1,prefered,1920x0,auto"
-    "$mon2,prefered,0x0,auto"
-  ];
-
-  workspace = [
-    "1, monitor:$mon1"
-    "2, monitor:$mon1"
-    "3, monitor:$mon1"
-    "4, monitor:$mon3"
-    "5, monitor:$mon2"
-    "10, monitor:$mon2"
-  ];
-
   # env = XCURSOR_SIZE,24
   # env = QT_QPA_PLATFORM,wayland
   # env = GTK_THEME,Nord
