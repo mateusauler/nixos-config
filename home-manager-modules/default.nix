@@ -12,5 +12,6 @@
     ./kitty
     ./fish
     ./git.nix
+    ./bash.nix
   ];
 }
