@@ -7,6 +7,12 @@ in {
   time.timeZone = mkDefault "America/Sao_Paulo";
   networking.networkmanager.enable = mkDefault true;
 
+  i18n.defaultLocale = mkDefault "en_GB.UTF-8";
+  console = {
+    font = mkDefault "Lat2-Terminus16";
+    keyMap = mkDefault "br-abnt";
+  };
+
   environment.sessionVariables = rec {
     XDG_CACHE_HOME  = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -61,5 +67,13 @@ in {
       home = "/home/${username}";
     };
     root.initialPassword = "a";
+  };
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = mkDefault true;
   };
 }

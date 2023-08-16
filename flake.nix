@@ -41,7 +41,7 @@
 
       makeASystem = accumulator: hostname:
         accumulator // {
-          ${hostname} = 
+          ${hostname} =
             lib.my.mkNixosSystem {
               inherit hostname system inputs pkgs;
               specialArgs = { inherit flakePkgs; };

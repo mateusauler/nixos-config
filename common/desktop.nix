@@ -54,7 +54,7 @@ in {
       };
     };
 
-    direnv.enable = true; # VSCodium Nix extension  
+    direnv.enable = true;
   };
 
   fonts = {

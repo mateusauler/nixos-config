@@ -5,7 +5,7 @@
 
   programs.home-manager.enable = true;
 
-  home = 
+  home =
   let
     inherit (custom) username;
   in
