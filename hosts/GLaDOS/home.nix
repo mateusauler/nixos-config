@@ -26,6 +26,7 @@
       ];
     };
     git.gpgKey = "5D9269C32D1E49D278A4410C263716004E5EF18D";
+    steam-xdg.enable = true;
   };
 
   home.stateVersion = "22.11";

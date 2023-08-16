@@ -11,7 +11,8 @@ in {
       hyprland.enable = mkDefault true;
       gtk.enable = mkDefault true;
       qt.enable = mkDefault true;
-      librewolf.enable = mkDefault true;
+      browser.enable = mkDefault true;
+      wally.enable = mkDefault true;
     };
 
     home.packages = with pkgs; [

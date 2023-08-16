@@ -13,5 +13,6 @@
     ./fish
     ./git.nix
     ./bash.nix
+    ./scripts
   ];
 }

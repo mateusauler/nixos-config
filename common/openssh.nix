@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  # ssh
   services.openssh.enable = true;
   security.rtkit.enable = true;
   networking.firewall = {
