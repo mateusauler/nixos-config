@@ -86,4 +86,9 @@ in {
       wget
     ];
   };
+
+  xdg.configFile."nixpkgs/config.nix" = {
+    enable = true;
+    text = "{ allowUnfree = true; }";
+  };
 }
