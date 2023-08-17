@@ -6,6 +6,7 @@ in {
   options.modules.waybar.enable = lib.mkEnableOption "waybar";
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.pavucontrol ];
     programs.waybar = {
       enable = true;
       package = lib.mkDefault pkgs.waybar-hyprland;

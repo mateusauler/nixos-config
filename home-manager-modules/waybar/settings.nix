@@ -190,7 +190,7 @@
     "tooltip-format" = "{ifname} via {gwaddr} ";
     "format-linked" = "{ifname} (No IP) ";
     "format-disconnected" = "Disconnected ⚠";
-    "format-alt" = "{ifname} = {ipaddr}/{cidr}";
+    "format-alt" = "{ifname}: {ipaddr}/{cidr}";
   };
   "pulseaudio" = {
     # "scroll-step" = 1; # %; can be a float
