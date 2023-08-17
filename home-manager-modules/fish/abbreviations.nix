@@ -35,4 +35,6 @@
   ns  =  "nsxiv -a";
 
   hexdump = "hexdump -C";
+
+  py = "nix-shell -p python3 --command python";
 }
