@@ -35,6 +35,25 @@ in {
     tree
   ];
 
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    defaultEditor = true;
+    # configure = {
+    #   customRC = ''
+    #     set number
+    #     set relativenumber
+    #     if &diff
+    #       colorscheme blue
+    #     endif
+    #   '';
+    #   packages.all.start = with pkgs.vimPlugins; [
+    #     nvim-treesitter.withAllGrammars
+    #   ];
+    # };
+  };
+
   # TODO: Handle this in home-manager
   programs.fish.enable = true;
 
