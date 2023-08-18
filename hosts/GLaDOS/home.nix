@@ -5,7 +5,7 @@
 
   modules = {
     desktop.enable = true;
-    hyprland.monitors = {
+    hyprland.extraOptions = {
       "$mon1" = "HDMI-A-1";
       "$mon2" = "DVI-D-1";
       "$mon3" = "$mon2";

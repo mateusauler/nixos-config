@@ -6,7 +6,7 @@ let
 in {
   options.modules.hyprland = {
     enable = lib.mkEnableOption "hyprland";
-    monitors = lib.mkOption {
+    extraOptions = lib.mkOption {
       default = {
         "$mon1" = "";
         "$mon2" = "$mon1";
@@ -33,7 +33,7 @@ in {
       enable = true;
       systemdIntegration = mkDefault true;
       xwayland.enable = mkDefault true;
-      settings = cfg.monitors // (import ./settings.nix);
+      settings = cfg.extraOptions // (import ./settings.nix);
     };
 
     home = {
