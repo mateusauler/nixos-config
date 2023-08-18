@@ -12,7 +12,7 @@ in {
       package = lib.mkDefault pkgs.waybar-hyprland;
       settings.mainBar = import ./settings.nix;
       # TODO: Use nix-colors
-      style = import ./style.nix;
+      style = builtins.readFile ./style.css;
     };
   };
 }
