@@ -7,7 +7,7 @@
   wget = "wget --hsts-file $XDG_CACHE_HOME/wget-hsts";
   sqlite3	= "sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc";
 
-  l   =  "ls";
+  l   = "ls";
   la  = "ls -a";
   ll  = "ls -lFb";
   lla = "ll -a";
