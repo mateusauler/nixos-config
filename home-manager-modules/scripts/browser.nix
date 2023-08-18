@@ -17,7 +17,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    modules.browser.module.enable = true;
+    # Use the module option to set the dependent module
+    modules.librewolf.enable = true;
     home.packages =
     let
       browser = pkgs.writeShellScriptBin "browser" ''
