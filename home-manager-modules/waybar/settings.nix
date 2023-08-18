@@ -1,3 +1,5 @@
+{ config }:
+
 {
   "layer" = "top"; # Waybar at top layer
   "height" = 30; # Waybar height (to be removed for auto height)
@@ -24,7 +26,7 @@
     # "backlight"
     "keyboard-state"
     # "hyprland/language"
-    # "battery"
+  ] ++ ( if config.battery.enable then [ "battery" ] else []) ++ [
     # "battery#bat2"
     "tray"
   ];
