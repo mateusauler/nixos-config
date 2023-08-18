@@ -9,7 +9,6 @@ in {
       "gtk-decoration-layout" = "icon:minimize,maximize,close";
       "gtk-enable-animations" = true;
       "gtk-font-name" = "Noto Sans,  10";
-      "gtk-modules" = "colorreload-gtk-module";
       "gtk-primary-button-warps-slider" = false;
       "gtk-xft-dpi" = 98304;
     };
