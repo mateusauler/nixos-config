@@ -4,10 +4,7 @@
   # env = GTK_THEME,Nord
   # env = QT_QPA_PLATFORMTHEME,gtk
 
-  exec-once = [
-    "~/.config/hypr/autostart.sh"
-    "kitty"
-  ];
+  exec-once = [ "kitty" ];
 
   input = {
     # TODO: Use globally configured layout
