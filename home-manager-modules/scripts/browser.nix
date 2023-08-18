@@ -2,13 +2,13 @@
 
 let
   cfg = config.modules.browser;
+  inherit (lib) mkOption;
 in {
   options.modules.browser = {
     enable = lib.mkEnableOption "browser";
-    package = lib.mkOption { default = pkgs.librewolf; };
-    executableName = lib.mkOption { default = "librewolf"; };
-    module = lib.mkOption { default = options.modules.librewolf; };
-    videoPlayer = lib.mkOption {
+    commandName = mkOption { default = "librewolf"; };
+    module = mkOption { default = options.modules.librewolf; };
+    videoPlayer = mkOption {
       default = {
         package = pkgs.mpv;
         executableName = "mpv";
@@ -21,7 +21,7 @@ in {
     home.packages =
     let
       browser = pkgs.writeShellScriptBin "browser" ''
-        browser_cmd="${cfg.package}/bin/${cfg.executableName} --new-tab"
+        browser_cmd="${cfg.commandName} --new-tab"
         video_player="${cfg.videoPlayer.package}/bin/${cfg.videoPlayer.executableName}"
 
         run_cmd="$browser_cmd"
@@ -69,10 +69,7 @@ in {
         exec $run_cmd $run_args > /dev/null &
       '';
     in
-    [
-      cfg.package
-      browser
-    ];
+    [ browser ];
 
     xdg.desktopEntries.browser = {
       name = "Browser wrapper";
