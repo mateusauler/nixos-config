@@ -48,6 +48,6 @@
             };
         };
     in
-      builtins.foldl' makeASystem { } machines;
+      lib.foldl makeASystem { } machines;
   };
 }
