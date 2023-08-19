@@ -5,7 +5,7 @@
 *******************************************************************************/
 
 * {
-	font:   "Roboto 12";
+	font:   "Roboto 14";
 
 	background-color:   transparent;
 	text-color:         @fg0;
