@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.gtk;
-  inherit (pkgs) qogir-icon-theme;
 in {
   imports = [
     ./gtk2
@@ -13,7 +12,6 @@ in {
   options.modules.gtk.enable = lib.mkEnableOption "gtk";
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ qogir-icon-theme ];
     gtk = {
       enable = true;
       theme = {
@@ -21,12 +19,12 @@ in {
         name = "Arc-Dark";
       };
       cursorTheme = {
-        package = qogir-icon-theme;
+        package = pkgs.qogir-icon-theme;
         name = "Qogir";
       };
       iconTheme = {
-        package = qogir-icon-theme;
-        name = "Qogir-dark";
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus-Dark";
       };
     };
   };
