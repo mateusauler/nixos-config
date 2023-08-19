@@ -29,7 +29,6 @@ in {
       onlyoffice-bin
       pcmanfm
       qbittorrent
-      qogir-icon-theme
       spotify
       syncthing-tray
       ungoogled-chromium
