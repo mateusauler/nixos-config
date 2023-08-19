@@ -8,10 +8,14 @@ in {
 
   config = lib.mkIf cfg.enable {
     modules = {
-      hyprland.enable = mkDefault true;
-      gtk.enable = mkDefault true;
-      qt.enable = mkDefault true;
       browser.enable = mkDefault true;
+      change-wallpaper = {
+        enable = mkDefault true;
+        command = "${pkgs.swww}/bin/swww img";
+      };
+      gtk.enable = mkDefault true;
+      hyprland.enable = mkDefault true;
+      qt.enable = mkDefault true;
       wally.enable = mkDefault true;
     };
 
