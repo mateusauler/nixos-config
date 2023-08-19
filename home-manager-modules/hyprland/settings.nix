@@ -79,10 +79,6 @@
     workspace_swipe = false;
   };
 
-  "device:logitech-g903-ls-1" = {
-    sensitivity = -0.93;
-  };
-
   misc = {
     vrr = 2;
     disable_splash_rendering = true;
@@ -210,3 +206,13 @@
     "$mainMod, mouse:273, resizewindow"
   ];
 }
+//
+(
+  let
+    genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; } );
+    devices = [ "lightspeed-wireless-gaming-mouse-w/-hero-1"
+                "lightspeed-wireless-gaming-mouse-w/-hero-2"
+                "ls-1" ];
+  in
+    builtins.foldl' genDeviceConfig {} devices
+)
