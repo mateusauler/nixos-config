@@ -2,17 +2,17 @@
 
 {
   imports = [
+    ./bash.nix
+    ./common
+    ./fish
+    ./git.nix
     ./gtk
+    ./hyprland
+    ./kitty
     ./librewolf.nix
     ./qt.nix
     ./rofi
-    ./hyprland
-    ./waybar
-    ./common
-    ./kitty
-    ./fish
-    ./git.nix
-    ./bash.nix
     ./scripts
+    ./waybar
   ];
 }
