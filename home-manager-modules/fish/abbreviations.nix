@@ -36,6 +36,7 @@ in {
 
   ns  =  "nsxiv -a";
 
+  mkdir = "mkdir -p";
   hexdump = "hexdump -C";
 
   py = "nix-shell -p python3 --command python";
