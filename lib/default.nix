@@ -13,7 +13,7 @@
       inherit (inputs) home-manager nixpkgs;
 
       dir = ../hosts + "/${hostname}";
-      custom = { dots-path = "~/nixos"; }
+      custom = { dots-path = "~/nixos"; default-wallpaper = "df74f6793d18725a.png"; }
             // (import (dir + /custom.nix))
             // { inherit hostname; };
       username = custom.username;
