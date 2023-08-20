@@ -38,22 +38,18 @@
       default-wallpaper = "df74f6793d18725a.png";
     };
 
+    machines = lib.my.readDirNames ./hosts;
+
+    mkHost = accumulator: hostname:
+      accumulator // {
+        ${hostname} =
+          lib.my.mkNixosSystem {
+            inherit hostname system inputs pkgs customDefaults;
+            specialArgs = { inherit flakePkgs; };
+          };
+      };
+
     inherit (pkgs) lib;
   in
-  {
-    nixosConfigurations =
-    let
-      machines = lib.my.readDirNames ./hosts;
-
-      mkHost = accumulator: hostname:
-        accumulator // {
-          ${hostname} =
-            lib.my.mkNixosSystem {
-              inherit hostname system inputs pkgs customDefaults;
-              specialArgs = { inherit flakePkgs; };
-            };
-        };
-    in
-      lib.foldl mkHost { } machines;
-  };
+    { nixosConfigurations = lib.foldl mkHost { } machines; };
 }
