@@ -1,23 +1,20 @@
 { custom, config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.desktop;
   inherit (lib) mkDefault;
+  cfg = config.modules.desktop;
+
+  module-names  = [ "browser" "change-wallpaper" "gtk" "hyprland" "qt" "wally" ];
+  other-options = { change-wallpaper.command = "${pkgs.swww}/bin/swww img"; };
 in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
-    modules = {
-      browser.enable = mkDefault true;
-      change-wallpaper = {
-        enable = mkDefault true;
-        command = "${pkgs.swww}/bin/swww img";
-      };
-      gtk.enable = mkDefault true;
-      hyprland.enable = mkDefault true;
-      qt.enable = mkDefault true;
-      wally.enable = mkDefault true;
-    };
+    modules = let
+      join-modules = acc: m: acc // { ${m}.enable = mkDefault true; };
+      enabled-modules = (builtins.foldl' join-modules { } module-names);
+    in
+      lib.attrsets.recursiveUpdate enabled-modules other-options;
 
     home.packages = with pkgs; [
       at-spi2-core
