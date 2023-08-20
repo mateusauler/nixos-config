@@ -3,7 +3,13 @@
 let
   inherit (custom) username;
 in {
-  imports = [ ./hardware-configuration.nix ../../common/efi.nix ../../common/desktop.nix ../../common/openssh.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../common/efi.nix
+    ../../common/desktop.nix
+    ../../common/openssh.nix
+    ../../common/virt-manager.nix
+  ];
 
   networking.hostName = "GLaDOS";
 
