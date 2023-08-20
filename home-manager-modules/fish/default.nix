@@ -22,7 +22,7 @@ in {
       fish = {
         enable = true;
         shellAliases = (import ../shell-aliases.nix { inherit config; });
-        shellAbbrs = import ./abbreviations.nix;
+        shellAbbrs = (import ./abbreviations.nix { inherit custom; });
 
         loginShellInit = ''if [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1";
                              lsmod | grep pcspkr > /dev/null && sudo rmmod pcspkr &

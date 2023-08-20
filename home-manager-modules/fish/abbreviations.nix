@@ -1,4 +1,8 @@
-{
+{ custom }:
+
+let
+  inherit (custom) dots-path;
+in {
   mn  =   "udisksctl mount -b";
   um  =   "udisksctl umount -b";
 
@@ -18,17 +22,15 @@
   gg  =  "git grep";
   ggi =  "git grep -i";
 
-  # TODO: Use a variable to refer to the path of the repo
-  nrb = "nixos-rebuild --flake ~/nixos --show-trace build";
-  nrs = "sudo nixos-rebuild --flake ~/nixos switch";
-  nrt = "sudo nixos-rebuild --flake ~/nixos test";
+  nrb = "nixos-rebuild --flake ${dots-path} --show-trace build";
+  nrs = "sudo nixos-rebuild --flake ${dots-path} switch";
+  nrt = "sudo nixos-rebuild --flake ${dots-path} test";
 
   pa  =  "patch -p1 <";
 
   # p  =  "paru";
   z   =  "zathura";
 
-  vim =  "nvim";
   n   =  "nvim";
   ni  =  "neovide";
 

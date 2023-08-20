@@ -2,6 +2,7 @@
 
 let
   inherit (lib) mkDefault;
+  inherit (custom) username dots-path;
 in {
   imports = [ ./. ];
 
@@ -24,11 +25,7 @@ in {
     };
   };
 
-  home =
-  let
-    inherit (custom) username;
-  in
-  {
+  home = {
     inherit username;
     homeDirectory = "/home/${username}";
 
@@ -85,6 +82,15 @@ in {
       tldr
       wget
     ];
+
+    # TODO: Only change the remote url to ssh if there is a key available
+    activation.clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
+      pkgs.lib.my.cloneRepo {
+        path = dots-path;
+        url = "https://github.com/mateusauler/nixos-config";
+        ssh-uri = "git@github.com:mateusauler/nixos-config.git";
+      }
+    );
   };
 
   xdg.configFile."nixpkgs/config.nix" = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   readDirNames = path:
@@ -13,7 +13,9 @@
       inherit (inputs) home-manager nixpkgs;
 
       dir = ../hosts + "/${hostname}";
-      custom = (import (dir + /custom.nix)) // { inherit hostname; };
+      custom = { dots-path = "~/nixos"; }
+            // (import (dir + /custom.nix))
+            // { inherit hostname; };
       username = custom.username;
       intermediary = specialArgs // { inherit inputs custom; };
     in
@@ -37,4 +39,18 @@
           }
         ];
       };
+
+  cloneRepo = { path, url, ssh-uri ? null }:
+    let
+      git-cmd = "${pkgs.git}/bin/git";
+    in ''
+      if [ ! -d ${path} ]; then
+        $DRY_RUN_CMD ${git-cmd} clone $VERBOSE_ARG ${url} ${path}
+        $DRY_RUN_CMD pushd ${path}
+          ${if ssh-uri != null then "$DRY_RUN_CMD ${git-cmd} remote $VERBOSE_ARG set-url origin ${ssh-uri}" else ""}
+          $DRY_RUN_CMD ${git-cmd} pull $VERBOSE_ARG || true
+        $DRY_RUN_CMD popd
+      fi
+    '';
+
 }

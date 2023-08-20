@@ -19,7 +19,7 @@
 
     overlays = [
       (final: prev: {
-        lib = prev.lib // { my = import ./lib { inherit (final) lib; }; };
+        lib = prev.lib // { my = import ./lib { inherit (final) lib; inherit pkgs; }; };
       })
     ];
 
