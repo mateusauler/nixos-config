@@ -24,10 +24,23 @@ in {
   boot.initrd.luks.devices."luks-c058bec9-bb26-440c-805c-75808b15c20d".keyFile = "/crypto_keyfile.bin";
   networking.hostName = "Wheatley";
 
-  zramSwap = {
+  # https://github.com/NixOS/nixpkgs/issues/119244#issuecomment-1250321791
+  systemd.services.zswap = {
+    description = "Enable ZSwap, set to ZSTD and Z3FOLD";
     enable = true;
-    writebackDevice = "/var/lib/zram-swap-writeback";
+    wantedBy = [ "basic.target" ];
+    path = [ pkgs.bash ];
+    serviceConfig = {
+      ExecStart = ''${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters && \
+        echo 1 > enabled && \
+        echo 20 > max_pool_percent && \
+        echo zstd > compressor && \
+        echo z3fold > zpool'
+      '';
+      Type = "simple";
+    };
   };
+
 
   modules = pkgs.lib.my.enableModules { inherit module-names; };
 
