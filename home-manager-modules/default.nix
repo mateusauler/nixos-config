@@ -10,6 +10,7 @@
     ./hyprland
     ./kitty
     ./librewolf.nix
+    ./nsxiv
     ./qt.nix
     ./rofi
     ./scripts

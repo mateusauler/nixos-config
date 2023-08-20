@@ -4,7 +4,7 @@ let
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
 
-  module-names  = [ "browser" "change-wallpaper" "gtk" "hyprland" "qt" "wally" ];
+  module-names  = [ "browser" "change-wallpaper" "gtk" "hyprland" "nsxiv" "qt" "wally" ];
   other-options = { change-wallpaper.command = "${pkgs.swww}/bin/swww img"; };
 in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -26,7 +26,6 @@ in {
       megasync
       mpv
       neovide
-      nsxiv
       onlyoffice-bin
       pcmanfm
       qbittorrent
