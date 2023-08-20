@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./base.nix
     ./bash.nix
     ./common
     ./fish

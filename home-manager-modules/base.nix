@@ -4,8 +4,6 @@ let
   inherit (lib) mkDefault;
   inherit (custom) username dots-path;
 in {
-  imports = [ ./. ];
-
   programs.home-manager.enable = true;
 
   modules = {

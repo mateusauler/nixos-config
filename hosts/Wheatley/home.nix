@@ -1,7 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 
 {
-  imports = [ ../../home-manager-modules/base.nix ];
+  imports = [ ../../home-manager-modules ];
 
   modules = {
     desktop.enable = true;
