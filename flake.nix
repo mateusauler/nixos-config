@@ -32,6 +32,12 @@
       inherit (inputs.hyprshot.packages."${system}") hyprshot;
     };
 
+    # Default values of the custom set
+    customDefaults = {
+      dots-path = "~/nixos";
+      default-wallpaper = "df74f6793d18725a.png";
+    };
+
     inherit (pkgs) lib;
   in
   {
@@ -43,7 +49,7 @@
         accumulator // {
           ${hostname} =
             lib.my.mkNixosSystem {
-              inherit hostname system inputs pkgs;
+              inherit hostname system inputs pkgs customDefaults;
               specialArgs = { inherit flakePkgs; };
             };
         };

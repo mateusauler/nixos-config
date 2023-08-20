@@ -8,12 +8,12 @@
         (builtins.readDir path)
       );
 
-  mkNixosSystem = { hostname, system, inputs, pkgs, specialArgs ? { }, ... }:
+  mkNixosSystem = { hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, ... }:
     let
       inherit (inputs) home-manager nixpkgs;
 
       dir = ../hosts + "/${hostname}";
-      custom = { dots-path = "~/nixos"; default-wallpaper = "df74f6793d18725a.png"; }
+      custom = customDefaults
             // (import (dir + /custom.nix))
             // { inherit hostname; };
       username = custom.username;
