@@ -35,7 +35,7 @@
     # Default values of the custom set
     customDefaults = {
       dots-path = "~/nixos";
-      default-wallpaper = "df74f6793d18725a.png";
+      default-wallpaper = "nix-wallpaper-dracula.png";
     };
 
     machines = lib.my.readDirNames ./hosts;
