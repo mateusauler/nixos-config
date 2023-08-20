@@ -53,4 +53,11 @@
       fi
     '';
 
+  enableModules = { module-names, other-options ? { } }:
+    let
+      join-modules = acc: m: acc // { ${m}.enable = lib.mkDefault true; };
+      enabled-modules = (builtins.foldl' join-modules { } module-names);
+    in
+      lib.attrsets.recursiveUpdate enabled-modules other-options;
+
 }

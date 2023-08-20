@@ -10,11 +10,7 @@ in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
-    modules = let
-      join-modules = acc: m: acc // { ${m}.enable = mkDefault true; };
-      enabled-modules = (builtins.foldl' join-modules { } module-names);
-    in
-      lib.attrsets.recursiveUpdate enabled-modules other-options;
+    modules = pkgs.lib.my.enableModules { inherit module-names other-options; };
 
     home.packages = with pkgs; [
       at-spi2-core

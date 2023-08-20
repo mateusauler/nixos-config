@@ -1,6 +1,8 @@
 { config, pkgs, custom, ... }:
 
-{
+let
+  module-names  = [ "desktop" "openssh" ];
+in {
   imports = [ ./hardware-configuration.nix ../../common ];
 
   boot.loader = {
@@ -22,10 +24,7 @@
   boot.initrd.luks.devices."luks-c058bec9-bb26-440c-805c-75808b15c20d".keyFile = "/crypto_keyfile.bin";
   networking.hostName = "Wheatley";
 
-  modules = {
-    desktop.enable = true;
-    openssh.enable = true;
-  };
+  modules = pkgs.lib.my.enableModules { inherit module-names; };
 
   system.stateVersion = "23.05";
 }
