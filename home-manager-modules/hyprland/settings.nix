@@ -98,6 +98,8 @@
 
     "float, class:(MEGAsync)"
 
+    "tile, class:(Nsxiv)"
+
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
     "workspace 4 silent, class:(Ferdium)"
