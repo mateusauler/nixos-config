@@ -45,7 +45,7 @@
     let
       machines = lib.my.readDirNames ./hosts;
 
-      makeASystem = accumulator: hostname:
+      mkHost = accumulator: hostname:
         accumulator // {
           ${hostname} =
             lib.my.mkNixosSystem {
@@ -54,6 +54,6 @@
             };
         };
     in
-      lib.foldl makeASystem { } machines;
+      lib.foldl mkHost { } machines;
   };
 }
