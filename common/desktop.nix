@@ -1,63 +1,67 @@
-{ pkgs, custom, ... }:
+{ pkgs, custom, config, lib, ... }:
 
 let
   inherit (custom) username;
+  inherit (lib) mkDefault;
+  cfg = config.modules.desktop;
 in {
-  imports = [ ./base.nix ];
+  options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  config = lib.mkIf cfg.enable {
+    xdg.portal = {
+      enable =  true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
 
-  sound.enable = true;
+    sound.enable = true;
 
-  services = {
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
+    services = {
+      pipewire = {
+        enable = mkDefault true;
+        alsa = {
+          enable = mkDefault true;
+          support32Bit = mkDefault true;
+        };
+        pulse.enable = mkDefault true;
+        jack.enable = mkDefault true;
       };
-      pulse.enable = true;
-      jack.enable = true;
+
+      udisks2 = {
+        enable = mkDefault true;
+        mountOnMedia = mkDefault true;
+      };
+
+      syncthing = {
+        enable = mkDefault true;
+        openDefaultPorts = mkDefault true;
+        user = mkDefault "${username}";
+        dataDir = mkDefault "/home/${username}/Sync";
+        configDir = mkDefault "/home/${username}/.config/syncthing";
+      };
+
+      mullvad-vpn = {
+        enable = mkDefault true;
+        package = mkDefault pkgs.mullvad-vpn;
+      };
     };
 
-    udisks2 = {
-      enable = true;
-      mountOnMedia = true;
+    programs.direnv.enable = mkDefault true;
+
+    fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        font-awesome
+        nerdfonts
+        noto-fonts
+        noto-fonts-cjk
+        noto-fonts-emoji
+        liberation_ttf
+      ];
     };
 
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      user = "${username}";
-      dataDir = "/home/${username}/Sync";
-      configDir = "/home/${username}/.config/syncthing";
-    };
-
-    mullvad-vpn = {
-      enable = true;
-      package = pkgs.mullvad-vpn;
-    };
-  };
-
-  programs.direnv.enable = true;
-
-  fonts = {
-    enableDefaultPackages = true;
-    packages = with pkgs; [
-      font-awesome
-      nerdfonts
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      liberation_ttf
+    environment.systemPackages = with pkgs; [
+      firejail
+      nodejs
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    firejail
-    nodejs
-  ];
 }

@@ -1,7 +1,7 @@
 { config, pkgs, custom, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ../../common/desktop.nix ../../common/openssh.nix ];
+  imports = [ ./hardware-configuration.nix ../../common ];
 
   boot.loader = {
     grub = {
@@ -22,7 +22,10 @@
   boot.initrd.luks.devices."luks-c058bec9-bb26-440c-805c-75808b15c20d".keyFile = "/crypto_keyfile.bin";
   networking.hostName = "Wheatley";
 
+  modules = {
+    desktop.enable = true;
+    openssh.enable = true;
+  };
 
   system.stateVersion = "23.05";
-
 }

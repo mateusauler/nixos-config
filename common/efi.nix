@@ -1,17 +1,24 @@
-{ pkgs, ... }:
+{ pkgs, options, config, lib, ... }:
 
-{
-  boot.loader = {
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 10;
+let
+  inherit (lib) mkDefault;
+  cfg = config.modules.efi;
+in {
+  options.modules.efi.enable = lib.mkEnableOption "efi";
+
+  config = lib.mkIf cfg.enable {
+    boot.loader = {
+      systemd-boot = {
+        enable = mkDefault true;
+        configurationLimit = mkDefault 10;
+      };
+      efi.canTouchEfiVariables = mkDefault true;
+      timeout = mkDefault 0;
     };
-    efi.canTouchEfiVariables = true;
-    timeout = 0;
-  };
 
-  environment.systemPackages = with pkgs; [
-    efibootmgr
-    refind
-  ];
+    environment.systemPackages = with pkgs; [
+      efibootmgr
+      refind
+    ];
+  };
 }
