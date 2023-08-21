@@ -91,7 +91,9 @@
   };
 
   windowrulev2 = [
+    "float, class:(Rofi)"
     "center, class:(Rofi)"
+    "stayfocused, class:(Rofi)"
 
     "float, class:(com\.github\.hluk\.copyq)"
     "center, class:(com\.github\.hluk\.copyq)"
