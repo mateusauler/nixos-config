@@ -4,6 +4,8 @@ let
   inherit (custom) username;
   inherit (lib) mkDefault;
 in {
+  boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
+
   time.timeZone = mkDefault "America/Sao_Paulo";
   networking.networkmanager.enable = mkDefault true;
 
