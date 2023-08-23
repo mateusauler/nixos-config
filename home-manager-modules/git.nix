@@ -41,9 +41,11 @@ in {
       signing.signByDefault = cfg.gpgKey != null;
       signing.key = if cfg.gpgKey != null then cfg.gpgKey else "";
       extraConfig = {
-        pull.rebase = "true";
-        push.autoSetupRemote = "true";
-        submodule.recurse = "true";
+        pull.rebase = true;
+        push.autoSetupRemote = true;
+        submodule.recurse = true;
+        advice.addEmptyPathspec = false;
+        init.defaultBranch = "master";
       };
     };
   };
