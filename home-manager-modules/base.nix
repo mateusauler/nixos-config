@@ -81,14 +81,23 @@ in {
       wget
     ];
 
-    # TODO: Only change the remote url to ssh if there is a key available
-    activation.clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
-      pkgs.lib.my.cloneRepo {
-        path = dots-path;
-        url = "https://github.com/mateusauler/nixos-config";
-        ssh-uri = "git@github.com:mateusauler/nixos-config.git";
-      }
-    );
+    activation = {
+      # TODO: Separate this out into the wget module
+      create-wgetrc = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -z "$WGETRC" ]; then
+          $DRY_RUN_CMD mkdir -p $($DRY_RUN_CMD dirname "$WGETRC")
+          $DRY_RUN_CMD touch "$WGETRC"
+        fi
+      '';
+      clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
+        # TODO: Only change the remote url to ssh if there is a key available
+        pkgs.lib.my.cloneRepo {
+          path = dots-path;
+          url = "https://github.com/mateusauler/nixos-config";
+          ssh-uri = "git@github.com:mateusauler/nixos-config.git";
+        }
+      );
+    };
   };
 
   xdg.configFile."nixpkgs/config.nix" = {
