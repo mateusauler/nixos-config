@@ -2,14 +2,19 @@
 
 let
   cfg = config.modules.librewolf;
+  inherit (lib) mkEnableOption mkDefault;
 in {
   options.modules.librewolf = {
-    enable = lib.mkEnableOption "librewolf";
-    openwith.enable = lib.mkEnableOption "openwith";
+    enable = mkEnableOption "librewolf";
+    openwith.enable = mkEnableOption "openwith";
+    keepassxc.enable = mkEnableOption "keepassxc";
   };
 
   config = lib.mkIf cfg.enable {
-    modules.librewolf.openwith.enable = lib.mkDefault true;
+    modules.librewolf = {
+      openwith.enable = mkDefault true;
+      keepassxc.enable = mkDefault true;
+    };
 
     home.packages = lib.mkIf cfg.openwith.enable [ pkgs.python3 ];
 
@@ -38,20 +43,40 @@ in {
       source = ./open_with_linux.py;
     };
 
-    home.file.open-with-messaging-host = {
-      enable = cfg.openwith.enable;
-      target = ".librewolf/native-messaging-hosts/open_with.json";
-      text = ''
-        {
-	        "allowed_extensions": [
-		        "openwith@darktrojan.net"
-	        ],
-	        "description": "Open With native host",
-	        "name": "open_with",
-	        "path": "${config.home.homeDirectory}/${config.xdg.dataFile.open-with-script.target}",
-	        "type": "stdio"
-        }
-      '';
-    };
+    home.file =
+      let
+        nmh-path = ".librewolf/native-messaging-hosts";
+      in {
+        open-with-messaging-host = {
+          enable = cfg.openwith.enable;
+          target = "${nmh-path}/open_with.json";
+          text = ''
+            {
+              "allowed_extensions": [
+                "openwith@darktrojan.net"
+              ],
+              "description": "Open With native host",
+              "name": "open_with",
+              "path": "${config.home.homeDirectory}/${config.xdg.dataFile.open-with-script.target}",
+              "type": "stdio"
+            }
+          '';
+        };
+        keepassxc-native-messaging-host = {
+          enable = cfg.keepassxc.enable;
+          target = "${nmh-path}/org.keepassxc.keepassxc_browser.json";
+          text = ''
+            {
+              "allowed_extensions": [
+                "keepassxc-browser@keepassxc.org"
+              ],
+              "description": "KeePassXC integration with native messaging support",
+              "name": "org.keepassxc.keepassxc_browser",
+              "path": "${pkgs.keepassxc}/bin/keepassxc-proxy",
+              "type": "stdio"
+            }
+          '';
+        };
+      };
   };
 }
