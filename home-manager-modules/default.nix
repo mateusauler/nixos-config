@@ -10,7 +10,7 @@
     ./gtk
     ./hyprland
     ./kitty
-    ./librewolf.nix
+    ./librewolf
     ./libvirtd.nix
     ./nsxiv
     ./obs.nix
