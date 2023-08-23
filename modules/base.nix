@@ -66,7 +66,7 @@ in {
     ${username} = {
       isNormalUser = true;
       group = "users";
-      extraGroups = [ "wheel" "input" "networkmanager" ];
+      extraGroups = [ "wheel" "input" "networkmanager" "disk" ];
       initialPassword = "a";
       createHome = true;
       home = "/home/${username}";
