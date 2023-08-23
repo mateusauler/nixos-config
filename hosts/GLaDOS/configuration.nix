@@ -4,7 +4,7 @@ let
   inherit (custom) username;
   module-names  = [ "desktop" "efi" "openssh" "virt-manager" ];
 in {
-  imports = [ ./hardware-configuration.nix ../../common ];
+  imports = [ ./hardware-configuration.nix ../../modules ];
 
   modules = pkgs.lib.my.enableModules { inherit module-names; };
 

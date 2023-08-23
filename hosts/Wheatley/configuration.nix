@@ -3,7 +3,7 @@
 let
   module-names  = [ "desktop" "openssh" ];
 in {
-  imports = [ ./hardware-configuration.nix ../../common ];
+  imports = [ ./hardware-configuration.nix ../../modules ];
 
   boot.loader = {
     grub = {
