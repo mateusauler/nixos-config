@@ -9,8 +9,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     xdg.portal = {
-      enable =  true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland # TODO: Only install if the Hyprland hm module is enabled
+      ];
     };
 
     sound.enable = true;
