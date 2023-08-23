@@ -13,6 +13,7 @@
     ./librewolf.nix
     ./libvirtd.nix
     ./nsxiv
+    ./obs.nix
     ./qt.nix
     ./rofi
     ./scripts
