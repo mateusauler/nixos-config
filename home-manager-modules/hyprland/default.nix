@@ -102,6 +102,7 @@ in {
       packages = with pkgs; with specialArgs.flakePkgs; [
         # TODO: Include copyq configs
         copyq
+        hyprland-protocols
         hyprpicker
         hyprshot
         libnotify
