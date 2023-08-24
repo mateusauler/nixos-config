@@ -37,7 +37,7 @@ in {
           megasync = "sleep 5 && megasync";
           swww = "sleep 0.5 && swww init";
           waybar = "waybar";
-          wl-clipboard = "wl-clip-persist --clipboard regular";
+          wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
 
           # TODO: Add kdeconnect & syncthing-tray
@@ -56,7 +56,7 @@ in {
 
         specials = { # Programs with non-standard default enable conditions
           waybar.enable = mkDefault config.modules.waybar.enable;
-          wl-clipboard.enable = mkDefault cfg.autostart.copyq.enable;
+          wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
         };
 
         defaults = lib.foldl
@@ -101,6 +101,7 @@ in {
         libnotify
         mako
         swww
+        wl-clip-persist
         wlsunset
       ] ++ (if config.modules.rofi.enable then [ pkgs.rofi-power-menu ] else []);
     };
