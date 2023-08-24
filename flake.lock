@@ -22,21 +22,38 @@
     },
     "hyprshot": {
       "inputs": {
+        "hyprshot": "hyprshot_2",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1691907666,
-        "narHash": "sha256-Ipb9mmA7KqVU+rSJEKbjJK6ynXl/TZh4deB52citJSM=",
+        "lastModified": 1692895423,
+        "narHash": "sha256-bOCt6N6xzkv+5E0FpxsLYH8wPkCMNpFd27KMm98HUsg=",
         "owner": "mateusauler",
         "repo": "hyprshot-nix",
-        "rev": "14fb646531dc0f3a264816e2300f24db4f3e7bcf",
+        "rev": "df37f678fc2b478eb28d99b9792ef9a54c35783b",
         "type": "github"
       },
       "original": {
         "owner": "mateusauler",
         "repo": "hyprshot-nix",
+        "type": "github"
+      }
+    },
+    "hyprshot_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686854760,
+        "narHash": "sha256-f4fMIS3B01F090Cs3R846HwQsmFvdzx8w3ubPi06S5o=",
+        "owner": "Gustash",
+        "repo": "Hyprshot",
+        "rev": "9d9df540409f4587a04324aaefec24a7224f83dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gustash",
+        "repo": "Hyprshot",
         "type": "github"
       }
     },
