@@ -2,6 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
+  module-names = [ "kitty" "rofi" "waybar" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in {
   options.modules.hyprland = {
@@ -49,11 +50,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    modules = {
-      waybar.enable = mkDefault true;
-      rofi.enable = mkDefault true;
-      kitty.enable = mkDefault true;
-
+    modules = (pkgs.lib.my.enableModules { inherit module-names; }) // {
       hyprland.autostart = let
         pkgPresent = pkg: (builtins.elem pkg config.home.packages);
 
@@ -63,12 +60,8 @@ in {
         };
 
         defaults = lib.foldl
-          ( # The default enable condition is a package's presence in the home.packages list
-            acc: el:
-              acc // {
-                ${el}.enable = mkDefault (pkgPresent pkgs.${el});
-              }
-          )
+          # The default enable condition is a package's presence in the home.packages list
+          (acc: el: acc // { ${el}.enable = mkDefault (pkgPresent pkgs.${el}); })
           { }
           # Autostart programs not in specials
           (lib.lists.subtractLists (lib.attrNames specials) (lib.attrNames cfg.autostart));
