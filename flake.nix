@@ -23,15 +23,15 @@
       })
     ];
 
+    flakePkgs = {
+      inherit (inputs.hyprshot.packages."${system}") hyprshot;
+    };
+
     pkgs = import nixpkgs {
       inherit overlays;
       localSystem = system;
       config.allowUnfree = true;
-    };
-
-    flakePkgs = {
-      inherit (inputs.hyprshot.packages."${system}") hyprshot;
-    };
+    } // flakePkgs;
 
     # Default values of the custom set
     customDefaults = {
@@ -44,10 +44,7 @@
     mkHost = accumulator: hostname:
       accumulator // {
         ${hostname} =
-          lib.my.mkNixosSystem {
-            inherit hostname system inputs pkgs customDefaults;
-            specialArgs = { inherit flakePkgs; };
-          };
+          lib.my.mkNixosSystem { inherit hostname system inputs pkgs customDefaults; };
       };
 
     inherit (pkgs) lib;

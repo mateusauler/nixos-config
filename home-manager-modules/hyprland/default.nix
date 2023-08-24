@@ -42,7 +42,7 @@ in {
           # TODO: Add kdeconnect & syncthing-tray
         };
     extraAutostart = with lib.types; mkOption {
-      default = {};
+      default = { };
       type = attrsOf str;
       apply = set: builtins.mapAttrs ( name: value: { enable = true; command = value; }) set;
     };
@@ -69,7 +69,7 @@ in {
                 ${el}.enable = mkDefault (pkgPresent pkgs.${el});
               }
           )
-          {}
+          { }
           # Autostart programs not in specials
           (lib.lists.subtractLists (lib.attrNames specials) (lib.attrNames cfg.autostart));
       in
@@ -99,7 +99,7 @@ in {
     };
 
     home = {
-      packages = with pkgs; with specialArgs.flakePkgs; [
+      packages = with pkgs; [
         # TODO: Include copyq configs
         copyq
         hyprland-protocols
