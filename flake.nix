@@ -9,8 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprshot.url = "github:mateusauler/hyprshot-nix";
-    hyprshot.inputs.nixpkgs.follows = "nixpkgs";
+    hyprshot = {
+      url = "github:mateusauler/hyprshot-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
