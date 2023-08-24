@@ -22,9 +22,10 @@ in {
   gg  =  "git grep";
   ggi =  "git grep -i";
 
-  nrb = "nixos-rebuild --flake ${dots-path} --show-trace build";
-  nrs = "sudo nixos-rebuild --flake ${dots-path} switch";
-  nrt = "sudo nixos-rebuild --flake ${dots-path} test";
+  nrb  = "nixos-rebuild --flake ${dots-path} --show-trace build";
+  nrs  = "sudo nixos-rebuild --flake ${dots-path} switch";
+  nrt  = "sudo nixos-rebuild --flake ${dots-path} test";
+  nrbt = "sudo nixos-rebuild --flake ${dots-path} boot";
 
   pa  =  "patch -p1 <";
 
