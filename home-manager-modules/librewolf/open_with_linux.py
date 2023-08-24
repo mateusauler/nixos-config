@@ -37,45 +37,6 @@ except AttributeError:
 	sys.exit(-1)
 
 
-def install():
-	home_path = os.getenv('HOME')
-
-	manifest = {
-		'name': 'open_with',
-		'description': 'Open With native host',
-		'path': os.path.realpath(__file__),
-		'type': 'stdio',
-	}
-	locations = {
-		'chrome': os.path.join(home_path, '.config', 'google-chrome', 'NativeMessagingHosts'),
-		'chrome-beta': os.path.join(home_path, '.config', 'google-chrome-beta', 'NativeMessagingHosts'),
-		'chrome-unstable': os.path.join(home_path, '.config', 'google-chrome-unstable', 'NativeMessagingHosts'),
-		'chromium': os.path.join(home_path, '.config', 'chromium', 'NativeMessagingHosts'),
-		'firefox': os.path.join(home_path, '.mozilla', 'native-messaging-hosts'),
-		'thunderbird': os.path.join(home_path, '.thunderbird', 'native-messaging-hosts'),
-	}
-	filename = 'open_with.json'
-
-	for browser, location in locations.items():
-		if os.path.exists(os.path.dirname(location)):
-			if not os.path.exists(location):
-				os.mkdir(location)
-
-			browser_manifest = manifest.copy()
-			if browser in ['firefox', 'thunderbird']:
-				browser_manifest['allowed_extensions'] = ['openwith@darktrojan.net']
-			else:
-				browser_manifest['allowed_origins'] = [
-					'chrome-extension://cogjlncmljjnjpbgppagklanlcbchlno/',  # Chrome
-					'chrome-extension://fbmcaggceafhobjkhnaakhgfmdaadhhg/',  # Opera
-				]
-
-			with open(os.path.join(location, filename), 'w') as file:
-				file.write(
-					json.dumps(browser_manifest, indent=2, separators=(',', ': '), sort_keys=True).replace('  ', '\t') + '\n'
-				)
-
-
 def _read_desktop_file(path):
 	with open(path, 'r') as desktop_file:
 		current_section = None
@@ -152,14 +113,6 @@ def listen():
 
 
 if __name__ == '__main__':
-	if len(sys.argv) == 2:
-		if sys.argv[1] == 'install':
-			install()
-			sys.exit(0)
-		elif sys.argv[1] == 'find_browsers':
-			print(find_browsers())
-			sys.exit(0)
-
 	allowed_extensions = [
 		'openwith@darktrojan.net',
 		'chrome-extension://cogjlncmljjnjpbgppagklanlcbchlno/',
