@@ -84,6 +84,8 @@
     disable_splash_rendering = true;
     animate_manual_resizes = true;
     animate_mouse_windowdragging = true;
+    disable_hyprland_logo = true;
+    background_color = "0x000000";
   };
 
   binds = {
