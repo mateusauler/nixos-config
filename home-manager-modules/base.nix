@@ -3,12 +3,12 @@
 let
   inherit (lib) mkDefault;
   inherit (custom) username dots-path;
+
+  module-names = [ "fish" "wget" ];
 in {
   programs.home-manager.enable = true;
 
-  modules = {
-    fish.enable = mkDefault true;
-  };
+  modules = pkgs.lib.my.enableModules { inherit module-names; };
 
   xdg = {
     enable = mkDefault true;
@@ -48,7 +48,6 @@ in {
       XAUTHORITY                  = "$XDG_RUNTIME_DIR/Xauthority";
       XINITRC                     = "${config.xdg.configHome}/X11/xinitrc";
       LESSHISTFILE                = "-";
-      WGETRC                      = "${config.xdg.configHome}/wget/wgetrc";
       GNUPGHOME                   = "${config.xdg.dataHome}/gnupg";
       WINEPREFIX                  = "${config.xdg.dataHome}/wineprefixes/default";
       GOPATH                      = "${config.xdg.dataHome}/go";
@@ -78,26 +77,16 @@ in {
       htop-vim
       meld
       tldr
-      wget
     ];
 
-    activation = {
-      # TODO: Separate this out into the wget module
-      create-wgetrc = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        if [ ! -z "$WGETRC" ]; then
-          $DRY_RUN_CMD mkdir -p $($DRY_RUN_CMD dirname "$WGETRC")
-          $DRY_RUN_CMD touch "$WGETRC"
-        fi
-      '';
-      clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
-        # TODO: Only change the remote url to ssh if there is a key available
-        pkgs.lib.my.cloneRepo {
-          path = dots-path;
-          url = "https://github.com/mateusauler/nixos-config";
-          ssh-uri = "git@github.com:mateusauler/nixos-config.git";
-        }
-      );
-    };
+    activation.clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
+      # TODO: Only change the remote url to ssh if there is a key available
+      pkgs.lib.my.cloneRepo {
+        path = dots-path;
+        url = "https://github.com/mateusauler/nixos-config";
+        ssh-uri = "git@github.com:mateusauler/nixos-config.git";
+      }
+    );
   };
 
   xdg.configFile."nixpkgs/config.nix" = {

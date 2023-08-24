@@ -18,5 +18,6 @@
     ./rofi
     ./scripts
     ./waybar
+    ./wget.nix
   ];
 }
