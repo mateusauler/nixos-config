@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1692895423,
-        "narHash": "sha256-bOCt6N6xzkv+5E0FpxsLYH8wPkCMNpFd27KMm98HUsg=",
+        "lastModified": 1692920890,
+        "narHash": "sha256-ZYwGCr20wi/wiVNYxQEvfvGxydKn/aDawoKEspg1fvo=",
         "owner": "mateusauler",
         "repo": "hyprshot-nix",
-        "rev": "df37f678fc2b478eb28d99b9792ef9a54c35783b",
+        "rev": "45bf1f844394e8c98cc80b8d838838be49d1c40d",
         "type": "github"
       },
       "original": {
