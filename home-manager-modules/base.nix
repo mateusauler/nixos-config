@@ -32,7 +32,6 @@ in {
       COLORTERM                   = "$TERM";
 
       VISUAL                      = "$EDITOR";
-      DIFFPROG                    = "meld";
 
       MANPAGER                    = "bat -l man -p";
 
@@ -75,7 +74,6 @@ in {
       btop
       du-dust
       htop-vim
-      meld
       tldr
     ];
 
