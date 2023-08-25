@@ -93,6 +93,14 @@
   };
 
   windowrulev2 = [
+    "move 50% 100%-32, title:^(.*— Sharing Indicator)"
+    "minsize 52 32, title:^(.*— Sharing Indicator)"
+    "float, title:^(.*— Sharing Indicator)"
+    "fakefullscreen, title:^(.*— Sharing Indicator)"
+    "nofullscreenrequest, title:^(.*— Sharing Indicator)"
+    "noinitialfocus, title:^(.*— Sharing Indicator)"
+    "noborder, title:^(.*— Sharing Indicator)"
+
     "float, class:(Rofi)"
     "center, class:(Rofi)"
     "stayfocused, class:(Rofi)"
@@ -220,5 +228,5 @@
                 "lightspeed-wireless-gaming-mouse-w/-hero-2"
                 "ls-1" ];
   in
-    builtins.foldl' genDeviceConfig {} devices
+    builtins.foldl' genDeviceConfig { } devices
 )
