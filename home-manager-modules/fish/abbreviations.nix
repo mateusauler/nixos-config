@@ -4,7 +4,7 @@ let
   inherit (custom) dots-path;
 in {
   mn  =   "udisksctl mount -b";
-  um  =   "udisksctl umount -b";
+  um  =   "udisksctl unmount -b";
 
   g   =   "git";
 
