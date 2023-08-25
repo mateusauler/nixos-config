@@ -115,8 +115,7 @@
     "spacing" = 10;
   };
   "clock" = {
-    "format" = "  {:%H:%M:%S    %a %Y-%m-%d}";
-    "format-alt" = "  {:%H:%M    %a %Y-%m-%d}";
+    "format" = "  {:%H:%M:%S    %a %d/%m/%Y}";
     "interval" = 1;
 
     "tooltip-format" = "<big>{:%Y}</big>\n\n<tt><small>{calendar}</small></tt>";
