@@ -125,6 +125,11 @@
     "monitor $mon2, class:(org\.qbittorrent\.qBittorrent)"
     # Should be workspace empty silent, but there is a bug
     "workspace empty, class:(org\.qbittorrent\.qBittorrent) title:^(qBittorrent v([0-9]\.){2}[0-9])$"
+
+    "fakefullscreen, class:(csgo_linux64)"
+    "monitor $mon1, class:(csgo_linux64)"
+    "tile, class:(csgo_linux64)"
+    "workspace empty, class:(csgo_linux64)"
   ];
 
   "$mainMod" = "SUPER";
