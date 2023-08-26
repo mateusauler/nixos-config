@@ -12,7 +12,6 @@ in {
     home.packages = [ pkgs.pavucontrol ];
     programs.waybar = {
       enable = true;
-      package = lib.mkDefault pkgs.waybar-hyprland;
       settings.mainBar = (import ./settings.nix) { config = cfg; };
       # TODO: Use nix-colors
       style = builtins.readFile ./style.css;
