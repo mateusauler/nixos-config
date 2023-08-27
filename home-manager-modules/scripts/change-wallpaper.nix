@@ -19,7 +19,7 @@ in {
     home = {
       activation = {
         clone-wallpapers = lib.hm.dag.entryAfter ["writeBoundary"] (
-          pkgs.lib.my.cloneRepo {
+          pkgs.lib.cloneRepo {
             path = wall-dir;
             url = "https://github.com/mateusauler/wallpapers";
           }

@@ -11,7 +11,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    modules.fish = pkgs.lib.my.enableModules { module-names = [ "pfetch" "exa" ]; };
+    modules.fish = pkgs.lib.enableModules { module-names = [ "pfetch" "exa" ]; };
     home.packages = lib.mkIf cfg.pfetch.enable [ pkgs.pfetch ];
 
     programs = {

@@ -50,7 +50,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    modules = (pkgs.lib.my.enableModules { inherit module-names; }) // {
+    modules = (pkgs.lib.enableModules { inherit module-names; }) // {
       hyprland.autostart = let
         pkgPresent = pkg: (builtins.elem pkg config.home.packages);
 

@@ -41,8 +41,7 @@ in {
     };
   };
 
-
-  modules = pkgs.lib.my.enableModules { inherit module-names; };
+  modules = pkgs.lib.enableModules { inherit module-names; };
 
   system.stateVersion = "23.05";
 }

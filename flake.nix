@@ -21,7 +21,7 @@
 
     overlays = [
       (final: prev: {
-        lib = prev.lib // { my = import ./lib { inherit (final) lib; inherit pkgs; }; };
+        lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
       })
     ];
 
@@ -41,12 +41,12 @@
       default-wallpaper = "nix-wallpaper-dracula.png";
     };
 
-    machines = lib.my.readDirNames ./hosts;
+    machines = lib.readDirNames ./hosts;
 
     mkHost = accumulator: hostname:
       accumulator // {
         ${hostname} =
-          lib.my.mkNixosSystem { inherit hostname system inputs pkgs customDefaults; };
+          lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults; };
       };
 
     inherit (pkgs) lib;

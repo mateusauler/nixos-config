@@ -10,7 +10,7 @@ in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
-    modules = pkgs.lib.my.enableModules { inherit module-names other-options; };
+    modules = pkgs.lib.enableModules { inherit module-names other-options; };
 
     home.packages = with pkgs; [
       at-spi2-core

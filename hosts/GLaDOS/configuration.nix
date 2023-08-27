@@ -6,7 +6,7 @@ let
 in {
   imports = [ ./hardware-configuration.nix ../../modules ];
 
-  modules = pkgs.lib.my.enableModules { inherit module-names; };
+  modules = pkgs.lib.enableModules { inherit module-names; };
 
   networking.hostName = "GLaDOS";
 

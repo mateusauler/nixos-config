@@ -8,7 +8,7 @@ let
 in {
   programs.home-manager.enable = true;
 
-  modules = pkgs.lib.my.enableModules { inherit module-names; };
+  modules = pkgs.lib.enableModules { inherit module-names; };
 
   xdg = {
     enable = mkDefault true;
@@ -79,7 +79,7 @@ in {
 
     activation.clone-dots = lib.hm.dag.entryAfter ["writeBoundary"] (
       # TODO: Only change the remote url to ssh if there is a key available
-      pkgs.lib.my.cloneRepo {
+      pkgs.lib.cloneRepo {
         path = dots-path;
         url = "https://github.com/mateusauler/nixos-config";
         ssh-uri = "git@github.com:mateusauler/nixos-config.git";
