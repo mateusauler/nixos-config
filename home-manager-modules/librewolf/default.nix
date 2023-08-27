@@ -2,20 +2,16 @@
 
 let
   cfg = config.modules.librewolf;
-  inherit (lib) mkEnableOption mkDefault;
+  inherit (lib) mkDefault;
+  inherit (pkgs.lib) mkTrueEnableOption;
 in {
   options.modules.librewolf = {
-    enable = mkEnableOption "librewolf";
-    openwith.enable = mkEnableOption "openwith";
-    keepassxc.enable = mkEnableOption "keepassxc";
+    enable = lib.mkEnableOption "librewolf";
+    openwith.enable = mkTrueEnableOption "openwith";
+    keepassxc.enable = mkTrueEnableOption "keepassxc";
   };
 
   config = lib.mkIf cfg.enable {
-    modules.librewolf = {
-      openwith.enable = mkDefault true;
-      keepassxc.enable = mkDefault true;
-    };
-
     home.packages = lib.mkIf cfg.openwith.enable [ pkgs.python3 ];
 
     programs.librewolf = {

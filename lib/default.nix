@@ -14,7 +14,7 @@
 
       dir = ../hosts + "/${hostname}";
       custom = customDefaults
-            // (import (dir + /custom.nix))
+            // import (dir + /custom.nix)
             // { inherit hostname; };
       username = custom.username;
       intermediary = specialArgs // { inherit inputs custom; };
@@ -59,5 +59,7 @@
       enabled-modules = (builtins.foldl' join-modules { } module-names);
     in
       lib.attrsets.recursiveUpdate enabled-modules other-options;
+
+  mkTrueEnableOption = name: lib.mkEnableOption name // { default = true; };
 
 }

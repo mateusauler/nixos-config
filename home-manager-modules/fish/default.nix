@@ -3,15 +3,15 @@
 let
   cfg = config.modules.fish;
   inherit (lib) mkDefault;
+  inherit (pkgs.lib) mkTrueEnableOption;
 in {
   options.modules.fish = {
     enable = lib.mkEnableOption "fish";
-    pfetch.enable = lib.mkEnableOption "pfetch";
-    exa.enable = lib.mkEnableOption "exa";
+    pfetch.enable = mkTrueEnableOption "pfetch";
+    exa.enable = mkTrueEnableOption "exa";
   };
 
   config = lib.mkIf cfg.enable {
-    modules.fish = pkgs.lib.enableModules { module-names = [ "pfetch" "exa" ]; };
     home.packages = lib.mkIf cfg.pfetch.enable [ pkgs.pfetch ];
 
     programs = {
