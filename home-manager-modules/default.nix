@@ -12,6 +12,7 @@
     ./kitty
     ./librewolf
     ./libvirtd.nix
+    ./mako.nix
     ./meld.nix
     ./nsxiv
     ./obs.nix

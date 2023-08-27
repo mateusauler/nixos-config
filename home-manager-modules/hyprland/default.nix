@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
-  module-names = [ "kitty" "rofi" "waybar" ];
+  module-names = [ "kitty" "mako" "rofi" "waybar" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in {
   options.modules.hyprland = {
@@ -99,7 +99,6 @@ in {
         hyprpicker
         hyprshot
         libnotify
-        mako
         swww
         wl-clip-persist
         wlsunset
