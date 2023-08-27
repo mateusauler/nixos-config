@@ -3,10 +3,10 @@
 let
   inherit (custom) dots-path;
 in {
-  mn  =   "udisksctl mount -b";
-  um  =   "udisksctl unmount -b";
+  mn  =  "udisksctl mount -b";
+  um  =  "udisksctl unmount -b";
 
-  g   =   "git";
+  g   =  "git";
 
   gs  =  "git status";
   gu  =  "git push";
@@ -22,10 +22,10 @@ in {
   gg  =  "git grep";
   ggi =  "git grep -i";
 
-  nrb  = "nixos-rebuild --flake ${dots-path} --show-trace build";
-  nrs  = "sudo nixos-rebuild --flake ${dots-path} switch";
-  nrt  = "sudo nixos-rebuild --flake ${dots-path} test";
-  nrbt = "sudo nixos-rebuild --flake ${dots-path} boot";
+  nrb  = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
+  nrs  = "sudo nixos-rebuild --verbose --flake ${dots-path} switch";
+  nrt  = "sudo nixos-rebuild --verbose --flake ${dots-path} test";
+  nrbt = "sudo nixos-rebuild --verbose --flake ${dots-path} boot";
 
   pa  =  "patch -p1 <";
 
