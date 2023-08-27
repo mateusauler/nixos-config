@@ -12,7 +12,7 @@ in {
     home.packages = [ pkgs.pavucontrol ];
     programs.waybar = {
       enable = true;
-      settings.mainBar = (import ./settings.nix) { config = cfg; };
+      settings.mainBar = (import ./settings.nix) { inherit lib; config = cfg; };
       # TODO: Use nix-colors
       style = builtins.readFile ./style.css;
     };

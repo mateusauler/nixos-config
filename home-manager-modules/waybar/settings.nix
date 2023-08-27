@@ -1,4 +1,4 @@
-{ config }:
+{ config, lib }:
 
 {
   "layer" = "top"; # Waybar at top layer
@@ -26,7 +26,7 @@
     # "backlight"
     "keyboard-state"
     # "hyprland/language"
-  ] ++ ( if config.battery.enable then [ "battery" ] else []) ++ [
+  ] ++ lib.optional config.battery.enable "battery" ++ [
     # "battery#bat2"
     "tray"
   ];
