@@ -81,6 +81,10 @@ function fish_nim_prompt
 	# Wrap the info
 	_prompt_wrapper $info
 
+	if test -n "$IN_NIX_SHELL"
+		_prompt_wrapper "nix-shell"
+	end
+
 	# Virtual Environment
 	if ! set -q VIRTUAL_ENV_DISABLE_PROMPT
 		set -g VIRTUAL_ENV_DISABLE_PROMPT true
