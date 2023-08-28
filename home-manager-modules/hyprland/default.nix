@@ -34,7 +34,7 @@ in {
           copyq = "copyq --start-server";
           easyeffects = "easyeffects --gapplication-service";
           mako = "mako";
-          megasync = "sleep 5 && megasync";
+          megasync = "megasync";
           swww = "sleep 0.5 && swww init";
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
@@ -42,6 +42,7 @@ in {
 
           # TODO: Add kdeconnect & syncthing-tray
         };
+    autostart-wait-for = { megasync.wait-for = mkOption { default = "waybar"; }; };
     extraAutostart = with lib.types; mkOption {
       default = { };
       type = attrsOf str;
@@ -78,17 +79,34 @@ in {
         autostart = lib.foldl # Fold them together into a string intermediated by " & "
           (acc: e: acc + e.command + " & ")
           ""
-          (
-            builtins.filter
+          # TODO: Find a better way to modify the commands with the wait-for logic
+          (map # Apply the wait-for logic on the commands
+            (v: v //
+              {command =
+                # Prepend the waiting machinery to the command
+                if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
+                  # TODO: Improve the wait-for machinery
+                  "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
+                else
+                  v.command;
+              }
+            )
+            (builtins.filter # Filter the enabled commands
               (e: e.enable)
-              (builtins.attrValues (cfg.autostart // cfg.extraAutostart)) # Autostart set { enable; command; }
+              (builtins.attrValues # Get the command sets as a list
+                (lib.recursiveUpdate # Append wait-for option to command sets that need it
+                  (cfg.autostart // cfg.extraAutostart)
+                  cfg.autostart-wait-for
+                )
+              )
+            )
           );
       in
         # Concatenates the exec-once list with the generated autostart
         # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ [autostart] else v)
-          (cfg.extraOptions // (import ./settings.nix));
+          (cfg.extraOptions // import ./settings.nix);
     };
 
     home = {
