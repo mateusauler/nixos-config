@@ -44,7 +44,10 @@ in {
         pull.rebase = true;
         push.autoSetupRemote = true;
         submodule.recurse = true;
-        advice.addEmptyPathspec = false;
+        advice = {
+          addEmptyPathspec = false;
+          addIgnoredFile = false;
+        };
         init.defaultBranch = "master";
       };
     };
