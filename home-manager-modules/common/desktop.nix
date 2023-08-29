@@ -26,6 +26,7 @@ in {
       onlyoffice-bin
       pcmanfm
       qbittorrent
+      rustdesk
       session-desktop
       signal-desktop
       spotify
