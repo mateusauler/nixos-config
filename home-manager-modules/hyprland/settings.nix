@@ -138,6 +138,7 @@
     "$mainMod, T, exec, kitty"
     "$mainMod, W, exec, $BROWSER"
     "$mainMod SHIFT, W, exec, $BROWSER_PRIV"
+    "$mainMod CONTROL, W, exec, $BROWSER_PROF"
     "$mainMod, C, exec, copyq show"
     "$mainMod, E, exec, pcmanfm"
     "$mainMod, D, exec, rofi -show drun"
