@@ -25,6 +25,7 @@ in {
       onlyoffice-bin
       pcmanfm
       qbittorrent
+      session-desktop
       spotify
       syncthing-tray
       ungoogled-chromium
