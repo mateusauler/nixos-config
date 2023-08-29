@@ -36,6 +36,8 @@ in {
     file
     ripgrep
     tree
+    unzip
+    zip
   ];
 
   programs.neovim = {
