@@ -66,5 +66,11 @@ in {
       firejail
       nodejs
     ];
+
+    # TODO: Move to docker/distrobox module
+    virtualisation.docker = {
+      enable = true;
+      rootless.enable = true;
+    };
   };
 }
