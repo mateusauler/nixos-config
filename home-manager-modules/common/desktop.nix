@@ -18,6 +18,7 @@ in {
       easyeffects
       ferdium
       firefox
+      gimp
       keepassxc
       megasync
       mpv
@@ -26,6 +27,7 @@ in {
       pcmanfm
       qbittorrent
       session-desktop
+      signal-desktop
       spotify
       syncthing-tray
       ungoogled-chromium
