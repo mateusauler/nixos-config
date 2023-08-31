@@ -27,6 +27,8 @@ in {
   nrt  = "sudo nixos-rebuild --verbose --flake ${dots-path} test";
   nrbt = "sudo nixos-rebuild --verbose --flake ${dots-path} boot";
 
+  dots = "cd ${dots-path}";
+
   pa  =  "patch -p1 <";
 
   # p  =  "paru";
@@ -35,10 +37,11 @@ in {
   n   =  "nvim";
   ni  =  "neovide";
 
-  ns  =  "nsxiv -a";
+  img =  "nsxiv -a";
 
   mkdir = "mkdir -p";
   hexdump = "hexdump -C";
 
+  ns = "nix-shell --command $SHELL -p";
   py = "nix-shell -p python3 --command python";
 }
