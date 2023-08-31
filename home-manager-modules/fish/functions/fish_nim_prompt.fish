@@ -82,7 +82,7 @@ function fish_nim_prompt
 	_prompt_wrapper $info
 
 	if test -n "$IN_NIX_SHELL"
-		_prompt_wrapper "nix-shell"
+		_prompt_wrapper "nix-shell" red
 	end
 
 	# Virtual Environment
