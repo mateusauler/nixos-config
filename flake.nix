@@ -23,7 +23,7 @@
       (final: prev: {
         lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
       })
-    ];
+    ] ++ import home-manager-modules/overlays.nix;
 
     flakePkgs = {
       inherit (inputs.hyprshot.packages."${system}") hyprshot;
