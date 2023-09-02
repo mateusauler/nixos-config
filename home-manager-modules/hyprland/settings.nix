@@ -143,7 +143,7 @@
     "$mainMod, E, exec, pcmanfm"
     "$mainMod, D, exec, rofi -show drun"
     "$mainMod SHIFT, D, exec, rofi -show run"
-    "$mainMod, ESCAPE, exec, rofi -show p -modi p:rofi-power-menu"
+    "$mainMod, ESCAPE, exec, rofi -no-show-icons -show p -modi p:rofi-power-menu"
 
     "$mainMod, PRINT, exec, hyprshot -m window"
     ", PRINT, exec, hyprshot -m region"
