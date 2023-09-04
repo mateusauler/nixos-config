@@ -20,7 +20,7 @@ let
   extractMimeTypes = package: desktopFile:
     let
       inherit (lib) strings lists;
-      file = builtins.readFile (package + "/share/applications/${desktopFile}");
+      file = builtins.readFile (package + "/share/applications/${desktopFile}.desktop");
       lines = strings.splitString "\n" file;
       mimeLine = lists.findFirst (s: strings.hasPrefix "MimeType" s) "" lines;
       mimeLineSplit = strings.splitString "=" mimeLine;
@@ -48,31 +48,30 @@ in {
       mimeApps = {
         enable = mkDefault true;
         defaultApplications = {
-          # Text editor
-          "text/x-patch" = "neovim.desktop";
-          "text/plain" = "neovim.desktop";
-          "application/json" = "neovim.desktop";
-
           "inode/directory" = "pcmanfm.desktop";
           "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
-        } // (lib.foldl (acc: e: acc // (genAssociations e))
-        { }
-        [
-          {
-            types = [ "text/html" "application/xhtml+xml" ]
-                 ++ (map (t: "x-scheme-handler/${t}") [ "http" "https" "ftp" "chrome" ])
-                 ++ (map (t: "application/x-extension-${t}") [ "htm" "html" "shtml" "xhtml" "xht" ]);
-            handlers = [ "browser" ];
-          }
-          {
-            types = extractMimeTypes pkgs.nsxiv "nsxiv.desktop";
-            handlers = [ "nsxiv" ];
-          }
-          {
-            types = extractMimeTypes pkgs.mpv-unwrapped "mpv.desktop";
-            handlers = [ "mpv" ];
-          }
-        ]);
+        } // (
+        lib.foldl (acc: e: acc // (genAssociations e))
+          { }
+          (
+            [
+              {
+                types = [ "text/html" "application/xhtml+xml" ]
+                     ++ (map (t: "x-scheme-handler/${t}") [ "http" "https" "ftp" "chrome" ])
+                     ++ (map (t: "application/x-extension-${t}") [ "htm" "html" "shtml" "xhtml" "xht" ]);
+                handlers = [ "browser" ];
+              }
+            ] ++ (
+              map
+                (e: { types = extractMimeTypes e.p e.d; handlers = [ e.d ]; })
+                (with pkgs; [
+                  { p = nsxiv;         d = "nsxiv"; }
+                  { p = mpv-unwrapped; d = "mpv";   }
+                  { p = neovim;        d = "nvim";  }
+                ])
+            )
+          )
+        );
       };
     };
 
