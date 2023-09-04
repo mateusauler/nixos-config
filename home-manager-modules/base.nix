@@ -4,24 +4,11 @@ let
   inherit (lib) mkDefault;
   inherit (custom) username dots-path;
 
-  module-names = [ "fish" "wget" ];
+  module-names = [ "fish" "wget" "xdg" ];
 in {
   programs.home-manager.enable = true;
 
   modules = pkgs.lib.enableModules { inherit module-names; };
-
-  xdg = {
-    enable = mkDefault true;
-    userDirs = {
-      enable = mkDefault true;
-      desktop   = mkDefault null;
-      documents = mkDefault "${config.home.homeDirectory}/docs";
-      download  = mkDefault "${config.home.homeDirectory}/dl";
-      music     = mkDefault "${config.home.homeDirectory}/music";
-      pictures  = mkDefault "${config.home.homeDirectory}/pics";
-      videos    = mkDefault "${config.home.homeDirectory}/vids";
-    };
-  };
 
   home = {
     inherit username;

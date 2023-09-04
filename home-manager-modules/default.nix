@@ -21,5 +21,6 @@
     ./scripts
     ./waybar
     ./wget.nix
+    ./xdg.nix
   ];
 }
