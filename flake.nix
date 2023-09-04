@@ -21,19 +21,16 @@
 
     overlays = [
       (final: prev: {
+        inherit (inputs.hyprshot.packages."${system}") hyprshot;
         lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
       })
     ] ++ import home-manager-modules/overlays.nix;
-
-    flakePkgs = {
-      inherit (inputs.hyprshot.packages."${system}") hyprshot;
-    };
 
     pkgs = import nixpkgs {
       inherit overlays;
       localSystem = system;
       config.allowUnfree = true;
-    } // flakePkgs;
+    };
 
     # Default values of the custom set
     customDefaults = {
