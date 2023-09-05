@@ -35,6 +35,7 @@ in {
       syncthing-tray
       ungoogled-chromium
       vscodium
+      vlc
       wl-clipboard
       yt-dlp
       zathura

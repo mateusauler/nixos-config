@@ -63,11 +63,11 @@ in {
               }
             ] ++ (
               map
-                (e: { types = extractMimeTypes e.p e.d; handlers = [ e.d ]; })
+                ({ p, d, e ? [ ] }: { types = extractMimeTypes p d; handlers = [ d ] ++ e; })
                 (with pkgs; [
                   { p = nsxiv;         d = "nsxiv"; }
-                  { p = mpv-unwrapped; d = "mpv";   }
-                  { p = neovim;        d = "nvim";  }
+                  { p = mpv-unwrapped; d = "mpv";  e = [ "vlc" ]; }
+                  { p = neovim;        d = "nvim"; e = [ "codium" ];  }
                 ])
             )
           )
