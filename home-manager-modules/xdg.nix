@@ -23,9 +23,7 @@ let
       file = builtins.readFile (package + "/share/applications/${desktopFile}.desktop");
       lines = strings.splitString "\n" file;
       mimeLine = lists.findFirst (s: strings.hasPrefix "MimeType" s) "" lines;
-      mimeLineSplit = strings.splitString "=" mimeLine;
-      mimeTypesCombinedList = lists.remove "MimeType" mimeLineSplit;
-      mimeTypesCombined = lists.last mimeTypesCombinedList;
+      mimeTypesCombined = builtins.substring 9 (-1) mimeLine;
       mimeTypesDirty = strings.split ";" mimeTypesCombined;
       mimeTypes = lists.flatten mimeTypesDirty;
     in
@@ -36,14 +34,14 @@ in {
   config = lib.mkIf cfg.enable {
     xdg = {
       enable = mkDefault true;
-      userDirs = {
-        enable = mkDefault true;
+      userDirs = let home = config.home.homeDirectory; in {
+        enable    = mkDefault true;
         desktop   = mkDefault null;
-        documents = mkDefault "${config.home.homeDirectory}/docs";
-        download  = mkDefault "${config.home.homeDirectory}/dl";
-        music     = mkDefault "${config.home.homeDirectory}/music";
-        pictures  = mkDefault "${config.home.homeDirectory}/pics";
-        videos    = mkDefault "${config.home.homeDirectory}/vids";
+        documents = mkDefault "${home}/docs";
+        download  = mkDefault "${home}/dl";
+        music     = mkDefault "${home}/music";
+        pictures  = mkDefault "${home}/pics";
+        videos    = mkDefault "${home}/vids";
       };
       mimeApps = {
         enable = mkDefault true;
@@ -63,11 +61,16 @@ in {
               }
             ] ++ (
               map
-                ({ p, d, e ? [ ] }: { types = extractMimeTypes p d; handlers = [ d ] ++ e; })
+                ({ pkg, desktopFile, extraDesktopFiles ? [ ] }:
+                  {
+                    types = extractMimeTypes pkg desktopFile;
+                    handlers = lib.lists.flatten [ desktopFile extraDesktopFiles ];
+                  }
+                )
                 (with pkgs; [
-                  { p = nsxiv;         d = "nsxiv"; }
-                  { p = mpv-unwrapped; d = "mpv";  e = [ "vlc" ]; }
-                  { p = neovim;        d = "nvim"; e = [ "codium" ];  }
+                  { pkg = nsxiv;         desktopFile = "nsxiv"; }
+                  { pkg = mpv-unwrapped; desktopFile = "mpv";  extraDesktopFiles = "vlc"; }
+                  { pkg = neovim;        desktopFile = "nvim"; extraDesktopFiles = "codium"; }
                 ])
             )
           )
@@ -75,8 +78,6 @@ in {
       };
     };
 
-    home.packages = with pkgs; [
-      xdg-utils
-    ];
+    home.packages = [ pkgs.xdg-utils ];
   };
 }
