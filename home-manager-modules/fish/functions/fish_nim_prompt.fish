@@ -101,6 +101,34 @@ function fish_nim_prompt
 	and test (acpi -a 2> /dev/null | string match -r off)
 	and _prompt_wrapper (acpi -b | cut -d' ' -f 4-) $retc B
 
+	# Execution time of the last command
+	if set -q CMD_DURATION
+	   and test $CMD_DURATION -gt 0
+		set -l seconds      (math -s 0 $CMD_DURATION / 1000)
+		set -l milliseconds (math -s 0 $CMD_DURATION % 1000)
+		set -l minutes      (math -s 0 $seconds      / 60)
+		set -l seconds      (math -s 0 $seconds      % 60)
+		set -l hours        (math -s 0 $minutes      / 60)
+		set -l minutes      (math -s 0 $minutes      % 60)
+
+		set -l formatted_timespan
+
+		function append_time -Sa num id
+			test $num -gt 0
+			and set formatted_timespan "$formatted_timespan $num$id"
+		end
+
+		append_time $hours "h"
+		append_time $minutes "m"
+		append_time $seconds "s"
+		append_time $milliseconds "ms"
+
+		# Remove the first character of the $formatted_timespan string, as it's always a space
+		set formatted_timespan (string sub -s 2 $formatted_timespan)
+
+		_prompt_wrapper $formatted_timespan yellow
+	end
+
 	# Vi-mode
 	# Won't display the mode prompt if it's in its default state (insert)
 	if test "$fish_key_bindings" = fish_vi_key_bindings; or test "$fish_key_bindings" = fish_hybrid_key_bindings
