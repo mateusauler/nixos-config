@@ -114,9 +114,8 @@
 
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
-    "workspace 4 silent, class:(Ferdium)"
-    "workspace 5 silent, class:(steam)"
-    "workspace 5 silent, title:(Steam)"
+    "workspace 4 silent, class:((F|f)erdium)"
+    "workspace 5 silent, class:((S|s)team)"
     "workspace 10 silent, class:(Spotify)"
 
     "monitor $mon1, class:(mpv)"
