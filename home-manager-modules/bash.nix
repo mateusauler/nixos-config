@@ -1,11 +1,11 @@
-{ custom, config, lib, pkgs, ... }:
+{ config, ... }@args:
 
 let cfg = config.modules.bash;
 in {
   programs.bash = {
     enable = true;
-    shellAliases = (import ./shell-aliases.nix { inherit config; })
-                // (import ./fish/abbreviations.nix { inherit custom; })
+    shellAliases = (import ./shell-aliases.nix args)
+                // (import ./fish/abbreviations.nix args)
                 // { ".." = "cd .."; };
     historyControl = [ "ignorespace" "ignoredups" "erasedups" ];
   };

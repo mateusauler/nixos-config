@@ -1,4 +1,4 @@
-{ custom }:
+{ custom, ... }:
 
 let
   inherit (custom) dots-path;

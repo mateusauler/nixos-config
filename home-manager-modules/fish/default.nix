@@ -1,4 +1,4 @@
-{ custom, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }@args:
 
 let
   cfg = config.modules.fish;
@@ -8,18 +8,18 @@ in {
   options.modules.fish = {
     enable = lib.mkEnableOption "fish";
     pfetch.enable = mkTrueEnableOption "pfetch";
-    exa.enable = mkTrueEnableOption "exa";
+    eza.enable = mkTrueEnableOption "eza";
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = lib.mkIf cfg.pfetch.enable [ pkgs.pfetch ];
 
     programs = {
-      exa.enable = cfg.exa.enable;
+      eza.enable = cfg.eza.enable;
       fish = {
         enable = true;
-        shellAliases = (import ../shell-aliases.nix { inherit config; });
-        shellAbbrs = (import ./abbreviations.nix { inherit custom; });
+        shellAliases = (import ../shell-aliases.nix args);
+        shellAbbrs = (import ./abbreviations.nix args);
 
         loginShellInit = ''if [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1";
                              lsmod | grep pcspkr > /dev/null && sudo rmmod pcspkr &

@@ -1,4 +1,4 @@
-{ config }:
+{ config, lib, ... }:
 
 {
   gua =	"git remote | sed '/^blacklist/{d}' | xargs -L1 git push --all";
@@ -14,8 +14,6 @@
 
   rm = "rm -I";
   cp = "cp -r";
-} // (
-  if config.programs.exa.enable
-  then { ls = "exa --group-directories-first --icons"; }
-  else {}
-)
+} // lib.attrsets.optionalAttrs
+  config.programs.eza.enable
+  { ls = "eza --group-directories-first --icons"; }
