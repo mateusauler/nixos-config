@@ -5,7 +5,7 @@ let
   pics-dir = config.xdg.userDirs.pictures;
   wall-dir = "${pics-dir}/wall";
   dest = "${pics-dir}/wallpaper";
-  set-wallpaper-command = if cfg.command != null then "${cfg.command} ${dest}" else "";
+  set-wallpaper-command = lib.strings.optionalString (cfg.command != null) "${cfg.command} ${dest}";
 in {
   options.modules.change-wallpaper = {
 	  enable = lib.mkEnableOption "change-wallpaper";

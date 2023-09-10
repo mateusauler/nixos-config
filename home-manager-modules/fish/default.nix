@@ -23,7 +23,7 @@ in {
 
         loginShellInit = ''if [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1";
                              lsmod | grep pcspkr > /dev/null && sudo rmmod pcspkr &
-                             ${if config.modules.hyprland.enable then "Hyprland" else ""}
+                             ${lib.strings.optionalString config.modules.hyprland.enable "Hyprland"}
                            end'';
 
         interactiveShellInit = lib.mkIf cfg.pfetch.enable "pfetch";

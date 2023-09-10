@@ -17,10 +17,10 @@
             // import (dir + /custom.nix)
             // { inherit hostname; };
       username = custom.username;
-      intermediary = specialArgs // { inherit inputs custom; };
+      specialArgs' = specialArgs // { inherit inputs custom; };
     in
       let
-        specialArgs = intermediary;
+        specialArgs = specialArgs';
       in nixpkgs.lib.nixosSystem {
         # TODO: Look into replacing system with localSystem
         #       Suggested here: https://discordapp.com/channels/568306982717751326/741347063077535874/1140546315990859816
@@ -47,7 +47,7 @@
       if [ ! -d ${path} ]; then
         $DRY_RUN_CMD ${git-cmd} clone $VERBOSE_ARG ${url} ${path}
         $DRY_RUN_CMD pushd ${path}
-          ${if ssh-uri != null then "$DRY_RUN_CMD ${git-cmd} remote $VERBOSE_ARG set-url origin ${ssh-uri}" else ""}
+          ${lib.optionalString (ssh-uri != null) "$DRY_RUN_CMD ${git-cmd} remote $VERBOSE_ARG set-url origin ${ssh-uri}"}
           $DRY_RUN_CMD ${git-cmd} pull $VERBOSE_ARG || true
         $DRY_RUN_CMD popd
       fi

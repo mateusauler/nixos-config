@@ -39,7 +39,7 @@ in {
         ".vscode/"
       ];
       signing.signByDefault = cfg.gpgKey != null;
-      signing.key = if cfg.gpgKey != null then cfg.gpgKey else "";
+      signing.key = lib.strings.optionalString (cfg.gpgKey != null) cfg.gpgKey;
       extraConfig = {
         pull.rebase = true;
         push.autoSetupRemote = true;
