@@ -4,7 +4,7 @@ let
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
 
-  module-names  = [ "browser" "change-wallpaper" "gtk" "hyprland" "meld" "nsxiv" "obs" "qt" "wally" ];
+  module-names  = [ "browser" "change-wallpaper" "ferdium" "gtk" "hyprland" "meld" "nsxiv" "obs" "qt" "wally" ];
   other-options = { change-wallpaper.command = "${pkgs.swww}/bin/swww img"; };
 in {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -18,7 +18,6 @@ in {
       # TODO: Move to distrobox module
       distrobox
       easyeffects
-      ferdium
       firefox
       gimp
       keepassxc

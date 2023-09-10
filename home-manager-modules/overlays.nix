@@ -1,1 +1,1 @@
-map (d: import (./. + "/${d}/overlay.nix")) [ "nsxiv" ]
+map (d: import (./. + "/${d}/overlay.nix")) [ "ferdium" "nsxiv" ]

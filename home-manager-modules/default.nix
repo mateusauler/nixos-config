@@ -5,6 +5,7 @@
     ./base.nix
     ./bash.nix
     ./common
+    ./ferdium
     ./fish
     ./git.nix
     ./gtk
