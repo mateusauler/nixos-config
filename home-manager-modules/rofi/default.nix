@@ -20,17 +20,16 @@ in {
       };
     };
 
-    # TODO: Set colors based on nix-colors
-    xdg.configFile."rofi/colors.rasi".text = ''
+    xdg.configFile."rofi/colors.rasi".text = with config.colorScheme.colors; ''
       * {
-        bg0:    #2E3440F2;
-        bg1:    #3B4252;
-        bg2:    #4C566A80;
-        bg3:    #88C0D0F2;
-        fg0:    #D8DEE9;
-        fg1:    #ECEFF4;
-        fg2:    #D8DEE9;
-        fg3:    #4C566A;
+        bg0:    #${base00}F2;
+        bg1:    #${base01};
+        bg2:    #${base03}80;
+        bg3:    #${base0C}F2;
+        fg0:    #${base04};
+        fg1:    #${base06};
+        fg2:    #${base04};
+        fg3:    #${base03};
       }
     '';
   };
