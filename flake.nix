@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-colors.url = "github:misterio77/nix-colors";
+
     hyprshot = {
       url = "github:mateusauler/hyprshot-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,14 +38,17 @@
     customDefaults = {
       dots-path = "~/nixos";
       default-wallpaper = "nix-wallpaper-dracula.png";
+      color-scheme = "dracula";
     };
 
     machines = lib.readDirNames ./hosts;
 
+    specialArgs = { inherit (inputs) nix-colors; };
+
     mkHost = accumulator: hostname:
       accumulator // {
         ${hostname} =
-          lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults; };
+          lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs; };
       };
 
     inherit (pkgs) lib;

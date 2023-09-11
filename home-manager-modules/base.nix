@@ -1,11 +1,17 @@
-{ inputs, custom, config, lib, pkgs, ... }:
+{ inputs, custom, config, lib, pkgs, nix-colors, ... }:
 
 let
   inherit (lib) mkDefault;
-  inherit (custom) username dots-path;
+  inherit (custom) username dots-path color-scheme;
 
   module-names = [ "fish" "wget" "xdg" ];
 in {
+  imports = [
+    nix-colors.homeManagerModules.default
+  ];
+
+  colorScheme = mkDefault nix-colors.colorSchemes."${color-scheme}";
+
   programs.home-manager.enable = true;
 
   modules = pkgs.lib.enableModules { inherit module-names; };
