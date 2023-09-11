@@ -33,7 +33,6 @@ in {
         {
           copyq = "copyq --start-server";
           easyeffects = "easyeffects --gapplication-service";
-          mako = "mako";
           megasync = "megasync";
           swww = "sleep 0.5 && swww init";
           waybar = "waybar";

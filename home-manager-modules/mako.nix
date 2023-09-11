@@ -6,13 +6,15 @@ in {
   options.modules.mako.enable = lib.mkEnableOption "mako";
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.mako ];
-    xdg.configFile."mako/config" = {
+    services.mako = with config.colorScheme.colors; {
       enable = true;
-      text = ''
-        default-timeout=15000
-        ignore-timeout=1
-      '';
+      backgroundColor = "#${base01}";
+      borderColor = "#${base0E}";
+      borderRadius = 5;
+      borderSize = 2;
+      textColor = "#${base04}";
+      ignoreTimeout = true;
+      defaultTimeout = 15000;
     };
   };
 }
