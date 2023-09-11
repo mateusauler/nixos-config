@@ -21,20 +21,20 @@ in {
         shellAliases = (import ../shell-aliases.nix args);
         shellAbbrs = (import ./abbreviations.nix args);
 
-        loginShellInit = ''if [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1";
-                             lsmod | grep pcspkr > /dev/null && sudo rmmod pcspkr &
-                             ${lib.strings.optionalString config.modules.hyprland.enable "Hyprland"}
-                           end'';
+        loginShellInit = lib.strings.optionalString config.modules.hyprland.enable ''
+          [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1" && Hyprland'';
 
         interactiveShellInit = lib.mkIf cfg.pfetch.enable "pfetch";
 
-        shellInit = ''set fish_greeting
-                      fish_vi_key_bindings'';
+        shellInit = ''
+          set fish_greeting
+          fish_vi_key_bindings'';
       };
     };
 
-    # This file includes all of the abbreviations and some other variables that I don't care about.
+    # The `fish_variables` file includes all of the abbreviations and some other variables that I don't care about.
     # So, if an abbreviation is removed in the config, it will still exist in the fish_variables file.
+    # Therefore, let's remove it.
     home.activation."remove-fish_variables" = lib.hm.dag.entryAfter ["writeBoundary"] ''
         $DRY_RUN_CMD rm -f $VERBOSE_ARG ${config.xdg.configHome}/fish/fish_variables
       '';
