@@ -73,7 +73,7 @@ in {
       createHome = true;
       home = "/home/${username}";
     };
-    root.initialPassword = "a";
+    root.hashedPassword = "!";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
