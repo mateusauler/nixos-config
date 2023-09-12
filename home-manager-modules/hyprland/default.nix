@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ config, lib, pkgs, specialArgs, ... }@args:
 
 let
   cfg = config.modules.hyprland;
@@ -105,7 +105,7 @@ in {
         # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ [autostart] else v)
-          (cfg.extraOptions // import ./settings.nix);
+          (cfg.extraOptions // import ./settings.nix args);
     };
 
     home = {

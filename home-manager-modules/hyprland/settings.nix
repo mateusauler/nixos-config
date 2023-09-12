@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   # env = XCURSOR_SIZE,24
   # env = QT_QPA_PLATFORM,wayland
@@ -23,14 +25,13 @@
     accel_profile = "flat";
   };
 
-  general = {
+  general = with config.colorScheme.colors; {
     gaps_in = 5;
     gaps_out = 20;
     border_size = 3;
 
-    # TODO: Use nix-colors
-    "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-    "col.inactive_border" = "rgba(595959aa)";
+    "col.active_border" = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
+    "col.inactive_border" = "rgba(${base01}aa)";
 
     layout = "dwindle";
     cursor_inactive_timeout = 2;
