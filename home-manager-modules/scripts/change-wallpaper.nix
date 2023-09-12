@@ -1,4 +1,4 @@
-{ custom, config, lib, pkgs, ... }:
+{ config, lib, nix-colors, pkgs, ... }:
 
 let
   cfg = config.modules.change-wallpaper;
@@ -6,11 +6,12 @@ let
   wall-dir = "${pics-dir}/wall";
   dest = "${pics-dir}/wallpaper";
   set-wallpaper-command = lib.strings.optionalString (cfg.command != null) "${cfg.command} ${dest}";
+  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in {
   options.modules.change-wallpaper = {
 	  enable = lib.mkEnableOption "change-wallpaper";
-	  command = lib.mkOption {
-	    type = lib.types.nullOr lib.types.str;
+	  command = with lib.types; lib.mkOption {
+	    type = nullOr str;
 	    default = null;
 	  };
   };
@@ -26,9 +27,14 @@ in {
         );
         set-default-wallpaper =
         let
-          default-wallpaper = "${wall-dir}/${custom.default-wallpaper}";
+          default-wallpaper = nix-colors-lib.nixWallpaperFromScheme {
+            scheme = config.colorScheme;
+            width = 3840;
+            height = 2160;
+            logoScale = 5.0;
+          };
           link-wallpaper = ''
-            if [ ! -e ${dest} ] && [ -e ${default-wallpaper} ]; then
+            if [ ! -e ${dest} ]; then
               $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
               $DRY_RUN_CMD ${set-wallpaper-command}
             fi

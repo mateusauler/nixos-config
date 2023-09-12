@@ -37,7 +37,6 @@
     # Default values of the custom set
     customDefaults = {
       dots-path = "~/nixos";
-      default-wallpaper = "nix-wallpaper-dracula.png";
       color-scheme = "gruvbox-dark-medium";
     };
 
