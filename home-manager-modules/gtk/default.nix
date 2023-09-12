@@ -1,7 +1,8 @@
-{ custom, config, lib, pkgs, ... }:
+{ config, lib, nix-colors, pkgs, ... }:
 
 let
   cfg = config.modules.gtk;
+  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in {
   imports = [
     ./gtk2
@@ -15,8 +16,10 @@ in {
     gtk = {
       enable = true;
       theme = {
-        package = pkgs.arc-theme;
-        name = "Arc-Dark";
+        package = nix-colors-lib.gtkThemeFromScheme {
+          scheme = config.colorScheme;
+        };
+        name = "${config.colorScheme.slug}";
       };
       cursorTheme = {
         package = pkgs.qogir-icon-theme;
