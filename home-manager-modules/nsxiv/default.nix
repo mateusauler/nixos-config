@@ -14,10 +14,12 @@ in {
 	      nsxiv
 	      xorg.xrdb
 	    ];
-      # TODO: Set colors based on nix-colors
       file.${xresources} = {
         enable = true;
-        source = ./Xresources;
+        text = with config.colorScheme.colors; ''
+          *.foreground: #${base05}
+          *.background: #${base00}
+        '';
         onChange = load-xresources;
       };
     };
