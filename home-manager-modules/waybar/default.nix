@@ -51,7 +51,7 @@ in {
         }
 
         #workspaces button:hover {
-          background: rgba(0, 0, 0, 0.2);
+          background: ${colorToRgba base00 0.2};
         }
 
         #workspaces button.active {
