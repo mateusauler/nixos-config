@@ -38,7 +38,7 @@
     customDefaults = {
       dots-path = "~/nixos";
       default-wallpaper = "nix-wallpaper-dracula.png";
-      color-scheme = "dracula";
+      color-scheme = "gruvbox-dark-medium";
     };
 
     machines = lib.readDirNames ./hosts;
