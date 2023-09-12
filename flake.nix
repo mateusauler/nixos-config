@@ -26,7 +26,7 @@
         inherit (inputs.hyprshot.packages."${system}") hyprshot;
         lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
       })
-    ] ++ import home-manager-modules/overlays.nix;
+    ];
 
     pkgs = import nixpkgs {
       inherit overlays;

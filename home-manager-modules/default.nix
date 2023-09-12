@@ -5,7 +5,7 @@
     ./base.nix
     ./bash.nix
     ./common
-    ./ferdium
+    ./ferdium.nix
     ./fish
     ./git.nix
     ./gtk
@@ -15,7 +15,7 @@
     ./libvirtd.nix
     ./mako.nix
     ./meld.nix
-    ./nsxiv
+    ./nsxiv.nix
     ./obs.nix
     ./qt.nix
     ./rofi
