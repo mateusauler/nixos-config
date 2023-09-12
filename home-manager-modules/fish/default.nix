@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }@args:
+{ config, lib, nix-colors, pkgs, ... }@args:
 
 let
   cfg = config.modules.fish;
+  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
   inherit (lib) mkDefault;
   inherit (pkgs.lib) mkTrueEnableOption;
 in {
@@ -24,7 +25,10 @@ in {
         loginShellInit = lib.strings.optionalString config.modules.hyprland.enable ''
           [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1" && Hyprland'';
 
-        interactiveShellInit = lib.mkIf cfg.pfetch.enable "pfetch";
+        interactiveShellInit = ''
+          ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
+          sh ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
+        '';
 
         shellInit = ''
           set fish_greeting
