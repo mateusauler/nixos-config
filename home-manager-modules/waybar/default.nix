@@ -2,35 +2,7 @@
 
 let
   cfg = config.modules.waybar;
-  # TODO: Extract these functions to lib
-  fromHex = str:
-    let
-      hexChars = lib.strings.stringToCharacters "0123456789ABCDEF";
-
-      toInt = c: lib.lists.findFirstIndex (x: x == c) (throw "invalid hex digit: ${c}") hexChars;
-      accumulate = a: c: a * 16 + toInt c;
-
-      strU  = lib.strings.toUpper str;
-      chars = lib.strings.stringToCharacters strU;
-    in
-      builtins.foldl' accumulate 0 chars;
-
-  colorToIntList = color:
-    let
-      colorsChr = lib.strings.stringToCharacters color;
-      colorsSep = lib.strings.concatImapStrings (pos: c: if (lib.trivial.mod pos 2 == 0) then c + " " else c) colorsChr;
-      colorsHexDirty = lib.strings.splitString " " colorsSep;
-      colorsHex = lib.lists.remove "" colorsHexDirty;
-    in
-      builtins.map fromHex colorsHex;
-
-  toRgba = color: alpha:
-    let
-      colorsNum = colorToIntList color;
-      colorsB10 = builtins.map toString colorsNum;
-      colorsStr = builtins.concatStringsSep "," colorsB10;
-    in
-      "rgba(" + colorsStr + ",${alpha})";
+  inherit (pkgs.lib) colorToRgba;
 in {
   options.modules.waybar = {
     enable = lib.mkEnableOption "waybar";
@@ -49,7 +21,7 @@ in {
         }
 
         window#waybar {
-            background-color: ${toRgba base01 "0.8"};
+            background-color: ${colorToRgba base01 0.8};
             color: #${base04};
             transition: box-shadow .5s;
         }
