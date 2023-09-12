@@ -23,5 +23,6 @@
     ./waybar
     ./wget.nix
     ./xdg.nix
+    ./xresources.nix
   ];
 }
