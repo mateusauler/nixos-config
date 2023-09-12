@@ -39,7 +39,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.pavucontrol ];
-    programs.waybar = {
+    programs.waybar = rec {
       enable = true;
       settings.mainBar = (import ./settings.nix) { inherit lib; config = cfg; };
       style = with config.colorScheme.colors; ''
@@ -154,8 +154,8 @@ in {
          * if the screen is too small.
          */
         .modules-center {
-            margin-right: 8px;
-            margin-left: 8px;
+            margin-right: ${toString settings.mainBar.spacing}px;
+            margin-left: ${toString settings.mainBar.spacing}px;
         }
 
         @keyframes blink {
