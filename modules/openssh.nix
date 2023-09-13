@@ -7,11 +7,13 @@ in {
   options.modules.openssh.enable = lib.mkEnableOption "openssh";
 
   config = lib.mkIf cfg.enable {
-    services.openssh.enable = true;
-    security.rtkit.enable = mkDefault true;
-    networking.firewall = {
-      allowedTCPPorts = [ 22 ];
-      allowedUDPPorts = [ 22 ];
+    services.openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
     };
+    security.rtkit.enable = mkDefault true;
   };
 }
