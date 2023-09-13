@@ -8,7 +8,7 @@
     ./ferdium.nix
     ./fish
     ./git.nix
-    ./gtk
+    ./gtk.nix
     ./hyprland
     ./kitty
     ./librewolf
