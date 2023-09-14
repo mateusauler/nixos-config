@@ -109,6 +109,11 @@ in {
     "workspace empty, class:(csgo_linux64)"
   ];
 
+  layerrule = [
+    "blur,       waybar"
+    "ignorezero, waybar"
+  ];
+
   bind = [
     "${modKey},         T, exec, kitty"
     "${modKey},         W, exec, $BROWSER"
