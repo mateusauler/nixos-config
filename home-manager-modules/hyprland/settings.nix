@@ -78,9 +78,12 @@ in {
     "noinitialfocus,      title:^(.*— Sharing Indicator)"
     "noborder,            title:^(.*— Sharing Indicator)"
 
-    "float,       class:(Rofi)"
-    "center,      class:(Rofi)"
-    "stayfocused, class:(Rofi)"
+    "float,       class:(wofi)"
+    "center,      class:(wofi)"
+    "stayfocused, class:(wofi)"
+    "rounding 0,  class:(wofi)"
+    "noborder,    class:(wofi)"
+    "pin,         class:(wofi)"
 
     "float,  class:(com\.github\.hluk\.copyq)"
     "center, class:(com\.github\.hluk\.copyq)"
@@ -128,8 +131,8 @@ in {
         "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
       ]
       else if config.modules.wofi.enable then [
-        "${modKey},       D, exec, wofi --show drun --prompt ''"
-        "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
+        "${modKey},       D, exec, wofi --normal-window --show drun --prompt ''"
+        "${modKey} SHIFT, D, exec, wofi --normal-window --show run  --prompt ''"
         # TODO: Create power menu using wofi
       ]
       else [ ]
