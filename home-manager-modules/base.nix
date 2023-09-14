@@ -1,4 +1,4 @@
-{ inputs, custom, config, lib, pkgs, nix-colors, ... }:
+{ custom, config, lib, pkgs, nix-colors, ... }:
 
 let
   inherit (lib) mkDefault;
@@ -20,47 +20,29 @@ in {
     inherit username;
     homeDirectory = "/home/${username}";
 
-    sessionVariables = rec {
-      TERMINAL                    = "$TERM";
-      COLORTERM                   = "$TERM";
+    sessionVariables = with config.xdg; rec {
+      TERMINAL              = "$TERM";
+      COLORTERM             = "$TERM";
 
-      VISUAL                      = "$EDITOR";
+      VISUAL                = "$EDITOR";
 
-      MANPAGER                    = "bat -l man -p";
-
-      BROWSER                     = "browser";
-      BROWSER_PRIV                = "browser -p";
-      BROWSER_PROF                = "browser --ProfileManager";
-
-      # Fix android studio
-      CHROME_EXECUTABLE           = "`${lib.getBin pkgs.bash}/bin/bash -c 'which chromium' 2> /dev/null`";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
+      MANPAGER              = "bat -l man -p";
 
       # Cleanup ~/
-      XAUTHORITY                  = "$XDG_RUNTIME_DIR/Xauthority";
-      XINITRC                     = "${config.xdg.configHome}/X11/xinitrc";
-      LESSHISTFILE                = "-";
-      GNUPGHOME                   = "${config.xdg.dataHome}/gnupg";
-      WINEPREFIX                  = "${config.xdg.dataHome}/wineprefixes/default";
-      GOPATH                      = "${config.xdg.dataHome}/go";
-      SQLITE_HISTORY              = "${config.xdg.dataHome}/sqlite_history";
-      CCACHE_CONFIGPATH           = "${config.xdg.configHome}/ccache.config";
-      CCACHE_DIR                  = "${config.xdg.cacheHome}/ccache";
-      ANDROID_PREFS_ROOT          = "${config.xdg.configHome}/android";
-      ADB_KEYS_PATH               = "${ANDROID_PREFS_ROOT}";
-      ANDROID_HOME                = "${config.xdg.dataHome}/android";
-      ANDROID_EMULATOR_HOME       = "${ANDROID_HOME}/emulator";
-      _JAVA_OPTIONS               = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
-      NPM_CONFIG_USERCONFIG       = "${config.xdg.configHome}/npm/npmrc";
-      NVM_DIR                     = "${config.xdg.dataHome}/nvm";
-      CARGO_HOME                  = "${config.xdg.dataHome}/cargo";
-      CUDA_CACHE_PATH             = "${config.xdg.cacheHome}/nv";
-      GRADLE_USER_HOME            = "${config.xdg.dataHome}/gradle";
-      JUPYTER_CONFIG_DIR          = "${config.xdg.configHome}/jupyter";
-      CABAL_CONFIG                = "${config.xdg.configHome}/cabal/config";
-      CABAL_DIR                   = "${config.xdg.cacheHome}/cabal";
-      PYTHONSTARTUP               = "${config.xdg.configHome}/python/pythonrc";
-      HISTFILE                    = "${config.xdg.stateHome}/bash/history";
+      ADB_KEYS_PATH         = ANDROID_PREFS_ROOT;
+      ANDROID_HOME          = "${dataHome}/android";
+      ANDROID_PREFS_ROOT    = "${configHome}/android";
+      CARGO_HOME            = "${dataHome}/cargo";
+      GNUPGHOME             = "${dataHome}/gnupg";
+      GOPATH                = "${dataHome}/go";
+      GRADLE_USER_HOME      = "${dataHome}/gradle";
+      _JAVA_OPTIONS         = "-Djava.util.prefs.userRoot=${configHome}/java";
+      LESSHISTFILE          = "-";
+      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      NVM_DIR               = "${dataHome}/nvm";
+      PYTHONSTARTUP         = config.xdg.configFile."python/pythonrc".target;
+      SQLITE_HISTORY        = "${dataHome}/sqlite_history";
+      WINEPREFIX            = "${dataHome}/wineprefixes/default";
     };
 
     packages = with pkgs; [
@@ -80,8 +62,27 @@ in {
     );
   };
 
-  xdg.configFile."nixpkgs/config.nix" = {
-    enable = true;
-    text = "{ allowUnfree = true; }";
+  xdg.configFile = {
+    "python/pythonrc".text = ''
+      import os
+      import atexit
+      import readline
+
+      history = os.path.join(os.environ['XDG_CACHE_HOME'], 'python_history')
+      try:
+        readline.read_history_file(history)
+      except OSError:
+        pass
+
+      def write_history():
+        try:
+          readline.write_history_file(history)
+        except OSError:
+          pass
+
+      atexit.register(write_history)
+    '';
+
+    "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
   };
 }

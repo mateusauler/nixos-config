@@ -12,4 +12,5 @@ in {
     historyControl = [ "ignorespace" "ignoredups" "erasedups" ];
     initExtra = "sh ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}";
   };
+  home.sessionVariables.HISTFILE = "${config.xdg.stateHome}/bash/history";
 }

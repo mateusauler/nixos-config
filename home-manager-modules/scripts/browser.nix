@@ -19,6 +19,11 @@ in {
   config = lib.mkIf cfg.enable {
     # Use the module option to set the dependent module
     modules.librewolf.enable = true;
+    home.sessionVariables = {
+      BROWSER      = "browser";
+      BROWSER_PRIV = "browser -p";
+      BROWSER_PROF = "browser --ProfileManager";
+    };
     home.packages =
     let
       browser = pkgs.writeShellScriptBin "browser" ''
