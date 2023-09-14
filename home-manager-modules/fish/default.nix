@@ -22,9 +22,6 @@ in {
         shellAliases = (import ../shell-aliases.nix args);
         shellAbbrs = (import ./abbreviations.nix args);
 
-        loginShellInit = lib.strings.optionalString config.modules.hyprland.enable ''
-          [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1" && Hyprland'';
-
         interactiveShellInit = ''
           ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
           sh ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
