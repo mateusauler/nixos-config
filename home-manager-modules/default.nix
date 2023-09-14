@@ -22,6 +22,7 @@
     ./scripts
     ./waybar
     ./wget.nix
+    ./wofi.nix
     ./xdg.nix
     ./xresources.nix
   ];

@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
-  module-names = [ "kitty" "mako" "rofi" "waybar" ];
+  module-names = [ "kitty" "mako" "wofi" "waybar" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in {
   options.modules.hyprland = {
@@ -119,7 +119,7 @@ in {
         swww
         wl-clip-persist
         wlsunset
-      ] ++ (if config.modules.rofi.enable then [ pkgs.rofi-power-menu ] else []);
+      ] ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
     };
   };
 }

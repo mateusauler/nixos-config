@@ -1,0 +1,30 @@
+{ custom, config, lib, pkgs, ... }:
+
+let
+  cfg = config.modules.wofi;
+in {
+  options.modules.wofi.enable = lib.mkEnableOption "wofi";
+
+  config = lib.mkIf cfg.enable {
+    programs = {
+      wofi = {
+        enable = true;
+        style = ''
+          #window {
+            border-radius: 10px;
+          }
+        '';
+        settings = {
+          image_size = 24;
+          columns = 3;
+          width = 700;
+          allow_images = true;
+          insensitive = true;
+          run-always_parse_args = true;
+          run-cache_file = "/dev/null";
+          run-exec_search = true;
+        };
+      };
+    };
+  };
+}

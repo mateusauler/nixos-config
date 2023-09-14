@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   # env = XCURSOR_SIZE,24
@@ -142,9 +142,19 @@
     "$mainMod CONTROL, W, exec, $BROWSER_PROF"
     "$mainMod, C, exec, copyq show"
     "$mainMod, E, exec, pcmanfm"
-    "$mainMod, D, exec, rofi -show drun"
-    "$mainMod SHIFT, D, exec, rofi -show run"
-    "$mainMod, ESCAPE, exec, rofi -no-show-icons -show p -modi p:rofi-power-menu"
+
+    ] ++ (if config.modules.rofi.enable then [
+        "$mainMod, D, exec, rofi -show drun -prompt ''"
+        "$mainMod SHIFT, D, exec, rofi -show run -prompt ''"
+        "$mainMod, ESCAPE, exec, rofi -no-show-icons -show p -modi p:rofi-power-menu"
+      ]
+      else if config.modules.wofi.enable then [
+        "$mainMod, D, exec, wofi --show drun --prompt ''"
+        "$mainMod SHIFT, D, exec, wofi --show run --prompt ''"
+        # TODO: Create power menu using wofi
+      ]
+      else [ ]
+    ) ++ [
 
     "$mainMod, PRINT, exec, hyprshot -m window"
     ", PRINT, exec, hyprshot -m region"
