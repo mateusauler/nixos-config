@@ -1,11 +1,12 @@
 { config, lib, ... }:
 
-{
-  # env = XCURSOR_SIZE,24
-  # env = QT_QPA_PLATFORM,wayland
-  # env = GTK_THEME,Nord
-  # env = QT_QPA_PLATFORMTHEME,gtk
-
+let
+  cfg = config.modules.hyprland;
+  workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // { "0" = "10"; };
+  directionsArrows = { left = "l"; right = "r"; up = "u"; down = "d"; };
+  directionsHJKL   = { H    = "l"; L     = "r"; K  = "u"; J    = "d"; };
+  inherit (cfg) modKey;
+in {
   exec-once = [ "kitty" ];
 
   input = {
@@ -15,22 +16,15 @@
     repeat_rate = 50;
     repeat_delay = 400;
 
-    follow_mouse = 1;
     float_switch_override_focus = 0;
-
-    touchpad = {
-      natural_scroll = false;
-    };
 
     accel_profile = "flat";
   };
 
   general = with config.colorScheme.colors; {
-    gaps_in = 5;
-    gaps_out = 20;
     border_size = 3;
 
-    "col.active_border" = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
+    "col.active_border"   = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
     "col.inactive_border" = "rgba(${base01}aa)";
 
     layout = "dwindle";
@@ -39,31 +33,19 @@
 
   decoration = {
     rounding = 5;
-    #blur = yes
-    #blur_size = 3
-    #blur_passes = 1
-    # blur_new_optimizations = on
-
-    drop_shadow = true;
-    shadow_range = 4;
-    shadow_render_power = 3;
-    "col.shadow" = "rgba(1a1a1aee)";
-
     dim_special = "0.4";
   };
 
   animations = {
-    enabled = true;
-
     bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
 
     animation = [
-      "windows, 1, 5, myBezier"
-      "windowsOut, 1, 7, default, popin 80%"
-      "border, 1, 10, default"
-      "borderangle, 1, 8, default"
-      "fade, 1, 7, default"
-      "workspaces, 1, 4, default"
+      "windows,     1, 5,  myBezier"
+      "windowsOut,  1, 7,  default, popin 80%"
+      "border,      1, 10, default"
+      "borderangle, 1, 8,  default"
+      "fade,        1, 7,  default"
+      "workspaces,  1, 4,  default"
     ];
   };
 
@@ -72,41 +54,35 @@
     preserve_split = true;
   };
 
-  master = {
-    new_is_master = true;
-  };
-
-  gestures = {
-    workspace_swipe = false;
-  };
+  master.new_is_master = true;
 
   misc = {
     vrr = 2;
-    disable_splash_rendering = true;
-    animate_manual_resizes = true;
+
+    animate_manual_resizes       = true;
     animate_mouse_windowdragging = true;
-    disable_hyprland_logo = true;
-    background_color = "0x000000";
+
+    disable_splash_rendering = true;
+    disable_hyprland_logo    = true;
+    background_color         = "0x000000";
   };
 
-  binds = {
-    scroll_event_delay = 80;
-  };
+  binds.scroll_event_delay = 80;
 
   windowrulev2 = [
-    "move 50% 100%-32, title:^(.*— Sharing Indicator)"
-    "minsize 52 32, title:^(.*— Sharing Indicator)"
-    "float, title:^(.*— Sharing Indicator)"
-    "fakefullscreen, title:^(.*— Sharing Indicator)"
+    "move 50% 100%-32,    title:^(.*— Sharing Indicator)"
+    "minsize 52 32,       title:^(.*— Sharing Indicator)"
+    "float,               title:^(.*— Sharing Indicator)"
+    "fakefullscreen,      title:^(.*— Sharing Indicator)"
     "nofullscreenrequest, title:^(.*— Sharing Indicator)"
-    "noinitialfocus, title:^(.*— Sharing Indicator)"
-    "noborder, title:^(.*— Sharing Indicator)"
+    "noinitialfocus,      title:^(.*— Sharing Indicator)"
+    "noborder,            title:^(.*— Sharing Indicator)"
 
-    "float, class:(Rofi)"
-    "center, class:(Rofi)"
+    "float,       class:(Rofi)"
+    "center,      class:(Rofi)"
     "stayfocused, class:(Rofi)"
 
-    "float, class:(com\.github\.hluk\.copyq)"
+    "float,  class:(com\.github\.hluk\.copyq)"
     "center, class:(com\.github\.hluk\.copyq)"
 
     "float, class:(MEGAsync)"
@@ -118,132 +94,100 @@
     "workspace 4 silent, class:((F|f)erdium)"
     "workspace 5 silent, class:((S|s)team)"
     "workspace 5 silent, title:((S|s)team)"
-    "workspace 10 silent, class:(Spotify)"
+    "workspace name:0 silent, class:(Spotify)"
 
     "monitor $mon1, class:(mpv)"
-    "fullscreen, class:(mpv)"
+    "fullscreen,    class:(mpv)"
 
-    "monitor $mon2, class:(org\.qbittorrent\.qBittorrent)"
+    "monitor $mon2,   class:(org\.qbittorrent\.qBittorrent)"
     # Should be workspace empty silent, but there is a bug
     "workspace empty, class:(org\.qbittorrent\.qBittorrent) title:^(qBittorrent v([0-9]\.){2}[0-9])$"
 
-    "fakefullscreen, class:(csgo_linux64)"
-    "monitor $mon1, class:(csgo_linux64)"
-    "tile, class:(csgo_linux64)"
+    "fakefullscreen,  class:(csgo_linux64)"
+    "monitor $mon1,   class:(csgo_linux64)"
+    "tile,            class:(csgo_linux64)"
     "workspace empty, class:(csgo_linux64)"
   ];
 
-  "$mainMod" = "SUPER";
-
   bind = [
-    "$mainMod, T, exec, kitty"
-    "$mainMod, W, exec, $BROWSER"
-    "$mainMod SHIFT, W, exec, $BROWSER_PRIV"
-    "$mainMod CONTROL, W, exec, $BROWSER_PROF"
-    "$mainMod, C, exec, copyq show"
-    "$mainMod, E, exec, pcmanfm"
+    "${modKey},         T, exec, kitty"
+    "${modKey},         W, exec, $BROWSER"
+    "${modKey} SHIFT,   W, exec, $BROWSER_PRIV"
+    "${modKey} CONTROL, W, exec, $BROWSER_PROF"
+    "${modKey},         C, exec, copyq show"
+    "${modKey},         E, exec, pcmanfm"
 
     ] ++ (if config.modules.rofi.enable then [
-        "$mainMod, D, exec, rofi -show drun -prompt ''"
-        "$mainMod SHIFT, D, exec, rofi -show run -prompt ''"
-        "$mainMod, ESCAPE, exec, rofi -no-show-icons -show p -modi p:rofi-power-menu"
+        "${modKey},       D,      exec, rofi -show drun -prompt ''"
+        "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
+        "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
       ]
       else if config.modules.wofi.enable then [
-        "$mainMod, D, exec, wofi --show drun --prompt ''"
-        "$mainMod SHIFT, D, exec, wofi --show run --prompt ''"
+        "${modKey},       D, exec, wofi --show drun --prompt ''"
+        "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
         # TODO: Create power menu using wofi
       ]
       else [ ]
     ) ++ [
 
-    "$mainMod, PRINT, exec, hyprshot -m window"
-    ", PRINT, exec, hyprshot -m region"
+    "${modKey}, PRINT, exec, hyprshot -m window"
+    ",          PRINT, exec, hyprshot -m region"
 
-    "$mainMod SHIFT, Q, killactive, "
-    "$mainMod, P, pseudo, # dwindle"
-    "$mainMod, V, togglesplit, # dwindle"
-    "$mainMod SHIFT, V, togglefloating, "
+    "${modKey} SHIFT, Q, killactive,"
+    "${modKey},       P, pseudo," # dwindle
+    "${modKey},       V, togglesplit," # dwindle
+    "${modKey} SHIFT, V, togglefloating,"
 
-    "$mainMod, F, fullscreen"
-    "$mainMod SHIFT, F, fakefullscreen"
+    "${modKey},       F, fullscreen"
+    "${modKey} SHIFT, F, fakefullscreen"
 
-    # Move focus with mainMod + (H|J|K|L)
-    "$mainMod, H, movefocus, l"
-    "$mainMod, L, movefocus, r"
-    "$mainMod, K, movefocus, u"
-    "$mainMod, J, movefocus, d"
+    "${modKey}, N, movecurrentworkspacetomonitor, -1"
+    "${modKey}, M, swapactiveworkspaces, -1 current"
 
-    "$mainMod SHIFT, H, movewindow, l"
-    "$mainMod SHIFT, L, movewindow, r"
-    "$mainMod SHIFT, K, movewindow, u"
-    "$mainMod SHIFT, J, movewindow, d"
+    "${modKey} SHIFT, R,   movetoworkspacesilent, empty"
+    "${modKey},       R,   workspace,             empty"
+    "${modKey},       TAB, workspace,             previous"
 
-    "$mainMod, N, movecurrentworkspacetomonitor, -1"
-    "$mainMod, M, swapactiveworkspaces, -1 current"
+    "${modKey},       COMMA,  focusmonitor,     -1"
+    "${modKey} SHIFT, COMMA,  movewindow,   mon:-1"
+    "${modKey},       PERIOD, focusmonitor,     +1"
+    "${modKey} SHIFT, PERIOD, movewindow,   mon:+1"
 
-    # Switch workspaces with mainMod + [0-9]
-    "$mainMod, 1, workspace, 1"
-    "$mainMod, 2, workspace, 2"
-    "$mainMod, 3, workspace, 3"
-    "$mainMod, 4, workspace, 4"
-    "$mainMod, 5, workspace, 5"
-    "$mainMod, 6, workspace, 6"
-    "$mainMod, 7, workspace, 7"
-    "$mainMod, 8, workspace, 8"
-    "$mainMod, 9, workspace, 9"
-    "$mainMod, 0, workspace, 10"
-
-    "$mainMod, R, workspace, empty"
-    "$mainMod, TAB, workspace, previous"
-
-    "$mainMod,       COMMA,  focusmonitor,     -1"
-    "$mainMod SHIFT, COMMA,  movewindow,   mon:-1"
-    "$mainMod,       PERIOD, focusmonitor,     +1"
-    "$mainMod SHIFT, PERIOD, movewindow,   mon:+1"
-
-    # Move active window to a workspace with mainMod + SHIFT + [0-9]
-    "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-    "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-    "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-    "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-    "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-    "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-    "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-    "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-    "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-    "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-
-    "$mainMod SHIFT, S, movetoworkspacesilent, special"
-    "$mainMod SHIFT, S, movetoworkspacesilent, m+0"
-    "$mainMod, S, togglespecialworkspace"
-
-    "$mainMod SHIFT, R, movetoworkspacesilent, empty"
+    "${modKey} SHIFT, S, movetoworkspacesilent, special"
+    "${modKey} SHIFT, S, movetoworkspacesilent, m+0"
+    "${modKey},       S, togglespecialworkspace"
 
     # Scroll through existing workspaces on the same monitor with mainMod + scroll
-    "$mainMod, mouse_down, workspace, m+1"
-    "$mainMod, mouse_up, workspace, m-1"
-  ];
+    "${modKey}, mouse_down, workspace, m+1"
+    "${modKey}, mouse_up,   workspace, m-1"
+  ] ++
+  (lib.mapAttrsToList (key: name:      "${modKey},       ${key}, workspace,             ${name}") workspaces) ++
+  (lib.mapAttrsToList (key: name:      "${modKey} SHIFT, ${key}, movetoworkspacesilent, ${name}") workspaces) ++
+  (lib.mapAttrsToList (key: direction: "${modKey},       ${key}, movefocus,             ${direction}") directionsHJKL) ++
+  (lib.mapAttrsToList (key: direction: "${modKey} SHIFT, ${key}, movewindow,            ${direction}") directionsHJKL);
 
   binde = [
-    "$mainMod CONTROL, H, resizeactive, -50 0"
-    "$mainMod CONTROL, L, resizeactive, 50 0"
-    "$mainMod CONTROL, K, resizeactive, 0 -50"
-    "$mainMod CONTROL, J, resizeactive, 0 50"
+    "${modKey}, left,  resizeactive, -50 0"
+    "${modKey}, right, resizeactive, 50 0"
+    "${modKey}, up,    resizeactive, 0 -50"
+    "${modKey}, down,  resizeactive, 0 50"
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging
   bindm = [
-    "$mainMod, mouse:272, movewindow"
-    "$mainMod, mouse:273, resizewindow"
+    "${modKey}, mouse:272, movewindow"
+    "${modKey}, mouse:273, resizewindow"
   ];
 }
 //
 (
   let
     genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; } );
-    devices = [ "lightspeed-wireless-gaming-mouse-w/-hero-1"
-                "lightspeed-wireless-gaming-mouse-w/-hero-2"
-                "ls-1" ];
+    devices = [
+      "lightspeed-wireless-gaming-mouse-w/-hero-1"
+      "lightspeed-wireless-gaming-mouse-w/-hero-2"
+      "ls-1"
+    ];
   in
     builtins.foldl' genDeviceConfig { } devices
 )

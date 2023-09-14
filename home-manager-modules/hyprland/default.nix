@@ -2,11 +2,12 @@
 
 let
   cfg = config.modules.hyprland;
-  module-names = [ "kitty" "mako" "wofi" "waybar" ];
+  module-names = [ "kitty" "mako" "waybar" "wofi" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in {
   options.modules.hyprland = {
     enable = mkEnableOption "hyprland";
+    modKey = mkOption { default = "SUPER"; };
     extraOptions = mkOption {
       default = {
         "$mon1" = "";
