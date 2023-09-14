@@ -17,6 +17,7 @@ in {
         settings = {
           image_size = 24;
           columns = 3;
+          lines = 10;
           width = 700;
           allow_images = true;
           insensitive = true;
