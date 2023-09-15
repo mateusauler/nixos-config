@@ -22,7 +22,7 @@ in {
 
         window#waybar {
           background-color: ${colorToRgba base01 0.5};
-          color: #${base04};
+          color: #${base05};
           transition: box-shadow .5s;
         }
 
@@ -38,30 +38,20 @@ in {
           border-radius: 0;
         }
 
-        /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-        button:hover {
-          background: inherit;
-          box-shadow: inset 0 -3px #${base04};
-        }
-
         #workspaces button {
           padding: 0 5px;
           background-color: transparent;
-          color: #${base04};
+          color: #${base05};
+          transition: box-shadow .5s, background-color .5s;
         }
 
         #workspaces button:hover {
-          background: ${colorToRgba base00 0.2};
+          background: ${colorToRgba base03 0.6};
         }
 
         #workspaces button.active {
           background-color: #${base03};
-            box-shadow: inset 0 -3px #${base04};
-            transition: box-shadow .5s, background-color .5s;
-        }
-
-        #workspaces button:not(.active) {
-          transition: box-shadow .5s, background-color .5s;
+          box-shadow: inset 0 -3px #${base05};
         }
 
         #workspaces button.urgent {
@@ -70,7 +60,7 @@ in {
 
         #mode {
           background-color: #${base03};
-          border-bottom: 3px solid #${base04};
+          border-bottom: 3px solid #${base05};
         }
 
         #clock,
@@ -91,7 +81,7 @@ in {
         #mpd,
         #keyboard-state {
           padding: 0 10px;
-          color: #${base04};
+          color: #${base05};
           border-bottom: 3px solid #${base05};
         }
 
@@ -132,14 +122,13 @@ in {
 
         @keyframes blink {
             to {
-              background-color: #${base04};
+              background-color: #${base05};
               color: #${base00};
             }
         }
 
         #battery.critical:not(.charging) {
           background-color: #${base08};
-          color: #${base04};
           animation-name: blink;
           animation-duration: 0.5s;
           animation-timing-function: linear;
@@ -167,6 +156,7 @@ in {
 
         #keyboard-state > label {
           padding: 0 5px;
+          transition: background-color .3s;
         }
 
         #keyboard-state > label.locked {
