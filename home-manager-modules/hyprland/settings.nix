@@ -34,6 +34,10 @@ in {
   decoration = {
     rounding = 5;
     dim_special = "0.4";
+    blur = {
+      size = 10;
+      passes = 2;
+    };
   };
 
   animations = {

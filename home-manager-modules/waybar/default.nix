@@ -21,7 +21,7 @@ in {
         }
 
         window#waybar {
-          background-color: ${colorToRgba base01 0.6};
+          background-color: ${colorToRgba base01 0.5};
           color: #${base04};
           transition: box-shadow .5s;
         }
