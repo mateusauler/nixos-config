@@ -16,6 +16,7 @@
     ./mako.nix
     ./meld.nix
     ./mpv.nix
+    ./neovim
     ./nsxiv.nix
     ./obs.nix
     ./qt.nix
