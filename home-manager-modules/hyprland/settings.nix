@@ -88,6 +88,7 @@ in {
     "rounding 0,  class:(wofi)"
     "noborder,    class:(wofi)"
     "pin,         class:(wofi)"
+    "dimaround,   class:(wofi)"
 
     "float,  class:(com\.github\.hluk\.copyq)"
     "center, class:(com\.github\.hluk\.copyq)"
