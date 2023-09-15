@@ -6,10 +6,7 @@
   spacing = 8;
 
   modules-left = [
-    "wlr/workspaces"
-    "sway/mode"
-    "sway/scratchpad"
-    "custom/media"
+    "hyprland/workspaces"
     "hyprland/window"
   ];
 
@@ -36,7 +33,7 @@
     format = "{title}";
   };
 
-  "wlr/workspaces" = {
+  "hyprland/workspaces" = {
     disable-scroll = false;
     on-click = "activate";
     on-scroll-up   = "hyprctl dispatch workspace m+1";
