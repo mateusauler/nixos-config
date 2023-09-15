@@ -9,11 +9,6 @@ in {
     programs = {
       wofi = {
         enable = true;
-        style = ''
-          #window {
-            border-radius: 10px;
-          }
-        '';
         settings = {
           image_size = 24;
           columns = 3;

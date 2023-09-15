@@ -85,7 +85,7 @@ in {
     "float,       class:(wofi)"
     "center,      class:(wofi)"
     "stayfocused, class:(wofi)"
-    "rounding 0,  class:(wofi)"
+    "rounding 10, class:(wofi)"
     "noborder,    class:(wofi)"
     "pin,         class:(wofi)"
     "dimaround,   class:(wofi)"
