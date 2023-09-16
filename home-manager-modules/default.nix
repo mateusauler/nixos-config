@@ -15,6 +15,7 @@
     ./libvirtd.nix
     ./mako.nix
     ./meld.nix
+    ./mpv.nix
     ./nsxiv.nix
     ./obs.nix
     ./qt.nix
