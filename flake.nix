@@ -41,6 +41,7 @@
     customDefaults = {
       dots-path = "~/nixos";
       color-scheme = "gruvbox-dark-medium";
+      keyboard-layout = "br";
     };
 
     machines = lib.readDirNames ./hosts;

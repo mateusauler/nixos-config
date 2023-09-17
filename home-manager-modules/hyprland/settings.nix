@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, custom, lib, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -10,8 +10,7 @@ in {
   exec-once = [ "kitty" ];
 
   input = {
-    # TODO: Use globally configured layout
-    kb_layout = "br";
+    kb_layout = custom.keyboard-layout;
 
     repeat_rate = 50;
     repeat_delay = 400;
