@@ -4,13 +4,18 @@ let
   cfg = config.modules.neovim;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in {
-  options.modules.neovim.enable = lib.mkEnableOption "neovim";
+  options.modules.neovim = {
+    enable = lib.mkEnableOption "neovim";
+    neovide.enable = lib.mkEnableOption "neovide";
+  };
 
   imports = [
     ./plugins
   ];
 
   config = lib.mkIf cfg.enable {
+    home.packages = lib.optional cfg.neovide.enable pkgs.neovide;
+
     programs.neovim = {
       enable = true;
       viAlias = true;
