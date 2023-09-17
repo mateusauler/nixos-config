@@ -90,8 +90,8 @@ in {
     "pin,         class:(wofi)"
     "dimaround,   class:(wofi)"
 
-    "float,  class:(com\.github\.hluk\.copyq)"
-    "center, class:(com\.github\.hluk\.copyq)"
+    "float,  class:(com\\.github\\.hluk\\.copyq)"
+    "center, class:(com\\.github\\.hluk\\.copyq)"
 
     "float, class:(MEGAsync)"
 
@@ -108,9 +108,9 @@ in {
     "monitor $mon1, class:(mpv)"
     "fullscreen,    class:(mpv)"
 
-    "monitor $mon2,   class:(org\.qbittorrent\.qBittorrent)"
+    "monitor $mon2,   class:(org\\.qbittorrent\\.qBittorrent)"
     # Should be workspace empty silent, but there is a bug
-    "workspace empty, class:(org\.qbittorrent\.qBittorrent) title:^(qBittorrent v([0-9]\.){2}[0-9])$"
+    "workspace empty, class:(org\\.qbittorrent\\.qBittorrent) title:^(qBittorrent v([0-9]\\.){2}[0-9])$"
 
     "fakefullscreen,  class:(csgo_linux64)"
     "monitor $mon1,   class:(csgo_linux64)"
