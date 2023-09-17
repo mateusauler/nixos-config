@@ -102,7 +102,7 @@ in {
     "workspace 5 silent, class:((S|s)team)"
     "workspace 5 silent, title:((S|s)team)"
     "float,              title:((S|s)team (S|s)ettings)"
-    "workspace name:0 silent, class:(Spotify)"
+    "workspace 10 silent, class:(Spotify)"
 
     "monitor $mon1, class:(mpv)"
     "fullscreen,    class:(mpv)"
