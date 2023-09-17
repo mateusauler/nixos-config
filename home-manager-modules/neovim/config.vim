@@ -15,3 +15,10 @@ augroup two_space_tab
   autocmd!
   autocmd FileType nix setlocal tabstop=2 expandtab
 augroup END
+
+set updatetime=300
+
+set termguicolors
+set signcolumn=yes
+
+set mouse=a
