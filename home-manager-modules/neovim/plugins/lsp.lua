@@ -12,15 +12,17 @@ local on_attach = function(_, bufnr)
 	bufmap('gI',        vim.lsp.buf.implementation)
 	bufmap('<leader>D', vim.lsp.buf.type_definition)
 
-	bufmap('gr',        require('telescope.builtin').lsp_references)
-	bufmap('<leader>s', require('telescope.builtin').lsp_document_symbols)
-	bufmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+	-- bufmap('gr',        require('telescope.builtin').lsp_references)
+	-- bufmap('<leader>s', require('telescope.builtin').lsp_document_symbols)
+	-- bufmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 
 	bufmap('K', vim.lsp.buf.hover)
 
-	vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+	local format = function(_)
 		vim.lsp.buf.format()
-	end, {})
+	end
+	vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, {})
+	bufmap('<leader>f', format)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
