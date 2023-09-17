@@ -54,7 +54,11 @@
 
   enableModules = { module-names, other-options ? { } }:
     let
-      join-modules = acc: m: acc // { ${m}.enable = lib.mkDefault true; };
+      join-modules = acc: m:
+      let
+        path = (lib.strings.splitString "." m) ++ [ "enable" ];
+      in
+        acc // lib.attrsets.setAttrByPath path (lib.mkDefault true);
       enabled-modules = (builtins.foldl' join-modules { } module-names);
     in
       lib.attrsets.recursiveUpdate enabled-modules other-options;
