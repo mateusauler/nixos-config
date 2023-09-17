@@ -45,6 +45,11 @@ in
             })
           '';
         }
+        {
+          plugin = neo-tree-nvim;
+          type = "lua";
+          config = builtins.readFile ./neo-tree.lua;
+        }
 
         neodev-nvim
         {
