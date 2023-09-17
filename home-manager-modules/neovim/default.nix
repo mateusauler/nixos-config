@@ -17,7 +17,7 @@ in {
       vimAlias = true;
       vimdiffAlias = true;
       defaultEditor = true;
-      extraConfig = builtins.readFile ./config.lua;
+      extraConfig = builtins.readFile ./config.vim;
       plugins = [{
         plugin = nix-colors-lib.vimThemeFromScheme { scheme = config.colorScheme; };
         config = "colorscheme nix-${config.colorScheme.slug}";
