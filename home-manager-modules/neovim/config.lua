@@ -22,8 +22,8 @@ mapSilent('<C-Q>',     ':q<CR>')
 
 -- Normal shortcuts
 mapISilent('<C-V>',    ':put<CR>') -- Paste in insert mode
-mapINSilent('<C-Z>',   ':undo<CR>') -- Undo
-mapINSilent('<C-S-Z>', ':redo<CR>') -- Redo
+mapINSilent('<C-Z>',   ':undo<CR>')
+mapINSilent('<C-S-Z>', ':redo<CR>')
 
 mapISilent('<C-BS>', 'vbd')
 
