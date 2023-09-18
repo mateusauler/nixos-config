@@ -23,6 +23,7 @@ in
 
       plugins = with pkgs.vimPlugins; [
         vim-numbertoggle
+        (requireAndSetup { plugin = diffview-nvim; })
 
         {
           plugin = alpha-nvim;
