@@ -16,6 +16,7 @@ local mapINSilent = function(keys, func)
 end
 
 mapSilent('<leader>w', ':w<CR>')
+mapSilent('<C-S>',     ':w<CR>')
 mapSilent('<leader>q', ':q<CR>')
 mapSilent('<C-Q>',     ':q<CR>')
 
