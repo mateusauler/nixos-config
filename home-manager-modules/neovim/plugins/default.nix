@@ -52,7 +52,12 @@ in
           config = builtins.readFile ./neo-tree.lua;
         }
 
-        nvim-treesitter.withAllGrammars
+        {
+          plugin = nvim-treesitter.withAllGrammars;
+          type = "lua";
+          config = builtins.readFile ./treesitter.lua;
+        }
+
         vim-nix
         neodev-nvim
 

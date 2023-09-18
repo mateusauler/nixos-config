@@ -21,4 +21,4 @@ dashboard.section.buttons.val = {
 }
 
 alpha.setup(dashboard.opts)
-vim.keymap.set("n", "<leader>h", ":Alpha<CR>", { desc = "Open alpha dashboard" })
+vim.keymap.set("n", "<leader>h", ":Alpha<CR>", { silent = true, desc = "Open alpha dashboard" })

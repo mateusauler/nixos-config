@@ -82,4 +82,5 @@ local config = {
 }
 
 require('neo-tree').setup(config)
-vim.cmd([[nnoremap <leader>e :Neotree reveal<cr>]])
+vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { silent = true })
+vim.keymap.set('n', '<C-E>',     ':Neotree toggle<CR>', { silent = true })
