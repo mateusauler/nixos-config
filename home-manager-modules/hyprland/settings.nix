@@ -6,7 +6,8 @@ let
   directionsArrows = { left = "l"; right = "r"; up = "u"; down = "d"; };
   directionsHJKL   = { H    = "l"; L     = "r"; K  = "u"; J    = "d"; };
   inherit (cfg) modKey;
-in {
+in
+{
   exec-once = [ "kitty" ];
 
   input = {
@@ -62,12 +63,12 @@ in {
   misc = {
     vrr = 2;
 
-    animate_manual_resizes       = true;
+    animate_manual_resizes = true;
     animate_mouse_windowdragging = true;
 
     disable_splash_rendering = true;
-    disable_hyprland_logo    = true;
-    background_color         = "0x000000";
+    disable_hyprland_logo = true;
+    background_color = "0x000000";
   };
 
   binds.scroll_event_delay = 80;
@@ -129,18 +130,18 @@ in {
     "${modKey},         C, exec, copyq show"
     "${modKey},         E, exec, pcmanfm"
 
-    ] ++ (if config.modules.rofi.enable then [
-        "${modKey},       D,      exec, rofi -show drun -prompt ''"
-        "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
-        "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
-      ]
-      else if config.modules.wofi.enable then [
-        "${modKey},       D, exec, wofi --normal-window --show drun --prompt ''"
-        "${modKey} SHIFT, D, exec, wofi --normal-window --show run  --prompt ''"
-        # TODO: Create power menu using wofi
-      ]
-      else [ ]
-    ) ++ [
+  ] ++ (if config.modules.rofi.enable then [
+    "${modKey},       D,      exec, rofi -show drun -prompt ''"
+    "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
+    "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
+  ]
+  else if config.modules.wofi.enable then [
+    "${modKey},       D, exec, wofi --normal-window --show drun --prompt ''"
+    "${modKey} SHIFT, D, exec, wofi --normal-window --show run  --prompt ''"
+    # TODO: Create power menu using wofi
+  ]
+  else [ ]
+  ) ++ [
 
     "${modKey}, PRINT, exec, hyprshot -m window"
     ",          PRINT, exec, hyprshot -m region"
@@ -191,15 +192,15 @@ in {
     "${modKey}, mouse:273, resizewindow"
   ];
 }
-//
+  //
 (
   let
-    genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; } );
+    genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; });
     devices = [
       "lightspeed-wireless-gaming-mouse-w/-hero-1"
       "lightspeed-wireless-gaming-mouse-w/-hero-2"
       "ls-1"
     ];
   in
-    builtins.foldl' genDeviceConfig { } devices
+  builtins.foldl' genDeviceConfig { } devices
 )
