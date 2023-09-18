@@ -1,3 +1,8 @@
+vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn",  {text = " ", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignInfo",  {text = " ", texthl = "DiagnosticSignInfo"})
+vim.fn.sign_define("DiagnosticSignHint",  {text = "󰌵 ", texthl = "DiagnosticSignHint"})
+
 local config = {
   log_level = "warn",
   popup_border_style = "rounded",
@@ -21,12 +26,6 @@ local config = {
   },
   default_component_configs = {
     diagnostics = {
-      symbols = {
-        hint = "H",
-        info = "I",
-        warn = "!",
-        error = "X",
-      },
       highlights = {
         hint = "DiagnosticSignHint",
         info = "DiagnosticSignInfo",
