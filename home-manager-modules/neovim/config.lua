@@ -25,6 +25,8 @@ mapISilent('<C-V>',    ':put<CR>') -- Paste in insert mode
 mapINSilent('<C-Z>',   ':undo<CR>') -- Undo
 mapINSilent('<C-S-Z>', ':redo<CR>') -- Redo
 
+mapISilent('<C-BS>', 'vbd')
+
 -- Buffer commands
 mapSilent('<leader>c', ':bd<CR>') -- Close
 mapSilent('<C-Tab>',   ':bn<CR>') -- Next
