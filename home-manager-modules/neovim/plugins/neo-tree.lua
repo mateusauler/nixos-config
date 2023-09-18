@@ -54,7 +54,7 @@ local config = {
   window = {
     popup = { size = { width = "80%" } },
     mappings = {
-      ["<space>"] = "toggle_node",
+      ["<space>"] = { "toggle_node", nowait = false },
       ["a"] = { "add",           config = { show_path = "relative" } },
       ["A"] = { "add_directory", config = { show_path = "relative" } },
       ["c"] = { "copy", config = { show_path = "relative" } },
@@ -77,7 +77,7 @@ local config = {
     group_empty_dirs = true,
     show_unloaded = true,
   },
-  git_status = { window = { mappings = { ["g"] = { "show_help", nowait=false, config = { title = "Git", prefix_key = "g" } } } } },
+  git_status = { window = { mappings = { ["g"] = { "show_help", nowait = false, config = { title = "Git", prefix_key = "g" } } } } },
   document_symbols = { follow_cursor = true },
 }
 
