@@ -28,9 +28,9 @@ mapINSilent('<C-S-Z>', ':redo<CR>') -- Redo
 -- Buffer commands
 mapSilent('<leader>c', ':bd<CR>') -- Close
 mapSilent('<C-Tab>',   ':bn<CR>') -- Next
-mapSilent('<A-Right>', ':bn<CR>') -- Next
+mapSilent('<A-l>',     ':bn<CR>') -- Next
 mapSilent('<C-S-Tab>', ':bp<CR>') -- Previous
-mapSilent('<A-Left>',  ':bp<CR>') -- Previous
+mapSilent('<A-h>',     ':bp<CR>') -- Previous
 
 -- Split
 mapSilent('<C-|>',  ':split<CR>') -- Horizontal
