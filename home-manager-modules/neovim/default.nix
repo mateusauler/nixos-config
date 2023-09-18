@@ -1,8 +1,8 @@
-{ config, custom, lib, nix-colors, pkgs, ... }:
+{ config, custom, lib, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
+  colors = pkgs.writeText "colors.vim" (import ./colors.nix config.colorscheme);
 in
 {
   options.modules.neovim = {
@@ -23,12 +23,11 @@ in
       vimAlias = true;
       vimdiffAlias = true;
       defaultEditor = true;
-      extraConfig = builtins.readFile ./config.vim;
+      extraConfig = ''
+        source ${colors}
+        ${builtins.readFile ./config.vim}
+      '';
       extraLuaConfig = builtins.readFile ./config.lua;
-      plugins = [{
-        plugin = nix-colors-lib.vimThemeFromScheme { scheme = config.colorScheme; };
-        config = "colorscheme nix-${config.colorScheme.slug}";
-      }];
     };
 
     # Re-source the config on running nvim instances
