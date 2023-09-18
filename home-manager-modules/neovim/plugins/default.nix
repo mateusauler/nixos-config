@@ -2,6 +2,14 @@
 
 let
   cfg = config.modules.neovim;
+  requireAndSetup = { plugin, type ? "lua", name ? null }:
+    let
+      n = if name == null then (lib.removeSuffix ".nvim" plugin.pname) else name;
+    in
+    {
+      inherit plugin type;
+      config = "require('${n}').setup()";
+    };
   inherit (custom) dots-path;
 in
 {
@@ -14,8 +22,6 @@ in
       ];
 
       plugins = with pkgs.vimPlugins; [
-        vim-nix
-        nvim-treesitter.withAllGrammars
         vim-numbertoggle
 
         {
@@ -26,16 +32,10 @@ in
             ${builtins.readFile ./alpha-nvim.lua}
           '';
         }
-        {
-          plugin = bufferline-nvim;
-          type = "lua";
-          config = "require('bufferline').setup()";
-        }
-        {
-          plugin = nvim-web-devicons;
-          type = "lua";
-          config = "require('nvim-web-devicons').setup()";
-        }
+
+        (requireAndSetup { plugin = bufferline-nvim; })
+        (requireAndSetup { plugin = nvim-web-devicons; })
+
         {
           plugin = lualine-nvim;
           type = "lua";
@@ -51,22 +51,19 @@ in
           config = builtins.readFile ./neo-tree.lua;
         }
 
+        nvim-treesitter.withAllGrammars
+        vim-nix
         neodev-nvim
+
         {
           plugin = nvim-lspconfig;
           type = "lua";
           config = builtins.readFile ./lsp.lua;
         }
-        {
-          plugin = comment-nvim;
-          type = "lua";
-          config = "require(\"Comment\").setup()";
-        }
-        {
-          plugin = auto-session;
-          type = "lua";
-          config = "require(\"auto-session\").setup()";
-        }
+
+        (requireAndSetup { plugin = comment-nvim; name = "Comment"; })
+        (requireAndSetup { plugin = auto-session; })
+        (requireAndSetup { plugin = gitsigns-nvim; })
       ];
     };
   };
