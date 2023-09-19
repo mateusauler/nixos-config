@@ -36,7 +36,7 @@ in {
           link-wallpaper = ''
             if [ ! -e ${dest} ]; then
               $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
-              $DRY_RUN_CMD ${set-wallpaper-command}
+              $DRY_RUN_CMD [ ! -z "$DISPLAY" ] ${set-wallpaper-command}
             fi
           '';
         in

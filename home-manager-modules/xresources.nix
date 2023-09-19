@@ -47,7 +47,9 @@ in {
           *color20:      #${base04}
           *color21:      #${base06}
         '';
-        onChange = load-xresources;
+        onChange = ''
+          [ ! -z "$DISPLAY" ] && ${load-xresources}
+        '';
       };
     };
   };

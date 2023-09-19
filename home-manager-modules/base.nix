@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkDefault;
-  inherit (custom) username dots-path color-scheme;
+  inherit (custom) dots-path color-scheme;
 
   module-names = [ "fish" "neovim" "wget" "xdg" ];
 in {
@@ -17,9 +17,6 @@ in {
   modules = pkgs.lib.enableModules { inherit module-names; };
 
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
-
     sessionVariables = with config.xdg; rec {
       TERMINAL              = "$TERM";
       COLORTERM             = "$TERM";
