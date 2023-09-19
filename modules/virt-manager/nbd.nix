@@ -1,4 +1,4 @@
-{ config, custom, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   mount-nbd = pkgs.writeShellScriptBin "mount-nbd" ''
@@ -89,33 +89,12 @@ let
     fi
   '';
 
-  cfg = config.modules.virt-manager;
-
-  inherit (custom) username;
-  inherit (lib) mkDefault;
+  cfg = config.modules.virt-manager.nbd;
 in
 {
-  options.modules.virt-manager = {
-    enable = lib.mkEnableOption "virt-manager";
-    nbd.enable = pkgs.lib.mkTrueEnableOption "nbd";
-  };
-
+  options.modules.virt-manager.nbd.enable = pkgs.lib.mkTrueEnableOption "nbd";
   config = lib.mkIf cfg.enable {
-    virtualisation = {
-      spiceUSBRedirection.enable = mkDefault true;
-      libvirtd = {
-        enable = true;
-        onBoot = mkDefault "ignore";
-        qemu.runAsRoot = mkDefault false;
-      };
-    };
-
-    users.users.${username}.extraGroups = [ "libvirtd" ];
-
-    environment.systemPackages = [
-      pkgs.virt-manager
-    ] ++ lib.optional cfg.nbd.enable mount-nbd;
-
-    boot.kernelModules = lib.optional cfg.nbd.enable "nbd";
+    environment.systemPackages = [ mount-nbd ];
+    boot.kernelModules = [ "nbd" ];
   };
 }

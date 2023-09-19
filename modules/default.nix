@@ -6,6 +6,6 @@
     ./desktop.nix
     ./efi.nix
     ./openssh.nix
-    ./virt-manager.nix
+    ./virt-manager
   ];
 }
