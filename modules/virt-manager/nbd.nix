@@ -55,6 +55,8 @@ let
 
     [[ ''${#POSITIONAL_ARGS[@]} -le 0 ]] && echo "Error: Missing disk argument" && echo && usage && exit 1
 
+    sudo modprobe nbd
+
     if [ -z $NBD ]; then
       # Get the numbers of the nbd devices that have partitions associated with them
       # This is a hacky way to get the devices that have a connection
@@ -95,6 +97,5 @@ in
   options.modules.virt-manager.nbd.enable = pkgs.lib.mkTrueEnableOption "nbd";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ mount-nbd ];
-    boot.kernelModules = [ "nbd" ];
   };
 }
