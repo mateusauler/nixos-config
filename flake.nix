@@ -40,7 +40,7 @@
     # Default values of the custom set
     customDefaults = {
       dots-path = "~/nixos";
-      color-scheme = "gruvbox-dark-medium";
+      color-scheme = "catppuccin-mocha";
       keyboard-layout = "br";
     };
 
