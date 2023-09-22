@@ -12,12 +12,6 @@ in {
 
   programs.steam.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    lutris
-    heroic
-    prismlauncher
-  ];
-
   system.stateVersion = "22.11";
 }
 

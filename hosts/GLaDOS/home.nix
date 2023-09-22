@@ -30,5 +30,11 @@
     steam-xdg.enable = true;
   };
 
+  home.packages = with pkgs; [
+    lutris
+    heroic
+    prismlauncher
+  ];
+
   home.stateVersion = "22.11";
 }
