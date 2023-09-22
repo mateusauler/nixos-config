@@ -4,6 +4,7 @@
   imports = [
     ./base.nix
     ./bash.nix
+    ./bat.nix
     ./common
     ./ferdium.nix
     ./fish

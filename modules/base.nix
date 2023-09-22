@@ -33,7 +33,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    bat
     dconf
     file
     ripgrep

@@ -4,7 +4,7 @@ let
   inherit (lib) mkDefault;
   inherit (custom) dots-path color-scheme;
 
-  module-names = [ "fish" "neovim" "wget" "xdg" ];
+  module-names = [ "bat" "fish" "neovim" "wget" "xdg" ];
 in {
   imports = [
     nix-colors.homeManagerModules.default
