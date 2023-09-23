@@ -22,6 +22,7 @@ in {
 
     xdg.configFile."rofi/colors.rasi".text = with config.colorScheme.colors; ''
       * {
+        font:   "${custom.font-sans.name} ${toString custom.font-sans.size}";
         bg0:    #${base00}F2;
         bg1:    #${base01};
         bg2:    #${base03}80;

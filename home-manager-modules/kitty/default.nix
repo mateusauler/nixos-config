@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ config, custom, lib, pkgs, specialArgs, ... }:
 
 let
   cfg = config.modules.kitty;
@@ -9,6 +9,9 @@ in {
     programs.kitty = with config.colorScheme.colors; {
       enable = true;
       settings = {
+        font_family = custom.font-mono.name;
+        font_size = custom.font-mono.size;
+        enable_audio_bell = false;
         foreground = "#${base05}";
         background = "#${base00}";
         selection_background = "#${base05}";

@@ -4,7 +4,8 @@ let
   inherit (custom) username;
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
-in {
+in
+{
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
@@ -50,16 +51,24 @@ in {
 
     programs.direnv.enable = mkDefault true;
 
-    fonts = {
+    fonts = with custom;{
       enableDefaultPackages = true;
       packages = with pkgs; [
         font-awesome
+        liberation_ttf
         nerdfonts
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
-        liberation_ttf
+        font-sans.package
+        font-serif.package
+        font-mono.package
       ];
+      fontconfig.defaultFonts = {
+        sansSerif = [ font-sans.name ];
+        serif     = [ font-serif.name ];
+        monospace = [ font-mono.name ];
+      };
     };
 
     environment.systemPackages = with pkgs; [

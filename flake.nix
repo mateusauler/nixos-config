@@ -20,41 +20,52 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
-  let
-    system = "x86_64-linux";
+    let
+      system = "x86_64-linux";
 
-    overlays = [
-      (final: prev: {
-        inherit (inputs.hyprland.packages."${final.system}") hyprland;
-        inherit (inputs.hyprshot.packages."${final.system}") hyprshot;
-        lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
-      })
-    ];
+      overlays = [
+        (final: prev: {
+          inherit (inputs.hyprland.packages."${final.system}") hyprland;
+          inherit (inputs.hyprshot.packages."${final.system}") hyprshot;
+          lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
+        })
+      ];
 
-    pkgs = import nixpkgs {
-      inherit overlays;
-      localSystem = system;
-      config.allowUnfree = true;
-    };
-
-    # Default values of the custom set
-    customDefaults = {
-      dots-path = "~/nixos";
-      color-scheme = "catppuccin-mocha";
-      keyboard-layout = "br";
-    };
-
-    machines = lib.readDirNames ./hosts;
-
-    specialArgs = { inherit (inputs) nix-colors; };
-
-    mkHost = accumulator: hostname:
-      accumulator // {
-        ${hostname} =
-          lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs; };
+      pkgs = import nixpkgs {
+        inherit overlays;
+        localSystem = system;
+        config.allowUnfree = true;
       };
 
-    inherit (pkgs) lib;
-  in
+      # Default values of the custom set
+      customDefaults = rec {
+        dots-path = "~/nixos";
+        color-scheme = "catppuccin-mocha";
+        keyboard-layout = "br";
+        font-sans = {
+          package = pkgs.roboto;
+          name = "Roboto";
+          size = 12;
+        };
+        font-serif = font-sans;
+        font-mono = {
+          package = pkgs.nerdfonts;
+          name = "FiraCode Nerd Font Mono";
+          size = 12;
+        };
+      };
+
+      machines = lib.readDirNames ./hosts;
+
+      specialArgs = { inherit (inputs) nix-colors; };
+
+      mkHost = accumulator: hostname:
+        accumulator // {
+          ${hostname} =
+            lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs; };
+        };
+
+      inherit (pkgs) lib;
+    in
     { nixosConfigurations = lib.foldl mkHost { } machines; };
 }

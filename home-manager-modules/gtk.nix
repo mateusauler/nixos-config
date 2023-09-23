@@ -1,4 +1,4 @@
-{ config, lib, nix-colors, pkgs, ... }:
+{ config, custom, lib, nix-colors, pkgs, ... }:
 
 let
   cfg = config.modules.gtk;
@@ -12,8 +12,7 @@ in {
         gtk-application-prefer-dark-theme = true;
         gtk-decoration-layout = "menu:none";
         gtk-enable-animations = true;
-        # TODO: Configure fonts automatically
-        gtk-font-name = "Noto Sans, 10";
+        gtk-font-name = "${custom.font-sans.name}, ${toString custom.font-sans.size}";
         gtk-menu-images = true;
         gtk-primary-button-warps-slider = false;
         gtk-titlebar-double-click = "menu";
