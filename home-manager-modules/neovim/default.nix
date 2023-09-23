@@ -27,7 +27,10 @@ in
         source ${colors}
         ${builtins.readFile ./config.vim}
       '';
-      extraLuaConfig = builtins.readFile ./config.lua;
+      extraLuaConfig = with custom.font-mono; ''
+        ${lib.optionalString cfg.neovide.enable "vim.o.guifont = \"${name}:h${toString size}\""}
+        ${builtins.readFile ./config.lua}
+      '';
     };
 
     # Re-source the config on running nvim instances
