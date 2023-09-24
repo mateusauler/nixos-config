@@ -2,7 +2,8 @@
 
 let
   cfg = config.modules.steam-xdg;
-in {
+in
+{
   options.modules.steam-xdg = {
     enable = lib.mkEnableOption "steam-xdg";
     fakeHome = lib.mkOption { default = "${config.xdg.dataHome}/Steam/fakehome"; };
@@ -10,31 +11,38 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages =
-    let
-      steam-xdg = pkgs.writeShellScriptBin "steam" ''
-        # Symlink a file to the fake home
-        link_dir() {
-          # Replace HOME with FAKEHOME in the link name
-          link_name=$(echo $1 | sed "s|^${config.home.homeDirectory}|${cfg.fakeHome}|")
+      let
+        inherit (config.home) homeDirectory;
+        steam-xdg = pkgs.writeShellScriptBin "steam" ''
+          # Symlink a file to the fake home
+          link_dir() {
+            # Replace HOME with FAKEHOME in the link name
+            link_name=$(echo $1 | sed "s|^${homeDirectory}|${cfg.fakeHome}|")
 
-          # Creates the link's parent directory and symlinks it
-          mkdir -p $(dirname $link_name)
-          [ ! -d $link_name ] && ln -s $1 $link_name
-        }
+            # Creates the link's parent directory and symlinks it
+            mkdir -p $(dirname "$link_name")
+            if [ ! -d "$link_name" ]; then
+              ln -s "$1" "$link_name"
+            fi
+          }
 
-        mkdir -p ${config.home.homeDirectory}
+          mkdir -p ${cfg.fakeHome}
 
-        link_dir ${config.xdg.dataHome}               # ~/.local/share
-        link_dir ${config.xdg.cacheHome}              # ~/.cache
-        link_dir ${config.xdg.configHome}             # ~/.config
-        link_dir ${config.home.homeDirectory}/.icons  # ~/.icons (lxappearance's mouse cursor theme)
+          # Remove every link in the fake home
+          find ${cfg.fakeHome} -maxdepth 1 -type l -delete
 
-        # If .steam exists in ~/ and not in the fake home, move it to the fake home
-        [ -d ${config.home.homeDirectory}/.steam ] && [ ! -d ${cfg.fakeHome}/.steam ] && mv ${config.home.homeDirectory}/.steam ${cfg.fakeHome}/
+          # If .steam exists in ~/, move it to the fake home, updating the newer files
+          [ -d ${homeDirectory}/.steam ] && mv -uf ${homeDirectory}/.steam/* ${cfg.fakeHome}/ && rmdir ${homeDirectory}/.steam
+          rm -f ${homeDirectory}/.steampath ${homeDirectory}/.steampid
 
-        HOME=${cfg.fakeHome} exec ${pkgs.steam}/bin/steam $@
-      '';
-    in
-    [ steam-xdg ];
+          # Export the function so we can use it in a new bash context
+          export -f link_dir
+          # Link every file in the root of the home directory
+          find ${homeDirectory} -maxdepth 1 | xargs -P$(nproc) -I{} bash -c 'link_dir "$0"' {}
+
+          HOME=${cfg.fakeHome} exec ${pkgs.steam}/bin/steam $@
+        '';
+      in
+      [ steam-xdg ];
   };
 }
