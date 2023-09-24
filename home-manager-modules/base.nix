@@ -10,7 +10,7 @@ in {
     nix-colors.homeManagerModules.default
   ];
 
-  colorScheme = mkDefault nix-colors.colorSchemes."${color-scheme}";
+  colorScheme = mkDefault nix-colors.colorSchemes.${color-scheme};
 
   programs.home-manager.enable = true;
 

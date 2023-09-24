@@ -25,8 +25,8 @@
 
       overlays = [
         (final: prev: {
-          inherit (inputs.hyprland.packages."${final.system}") hyprland;
-          inherit (inputs.hyprshot.packages."${final.system}") hyprshot;
+          inherit (inputs.hyprland.packages.${final.system}) hyprland;
+          inherit (inputs.hyprshot.packages.${final.system}) hyprshot;
           lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
         })
       ];
