@@ -138,11 +138,9 @@ in
   else if config.modules.wofi.enable then [
     "${modKey},       D, exec, wofi --show drun --prompt ''"
     "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
-    # TODO: Create power menu using wofi
   ]
   else [ ]
-  ) ++ [
-
+  ) ++ lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu" ++ [
     "${modKey}, PRINT, exec, hyprshot -m window"
     ",          PRINT, exec, hyprshot -m region"
 
