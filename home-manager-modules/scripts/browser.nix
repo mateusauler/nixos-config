@@ -56,7 +56,7 @@ in {
         }
 
         for a in $args; do
-          echo "$a" | grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com)" > /dev/null && run_cmd="$video_player"
+          echo "$a" | grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com|instagram\.com/reel)" > /dev/null && run_cmd="$video_player"
 
           case $a in
             -p|-P)
