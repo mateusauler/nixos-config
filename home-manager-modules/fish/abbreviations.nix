@@ -17,6 +17,7 @@ rec {
   gc = "git commit";
   gca = "git commit --amend";
   gh = "git checkout";
+  ghb = "${gh} -b";
   gb = "git branch";
   gd = "git diff";
   gdc = "git diff --cached";
