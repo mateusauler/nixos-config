@@ -26,9 +26,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    modules.power-menu.actions = {
-      shutdown = { icon = mkDefault ""; text = mkDefault "Shut Down"; command = mkDefault "systemctl poweroff"; };
-      reboot = { icon = mkDefault ""; text = mkDefault "Reboot"; command = mkDefault "systemctl reboot"; };
+    modules.power-menu.actions = lib.mapAttrs (_: lib.mapAttrs (_: value: mkDefault value)) {
+      shutdown = { icon = ""; text = "Shut Down"; command = "systemctl poweroff"; };
+      reboot = { icon = ""; text = "Reboot"; command = "systemctl reboot"; };
+      firmware = { icon = ""; text = "Reboot to UEFI firmware interface"; command = "systemctl reboot --firmware-setup"; };
+      logout = { icon = ""; text = "Log out"; command = "loginctl terminate-session \${XDG_SESSION_ID-}"; };
     };
 
     home.packages =
