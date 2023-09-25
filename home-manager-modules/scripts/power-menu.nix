@@ -37,30 +37,38 @@ in
       let
         genLabel = value: (lib.optionalString cfg.icons value.icon + "  ") + value.text;
 
-        enabledActions = lib.filterAttrs (_: v: v.enable) cfg.actions;
+        actionList = lib.filter (a: a.enable) (lib.attrValues cfg.actions);
 
-        actionLablesAndCommands = lib.foldlAttrs (acc: _: value: acc ++ [{ command = value.command; label = genLabel value; }]) [ ] enabledActions;
-
-        actionLabels = map (a: a.label) actionLablesAndCommands;
+        actionLabels = map genLabel actionList;
 
         options = lib.concatStringsSep "\\n" actionLabels;
 
+        command = with cfg.command; "${line} ${prompt-arg}";
+
         power-menu = pkgs.writeShellScriptBin "power-menu" ''
-          choice=$(printf "${options}" | ${cfg.command.line} ${cfg.command.prompt-arg} "What do you want to do?")
+          choice=$(printf "${options}" | ${command} "What do you want to do?")
+
           case "$choice" in
             ${
               lib.concatMapStrings (a: ''
-                "${a.label}")
-                  ${a.command}
+                "${genLabel a}")
+                  text="${a.text}"
+                  command="${a.command}"
                   ;;
               '')
-              actionLablesAndCommands
+              actionList
             }
             *)
-              echo "Unknown action: $choice" >&2
+              echo "Unknown action: '$choice'" >&2
               exit 1
               ;;
           esac
+
+          confirm=$(printf "Yes\\nNo" | ${command} "Are you sure you want to $text?")
+
+          if [ "$confirm" = "Yes" ]; then
+            $command
+          fi
         '';
       in
       [ power-menu ];
