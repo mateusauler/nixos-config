@@ -32,6 +32,7 @@ in
       reboot = { icon = ""; text = "Reboot"; command = "systemctl reboot"; };
       firmware = { icon = ""; text = "Reboot to UEFI firmware interface"; command = "systemctl reboot --firmware-setup"; };
       logout = { icon = ""; text = "Log out"; command = "loginctl terminate-session \${XDG_SESSION_ID-}"; };
+      lock = { icon = ""; text = "Lock Screen"; command = "loginctl lock-session \${XDG_SESSION_ID-}"; confirm = false; };
     };
 
     home.packages =
