@@ -16,6 +16,7 @@ in
       type = attrsOf (submodule {
         options = {
           enable = pkgs.lib.mkTrueEnableOption null;
+          confirm = mkOption { type = bool; default = true; };
           icon = mkOption { type = str; };
           text = mkOption { type = str; };
           command = mkOption { type = str; };
@@ -26,7 +27,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    modules.power-menu.actions = lib.mapAttrs (_: lib.mapAttrs (_: value: mkDefault value)) {
+    modules.power-menu.actions = lib.mapAttrs (_: lib.mapAttrs (_: mkDefault)) {
       shutdown = { icon = ""; text = "Shut Down"; command = "systemctl poweroff"; };
       reboot = { icon = ""; text = "Reboot"; command = "systemctl reboot"; };
       firmware = { icon = ""; text = "Reboot to UEFI firmware interface"; command = "systemctl reboot --firmware-setup"; };
@@ -43,17 +44,18 @@ in
 
         options = lib.concatStringsSep "\\n" actionLabels;
 
-        command = with cfg.command; "${line} ${prompt-arg}";
+        promptCommand = with cfg.command; "${line} ${prompt-arg}";
+
+        confirmation = action: lib.optionalString action.confirm ''[ "$(printf "Yes\nNo" | ${promptCommand} "Are you sure you want to ${action.text}?")" = "Yes" ] &&'';
 
         power-menu = pkgs.writeShellScriptBin "power-menu" ''
-          choice=$(printf "${options}" | ${command} "What do you want to do?")
+          choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
 
           case "$choice" in
             ${
-              lib.concatMapStrings (a: ''
-                "${genLabel a}")
-                  text="${a.text}"
-                  command="${a.command}"
+              lib.concatMapStrings (action: ''
+                "${genLabel action}")
+                  ${confirmation action} ${action.command}
                   ;;
               '')
               actionList
@@ -63,12 +65,6 @@ in
               exit 1
               ;;
           esac
-
-          confirm=$(printf "Yes\\nNo" | ${command} "Are you sure you want to $text?")
-
-          if [ "$confirm" = "Yes" ]; then
-            $command
-          fi
         '';
       in
       [ power-menu ];
