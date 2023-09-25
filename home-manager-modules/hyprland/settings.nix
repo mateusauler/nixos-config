@@ -136,8 +136,8 @@ in
     "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
   ]
   else if config.modules.wofi.enable then [
-    "${modKey},       D, exec, wofi --normal-window --show drun --prompt ''"
-    "${modKey} SHIFT, D, exec, wofi --normal-window --show run  --prompt ''"
+    "${modKey},       D, exec, wofi --show drun --prompt ''"
+    "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
     # TODO: Create power menu using wofi
   ]
   else [ ]

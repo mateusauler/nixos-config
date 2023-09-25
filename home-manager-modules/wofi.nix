@@ -16,6 +16,7 @@ in {
           width = 700;
           allow_images = true;
           insensitive = true;
+          normal_window = true;
           run-always_parse_args = true;
           run-cache_file = "/dev/null";
           run-exec_search = true;
