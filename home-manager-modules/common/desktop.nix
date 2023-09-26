@@ -4,9 +4,27 @@ let
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
 
-  module-names  = [ "browser" "change-wallpaper" "ferdium" "gtk" "hyprland" "meld" "mpv" "neovim.neovide" "nsxiv" "obs" "power-menu" "qt" "wally" "xresources" ];
+  module-names = [
+    "browser"
+    "change-wallpaper"
+    "check-passwords"
+    "ferdium"
+    "gtk"
+    "hyprland"
+    "meld"
+    "mpv"
+    "neovim.neovide"
+    "nsxiv"
+    "obs"
+    "power-menu"
+    "qt"
+    "wally"
+    "xresources"
+  ];
+
   other-options = { change-wallpaper.command = "${pkgs.swww}/bin/swww img"; };
-in {
+in
+{
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
