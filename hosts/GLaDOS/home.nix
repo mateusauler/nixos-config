@@ -6,8 +6,8 @@
   modules = {
     desktop.enable = true;
     hyprland.extraOptions = {
-      "$mon1" = "HDMI-A-1";
-      "$mon2" = "DVI-D-1";
+      "$mon1" = "DP-3";
+      "$mon2" = "HDMI-A-1";
       "$mon3" = "$mon2";
 
       # monitor = name,resolution,position,scale
