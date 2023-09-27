@@ -31,9 +31,12 @@ def check_password(row):
     headers = { 'Add-Padding': True }
     response = requests.get(url)
 
-    hashes = [line.split(":") for line in response.text.splitlines()]
-
-    row["compromised_count"] = sum(int(count) for h, count in hashes if h == suffix)
+    row["compromised_count"] = 0
+    for line in response.text.splitlines():
+        hash, count = line.split(":")
+        if hash == suffix:
+            row["compromised_count"] = int(count)
+            break
 
     return row
 
