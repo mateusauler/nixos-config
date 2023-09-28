@@ -47,7 +47,10 @@ in
 
         promptCommand = with cfg.command; "${line} ${prompt-arg}";
 
-        confirmation = action: lib.optionalString action.confirm ''[ "$(printf "Yes\nNo" | ${promptCommand} "Are you sure you want to ${action.text}?")" = "Yes" ] &&'';
+        confirmation = action:
+          lib.optionalString
+            action.confirm
+            ''[ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&'';
 
         power-menu = pkgs.writeShellScriptBin "power-menu" ''
           choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
