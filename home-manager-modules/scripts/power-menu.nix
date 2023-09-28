@@ -12,22 +12,28 @@ in
       line = mkOption { default = "${pkgs.wofi}/bin/wofi --columns 1 --dmenu"; };
       prompt-arg = mkOption { default = "--prompt"; };
     };
-    actions = with lib.types; mkOption {
-      type = attrsOf (submodule {
-        options = {
-          enable = pkgs.lib.mkTrueEnableOption null;
-          confirm = mkOption { type = bool; default = true; };
-          icon = mkOption { type = str; };
-          text = mkOption { type = str; };
-          command = mkOption { type = str; };
-        };
-      });
+    actions = with lib.types; {
+      set = mkOption {
+        type = attrsOf (submodule {
+          options = {
+            enable = pkgs.lib.mkTrueEnableOption null;
+            confirm = mkOption { type = bool; default = true; };
+            icon = mkOption { type = str; };
+            text = mkOption { type = str; };
+            command = mkOption { type = str; };
+          };
+        });
+      };
+      order = mkOption {
+        type = listOf str;
+        default = [ "shutdown" "reboot" "lock" "logout" "firmware" ];
+      };
+      icons = pkgs.lib.mkTrueEnableOption "icons";
     };
-    icons = pkgs.lib.mkTrueEnableOption "icons";
   };
 
   config = lib.mkIf cfg.enable {
-    modules.power-menu.actions = lib.mapAttrs (_: lib.mapAttrs (_: mkDefault)) {
+    modules.power-menu.actions.set = lib.mapAttrs (_: lib.mapAttrs (_: mkDefault)) {
       shutdown = { icon = ""; text = "Shut Down"; command = "systemctl poweroff"; };
       reboot = { icon = ""; text = "Reboot"; command = "systemctl reboot"; };
       firmware = { icon = ""; text = "Reboot to UEFI firmware interface"; command = "systemctl reboot --firmware-setup"; };
@@ -37,9 +43,11 @@ in
 
     home.packages =
       let
-        genLabel = value: (lib.optionalString cfg.icons value.icon + "  ") + value.text;
+        genLabel = value: (lib.optionalString cfg.actions.icons value.icon + "  ") + value.text;
 
-        actionList = lib.filter (a: a.enable) (lib.attrValues cfg.actions);
+        order = lib.unique (cfg.actions.order ++ lib.foldlAttrs (acc: name: _: acc ++ [ name ]) [ ] cfg.actions.set);
+
+        actionList = lib.filter (a: a.enable) (map (el: cfg.actions.set.${el}) order);
 
         actionLabels = map genLabel actionList;
 
