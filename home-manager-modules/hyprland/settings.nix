@@ -110,11 +110,6 @@ in
 
     "monitor $mon2,   class:(org\\.qbittorrent\\.qBittorrent)"
     "workspace empty silent, class:(org\\.qbittorrent\\.qBittorrent) title:^(qBittorrent v([0-9]\\.){2}[0-9])$"
-
-    "fakefullscreen,  class:(csgo_linux64)"
-    "monitor $mon1,   class:(csgo_linux64)"
-    "tile,            class:(csgo_linux64)"
-    "workspace empty, class:(csgo_linux64)"
   ];
 
   layerrule = [
