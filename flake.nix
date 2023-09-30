@@ -22,6 +22,12 @@
       url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/v2.9.3/Satisfactory-Mod-Manager.AppImage";
       flake = false;
     };
+
+    # A very hacky way to get the icon for SMM
+    satisfactory-mod-manager-icon = {
+      url = "https://raw.githubusercontent.com/satisfactorymodding/SatisfactoryModManager/b346711bb9c9ee27c235c2b425b588f3e8996b90/icons/512x512.png";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
