@@ -23,6 +23,7 @@
     ./qt.nix
     ./rofi
     ./scripts
+    ./smm
     ./waybar
     ./wget.nix
     ./wofi.nix

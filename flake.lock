@@ -192,7 +192,20 @@
         "hyprland": "hyprland",
         "hyprshot": "hyprshot",
         "nix-colors": "nix-colors",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "satisfactory-mod-manager": "satisfactory-mod-manager"
+      }
+    },
+    "satisfactory-mod-manager": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-iXefGucxYm+KbForx2OGYHQXll4JzB0iVi4OEE9uYo0=",
+        "type": "file",
+        "url": "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/v2.9.3/Satisfactory-Mod-Manager.AppImage"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/v2.9.3/Satisfactory-Mod-Manager.AppImage"
       }
     },
     "systems": {
