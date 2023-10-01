@@ -114,7 +114,6 @@ in
     # Steam games
     "monitor $mon1, class:(steam_app_.*)"
     "workspace 9,   class:(steam_app_.*)"
-    "fullscreen,    class:(steam_app_.*)"
   ];
 
   layerrule = [
