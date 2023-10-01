@@ -11,8 +11,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     hyprshot = {
       url = "github:mateusauler/hyprshot-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +34,6 @@
 
       overlays = [
         (final: prev: {
-          inherit (inputs.hyprland.packages.${final.system}) hyprland;
           inherit (inputs.hyprshot.packages.${final.system}) hyprshot;
           lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
         })
