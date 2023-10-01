@@ -21,6 +21,8 @@ in {
       experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
       auto-allocate-uids = true;
       auto-optimise-store = mkDefault true;
+      keep-outputs = mkDefault true;
+      keep-derivations = mkDefault true;
       trusted-users = [ "root" username ];
       substituters = [ "https://hyprland.cachix.org" ];
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
