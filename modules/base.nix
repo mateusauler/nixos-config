@@ -43,6 +43,7 @@ in {
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
+  environment.enableAllTerminfo = true;
   environment.systemPackages = with pkgs; [
     dconf
     file
