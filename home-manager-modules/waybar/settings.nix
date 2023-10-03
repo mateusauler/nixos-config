@@ -97,7 +97,7 @@
   };
 
   memory = {
-    format = "{}% ";
+    format = "{}% ";
   };
 
   temperature = {
@@ -106,7 +106,7 @@
     critical-threshold = 80;
     format = "{temperatureC}°C {icon}";
     format-icons = [
-      "" "" ""
+      "" "" "" "" ""
     ];
     interval = 1;
   };
@@ -129,7 +129,7 @@
 
   network = {
     format-wifi         = "{essid} ({signalStrength}%) ";
-    format-ethernet     = "{ipaddr}/{cidr} ";
+    format-ethernet     = "{ipaddr}/{cidr} ";
     tooltip-format      = "{ifname} via {gwaddr} ";
     format-linked       = "{ifname} (No IP) ";
     format-disconnected = "Disconnected ⚠";
