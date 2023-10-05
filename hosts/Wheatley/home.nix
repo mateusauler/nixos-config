@@ -1,11 +1,15 @@
 { inputs, config, lib, pkgs, ... }:
 
+let
+  module-names = [
+    "desktop"
+    "waybar.battery"
+  ];
+in
 {
   imports = [ ../../home-manager-modules ];
 
-  modules = {
-    desktop.enable = true;
-    waybar.battery.enable = true;
+  modules = pkgs.lib.enableModules module-names // {
     hyprland.extraAutostart = {
       networkmanagerapplet = "nm-applet";
     };

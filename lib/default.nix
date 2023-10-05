@@ -14,11 +14,12 @@
 
       dir = ../hosts + "/${hostname}";
       custom = customDefaults
-            // import (dir + /custom.nix)
-            // { inherit hostname; };
+        // import (dir + /custom.nix)
+        // { inherit hostname; };
       username = custom.username;
       specialArgs' = specialArgs // { inherit inputs custom; };
-    in nixpkgs.lib.nixosSystem rec {
+    in
+    nixpkgs.lib.nixosSystem rec {
       # TODO: Look into replacing system with localSystem
       #       Suggested here: https://discordapp.com/channels/568306982717751326/741347063077535874/1140546315990859816
       inherit system pkgs;
@@ -42,7 +43,8 @@
   cloneRepo = { path, url, ssh-uri ? null }:
     let
       git = "${pkgs.git}/bin/git";
-    in ''
+    in
+    ''
       if [ ! -d ${path} ]; then
         $DRY_RUN_CMD ${git} clone $VERBOSE_ARG ${url} ${path}
         $DRY_RUN_CMD pushd ${path}
@@ -52,16 +54,15 @@
       fi
     '';
 
-  enableModules = { module-names, other-options ? { } }:
+  enableModules = module-names:
     let
-      join-modules = acc: m:
-      let
-        path = (lib.strings.splitString "." m) ++ [ "enable" ];
-      in
+      join-modules = acc: mod:
+        let
+          path = (lib.strings.splitString "." mod) ++ [ "enable" ];
+        in
         acc // lib.attrsets.setAttrByPath path (lib.mkDefault true);
-      enabled-modules = (builtins.foldl' join-modules { } module-names);
     in
-      lib.attrsets.recursiveUpdate enabled-modules other-options;
+    (builtins.foldl' join-modules { } module-names);
 
   mkTrueEnableOption = name: lib.mkEnableOption name // { default = true; };
 
@@ -72,10 +73,10 @@
       toInt = c: lib.lists.findFirstIndex (x: x == c) (throw "invalid hex digit: ${c}") hexChars;
       accumulate = a: c: a * 16 + toInt c;
 
-      strU  = lib.strings.toUpper str;
+      strU = lib.strings.toUpper str;
       chars = lib.strings.stringToCharacters strU;
     in
-      builtins.foldl' accumulate 0 chars;
+    builtins.foldl' accumulate 0 chars;
 
   colorToIntList = color:
     let
@@ -84,7 +85,7 @@
       colorsHexDirty = lib.strings.splitString " " colorsSep;
       colorsHex = lib.lists.remove "" colorsHexDirty;
     in
-      builtins.map lib.fromHex colorsHex;
+    builtins.map lib.fromHex colorsHex;
 
   colorToRgba = color: alpha:
     let
@@ -92,6 +93,6 @@
       colorsB10 = builtins.map toString colorsNum;
       colorsStr = builtins.concatStringsSep "," colorsB10;
     in
-      "rgba(" + colorsStr + ",${toString alpha})";
+    "rgba(" + colorsStr + ",${toString alpha})";
 
 }

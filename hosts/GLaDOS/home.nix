@@ -1,10 +1,17 @@
 { inputs, config, lib, pkgs, ... }:
 
+let
+  module-names = [
+    "desktop"
+    "libvirtd"
+    "steam-xdg"
+    "smm"
+  ];
+in
 {
   imports = [ ../../home-manager-modules ];
 
-  modules = {
-    desktop.enable = true;
+  modules = pkgs.lib.enableModules module-names // {
     hyprland.extraOptions = {
       "$mon1" = "DP-3";
       "$mon2" = "HDMI-A-1";
@@ -26,9 +33,6 @@
       ];
     };
     git.gpgKey = "5D9269C32D1E49D278A4410C263716004E5EF18D";
-    libvirtd.enable = true;
-    steam-xdg.enable = true;
-    smm.enable = true;
   };
 
   home.packages = with pkgs; [

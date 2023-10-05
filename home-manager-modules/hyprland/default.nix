@@ -53,7 +53,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.fish.loginShellInit = "[ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland";
 
-    modules = (pkgs.lib.enableModules { inherit module-names; }) // {
+    modules = pkgs.lib.enableModules module-names // {
       hyprland.autostart = let
         pkgPresent = pkg: (builtins.elem pkg config.home.packages);
 

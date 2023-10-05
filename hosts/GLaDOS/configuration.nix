@@ -2,11 +2,12 @@
 
 let
   inherit (custom) username;
-  module-names  = [ "desktop" "efi" "openssh" "virt-manager" ];
-in {
+  module-names = [ "desktop" "efi" "openssh" "virt-manager" ];
+in
+{
   imports = [ ./hardware-configuration.nix ../../modules ];
 
-  modules = pkgs.lib.enableModules { inherit module-names; };
+  modules = pkgs.lib.enableModules module-names;
 
   networking.hostName = "GLaDOS";
 

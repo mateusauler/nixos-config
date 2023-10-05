@@ -14,7 +14,7 @@ in {
 
   programs.home-manager.enable = true;
 
-  modules = pkgs.lib.enableModules { inherit module-names; };
+  modules = pkgs.lib.enableModules module-names;
 
   home = {
     sessionVariables = with config.xdg; rec {
