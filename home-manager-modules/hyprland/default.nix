@@ -74,7 +74,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemdIntegration = mkDefault true;
+      systemd.enable = mkDefault true;
       xwayland.enable = mkDefault true;
       settings = let
         # User configured autostart
