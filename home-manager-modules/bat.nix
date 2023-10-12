@@ -128,11 +128,17 @@ in
   options.modules.bat.enable = lib.mkEnableOption "bat";
 
   config = lib.mkIf cfg.enable {
-    programs.bat = {
-      enable = true;
-      config.theme = config.colorScheme.slug;
-      themes.${config.colorScheme.slug} = generateTextMateTheme { scheme = config.colorScheme; };
-    };
+    programs.bat =
+      let
+        inherit (config.colorScheme) slug;
+      in
+      {
+        enable = true;
+        config.theme = slug;
+        themes.${slug}.src = pkgs.writeTextFile {
+          name = "${slug}.tmTheme";
+          text = generateTextMateTheme { scheme = config.colorScheme; };
+        };
+      };
   };
 }
-
