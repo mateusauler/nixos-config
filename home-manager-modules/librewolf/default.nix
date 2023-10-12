@@ -12,8 +12,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf cfg.openwith.enable [ pkgs.python3 ];
-
     programs.librewolf = {
       enable = true;
       settings = {
@@ -36,7 +34,10 @@ in {
       enable = cfg.openwith.enable;
       executable = true;
       target = "openwith/open_with_linux.py";
-      source = ./open_with_linux.py;
+      text = ''
+        #!${pkgs.python3}/bin/python3
+        ${builtins.readFile ./open_with_linux.py}
+      '';
     };
 
     home.file =
