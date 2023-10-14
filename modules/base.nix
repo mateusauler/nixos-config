@@ -15,7 +15,6 @@ in {
     keyMap = mkDefault "br-abnt";
   };
 
-  nixpkgs.config.allowUnfree = mkDefault true;
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
