@@ -3,6 +3,11 @@
 let
   cfg = config.modules.smm;
 
+  icon = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/satisfactorymodding/SatisfactoryModManager/b346711bb9c9ee27c235c2b425b588f3e8996b90/icons/512x512.png";
+    hash = "sha256-VJoOzvlcdGgpbfflW5aMAIUbOlG0bQY/dvnrKu2kDVk=";
+  };
+
   package = pkgs.stdenv.mkDerivation (finalAttrs: rec {
     name = "satisfactory-mod-manager";
 
@@ -29,11 +34,8 @@ let
 
     installPhase = ''
       mkdir -p $out/bin $out/share/applications $out/share/icons
-
       copyDesktopItems
-
-      cp ${inputs.satisfactory-mod-manager-icon.outPath} $out/share/icons/${name}.png
-
+      cp ${icon.outPath} $out/share/icons/${name}.png
       cp $src/bin/satisfactory-mod-manager $out/bin
     '';
 
