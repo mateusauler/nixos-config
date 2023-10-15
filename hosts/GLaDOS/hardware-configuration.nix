@@ -47,8 +47,8 @@
     extraPackages = with pkgs; [
       amdvlk
       driversi686Linux.amdvlk
-      rocm-opencl-icd
-      rocm-opencl-runtime
+      rocmPackages.clr
+      rocmPackages.clr.icd
     ];
   };
 }
