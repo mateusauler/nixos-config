@@ -1,8 +1,10 @@
-{ custom, config, lib, pkgs, nix-colors, ... }:
+{ custom, config, lib, pkgs, nix-colors, ... }@args:
 
 let
   inherit (lib) mkDefault;
   inherit (custom) dots-path color-scheme;
+
+  system-base-module = import ../modules/base.nix args;
 
   module-names = [ "bat" "fish" "neovim" "wget" "xdg" ];
 in {
@@ -58,6 +60,23 @@ in {
       }
     );
   };
+
+  # Use the same nix settings in home-manager as in the full system config
+  # This is useful if using standalone home-manager
+  nix.settings = system-base-module.nix.settings;
+
+  xdg.configFile."nix/nix.conf".onChange = 
+    let
+      home = config.home.homeDirectory;
+      stateHome = config.xdg.stateHome or "${home}/.local/state";
+      mv = source: destination: "$DRY_RUN_CMD test -f ${source} && mv ${source} ${destination} || true";
+    in
+      lib.optionalString config.nix.settings.use-xdg-base-directories or false ''
+        $DRY_RUN_CMD mkdir -p ${stateHome}
+        ${mv "${home}/.nix-profile" "${stateHome}/profile"}
+        ${mv "${home}/.nix-defexpr" "${stateHome}/defexpr"}
+        ${mv "${home}/.nix-channels" "${stateHome}/channels"}
+      '';
 
   xdg.configFile = {
     "python/pythonrc".text = ''

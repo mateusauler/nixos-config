@@ -23,6 +23,8 @@ in {
       keep-outputs = mkDefault true;
       keep-derivations = mkDefault true;
       trusted-users = [ "root" username ];
+      use-xdg-base-directories = mkDefault true;
+      warn-dirty = mkDefault false;
     };
     gc = {
       automatic = true;
