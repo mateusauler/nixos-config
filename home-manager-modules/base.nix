@@ -25,8 +25,6 @@ in {
 
       VISUAL                = "$EDITOR";
 
-      MANPAGER              = "bat -l man -p";
-
       # Cleanup ~/
       ADB_KEYS_PATH         = ANDROID_PREFS_ROOT;
       ANDROID_HOME          = "${dataHome}/android";

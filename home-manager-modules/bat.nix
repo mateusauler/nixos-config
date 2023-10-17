@@ -128,6 +128,7 @@ in
   options.modules.bat.enable = lib.mkEnableOption "bat";
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables.MANPAGER = "${pkgs.bat}/bin/bat -l man -p";
     programs.bat =
       let
         inherit (config.colorScheme) slug;
