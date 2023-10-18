@@ -96,6 +96,7 @@ in
     "float, class:(MEGAsync)"
 
     "tile, class:(Nsxiv)"
+    "tile, class:(DesktopEditors)"
 
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
