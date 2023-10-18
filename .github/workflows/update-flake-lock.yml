@@ -18,9 +18,19 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v23
+        with:
+          extra_nix_config: warn-dirty = false
 
       - name: Update flake
-        run: nix flake update
+        id: flake-update
+        run: |
+          result=$(nix flake update 2>&1 | grep -v warning:)
+          {
+            echo "FLAKE_UPDATE_RESULT<<EOF"
+            echo "$result"
+            echo EOF 
+          } >> "$GITHUB_OUTPUT"
+
 
       - name: Check flake
         run: nix flake check --verbose --show-trace
@@ -28,7 +38,10 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Bump flake.lock
+          commit_message: |
+            Bump flake.lock
+
+            ${{ steps.flake-update.outputs.FLAKE_UPDATE_RESULT }}
           branch: master
           commit_options: '--no-verify --signoff'
           file_pattern: flake.lock
