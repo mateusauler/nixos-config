@@ -13,7 +13,7 @@ in
     hyprland.extraAutostart = {
       networkmanagerapplet = "nm-applet";
     };
-    git.gpgKey = "5D9269C32D1E49D278A4410C263716004E5EF18D";
+    git.gpgKey = "37C12B2664A4FFBC42E743B24D551E363428C47E";
     power-menu.actions.set.firmware.enable = false;
   };
 
