@@ -37,7 +37,7 @@ in {
       LESSHISTFILE          = "-";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       NVM_DIR               = "${dataHome}/nvm";
-      PYTHONSTARTUP         = config.xdg.configFile."python/pythonrc".target;
+      PYTHONSTARTUP         = "${configHome}/python/pythonrc";
       SQLITE_HISTORY        = "${dataHome}/sqlite_history";
       WINEPREFIX            = "${dataHome}/wineprefixes/default";
     };
