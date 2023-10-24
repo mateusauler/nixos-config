@@ -20,7 +20,7 @@ in
       # monitor = name,resolution,position,scale
       monitor = [
         "$mon1,prefered,1920x0,auto"
-        "$mon2,prefered,0x0,auto"
+        "$mon2,prefered,0x360,auto"
       ];
 
       workspace = [
