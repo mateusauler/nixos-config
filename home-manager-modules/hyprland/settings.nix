@@ -112,10 +112,16 @@ in
     "monitor $mon2,   class:(org\\.qbittorrent\\.qBittorrent)"
     "workspace empty silent, class:(org\\.qbittorrent\\.qBittorrent) title:^(qBittorrent v([0-9]\\.){2}[0-9])$"
 
-    # Steam games
-    "monitor $mon1, class:(steam_app_.*)"
-    "workspace 9,   class:(steam_app_.*)"
-  ];
+  ] ++ builtins.foldl'
+    (acc: game: acc ++ [
+      "monitor $mon1, class:(${game})"
+      "workspace 9,   class:(${game})"
+    ])
+    [ ]
+    [
+      "steam_app.*" # Steam games
+      "factorio"
+    ];
 
   layerrule = [
     "blur,       waybar"
