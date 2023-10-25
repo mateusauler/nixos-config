@@ -48,6 +48,5 @@ rec {
   mkdir = "mkdir -p";
   hexdump = "hexdump -C";
 
-  ns = "nix-shell --command $SHELL -p";
-  py = "nix-shell -p python3 --command python";
+  py = "nix shell nixpkgs#python3 --command python3";
 }
