@@ -8,6 +8,19 @@ let
   inherit (cfg) modKey;
 in
 {
+  env = [
+    # https://wiki.hyprland.org/Configuring/Environment-variables/
+    "CLUTTER_BACKEND,wayland" # Clutter package already has wayland enabled, this variable will force Clutter applications to try and use the Wayland backend
+    "GDK_BACKEND,wayland,x11" # GTK: Use wayland if available, fall back to x11 if not.
+    "QT_AUTO_SCREEN_SCALE_FACTOR,1" # (From the Qt documentation) enables automatic scaling, based on the monitor’s pixel density
+    "QT_QPA_PLATFORM,wayland;xcb" # Qt: Use wayland if available, fall back to x11 if not.
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION,1" # Disables window decorations on Qt applications
+    "SDL_VIDEODRIVER,wayland" # Run SDL2 applications on Wayland. Remove or set to x11 if games that provide older versions of SDL cause compatibility issues
+    "XDG_CURRENT_DESKTOP,Hyprland"
+    "XDG_SESSION_DESKTOP,Hyprland"
+    "XDG_SESSION_TYPE,wayland"
+  ];
+
   exec-once = [ "kitty" ];
 
   input = {
