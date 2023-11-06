@@ -7,7 +7,6 @@ let
   module-names = [
     "browser"
     "change-wallpaper"
-    "check-passwords"
     "ferdium"
     "gtk"
     "hyprland"
