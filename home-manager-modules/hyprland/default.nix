@@ -8,6 +8,7 @@ in {
   options.modules.hyprland = {
     enable = mkEnableOption "hyprland";
     modKey = mkOption { default = "SUPER"; };
+    disable-middle-paste = mkOption { default = true; };
     extraOptions = mkOption {
       default = {
         "$mon1" = "";

@@ -21,7 +21,7 @@ in
     "XDG_SESSION_TYPE,wayland"
   ];
 
-  exec-once = [ "kitty" ];
+  exec-once = [ "kitty" ] ++ lib.optional cfg.disable-middle-paste "wl-paste -p --watch wl-copy -p ''";
 
   input = {
     kb_layout = custom.keyboard-layout;
