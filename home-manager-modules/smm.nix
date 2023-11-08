@@ -13,7 +13,10 @@ let
 
     src = pkgs.appimageTools.wrapType2 {
       inherit name;
-      src = inputs.satisfactory-mod-manager;
+      src = pkgs.fetchurl {
+        url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/v2.9.3/Satisfactory-Mod-Manager.AppImage";
+        hash = "sha256-KIHdfdmb2yh70e6uSvJG24m5jjwMw1nABhiNBvEPegQ=";
+      };
     };
 
     dontUnpack = true;
