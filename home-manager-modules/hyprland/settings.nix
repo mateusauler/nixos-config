@@ -74,7 +74,7 @@ in
   master.new_is_master = true;
 
   misc = {
-    vrr = 1;
+    vrr = 2;
 
     animate_manual_resizes = true;
     animate_mouse_windowdragging = true;
