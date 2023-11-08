@@ -25,6 +25,9 @@ jobs:
         id: flake-update
         run: |
           result=$(nix flake update 2>&1 | grep -v warning:)
+          echo "::group::Flake update"
+          echo "$result"
+          echo "::endgroup::"
           {
             echo "FLAKE_UPDATE_RESULT<<EOF"
             echo "$result"
