@@ -163,10 +163,10 @@ in
     "${modKey}, PRINT, exec, hyprshot -m window"
     ",          PRINT, exec, hyprshot -m region"
 
-    "${modKey} SHIFT, Q, killactive,"
-    "${modKey},       P, pseudo," # dwindle
-    "${modKey},       V, togglesplit," # dwindle
-    "${modKey} SHIFT, V, togglefloating,"
+    "${modKey} SHIFT,   Q, killactive,"
+    "${modKey} CONTROL, V, pseudo," # dwindle
+    "${modKey},         V, togglesplit," # dwindle
+    "${modKey} SHIFT,   V, togglefloating,"
 
     "${modKey},       F, fullscreen"
     "${modKey} SHIFT, F, fakefullscreen"
