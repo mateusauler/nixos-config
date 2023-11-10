@@ -81,5 +81,7 @@ in
       enable = true;
       rootless.enable = true;
     };
+    # Enable rootless docker access
+    users.users.${username}.extraGroups = [ "docker" ];
   };
 }
