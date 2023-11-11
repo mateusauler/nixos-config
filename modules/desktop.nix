@@ -51,6 +51,8 @@ in
 
     programs.direnv.enable = mkDefault true;
 
+    modules.barrier.enable = mkDefault true;
+
     fonts = with custom;{
       enableDefaultPackages = true;
       packages = with pkgs; [
