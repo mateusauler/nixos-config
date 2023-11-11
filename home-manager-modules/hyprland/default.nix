@@ -79,9 +79,8 @@ in {
       xwayland.enable = mkDefault true;
       settings = let
         # User configured autostart
-        autostart = lib.foldl # Fold them together into a string intermediated by " & "
-          (acc: e: acc + e.command + " & ")
-          ""
+        autostart = map # Map the list of command attrsets into a list of command strings
+          (e: e.command)
           # TODO: Find a better way to modify the commands with the wait-for logic
           (map # Apply the wait-for logic on the commands
             (v: v //
@@ -108,7 +107,7 @@ in {
         # Concatenates the exec-once list with the generated autostart
         # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
-          (n: v: if n == "exec-once" then v ++ [autostart] else v)
+          (n: v: if n == "exec-once" then v ++ autostart else v)
           (cfg.extraOptions // import ./settings.nix args);
     };
 
