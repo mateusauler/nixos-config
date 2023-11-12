@@ -22,13 +22,13 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ hyprshot, nix-colors, nixpkgs, ... }:
     let
       system = "x86_64-linux";
 
       overlays = [
         (final: prev: {
-          inherit (inputs.hyprshot.packages.${final.system}) hyprshot;
+          inherit (hyprshot.packages.${final.system}) hyprshot;
           lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
         })
       ];
@@ -63,7 +63,7 @@
 
       machines = lib.readDirNames ./hosts;
 
-      specialArgs = { inherit (inputs) nix-colors; };
+      specialArgs = { inherit nix-colors; };
 
       mkHost = accumulator: hostname:
         accumulator // {
