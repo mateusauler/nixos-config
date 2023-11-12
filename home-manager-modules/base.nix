@@ -1,4 +1,4 @@
-{ custom, config, lib, pkgs, nix-colors, ... }@args:
+{ custom, config, inputs, lib, pkgs, nix-colors, ... }@args:
 
 let
   inherit (lib) mkDefault;
@@ -10,6 +10,7 @@ let
 in {
   imports = [
     nix-colors.homeManagerModules.default
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   colorScheme = mkDefault nix-colors.colorSchemes.${color-scheme};

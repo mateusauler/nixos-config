@@ -1,9 +1,11 @@
-{ lib, pkgs, custom, ... }:
+{ lib, pkgs, custom, inputs, ... }:
 
 let
   inherit (custom) username;
   inherit (lib) mkDefault;
 in {
+  imports = [ inputs.sops-nix.nixosModules.sops ];
+
   boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
   time.timeZone = mkDefault "America/Sao_Paulo";
