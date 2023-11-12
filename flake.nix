@@ -14,7 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    # TODO: Revert to the original repo, once https://github.com/Misterio77/nix-colors/pull/39 is merged.
+    nix-colors.url = "github:mateusauler/nix-colors/textmate-theme";
 
     hyprshot = {
       url = "github:mateusauler/hyprshot-nix";
