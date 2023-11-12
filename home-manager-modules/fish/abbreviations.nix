@@ -35,6 +35,8 @@ rec {
   nrtf = "${nrt} --fast";
   nrbtf = "${nrbt} --fast";
 
+  nfc = "nix flake check --verbose --show-trace";
+
   dots = "cd ${dots-path}";
 
   z = "zathura";
