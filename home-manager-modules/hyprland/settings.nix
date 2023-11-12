@@ -127,13 +127,14 @@ in
 
   ] ++ builtins.foldl'
     (acc: game: acc ++ [
-      "monitor $mon1, class:(${game})"
-      "workspace 9,   class:(${game})"
+      "monitor $mon1, ${game}"
+      "workspace 9,   ${game}"
     ])
     [ ]
     [
-      "steam_app.*" # Steam games
-      "factorio"
+      "class:(steam_app.*)" # Steam games
+      "class:(factorio)"
+      "title:(shapez)"
     ];
 
   layerrule = [
