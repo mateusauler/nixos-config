@@ -50,5 +50,5 @@ rec {
   mkdir = "mkdir -p";
   hexdump = "hexdump -C";
 
-  py = "nix shell nixpkgs#python3 --command python3";
+  py = "nix run nixpkgs#python3";
 }
