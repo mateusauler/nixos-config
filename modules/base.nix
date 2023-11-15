@@ -1,10 +1,14 @@
-{ lib, pkgs, custom, inputs, ... }:
+{ config, lib, pkgs, custom, inputs, ... }:
 
 let
   inherit (custom) username;
   inherit (lib) mkDefault;
-in {
-  imports = [ inputs.sops-nix.nixosModules.sops ];
+in
+{
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+    ./sops.nix
+  ];
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 

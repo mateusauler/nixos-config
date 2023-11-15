@@ -1,7 +1,11 @@
 keys:
-  - &primary mDMEZU/fCBYJKwYBBAHaRw8BAQdAQR9EA6tGZu8BYAVYDEcx2i3oNvhFMbMS9w3VHYApOtq0GE1hdGV1cyAoRU5DUllQVElPTiBPTkxZKYiTBBMWCgA7FiEEjR3B7YxhD1mwScvySVJB6vJOsF0FAmVP3wgCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQSVJB6vJOsF0mcAEA3iR/lY/cCU8EJWJ/MqiEm9bcLi4z1pDIxNioYP1sB98A/29HI2VglcGMjgLTLmEorhtupYR7s26VUusASGWZiQwHuDgEZU/fCBIKKwYBBAGXVQEFAQEHQLV4gLVNOACEJrFosmduRzGLs0nXWfe2YrYmKIpjQaskAwEIB4h4BBgWCgAgFiEEjR3B7YxhD1mwScvySVJB6vJOsF0FAmVP3wgCGwwACgkQSVJB6vJOsF3kSAEA+jtNoCNFz0G34YgcywCfGH93YqGvEfGhX3ewoG8d2dEA/RiVyh96owOB24uEGTNW2t+L+Kp2p6MQqjkISZaZ7RoN=XjJr
+  - &pgp 8D1DC1ED8C610F59B049CBF2495241EAF24EB05D
+  - &age age1pmz8q69smz50jcuglu3dncrsp7d7qpjke924epm4wd3xa9ng6gvqqpt079
 creation_rules:
   - path_regex: secrets/secrets.ya?ml$
     key_groups:
-    - gpg:
-      - *primary
+    -
+      age:
+        - *age
+      pgp:
+        - *pgp
