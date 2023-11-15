@@ -134,6 +134,7 @@ in
     [
       "class:(steam_app.*)" # Steam games
       "class:(factorio)"
+      "class:(cs2)"
       "title:(shapez)"
     ];
 
