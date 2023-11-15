@@ -37,11 +37,7 @@
       pkgs = import nixpkgs {
         inherit overlays;
         localSystem = system;
-        config = {
-          allowUnfree = true;
-          # FIXME: This is necessary to build heroic, but ideally shouldn't be here
-          permittedInsecurePackages = [ "electron-24.8.6" ];
-        };
+        config.allowUnfree = true;
       };
 
       # Default values of the custom set
