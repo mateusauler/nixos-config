@@ -65,16 +65,25 @@ in
 
   users.defaultUserShell = pkgs.fish;
 
-  users.users = {
-    ${username} = {
-      isNormalUser = true;
-      group = "users";
-      extraGroups = [ "wheel" "input" "networkmanager" "disk" ];
-      initialPassword = "a";
-      createHome = true;
-      home = "/home/${username}";
+  sops.secrets = {
+    password = { neededForUsers = true; };
+    age = { path = "${config.users.users.${username}.home}/${config.home-manager.users.${username}.xdg.configHome or ".config"}/sops/age/keys.txt"; };
+  };
+
+  users = {
+    mutableUsers = false;
+    users = {
+      ${username} = {
+        isNormalUser = true;
+        group = "users";
+        extraGroups = [ "wheel" "input" "networkmanager" "disk" ];
+        initialPassword = "a";
+        hashedPasswordFile = config.sops.secrets.password.path;
+        createHome = true;
+        home = "/home/${username}";
+      };
+      root.hashedPassword = "!"; # Disable root password login
     };
-    root.hashedPassword = "!";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
