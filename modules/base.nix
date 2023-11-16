@@ -63,26 +63,11 @@ in
   # TODO: Handle this in home-manager
   programs.fish.enable = true;
 
-  users.defaultUserShell = pkgs.fish;
-
-  sops.secrets = {
-    password = { neededForUsers = true; };
-    age = { path = "${config.users.users.${username}.home}/${config.home-manager.users.${username}.xdg.configHome or ".config"}/sops/age/keys.txt"; };
-  };
-
   users = {
     mutableUsers = false;
-    users = {
-      ${username} = {
-        isNormalUser = true;
-        group = "users";
-        extraGroups = [ "wheel" "input" "networkmanager" "disk" ];
-        initialPassword = "a";
-        hashedPasswordFile = config.sops.secrets.password.path;
-        createHome = true;
-        home = "/home/${username}";
-      };
-      root.hashedPassword = "!"; # Disable root password login
+    users.root = {
+      hashedPassword = "!"; # Disable root password login
+      shell = pkgs.fish;
     };
   };
 

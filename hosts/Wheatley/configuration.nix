@@ -1,9 +1,14 @@
 { config, pkgs, custom, ... }:
 
 let
-  module-names  = [ "desktop" "openssh" ];
-in {
-  imports = [ ./hardware-configuration.nix ../../modules ];
+  module-names = [ "desktop" "openssh" ];
+in
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules
+    ../../users/mateus
+  ];
 
   boot.loader = {
     grub = {
@@ -19,7 +24,7 @@ in {
   };
 
   # Enable grub cryptodisk
-  boot.loader.grub.enableCryptodisk=true;
+  boot.loader.grub.enableCryptodisk = true;
 
   boot.initrd.luks.devices."luks-c058bec9-bb26-440c-805c-75808b15c20d".keyFile = "/crypto_keyfile.bin";
   networking.hostName = "Wheatley";

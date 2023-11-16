@@ -8,10 +8,7 @@ let
 
   module-names = [ "bat" "fish" "neovim" "wget" "xdg" ];
 in {
-  imports = [
-    nix-colors.homeManagerModules.default
-    inputs.sops-nix.homeManagerModules.sops
-  ];
+  imports = [ nix-colors.homeManagerModules.default ];
 
   colorScheme = mkDefault nix-colors.colorSchemes.${color-scheme};
 

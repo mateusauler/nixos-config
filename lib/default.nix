@@ -8,6 +8,8 @@
         (builtins.readDir path)
       );
 
+  getUsers = lib.foldl' (acc: u: acc // {${u} = import ../users/${u};}) {} (lib.readDirNames ../users);
+
   mkNixosSystem = { hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, ... }:
     let
       inherit (inputs) home-manager nixpkgs;
@@ -31,7 +33,7 @@
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            users.${username} = import (dir + /home.nix);
+            users = lib.mapAttrs (_: _: import (dir + /home.nix)) lib.getUsers;
             useGlobalPkgs = true;
             useUserPackages = false;
             extraSpecialArgs = specialArgs;

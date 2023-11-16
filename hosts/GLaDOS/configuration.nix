@@ -5,7 +5,11 @@ let
   module-names = [ "desktop" "efi" "openssh" "virt-manager" ];
 in
 {
-  imports = [ ./hardware-configuration.nix ../../modules ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules
+    ../../users/mateus
+  ];
 
   modules = pkgs.lib.enableModules module-names;
 

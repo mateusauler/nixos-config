@@ -2,7 +2,7 @@ keys:
   - &pgp 8D1DC1ED8C610F59B049CBF2495241EAF24EB05D
   - &age age1pmz8q69smz50jcuglu3dncrsp7d7qpjke924epm4wd3xa9ng6gvqqpt079
 creation_rules:
-  - path_regex: secrets/secrets.ya?ml$
+  - path_regex: users/secrets.ya?ml$
     key_groups:
     -
       age:
