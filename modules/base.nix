@@ -5,10 +5,7 @@ let
   inherit (lib) mkDefault;
 in
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-    ./sops.nix
-  ];
+  imports = [ inputs.sops-nix.nixosModules.sops ];
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
