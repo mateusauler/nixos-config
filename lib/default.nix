@@ -8,7 +8,7 @@
         (builtins.readDir path)
       );
 
-  getUsers = lib.foldl' (acc: u: acc // {${u} = import ../users/${u};}) {} (lib.readDirNames ../users);
+  getUsers = lib.foldl' (acc: u: acc // { ${u} = import ../users/${u}; }) { } (lib.readDirNames ../users);
 
   mkNixosSystem = { hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, ... }:
     let
