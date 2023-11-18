@@ -4,29 +4,31 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "amdgpu" "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nix_root";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nix_root";
+    fsType = "ext4";
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/nix_home";
-      fsType = "ext4";
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/nix_home";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/nix_efi";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/nix_efi";
+    fsType = "vfat";
+  };
+
+  fileSystems."/tmp".fsType = "tmpfs";
 
   swapDevices = [ ];
 
