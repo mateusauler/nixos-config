@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./barrier.nix
+    ./deploy-ssh.nix
     ./desktop.nix
     ./efi.nix
     ./openssh.nix
