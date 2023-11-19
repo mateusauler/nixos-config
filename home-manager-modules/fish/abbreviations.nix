@@ -17,12 +17,14 @@ rec {
   gc = "git commit";
   gca = "git commit --amend";
   gh = "git checkout";
-  ghb = "${gh} -b";
+  ghb = "git checkout -b";
   gb = "git branch";
   gd = "git diff";
   gdc = "git diff --cached";
   gg = "git grep";
   ggi = "git grep -i";
+  gr = "git rebase";
+  gri = "git rebase -i";
   cg = "cd (git rev-parse --show-toplevel)";
 
   nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
