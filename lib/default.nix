@@ -62,7 +62,7 @@
         let
           path = (lib.strings.splitString "." mod) ++ [ "enable" ];
         in
-        acc // lib.attrsets.setAttrByPath path (lib.mkDefault true);
+          lib.recursiveUpdate acc (lib.attrsets.setAttrByPath path (lib.mkDefault true));
     in
     (builtins.foldl' join-modules { } module-names);
 
