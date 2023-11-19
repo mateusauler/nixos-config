@@ -2,7 +2,7 @@
 
 let
   inherit (custom) username;
-  module-names = [ "desktop" "efi" "openssh" "virt-manager" ];
+  module-names = [ "desktop" "efi" "virt-manager" ];
 in
 {
   imports = [

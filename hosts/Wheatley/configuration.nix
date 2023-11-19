@@ -1,7 +1,7 @@
 { config, pkgs, custom, ... }:
 
 let
-  module-names = [ "desktop" "openssh" ];
+  module-names = [ "desktop" ];
 in
 {
   imports = [
