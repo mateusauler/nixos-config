@@ -70,5 +70,8 @@
 
       inherit (pkgs) lib;
     in
-    { nixosConfigurations = lib.foldl mkHost { } machines; };
+    {
+      nixosConfigurations = lib.foldl mkHost { } machines;
+      devShells.${system} = import ./shell.nix { inherit pkgs; };
+    };
 }
