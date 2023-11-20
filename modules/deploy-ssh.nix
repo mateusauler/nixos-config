@@ -4,7 +4,7 @@ let
   cfg = config.modules.deploy-ssh;
 in
 {
-  options.modules.deploy-ssh.enable = pkgs.lib.mkTrueEnableOption "Deploy ssh keys using sops";
+  options.modules.deploy-ssh.enable = lib.mkEnableOption "Deploy ssh keys using sops";
 
   config = lib.mkIf cfg.enable {
     sops.secrets =
