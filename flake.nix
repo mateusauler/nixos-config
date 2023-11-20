@@ -72,6 +72,6 @@
     in
     {
       nixosConfigurations = lib.foldl mkHost { } machines;
-      devShells.${system} = import ./shell.nix { inherit pkgs; };
+      devShells.${system}.default = import ./shell.nix { inherit pkgs; };
     };
 }

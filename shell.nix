@@ -8,20 +8,20 @@
   in
   import nixpkgs { overlays = [ ]; }
 , ...
-}: {
-  default = pkgs.mkShell {
-    name = "nix bootstrap";
-    NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
-    shellHook = "exec $SHELL";
-    nativeBuildInputs = with pkgs; [
-      nix
-      home-manager
-      git
+}:
 
-      sops
-      ssh-to-age
-      gnupg
-      age
-    ];
-  };
+pkgs.mkShell {
+  name = "nix bootstrap";
+  NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+  shellHook = "exec $SHELL";
+  nativeBuildInputs = with pkgs; [
+    nix
+    home-manager
+    git
+
+    sops
+    ssh-to-age
+    gnupg
+    age
+  ];
 }
