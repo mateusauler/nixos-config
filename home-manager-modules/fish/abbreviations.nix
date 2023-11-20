@@ -25,6 +25,8 @@ rec {
   ggi = "git grep -i";
   gr = "git rebase";
   gri = "git rebase -i";
+  gf = "git fetch";
+  gm = "git merge";
   cg = "cd (git rev-parse --show-toplevel)";
 
   nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
