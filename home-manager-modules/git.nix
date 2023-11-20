@@ -23,7 +23,6 @@ in {
 
         # Direnv
         ".direnv/"
-        ".envrc"
 
         # macOS
         ".DS_Store"

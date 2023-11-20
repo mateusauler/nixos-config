@@ -29,6 +29,12 @@ in
       change-wallpaper.command = "${pkgs.swww}/bin/swww img";
     };
 
+    programs.direnv = {
+      enable = mkDefault true;
+      enableBashIntegration = mkDefault true;
+      nix-direnv.enable = mkDefault true;
+    };
+
     home.packages = with pkgs; [
       at-spi2-core
       brave

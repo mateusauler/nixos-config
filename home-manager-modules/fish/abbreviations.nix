@@ -39,7 +39,7 @@ rec {
 
   nfc = "nix flake check --verbose --show-trace";
 
-  dots = "cd ${dots-path} && nix develop";
+  dots = "cd ${dots-path}";
 
   z = "zathura";
 
