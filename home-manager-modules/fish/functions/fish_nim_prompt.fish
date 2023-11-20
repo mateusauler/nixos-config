@@ -82,8 +82,13 @@ function fish_nim_prompt
 	_prompt_wrapper $info
 
 	if test -n "$IN_NIX_SHELL"
-		test -z "$NIX_SHELL_PKGS" ; and set -l NIX_SHELL_PKGS nix-shell
-		_prompt_wrapper "$NIX_SHELL_PKGS" blue 
+		set -l shell_name nix-shell
+		if test -n "$name"
+			set shell_name "$(echo $name | sed 's/-env//; s/-/ /g')"
+		else if test -n "$NIX_SHELL_PKGS"
+			set shell_name "$NIX_SHELL_PKGS"
+		end
+		_prompt_wrapper "$shell_name" blue 
 	end
 
 	# Virtual Environment
