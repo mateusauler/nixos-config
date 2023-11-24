@@ -20,6 +20,8 @@ in
     inputs.sops-nix.nixosModules.sops
   ];
 
+  sops.gnupg.sshKeyPaths = [ ];
+
   modules = pkgs.lib.enableModules module-names;
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
