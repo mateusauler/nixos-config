@@ -11,9 +11,13 @@ in
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
+      config = {
+        common.default = [ "gtk" ];
+        hyprland.default = [ "gtk" "hyprland" ];
+      };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-hyprland # TODO: Only install if the Hyprland hm module is enabled
+        xdg-desktop-portal-hyprland
       ];
     };
 
