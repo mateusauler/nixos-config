@@ -1,8 +1,8 @@
 { lib, pkgs, ... }@args:
 
 {
-  readDirNames       = import ./readDirNames.nix          args;
-  getUsers           = import ./getUsers.nix              args;
+  readDirNames       = import ./read-dir-names.nix        args;
+  getUsers           = import ./get-users.nix             args;
   mkNixosSystem      = import ./mk-nixos-system.nix       args;
   cloneRepo          = import ./clone-repo.nix            args;
   enableModules      = import ./enable-modules.nix        args;
