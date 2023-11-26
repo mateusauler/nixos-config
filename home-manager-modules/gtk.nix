@@ -7,6 +7,13 @@ in {
   options.modules.gtk.enable = lib.mkEnableOption "gtk";
 
   config = lib.mkIf cfg.enable {
+    # Ensures the cursor icon always works
+    xdg.dataFile."icons/default/index.theme".text = ''
+      [Icon Theme]
+      Name=Default
+      Comment=Default Cursor Theme
+      Inherits=${config.gtk.cursorTheme.name}
+    '';
     gtk = let
       commonConfigs = {
         gtk-application-prefer-dark-theme = true;
