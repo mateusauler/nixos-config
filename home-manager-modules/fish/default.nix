@@ -11,10 +11,11 @@ in
     enable = lib.mkEnableOption "fish";
     pfetch.enable = mkTrueEnableOption "pfetch";
     eza.enable = mkTrueEnableOption "eza";
+    ondir.enable = mkTrueEnableOption "ondir";
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf cfg.pfetch.enable [ pkgs.pfetch ];
+    home.packages = (lib.optional cfg.pfetch.enable pkgs.pfetch) ++ (lib.optional cfg.ondir.enable pkgs.ondir);
 
     programs = {
       eza.enable = cfg.eza.enable;
@@ -31,6 +32,7 @@ in
         shellInit = ''
           set fish_greeting
           fish_vi_key_bindings
+          ${lib.optionalString cfg.ondir.enable "ondir_prompt_hook"}
         '';
       };
     };
@@ -46,6 +48,21 @@ in
       "fish/functions" = {
         source = ./functions;
         recursive = true;
+      };
+      "fish/functions/ondir_prompt_hook.fish" = {
+        enable = cfg.ondir.enable;
+        text = ''
+          function ondir_prompt_hook --on-event fish_prompt
+            if test ! -e "$OLDONDIRWD"; set -g OLDONDIRWD /; end
+            echo "$PWD" > "/tmp/ondir-$USER-cd"
+            eval (ondir $OLDONDIRWD $PWD)
+            if test -f "/tmp/ondir-$USER-cd"
+              cd (cat "/tmp/ondir-$USER-cd")
+              rm "/tmp/ondir-$USER-cd"
+            end
+            set -g OLDONDIRWD "$PWD"
+          end
+        '';
       };
     };
   };
