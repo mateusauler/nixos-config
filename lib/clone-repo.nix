@@ -5,11 +5,7 @@ let
   git = "${pkgs.git}/bin/git";
   ssh = "${pkgs.openssh}/bin/ssh";
   grep = "${pkgs.gnugrep}/bin/grep";
-  ssh-check =
-    if ssh-uri == null then ""
-    else if lib.hasPrefix "git@github" ssh-uri then "${ssh} -T git@github.com 2>&1 | ${grep} \"You've successfully authenticated\""
-    else if lib.hasPrefix "git@gitlab" ssh-uri then "${ssh} -T git@gitlab.com"
-    else throw "I don't know how to check for ssh access for this host. (ssh uri: '${ssh-uri}')";
+  ssh-check = "${ssh} -T ${lib.elemAt (lib.splitString ":" ssh-uri) 0} 2>&1 | ${grep} -v \"Permission denied\"";
 in
 ''
   if [ ! -d ${path} ]; then
