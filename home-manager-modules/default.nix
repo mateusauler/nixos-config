@@ -60,7 +60,6 @@ in
     ];
 
     activation.clone-dots = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      # TODO: Only change the remote url to ssh if there is a key available
       pkgs.lib.cloneRepo {
         path = dots-path;
         url = "https://github.com/mateusauler/nixos-config";
