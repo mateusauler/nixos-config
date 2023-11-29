@@ -5,7 +5,7 @@ let
   git = "${pkgs.git}/bin/git";
   ssh = "${pkgs.openssh}/bin/ssh";
   grep = "${pkgs.gnugrep}/bin/grep";
-  ssh-check = "${ssh} -T ${lib.elemAt (lib.splitString ":" ssh-uri) 0} 2>&1 | ${grep} -v \"Permission denied\"";
+  ssh-check = "${ssh} -T ${lib.head (lib.splitString ":" ssh-uri)} 2>&1 | ${grep} -v \"Permission denied\"";
 in
 ''
   if [ ! -d ${path} ]; then
