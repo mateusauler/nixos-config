@@ -1,7 +1,6 @@
-{ pkgs, custom, ... }:
+{ pkgs, ... }:
 
 let
-  inherit (custom) username;
   module-names = [ "desktop" "efi" "virt-manager" ];
 in
 {

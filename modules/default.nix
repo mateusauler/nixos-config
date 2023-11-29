@@ -1,7 +1,6 @@
-{ config, lib, pkgs, custom, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (custom) username;
   inherit (lib) mkDefault;
   module-names = [ "appimage" "deploy-gpg" "deploy-ssh-system" "openssh" ];
 in
