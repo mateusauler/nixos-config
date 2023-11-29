@@ -28,6 +28,8 @@ in
             fn = acc: k:
               let
                 secret-path = config.sops.secrets."ssh/${name}/keys/${k}".path;
+                ssh-dir = "${user.home}/.ssh";
+                dest-path = "${ssh-dir}/id_${k}";
               in
               acc +
                 ''
@@ -35,9 +37,10 @@ in
                     echo Deploying ${k}...
 
                     # Import the key
-                    mkdir -p ${user.home}/.ssh
-                    cp ${../users/${name}/id_${k}.pub} ${user.home}/.ssh/id_${k}.pub
-                    cp "${secret-path}" ${user.home}/.ssh/id_${k}
+                    mkdir -p ${ssh-dir}
+                    cp -f ${../users/${name}/id_${k}.pub} ${dest-path}.pub
+                    cp -f "${secret-path}" ${dest-path}
+                    chmod u+w ${dest-path} ${dest-path}.pub
 
                     echo Finished
                   else
