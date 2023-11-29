@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkDefault;
-  module-names = [ "appimage" "deploy-gpg" "deploy-ssh-system" "openssh" ];
+  module-names = [ "appimage" "deploy-gpg" "deploy-ssh-system" "deploy-ssh-users" "openssh" ];
 in
 {
   imports = [
@@ -10,6 +10,7 @@ in
     ./barrier.nix
     ./deploy-gpg.nix
     ./deploy-ssh-system.nix
+    ./deploy-ssh-users.nix
     ./desktop.nix
     ./efi.nix
     ./locale.nix
