@@ -36,7 +36,7 @@ in
           in
           acc +
           ''
-            if [ -f "${secret-path}" ] && [ ! -z "$(cat ${secret-path})" ] ; then
+            if [ -s "${secret-path}" ] ; then
               echo Deploying ${k}...
               cp ${secret-path} ${ssh-key-path}
               chown root:root ${ssh-key-path}
