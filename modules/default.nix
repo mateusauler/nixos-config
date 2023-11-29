@@ -3,14 +3,14 @@
 let
   inherit (custom) username;
   inherit (lib) mkDefault;
-  module-names = [ "appimage" "deploy-gpg" "deploy-ssh" "openssh" ];
+  module-names = [ "appimage" "deploy-gpg" "deploy-ssh-system" "openssh" ];
 in
 {
   imports = [
     ./appimage.nix
     ./barrier.nix
     ./deploy-gpg.nix
-    ./deploy-ssh.nix
+    ./deploy-ssh-system.nix
     ./desktop.nix
     ./efi.nix
     ./locale.nix

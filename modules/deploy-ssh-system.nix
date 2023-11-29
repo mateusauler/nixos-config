@@ -1,20 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.deploy-ssh;
+  cfg = config.modules.deploy-ssh-system;
   forEachKeyType = { acc, fn }: lib.foldl' fn acc [ "ed25519" "rsa" ];
 in
 {
-  options.modules.deploy-ssh.enable = lib.mkEnableOption "Deploy ssh keys using sops";
+  options.modules.deploy-ssh-system.enable = lib.mkEnableOption "Deploy system ssh keys using sops";
 
   config = lib.mkIf cfg.enable {
     sops.secrets =
-      let
-        sopsFile = ../hosts/${config.networking.hostName}/secrets.yaml;
-      in
-      {
-        "openssh/rsa" = { inherit sopsFile; };
-        "openssh/ed25519" = { inherit sopsFile; };
+      forEachKeyType {
+        acc = { };
+        fn = (acc: k: acc // { "openssh/${k}" = { sopsFile = ../hosts/${config.networking.hostName}/secrets.yaml; }; });
       };
 
     environment.etc = forEachKeyType {
@@ -31,7 +28,7 @@ in
         });
     };
 
-    systemd.services."deploy-ssh-keys" = {
+    systemd.services."deploy-system-ssh-keys" = {
       script = forEachKeyType {
         acc = "";
         fn = (acc: k:
