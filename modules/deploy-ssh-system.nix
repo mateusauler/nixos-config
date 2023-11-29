@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.deploy-ssh-system;
-  forEachKeyType = { acc, fn }: lib.foldl' fn acc [ "ed25519" "rsa" ];
+  forEachKeyType = { acc ? { }, fn }: lib.foldl' fn acc [ "ed25519" "rsa" ];
 in
 {
   options.modules.deploy-ssh-system.enable = lib.mkEnableOption "Deploy system ssh keys using sops";
@@ -10,12 +10,10 @@ in
   config = lib.mkIf cfg.enable {
     sops.secrets =
       forEachKeyType {
-        acc = { };
         fn = (acc: k: acc // { "openssh/${k}" = { sopsFile = ../hosts/${config.networking.hostName}/secrets.yaml; }; });
       };
 
     environment.etc = forEachKeyType {
-      acc = { };
       fn = (acc: k:
         let
           key = "ssh_host_${k}_key.pub";
