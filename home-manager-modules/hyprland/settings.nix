@@ -216,6 +216,7 @@ in
   let
     genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; });
     devices = [
+      "lightspeed-wireless-gaming-mouse-w/-hero"
       "lightspeed-wireless-gaming-mouse-w/-hero-1"
       "lightspeed-wireless-gaming-mouse-w/-hero-2"
       "ls-1"
