@@ -14,6 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.librewolf = {
       enable = true;
+      package = pkgs.librewolf-wayland;
       settings = {
         "privacy.resistFingerprinting.letterboxing" = true;
         "network.dns.disableIPv6" = false;
