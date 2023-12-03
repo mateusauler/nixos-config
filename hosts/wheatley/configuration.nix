@@ -27,7 +27,7 @@ in
   boot.loader.grub.enableCryptodisk = true;
 
   boot.initrd.luks.devices."luks-c058bec9-bb26-440c-805c-75808b15c20d".keyFile = "/crypto_keyfile.bin";
-  networking.hostName = "Wheatley";
+  networking.hostName = "wheatley";
 
   # https://github.com/NixOS/nixpkgs/issues/119244#issuecomment-1250321791
   systemd.services.zswap = {

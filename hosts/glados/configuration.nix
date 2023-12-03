@@ -12,7 +12,7 @@ in
 
   modules = pkgs.lib.enableModules module-names;
 
-  networking.hostName = "GLaDOS";
+  networking.hostName = "glados";
 
   programs.steam.enable = true;
 
