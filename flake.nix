@@ -1,13 +1,15 @@
 {
   description = "My NixOS config";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+  inputs = rec {
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = nixpkgs-stable;
 
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     home-manager = {
