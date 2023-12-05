@@ -12,6 +12,7 @@ in
     ./desktop.nix
     ./efi.nix
     ./locale.nix
+    ./localsend.nix
     ./nix.nix
     ./openssh.nix
     ./virt-manager

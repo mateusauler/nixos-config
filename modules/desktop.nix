@@ -4,6 +4,7 @@ let
   inherit (custom) username;
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
+  module-names = [ "barrier" "localsend" ];
 in
 {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -53,7 +54,7 @@ in
       };
     };
 
-    modules.barrier.enable = mkDefault true;
+    modules = pkgs.lib.enableModules module-names;
 
     fonts = with custom;{
       enableDefaultPackages = true;

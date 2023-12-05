@@ -44,7 +44,6 @@ in
       firefox
       gimp
       keepassxc
-      localsend
       megasync
       onlyoffice-bin
       pcmanfm
