@@ -51,7 +51,7 @@ rec {
   img = "nsxiv -a";
   im = img;
 
-  mkdir = "mkdir -p";
+  md = "mkdir -p";
   hexdump = "hexdump -C";
 
   py = "python3";
