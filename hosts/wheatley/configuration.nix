@@ -1,4 +1,4 @@
-{ config, pkgs, custom, ... }:
+{ config, lib, pkgs, custom, ... }:
 
 let
   module-names = [ "desktop" ];
