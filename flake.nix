@@ -6,6 +6,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs = nixpkgs-unstable;
 
+    private-config = {
+      url = "git+ssh://git@github.com/mateusauler/nixos-private-config";
+      flake = false;
+    };
+
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

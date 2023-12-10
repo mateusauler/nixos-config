@@ -156,6 +156,22 @@
         "type": "github"
       }
     },
+    "private-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702209602,
+        "narHash": "sha256-RRLVp+WTFcx/ALt+0l0uQIXP1+ROLutkxcdDPLBq0wQ=",
+        "ref": "refs/heads/master",
+        "rev": "8ee629d7a9bce3fcc6f19d349a095a10ac80b185",
+        "revCount": 6,
+        "type": "git",
+        "url": "ssh://git@github.com/mateusauler/nixos-private-config"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/mateusauler/nixos-private-config"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -164,6 +180,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "private-config": "private-config",
         "sops-nix": "sops-nix"
       }
     },
