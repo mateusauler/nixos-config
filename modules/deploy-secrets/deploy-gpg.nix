@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  foldlUsers = pkgs.lib.foldlUsers config;
+  foldlUsers = lib.foldlUsers config;
   cfg = config.modules.deploy-secrets.gpg;
 in
 lib.mkIf cfg.enable {

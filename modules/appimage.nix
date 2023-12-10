@@ -4,7 +4,7 @@ let
   cfg = config.modules.appimage;
 in
 {
-  options.modules.appimage.enable = pkgs.lib.mkTrueEnableOption "Appimage format recognition";
+  options.modules.appimage.enable = lib.mkTrueEnableOption "Appimage format recognition";
 
   config = lib.mkIf cfg.enable {
     # Enable running appimages as executables, by setting appimage-run as the interpreter

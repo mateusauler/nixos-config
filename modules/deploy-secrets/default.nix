@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
-  foldlUsers = pkgs.lib.foldlUsers config;
+  foldlUsers = lib.foldlUsers config;
   foldlKeyTypes = { acc ? { }, fn }: lib.foldl' fn acc [ "ed25519" "rsa" ];
   foldlUsersKeys = f: foldlUsers config { fn = acc: name: user: acc // foldlKeyTypes { fn = acc: f acc name user; }; };
   cfg = config.modules.deploy-secrets;
@@ -9,10 +9,10 @@ in
 {
   options.modules.deploy-secrets = {
     enable = lib.mkEnableOption "Secret provisioning with sops";
-    gpg.enable = pkgs.lib.mkTrueEnableOption "Deploy gpg keys using sops";
+    gpg.enable = lib.mkTrueEnableOption "Deploy gpg keys using sops";
     ssh = {
-      system.enable = pkgs.lib.mkTrueEnableOption "Deploy system ssh keys using sops";
-      users.enable = pkgs.lib.mkTrueEnableOption "Deploy user ssh keys using sops";
+      system.enable = lib.mkTrueEnableOption "Deploy system ssh keys using sops";
+      users.enable = lib.mkTrueEnableOption "Deploy user ssh keys using sops";
     };
   };
 

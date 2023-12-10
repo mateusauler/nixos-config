@@ -17,7 +17,7 @@ nixpkgs.lib.nixosSystem rec {
   #       Suggested here: https://discordapp.com/channels/568306982717751326/741347063077535874/1140546315990859816
   inherit system pkgs;
 
-  specialArgs = specialArgs';
+  specialArgs = specialArgs' // { inherit (pkgs) lib; };
 
   modules = [
     (dir + /configuration.nix)
@@ -27,7 +27,7 @@ nixpkgs.lib.nixosSystem rec {
         users = lib.mapAttrs (_: _: import (dir + /home.nix)) lib.getUsers;
         useGlobalPkgs = true;
         useUserPackages = false;
-        extraSpecialArgs = specialArgs;
+        extraSpecialArgs = specialArgs';
       };
     }
     private-config.hosts.${hostname} or { }

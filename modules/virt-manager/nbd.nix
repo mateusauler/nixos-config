@@ -94,7 +94,7 @@ let
   cfg = config.modules.virt-manager.nbd;
 in
 {
-  options.modules.virt-manager.nbd.enable = pkgs.lib.mkTrueEnableOption "nbd";
+  options.modules.virt-manager.nbd.enable = lib.mkTrueEnableOption "nbd";
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ mount-nbd ];
   };

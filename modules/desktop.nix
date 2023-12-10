@@ -54,7 +54,7 @@ in
       };
     };
 
-    modules = pkgs.lib.enableModules module-names;
+    modules = lib.enableModules module-names;
 
     fonts = with custom;{
       enableDefaultPackages = true;

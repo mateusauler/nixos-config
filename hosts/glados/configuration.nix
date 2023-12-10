@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
 let
   module-names = [ "desktop" "efi" "virt-manager" ];
@@ -10,7 +10,7 @@ in
     ../../users/mateus
   ];
 
-  modules = pkgs.lib.enableModules module-names;
+  modules = lib.enableModules module-names;
 
   networking.hostName = "glados";
 

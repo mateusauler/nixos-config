@@ -46,7 +46,7 @@ in
     };
   };
 
-  modules = pkgs.lib.enableModules module-names;
+  modules = lib.enableModules module-names;
 
   system.stateVersion = "23.05";
 }
