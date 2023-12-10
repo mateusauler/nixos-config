@@ -3,15 +3,15 @@
 let
   cfg = config.modules.fish;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
-  inherit (lib) mkDefault;
+  inherit (lib) mkDefault mkEnableOption;
   inherit (pkgs.lib) mkTrueEnableOption;
 in
 {
   options.modules.fish = {
-    enable = lib.mkEnableOption "fish";
+    enable = mkEnableOption "fish";
     pfetch.enable = mkTrueEnableOption "pfetch";
     eza.enable = mkTrueEnableOption "eza";
-    ondir.enable = mkTrueEnableOption "ondir";
+    ondir.enable = mkEnableOption "ondir";
   };
 
   config = lib.mkIf cfg.enable {
