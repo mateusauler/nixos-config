@@ -8,7 +8,6 @@ let
   custom = customDefaults
     // import (dir + /custom.nix)
     // { inherit hostname; };
-  username = custom.username;
   specialArgs' = specialArgs // { inherit inputs custom; };
   base = nixpkgs.lib.nixosSystem rec {
     # TODO: Look into replacing system with localSystem
