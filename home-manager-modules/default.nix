@@ -56,6 +56,7 @@ in
       btop
       du-dust
       htop-vim
+      python3
       tldr
     ];
 
