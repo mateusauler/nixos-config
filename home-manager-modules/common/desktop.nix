@@ -25,7 +25,7 @@ in
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   config = lib.mkIf cfg.enable {
-    modules = pkgs.lib.enableModules module-names // {
+    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
       change-wallpaper.command = "${pkgs.swww}/bin/swww img";
     };
 
