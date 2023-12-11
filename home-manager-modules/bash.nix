@@ -7,7 +7,7 @@ in {
   programs.bash = {
     enable = true;
     shellAliases = (import ./shell-aliases.nix args)
-                // (import ./fish/abbreviations.nix args)
+                // config.programs.fish.shellAbbrs
                 // { ".." = "cd .."; };
     historyControl = [ "ignorespace" "ignoredups" "erasedups" ];
     initExtra = "sh ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}";
