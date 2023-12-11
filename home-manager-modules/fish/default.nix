@@ -3,7 +3,7 @@
 let
   cfg = config.modules.fish;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
-  inherit (lib) mkDefault mkEnableOption;
+  inherit (lib) mkDefault mkEnableOption mkOption;
   inherit (pkgs.lib) mkTrueEnableOption;
 in
 {
@@ -12,10 +12,23 @@ in
     pfetch.enable = mkTrueEnableOption "pfetch";
     eza.enable = mkTrueEnableOption "eza";
     ondir.enable = mkEnableOption "ondir";
+    functions = with lib.types; mkOption {
+      type = attrsOf (submodule {
+        options = {
+          enable = mkTrueEnableOption null;
+          path = mkOption { type = path; };
+        };
+      });
+      # TODO: User should declare this as `default.default = ./functions`
+      # default.default.path = ./functions;
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = (lib.optional cfg.pfetch.enable pkgs.pfetch) ++ (lib.optional cfg.ondir.enable pkgs.ondir);
+
+    modules.fish.functions.default.path = lib.mkDefault ./functions;
 
     programs = {
       eza.enable = cfg.eza.enable;
@@ -44,11 +57,30 @@ in
       $DRY_RUN_CMD rm -f $VERBOSE_ARG ${config.xdg.configHome}/fish/fish_variables
     '';
 
-    xdg.configFile = {
-      "fish/functions" = {
-        source = ./functions;
-        recursive = true;
-      };
+    xdg.configFile = (
+      let
+        # Finds all of the functions in a given directory
+        readFiles = p: lib.filterAttrs (_: type: type == "regular") (builtins.readDir p);
+
+        # Transforms a given set into the format { "fish/functions/..." = ...; }
+        mapToXdgFile = p: name: _: lib.nameValuePair "fish/functions/${name}" ({ source = "${p}/${name}"; });
+
+        # Maps all found files in path `p` into xdg sets
+        pathToXdgFileSet = p: lib.mapAttrs' (mapToXdgFile p) (readFiles p);
+
+
+        # Filter enabled fish functions
+        enabledFunctions = lib.filterAttrs (_: { enable, ... }: enable) cfg.functions;
+
+        # Map configured fish functions into the format { name = path; }
+        enabledPathSets = lib.mapAttrs (_: { path, ... }: path) enabledFunctions;
+
+        # List of all enabled paths
+        enabledPaths = lib.attrValues enabledPathSets;
+      in
+      # Turn enabled fish function paths into xdg file sets of files found in them
+      lib.foldl (acc: p: acc // (pathToXdgFileSet p)) { } enabledPaths
+    ) // {
       "fish/functions/ondir_prompt_hook.fish" = {
         enable = cfg.ondir.enable;
         text = ''
