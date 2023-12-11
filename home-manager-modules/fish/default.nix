@@ -25,7 +25,7 @@ in
         shellAbbrs = (import ./abbreviations.nix args);
 
         interactiveShellInit = ''
-          sh ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
+          ${pkgs.bash}/bin/bash ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
           ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
         '';
 
