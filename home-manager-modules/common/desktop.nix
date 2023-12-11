@@ -38,8 +38,6 @@ in
     home.packages = with pkgs; [
       at-spi2-core
       brave
-      # TODO: Move to distrobox module
-      distrobox
       easyeffects
       firefox
       gimp

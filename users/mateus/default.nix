@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in
 {
   users.users.mateus = {
     isNormalUser = true;
@@ -9,6 +12,8 @@
       "input"
       "networkmanager"
       "disk"
+    ] ++ ifTheyExist [
+      "docker"
     ];
 
     hashedPasswordFile = config.sops.secrets.password-mateus.path;

@@ -4,7 +4,7 @@ let
   inherit (custom) username;
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
-  module-names = [ "barrier" "localsend" ];
+  module-names = [ "barrier" "distrobox" "localsend" ];
 in
 {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
@@ -80,13 +80,5 @@ in
       firejail
       nodejs
     ];
-
-    # TODO: Move to docker/distrobox module
-    virtualisation.docker = {
-      enable = true;
-      rootless.enable = true;
-    };
-    # Enable rootless docker access
-    users.users.${username}.extraGroups = [ "docker" ];
   };
 }

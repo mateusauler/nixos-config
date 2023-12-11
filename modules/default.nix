@@ -10,6 +10,7 @@ in
     ./barrier.nix
     ./deploy-secrets
     ./desktop.nix
+    ./distrobox.nix
     ./efi.nix
     ./locale.nix
     ./localsend.nix
