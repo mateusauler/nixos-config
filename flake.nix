@@ -7,6 +7,7 @@
     nixpkgs = nixpkgs-unstable;
 
     private-config = {
+      # url = "path:/home/mateus/repos/nixos-private-config";
       url = "git+ssh://git@github.com/mateusauler/nixos-private-config";
       flake = false;
     };
