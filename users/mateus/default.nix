@@ -13,6 +13,7 @@ in
       "networkmanager"
       "disk"
     ] ++ ifTheyExist [
+      "vpn"
       "docker"
     ];
 
