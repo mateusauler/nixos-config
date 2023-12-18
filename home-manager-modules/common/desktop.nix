@@ -10,6 +10,7 @@ let
     "ferdium"
     "gtk"
     "hyprland"
+    "mega"
     "meld"
     "mpv"
     "neovim.neovide"

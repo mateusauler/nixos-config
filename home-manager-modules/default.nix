@@ -23,6 +23,7 @@ in
     ./librewolf
     ./libvirtd.nix
     ./mako.nix
+    ./mega.nix
     ./meld.nix
     ./mpv.nix
     ./neovim
