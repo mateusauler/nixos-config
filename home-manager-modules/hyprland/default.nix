@@ -4,7 +4,8 @@ let
   cfg = config.modules.hyprland;
   module-names = [ "kitty" "mako" "waybar" "wofi" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
-in {
+in
+{
   options.modules.hyprland = {
     enable = mkEnableOption "hyprland";
     modKey = mkOption { default = "SUPER"; };
@@ -56,21 +57,23 @@ in {
     programs.fish.loginShellInit = "[ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland";
 
     modules = pkgs.lib.enableModules module-names // {
-      hyprland.autostart = let
-        pkgPresent = pkg: (builtins.elem pkg config.home.packages);
+      hyprland.autostart =
+        let
+          pkgPresent = pkg: (builtins.elem pkg config.home.packages);
 
-        specials = { # Programs with non-standard default enable conditions
-          waybar.enable = mkDefault config.modules.waybar.enable;
-          wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
-        };
+          specials = {
+            # Programs with non-standard default enable conditions
+            waybar.enable = mkDefault config.modules.waybar.enable;
+            wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
+          };
 
-        defaults = lib.foldl
-          # The default enable condition is a package's presence in the home.packages list
-          (acc: el: acc // { ${el}.enable = mkDefault (pkgPresent pkgs.${el}); })
-          { }
-          # Autostart programs not in specials
-          (lib.lists.subtractLists (lib.attrNames specials) (lib.attrNames cfg.autostart));
-      in
+          defaults = lib.foldl
+            # The default enable condition is a package's presence in the home.packages list
+            (acc: el: acc // { ${el}.enable = mkDefault (pkgPresent pkgs.${el}); })
+            { }
+            # Autostart programs not in specials
+            (lib.lists.subtractLists (lib.attrNames specials) (lib.attrNames cfg.autostart));
+        in
         defaults // specials;
     };
 
@@ -78,35 +81,37 @@ in {
       enable = true;
       systemd.enable = mkDefault true;
       xwayland.enable = mkDefault true;
-      settings = let
-        # User configured autostart
-        autostart = map # Map the list of command attrsets into a list of command strings
-          (e: e.command)
-          # TODO: Find a better way to modify the commands with the wait-for logic
-          (map # Apply the wait-for logic on the commands
-            (v: v //
-              {command =
-                # Prepend the waiting machinery to the command
-                if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
-                  # TODO: Improve the wait-for machinery
-                  "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
-                else
-                  v.command;
-              }
-            )
-            (builtins.filter # Filter the enabled commands
-              (e: e.enable)
-              (builtins.attrValues # Get the command sets as a list
-                (lib.recursiveUpdate # Append wait-for option to command sets that need it
-                  (cfg.autostart // cfg.extraAutostart)
-                  cfg.autostart-wait-for
+      settings =
+        let
+          # User configured autostart
+          autostart = map # Map the list of command attrsets into a list of command strings
+            (e: e.command)
+            # TODO: Find a better way to modify the commands with the wait-for logic
+            (map # Apply the wait-for logic on the commands
+              (v: v //
+                {
+                  command =
+                    # Prepend the waiting machinery to the command
+                    if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
+                    # TODO: Improve the wait-for machinery
+                      "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
+                    else
+                      v.command;
+                }
+              )
+              (builtins.filter # Filter the enabled commands
+                (e: e.enable)
+                (builtins.attrValues # Get the command sets as a list
+                  (lib.recursiveUpdate # Append wait-for option to command sets that need it
+                    (cfg.autostart // cfg.extraAutostart)
+                    cfg.autostart-wait-for
+                  )
                 )
               )
-            )
-          );
-      in
+            );
+        in
         # Concatenates the exec-once list with the generated autostart
-        # TODO: Find a more elegant way to do this
+          # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ autostart else v)
           (cfg.extraOptions // import ./settings.nix args);
@@ -123,8 +128,9 @@ in {
         swww
         wl-clip-persist
         wlsunset
-        xwaylandvideobridge
-      ] ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
+      ]
+      ++ (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
+      ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
     };
   };
 }
