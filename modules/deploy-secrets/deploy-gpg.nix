@@ -19,7 +19,7 @@ lib.mkIf cfg.enable {
   };
 
   systemd.user.services = foldlUsers {
-    fn = acc: name: _: acc // {
+    fn = acc: name: user: acc // {
       "deploy-gpg-keys-${name}" = {
         script =
           let
@@ -29,6 +29,8 @@ lib.mkIf cfg.enable {
             getSecretKeyIDs = "$(gpg --list-secret-keys --keyid-format LONG | awk '/sec/{if (match($0, /([0-9A-F]{16,})/, m)) print m[1]}')";
           in
           ''
+            mkdir -p "$GNUPGHOME" -m "0700"
+
             if [ -s "${secret-path}" ] ; then
               echo Deploying GPG...
 
