@@ -81,6 +81,10 @@ function fish_nim_prompt
 	# Wrap the info
 	_prompt_wrapper $info
 
+	if test -n "$DISTROBOX_ENTER_PATH"
+		_prompt_wrapper "$(hostname -s)" yellow 
+	end
+
 	if test -n "$IN_NIX_SHELL"
 		set -l shell_name nix-shell
 		if test -n "$name"
