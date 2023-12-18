@@ -20,7 +20,7 @@ in {
           "$mon1,prefered,auto,1"
         ];
 
-        workspace = [];
+        workspace = [ ];
       };
     };
     autostart =
@@ -40,6 +40,7 @@ in {
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
+          xwaylandvideobridge = "xwaylandvideobridge";
 
           # TODO: Add kdeconnect & syncthing-tray
         };
@@ -47,7 +48,7 @@ in {
     extraAutostart = with lib.types; mkOption {
       default = { };
       type = attrsOf str;
-      apply = set: builtins.mapAttrs ( name: value: { enable = true; command = value; }) set;
+      apply = set: builtins.mapAttrs (name: value: { enable = true; command = value; }) set;
     };
   };
 
@@ -122,6 +123,7 @@ in {
         swww
         wl-clip-persist
         wlsunset
+        xwaylandvideobridge
       ] ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
     };
   };
