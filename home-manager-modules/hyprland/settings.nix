@@ -113,9 +113,10 @@ in
 
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
-    "workspace 4 silent, class:((F|f)erdium)"
-    "workspace 5 silent, class:((S|s)team)"
-    "workspace 5 silent, title:((S|s)team)"
+    "workspace 4 silent, class:((V|v)encord(D|d)esktop)"
+    "workspace 5 silent, class:((F|f)erdium)"
+    "workspace 6 silent, class:((S|s)team)"
+    "workspace 6 silent, title:((S|s)team)"
     "float,              title:((S|s)team (S|s)ettings)"
     "workspace 10 silent, class:(Spotify)"
 

@@ -29,6 +29,7 @@ in
         "3, monitor:$mon1"
         "4, monitor:$mon3"
         "5, monitor:$mon2"
+        "6, monitor:$mon2"
         "10, monitor:$mon2"
       ];
     };
