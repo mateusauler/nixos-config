@@ -52,8 +52,9 @@ in
       spotify
       syncthing-tray
       ungoogled-chromium
-      vscodium
+      vesktop
       vlc
+      vscodium
       wl-clipboard
       yt-dlp
       zathura
