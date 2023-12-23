@@ -106,7 +106,7 @@ in
     "float,  class:(com\\.github\\.hluk\\.copyq)"
     "center, class:(com\\.github\\.hluk\\.copyq)"
 
-    "float, class:(MEGAsync)"
+    "float, class:(nz\\.co\\.mega\\.)"
 
     "tile, class:(Nsxiv)"
     "tile, class:(DesktopEditors)"
