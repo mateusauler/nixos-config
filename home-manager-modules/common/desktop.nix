@@ -7,6 +7,7 @@ let
   module-names = [
     "browser"
     "change-wallpaper"
+    "direnv"
     "ferdium"
     "gtk"
     "hyprland"
@@ -28,12 +29,6 @@ in
   config = lib.mkIf cfg.enable {
     modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
       change-wallpaper.command = "${pkgs.swww}/bin/swww img";
-    };
-
-    programs.direnv = {
-      enable = mkDefault true;
-      enableBashIntegration = mkDefault true;
-      nix-direnv.enable = mkDefault true;
     };
 
     home.packages = with pkgs; [

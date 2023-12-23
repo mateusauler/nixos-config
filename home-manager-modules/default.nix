@@ -14,6 +14,7 @@ in
     ./bash.nix
     ./bat.nix
     ./common
+    ./direnv.nix
     ./ferdium.nix
     ./fish
     ./git.nix
