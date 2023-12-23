@@ -11,14 +11,17 @@ rec {
 
   gs = "git status";
   gu = "git push";
-  gl = "git pull";
+  gp = "git pull";
   ga = "git add";
   gap = "git add -p";
   gc = "git commit";
   gca = "git commit --amend";
+  gcaa = "git commit --amend -a";
   gh = "git checkout";
   ghb = "git checkout -b";
   gb = "git branch";
+  gl = "git log";
+  gsh = "git show";
   gd = "git diff";
   gdc = "git diff --cached";
   gg = "git grep";
