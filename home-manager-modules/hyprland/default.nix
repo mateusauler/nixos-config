@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
-  module-names = [ "kitty" "mako" "waybar" "wofi" ];
+  module-names = [ "copyq" "kitty" "mako" "waybar" "wofi" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in
 {
@@ -117,20 +117,16 @@ in
           (cfg.extraOptions // import ./settings.nix args);
     };
 
-    home = {
-      packages = with pkgs; [
-        # TODO: Include copyq configs
-        copyq
-        hyprland-protocols
-        hyprpicker
-        hyprshot
-        libnotify
-        swww
-        wl-clip-persist
-        wlsunset
-      ]
-      ++ (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
-      ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
-    };
+    home.packages = with pkgs; [
+      hyprland-protocols
+      hyprpicker
+      hyprshot
+      libnotify
+      swww
+      wl-clip-persist
+      wlsunset
+    ]
+    ++ (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
+    ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
   };
 }
