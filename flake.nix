@@ -4,7 +4,7 @@
   inputs = rec {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs = nixpkgs-unstable;
+    nixpkgs = nixpkgs-stable;
 
     private-config = {
       # url = "path:/home/mateus/repos/nixos-private-config";
@@ -19,7 +19,8 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url =
+        "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -71,8 +72,8 @@
 
       specialArgs = { inherit nix-colors; };
 
-      mkHost = accumulator: hostname:
-        accumulator // {
+      mkHost = acc: hostname:
+        acc // {
           ${hostname} =
             lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs; };
         };
