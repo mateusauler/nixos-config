@@ -48,6 +48,7 @@ in {
           addIgnoredFile = false;
         };
         init.defaultBranch = "master";
+        mergetool.keepBackup = false;
       };
     };
   };
