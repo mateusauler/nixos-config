@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  module-names = [ "desktop" "efi" "virt-manager" ];
+  module-names = [ "desktop" "efi" "gaming" "virt-manager" ];
 in
 {
   imports = [
@@ -13,8 +13,6 @@ in
   modules = lib.enableModules module-names;
 
   networking.hostName = "glados";
-
-  programs.steam.enable = true;
 
   system.stateVersion = "22.11";
 }

@@ -36,11 +36,5 @@ in
     git.gpgKey = "37C12B2664A4FFBC42E743B24D551E363428C47E";
   };
 
-  home.packages = with pkgs; [
-    lutris
-    heroic
-    prismlauncher
-  ];
-
   home.stateVersion = "22.11";
 }

@@ -12,6 +12,7 @@ in
     ./desktop.nix
     ./distrobox.nix
     ./efi.nix
+    ./gaming.nix
     ./locale.nix
     ./localsend.nix
     ./nix.nix
