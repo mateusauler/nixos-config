@@ -9,28 +9,30 @@ rec {
 
   g = "git";
 
-  gs = "git status";
-  gu = "git push";
-  gp = "git pull";
   ga = "git add";
   gap = "git add -p";
-  gc = "git commit";
-  gca = "git commit --amend";
-  gcaa = "git commit --amend -a";
-  gh = "git checkout";
-  ghb = "git checkout -b";
   gb = "git branch";
-  gl = "git log";
-  gll = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-  gsh = "git show";
-  gd = "git diff";
+  gcaa = "git commit --amend -a";
+  gca = "git commit --amend";
+  gc = "git commit";
   gdc = "git diff --cached";
+  gd = "git diff";
+  gf = "git fetch";
   gg = "git grep";
   ggi = "git grep -i";
+  ghb = "git checkout -b";
+  gh = "git checkout";
+  gl = "git log";
+  gll = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+  gm = "git merge";
+  gp = "git pull";
   gr = "git rebase";
   gri = "git rebase -i";
-  gf = "git fetch";
-  gm = "git merge";
+  gs = "git status";
+  gsh = "git show";
+  gsp = "git stash pop";
+  gst = "git stash";
+  gu = "git push";
   cg = "cd (git rev-parse --show-toplevel)";
 
   nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
