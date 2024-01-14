@@ -31,6 +31,11 @@
       url = "github:mateusauler/hyprshot-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    satisfactory-mod-manager = {
+      url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ hyprshot, nix-colors, nixpkgs, ... }:
