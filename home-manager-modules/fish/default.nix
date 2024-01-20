@@ -9,7 +9,7 @@ in
 {
   options.modules.fish = {
     enable = mkEnableOption "fish";
-    pfetch.enable = mkTrueEnableOption "pfetch";
+    pfetch.enable = mkEnableOption "pfetch";
     eza.enable = mkTrueEnableOption "eza";
     ondir.enable = mkEnableOption "ondir";
     functions = with lib.types; mkOption {
