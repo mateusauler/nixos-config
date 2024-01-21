@@ -9,8 +9,6 @@ let
   ];
 in
 {
-  imports = [ ../../home-manager-modules ];
-
   modules = pkgs.lib.enableModules module-names // {
     hyprland.extraOptions = {
       "$mon1" = "DP-3";

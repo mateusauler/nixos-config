@@ -7,8 +7,6 @@ let
   ];
 in
 {
-  imports = [ ../../home-manager-modules ];
-
   modules = pkgs.lib.enableModules module-names // {
     hyprland.extraAutostart = {
       networkmanagerapplet = "nm-applet";

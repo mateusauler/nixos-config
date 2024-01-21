@@ -21,6 +21,7 @@ nixpkgs.lib.nixosSystem rec {
 
   modules = [
     (dir + /configuration.nix)
+    ../modules
     home-manager.nixosModules.home-manager
     {
       home-manager = {
@@ -28,6 +29,8 @@ nixpkgs.lib.nixosSystem rec {
         useGlobalPkgs = true;
         useUserPackages = false;
         extraSpecialArgs = specialArgs';
+        verbose = true;
+        sharedModules = [ ../home-manager-modules ];
       };
     }
     private-config.hosts.${hostname} or { }
