@@ -11,14 +11,14 @@ creation_rules:
         - *wheatley
       pgp:
         - *pgp
-  - path_regex: hosts/GLaDOS/secrets.ya?ml$
+  - path_regex: hosts/glados/secrets.ya?ml$
     key_groups:
     -
       age:
         - *glados
       pgp:
         - *pgp
-  - path_regex: hosts/Wheatley/secrets.ya?ml$
+  - path_regex: hosts/wheatley/secrets.ya?ml$
     key_groups:
     -
       age:
