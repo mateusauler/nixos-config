@@ -73,6 +73,7 @@
         };
       };
 
+      private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
 
       specialArgs = { inherit nix-colors; };
@@ -86,7 +87,7 @@
       inherit (pkgs) lib;
     in
     {
-      nixosConfigurations = lib.foldl mkHost { } machines;
+      nixosConfigurations = (private-config.systems { inherit system inputs pkgs customDefaults specialArgs; }) // (lib.foldl mkHost { } machines);
       devShells.${system}.default = import ./shell.nix { inherit pkgs; };
     };
 }

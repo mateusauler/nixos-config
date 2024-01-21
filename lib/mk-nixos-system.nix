@@ -1,10 +1,9 @@
 { lib, ... }:
 
-{ hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, ... }:
+{ hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, dir ? ../hosts/${hostname}, ... }:
 let
   inherit (inputs) home-manager nixpkgs;
 
-  dir = ../hosts + "/${hostname}";
   custom = customDefaults
     // import (dir + /custom.nix)
     // { inherit hostname; };
