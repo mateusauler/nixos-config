@@ -18,6 +18,7 @@ in
     ./nix.nix
     ./openssh.nix
     ./virt-manager
+    ../users
     inputs.sops-nix.nixosModules.sops
   ];
 

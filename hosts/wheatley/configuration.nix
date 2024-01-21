@@ -6,7 +6,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../users/mateus
   ];
 
   boot.loader = {
@@ -46,6 +45,8 @@ in
   };
 
   modules = lib.enableModules module-names;
+
+  enabledUsers = [ "mateus" ];
 
   system.stateVersion = "23.05";
 }

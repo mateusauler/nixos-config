@@ -6,10 +6,11 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../users/mateus
   ];
 
   modules = lib.enableModules module-names;
+
+  enabledUsers = [ "mateus" ];
 
   networking.hostName = "glados";
 

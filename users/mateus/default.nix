@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
+lib.mkIf (builtins.elem "mateus" config.enabledUsers)
 {
   users.users.mateus = {
     isNormalUser = true;
