@@ -2,6 +2,7 @@ keys:
   - &pgp 8D1DC1ED8C610F59B049CBF2495241EAF24EB05D
   - &glados age1w2mp6ut4m03rrlymz0j6f32e5wjwnqjz8rjcxd48xvay5sr624rq0mz9gt
   - &wheatley age199l2w9j84pc4naz6ees3dhw6kp0tp3xn54wk42mfkh9q5ewj6ydqxfjjyt
+  - &work age1t52tqzfzst322eja6hxrz4n537uyts3d6szu6pvjkuwf45zuhcxsjfey99
 creation_rules:
   - path_regex: users/secrets.ya?ml$
     key_groups:
@@ -9,6 +10,7 @@ creation_rules:
       age:
         - *glados
         - *wheatley
+        - *work
       pgp:
         - *pgp
   - path_regex: hosts/glados/secrets.ya?ml$
