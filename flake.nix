@@ -81,7 +81,7 @@
       mkHost = acc: hostname:
         acc // {
           ${hostname} =
-            lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs; };
+            lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs private-config; };
         };
 
       inherit (pkgs) lib;

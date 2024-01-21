@@ -1,6 +1,6 @@
 { lib, ... }:
 
-{ hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, dir ? ../hosts/${hostname}, ... }:
+{ hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, dir ? ../hosts/${hostname}, private-config ? import inputs.private-config (inputs // { inherit lib pkgs; }), ... }:
 let
   inherit (inputs) home-manager nixpkgs;
 
@@ -8,8 +8,6 @@ let
     // import (dir + /custom.nix)
     // { inherit hostname; };
   specialArgs' = specialArgs // { inherit inputs custom; };
-
-  private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
 in
 nixpkgs.lib.nixosSystem rec {
   # TODO: Look into replacing system with localSystem
