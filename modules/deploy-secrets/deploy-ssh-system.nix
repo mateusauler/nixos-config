@@ -7,7 +7,7 @@ in
 lib.mkIf cfg.enable {
   sops.secrets =
     foldlKeyTypes {
-      fn = (acc: k: acc // { "openssh/${k}" = { sopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml; }; });
+      fn = (acc: k: acc // { "openssh/${k}" = { sopsFile = config.hostBaseDir + /secrets.yaml; }; });
     };
 
   environment.etc = foldlKeyTypes {
@@ -17,7 +17,7 @@ lib.mkIf cfg.enable {
       in
       acc // {
         "ssh/${key}" = {
-          source = ../../hosts/${config.networking.hostName} + "/${key}";
+          source = config.hostBaseDir + /${key};
           mode = "0644";
         };
       });

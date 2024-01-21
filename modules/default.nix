@@ -5,6 +5,8 @@ let
   module-names = [ "appimage" "deploy-secrets" "openssh" ];
 in
 {
+  options.hostBaseDir = lib.mkOption { default = ../hosts/${config.networking.hostName}; };
+
   imports = [
     ./appimage.nix
     ./barrier.nix
@@ -22,42 +24,43 @@ in
     inputs.sops-nix.nixosModules.sops
   ];
 
-  sops.gnupg.sshKeyPaths = [ ];
+  config = {
 
-  modules = lib.enableModules module-names;
+    sops.gnupg.sshKeyPaths = [ ];
 
-  boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
+    modules = lib.enableModules module-names;
 
-  networking.networkmanager.enable = mkDefault true;
+    boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
-  console.font = mkDefault "Lat2-Terminus16";
+    networking.networkmanager.enable = mkDefault true;
 
-  environment.enableAllTerminfo = true;
-  environment.systemPackages = with pkgs; [
-    dconf
-    file
-    ripgrep
-    tree
-    unzip
-    zip
-  ];
+    console.font = mkDefault "Lat2-Terminus16";
 
-  # TODO: Handle this in home-manager
-  programs.fish.enable = true;
+    environment.enableAllTerminfo = true;
+    environment.systemPackages = with pkgs; [
+      dconf
+      file
+      ripgrep
+      tree
+      unzip
+      zip
+    ];
 
-  users = {
-    mutableUsers = false;
-    users.root = {
-      hashedPassword = "!"; # Disable root password login
-      shell = pkgs.fish;
+    # TODO: Handle this in home-manager
+    programs.fish.enable = true;
+
+    users = {
+      mutableUsers = false;
+      users.root = {
+        hashedPassword = "!"; # Disable root password login
+        shell = pkgs.fish;
+      };
     };
-  };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = mkDefault true;
+    programs.mtr.enable = true;
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = mkDefault true;
+    };
   };
 }
