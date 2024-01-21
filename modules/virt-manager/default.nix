@@ -1,9 +1,8 @@
-{ config, custom, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.modules.virt-manager;
 
-  inherit (custom) username;
   inherit (lib) mkDefault;
 in
 {
@@ -21,7 +20,7 @@ in
       };
     };
 
-    users.users.${username}.extraGroups = [ "libvirtd" ];
+    users.groups.libvirtd = { };
 
     environment.systemPackages = [ pkgs.virt-manager ];
   };

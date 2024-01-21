@@ -8,13 +8,14 @@ in
     isNormalUser = true;
     group = "users";
     extraGroups = [
-      "wheel"
+      "disk"
       "input"
       "networkmanager"
-      "disk"
+      "wheel"
     ] ++ ifTheyExist [
-      "vpn"
       "docker"
+      "libvirtd"
+      "vpn"
     ];
 
     hashedPasswordFile = config.sops.secrets.password-mateus.path;
