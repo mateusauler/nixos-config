@@ -160,11 +160,11 @@
     "private-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1705862928,
-        "narHash": "sha256-OGm3XbPpvDiIX8DTP7Y9XIcIJSPsZEgEV7QLhOAiIG8=",
+        "lastModified": 1705952605,
+        "narHash": "sha256-uQ0gYEFTG1r2097vWx2ZtKBJ4+YDMZTtG8rFXYnAFNY=",
         "ref": "refs/heads/master",
-        "rev": "bcf491700fd59c71ce42cc9dab266a0b0c20b61d",
-        "revCount": 54,
+        "rev": "9fb2effb3d356cb037bd90a92c5ece50d3a10b20",
+        "revCount": 55,
         "type": "git",
         "url": "ssh://git@github.com/mateusauler/nixos-private-config"
       },
