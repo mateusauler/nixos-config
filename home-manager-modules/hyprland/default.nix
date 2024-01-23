@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }@args:
+{ config, lib, pkgs, pkgs-unstable, specialArgs, ... }@args:
 
 let
   cfg = config.modules.hyprland;
@@ -79,6 +79,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      package = pkgs-unstable.hyprland;
       systemd.enable = mkDefault true;
       xwayland.enable = mkDefault true;
       settings =
