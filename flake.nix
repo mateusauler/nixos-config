@@ -38,7 +38,7 @@
     };
   };
 
-  outputs = inputs@{ hyprshot, nix-colors, nixpkgs, ... }:
+  outputs = inputs@{ hyprshot, nix-colors, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
 
@@ -49,11 +49,15 @@
         })
       ];
 
-      pkgs = import nixpkgs {
+      pkgs-args = {
         inherit overlays;
         localSystem = system;
         config.allowUnfree = true;
       };
+
+      pkgs = import nixpkgs pkgs-args;
+      pkgs-stable = import nixpkgs-stable pkgs-args;
+      pkgs-unstable = import nixpkgs-unstable pkgs-args;
 
       # Default values of the custom set
       customDefaults = rec {
@@ -76,7 +80,7 @@
       private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
 
-      specialArgs = { inherit nix-colors; };
+      specialArgs = { inherit nix-colors pkgs-stable pkgs-unstable; };
 
       mkHost = acc: hostname:
         acc // {
