@@ -1,10 +1,8 @@
-{ custom, config, inputs, lib, pkgs, nix-colors, ... }@args:
+{ custom, config, inputs, lib, osConfig, pkgs, nix-colors, ... }@args:
 
 let
   inherit (lib) mkDefault;
   inherit (custom) dots-path color-scheme;
-
-  system-nix-module = import ../modules/nix.nix args;
 
   module-names = [ "bat" "fish" "neovim" "wget" "xdg" "xdg.compliance" ];
 in
@@ -74,5 +72,5 @@ in
 
   # Use the same nix settings in home-manager as in the full system config
   # This is useful if using standalone home-manager
-  nix.settings = system-nix-module.nix.settings;
+  nix.settings = osConfig.nix.settings;
 }
