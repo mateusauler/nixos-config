@@ -50,7 +50,7 @@ in
       ungoogled-chromium
       vesktop
       vlc
-      vscodium
+      vscodium-fhs
       wl-clipboard
       yt-dlp
       zathura
