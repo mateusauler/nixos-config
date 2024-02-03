@@ -8,10 +8,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     boot.loader = {
-      systemd-boot = {
-        enable = mkDefault true;
-        configurationLimit = mkDefault 10;
-      };
+      systemd-boot.enable = mkDefault true;
       efi.canTouchEfiVariables = mkDefault true;
       timeout = mkDefault 0;
     };
