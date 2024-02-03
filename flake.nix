@@ -26,7 +26,7 @@
 
     sops-nix = {
       url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
@@ -35,7 +35,7 @@
 
     hyprshot = {
       url = "github:mateusauler/hyprshot-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     satisfactory-mod-manager = {
@@ -65,6 +65,10 @@
       pkgs-stable = import nixpkgs-stable pkgs-args;
       pkgs-unstable = import nixpkgs-unstable pkgs-args;
 
+      inherit (pkgs) lib;
+      lib-stable = pkgs-stable.lib;
+      lib-unstable = pkgs-unstable.lib;
+
       # Default values of the custom set
       customDefaults = rec {
         dots-path = "~/nixos";
@@ -85,16 +89,15 @@
 
       private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
+      hosts-preferred-nixpkgs-branch = { };
 
-      specialArgs = { inherit nix-colors pkgs-stable pkgs-unstable; };
+      specialArgs = { inherit nix-colors pkgs-stable pkgs-unstable lib-stable lib-unstable; };
 
       mkHost = acc: hostname:
         acc // {
           ${hostname} =
-            lib.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs private-config; };
+            lib-stable.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs private-config hosts-preferred-nixpkgs-branch; };
         };
-
-      inherit (pkgs) lib;
     in
     {
       nixosConfigurations = (private-config.systems { inherit system inputs pkgs customDefaults specialArgs; }) // (lib.foldl mkHost { } machines);

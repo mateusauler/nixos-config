@@ -1,8 +1,29 @@
 { lib, ... }:
 
-{ hostname, system, inputs, pkgs, specialArgs ? { }, customDefaults ? { }, dir ? ../hosts/${hostname}, private-config ? import inputs.private-config (inputs // { inherit lib pkgs; }), ... }:
+{ hostname
+, system
+, inputs
+, specialArgs ? { }
+, customDefaults ? { }
+, dir ? ../hosts/${hostname}
+, private-config ? import inputs.private-config (inputs // { inherit lib; inherit (args) pkgs; })
+, hosts-preferred-nixpkgs-branch ? { }
+, ...
+}@args:
 let
-  inherit (inputs) home-manager nixpkgs;
+  nixpkgs-branch = hosts-preferred-nixpkgs-branch.${hostname} or null;
+
+  get-variable = base-name: def: alt-origin:
+    if nixpkgs-branch == null then
+      def
+    else if nixpkgs-branch == "stable" || nixpkgs-branch == "unstable" then
+      alt-origin."${base-name}-${nixpkgs-branch}"
+    else
+      throw "Unknown nixpkgs branch: ${nixpkgs-branch}";
+
+  nixpkgs = get-variable "nixpkgs" inputs.nixpkgs inputs;
+  pkgs = get-variable "pkgs" args.pkgs specialArgs;
+  home-manager = get-variable "home-manager" inputs.home-manager inputs;
 
   custom = customDefaults
     // import (dir + /custom.nix)
