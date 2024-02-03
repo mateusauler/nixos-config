@@ -22,6 +22,6 @@ in
 
     users.groups.libvirtd = { };
 
-    environment.systemPackages = [ pkgs.virt-manager ];
+    programs.virt-manager.enable = true;
   };
 }
