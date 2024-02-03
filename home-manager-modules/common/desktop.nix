@@ -19,7 +19,6 @@ let
     "obs"
     "power-menu"
     "qt"
-    "wally"
     "xresources"
   ];
 in

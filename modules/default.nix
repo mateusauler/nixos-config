@@ -20,6 +20,7 @@ in
     ./nix.nix
     ./openssh.nix
     ./virt-manager
+    ./wally.nix
     ../users
     inputs.sops-nix.nixosModules.sops
   ];

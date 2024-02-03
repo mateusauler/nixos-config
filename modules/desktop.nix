@@ -4,7 +4,7 @@ let
   inherit (custom) username;
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
-  module-names = [ "barrier" "distrobox" "localsend" ];
+  module-names = [ "barrier" "distrobox" "localsend" "wally" ];
 in
 {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";

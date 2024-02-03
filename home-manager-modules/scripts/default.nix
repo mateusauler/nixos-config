@@ -6,6 +6,5 @@
     ./change-wallpaper.nix
     ./power-menu.nix
     ./steam-xdg.nix
-    ./wally.nix
   ];
 }

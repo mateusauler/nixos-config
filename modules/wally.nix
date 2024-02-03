@@ -1,4 +1,4 @@
-{ custom, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.wally;
@@ -10,7 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
+    environment.systemPackages =
     let
       wally = pkgs.writeShellScriptBin "wll" ''
         if [ $# -ge 1 ]; then
@@ -21,5 +21,6 @@ in {
       '';
     in
     [ wally ];
+    hardware.keyboard.zsa.enable = true;
   };
 }
