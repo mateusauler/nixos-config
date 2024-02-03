@@ -87,30 +87,6 @@ in
   binds.scroll_event_delay = 80;
 
   windowrulev2 = [
-    "move 50% 100%-32,    title:^(.*— Sharing Indicator)"
-    "minsize 52 32,       title:^(.*— Sharing Indicator)"
-    "float,               title:^(.*— Sharing Indicator)"
-    "fakefullscreen,      title:^(.*— Sharing Indicator)"
-    "nofullscreenrequest, title:^(.*— Sharing Indicator)"
-    "noinitialfocus,      title:^(.*— Sharing Indicator)"
-    "noborder,            title:^(.*— Sharing Indicator)"
-
-    "float,       class:(wofi)"
-    "center,      class:(wofi)"
-    "stayfocused, class:(wofi)"
-    "rounding 10, class:(wofi)"
-    "noborder,    class:(wofi)"
-    "pin,         class:(wofi)"
-    "dimaround,   class:(wofi)"
-
-    "float,  class:(com\\.github\\.hluk\\.copyq)"
-    "center, class:(com\\.github\\.hluk\\.copyq)"
-
-    "float, class:(nz\\.co\\.mega\\.)"
-
-    "tile, class:(Nsxiv)"
-    "tile, class:(DesktopEditors)"
-
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
     "workspace 4 silent, class:((V|v)encord(D|d)esktop)"
@@ -121,12 +97,46 @@ in
     "float,              title:((S|s)team (S|s)ettings)"
     "workspace 10 silent, class:(Spotify)"
 
+    # Browser screen sharing indicator
+    "move 50% 100%-32,    title:^(.*— Sharing Indicator)"
+    "minsize 52 32,       title:^(.*— Sharing Indicator)"
+    "float,               title:^(.*— Sharing Indicator)"
+    "fakefullscreen,      title:^(.*— Sharing Indicator)"
+    "nofullscreenrequest, title:^(.*— Sharing Indicator)"
+    "noinitialfocus,      title:^(.*— Sharing Indicator)"
+    "noborder,            title:^(.*— Sharing Indicator)"
+
+    # CopyQ
+    "float,  class:(com\\.github\\.hluk\\.copyq)"
+    "center, class:(com\\.github\\.hluk\\.copyq)"
+
+    # OnlyOffice
+    "tile, class:(DesktopEditors)"
+
+    # Mega
+    "float, class:(nz\\.co\\.mega\\.)"
+
+    # mpv
     "monitor $mon1, class:(mpv)"
     "fullscreen,    class:(mpv)"
 
+    # nsxiv
+    "tile, class:(Nsxiv)"
+
+    # qBitTorrent
     "monitor $mon2,   class:(org\\.qbittorrent\\.qBittorrent)"
     "workspace empty silent, class:(org\\.qbittorrent\\.qBittorrent) title:^(qBittorrent v([0-9]\\.){2}[0-9])$"
 
+    # Wofi
+    "float,       class:(wofi)"
+    "center,      class:(wofi)"
+    "stayfocused, class:(wofi)"
+    "rounding 10, class:(wofi)"
+    "noborder,    class:(wofi)"
+    "pin,         class:(wofi)"
+    "dimaround,   class:(wofi)"
+
+    # XWaylandVideoBridge
     "opacity 0.0 override 0.0 override, class:^(xwaylandvideobridge)$"
     "noanim,                            class:^(xwaylandvideobridge)$"
     "nofocus,                           class:^(xwaylandvideobridge)$"
