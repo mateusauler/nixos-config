@@ -24,6 +24,8 @@ lib.mkIf (builtins.elem "mateus" config.enabledUsers)
 
     createHome = true;
     home = "/home/mateus";
+
+    openssh.authorizedKeys.keys = [ (builtins.readFile ./id_ed25519.pub) ];
   };
 
   sops.secrets.password-mateus = {
