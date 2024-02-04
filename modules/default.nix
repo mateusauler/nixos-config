@@ -21,6 +21,7 @@ in
     ./openssh.nix
     ./virt-manager
     ./wally.nix
+    ./zswap.nix
     ../users
     inputs.sops-nix.nixosModules.sops
   ];
