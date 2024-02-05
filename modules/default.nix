@@ -51,14 +51,6 @@ in
     # TODO: Handle this in home-manager
     programs.fish.enable = true;
 
-    users = {
-      mutableUsers = false;
-      users.root = {
-        hashedPassword = "!"; # Disable root password login
-        shell = pkgs.fish;
-      };
-    };
-
     programs.mtr.enable = true;
     programs.gnupg.agent = {
       enable = true;
