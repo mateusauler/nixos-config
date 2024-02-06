@@ -122,6 +122,7 @@ in
       hyprpicker
       hyprshot
       libnotify
+      swaylock-effects
       swww
       wl-clip-persist
       wlsunset

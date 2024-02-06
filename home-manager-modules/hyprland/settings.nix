@@ -5,6 +5,10 @@ let
   workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // { "0" = "10"; };
   directionsArrows = { left = "l"; right = "r"; up = "u"; down = "d"; };
   directionsHJKL   = { H    = "l"; L     = "r"; K  = "u"; J    = "d"; };
+  # FIXME: Improve readability
+  # TODO: Extract this & allow user to configure via module
+  # TODO: Use nix-colors
+  swaylock = "swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 10x8 --effect-vignette 0.5:0.5 --ring-color bb00cc --key-hl-color 880033 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 --grace 2 --fade-in 0.2";
   inherit (cfg) modKey;
 in
 {
@@ -181,6 +185,8 @@ in
     "${modKey}, PRINT, exec, hyprshot -m window"
     ",          PRINT, exec, hyprshot -m region"
 
+    "${modKey}, X, exec, ${swaylock}"
+
     "${modKey} SHIFT,   Q, killactive,"
     "${modKey} CONTROL, V, pseudo," # dwindle
     "${modKey},         V, togglesplit," # dwindle
@@ -225,6 +231,10 @@ in
   bindm = [
     "${modKey}, mouse:272, movewindow"
     "${modKey}, mouse:273, resizewindow"
+  ];
+
+  bindl = [
+    ", switch:on:[Lid Switch], exec, ${swaylock}"
   ];
 }
   //

@@ -48,6 +48,9 @@ in
       zip
     ];
 
+    # FIXME: Only enable this if swaylock is installed
+    security.pam.services.swaylock = {};
+
     # TODO: Handle this in home-manager
     programs.fish.enable = true;
 
