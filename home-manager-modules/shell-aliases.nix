@@ -9,7 +9,7 @@
 
   l = "ls";
   la = "ls -a";
-  ll = "ls -lFb";
+  ll = "ls -lb";
   lla = "ll -a";
 
   rm = "rm -I";
