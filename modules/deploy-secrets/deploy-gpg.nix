@@ -63,7 +63,7 @@ lib.mkIf cfg.enable {
               echo Didn\'t deploy GPG.
             fi
           '';
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "default.target" ];
         environment = { GNUPGHOME = config.home-manager.users.${name}.home.sessionVariables.GNUPGHOME or ""; };
         path = with pkgs; [
           coreutils
