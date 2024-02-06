@@ -33,6 +33,7 @@ in
     ./rofi
     ./scripts
     ./smm.nix
+    ./swaylock.nix
     ./waybar
     ./wget.nix
     ./wofi.nix

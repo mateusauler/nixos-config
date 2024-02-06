@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
-  module-names = [ "copyq" "kitty" "mako" "waybar" "wofi" ];
+  module-names = [ "copyq" "kitty" "mako" "swaylock" "waybar" "wofi" ];
   inherit (lib) mkDefault mkOption mkEnableOption;
 in
 {
@@ -122,7 +122,6 @@ in
       hyprpicker
       hyprshot
       libnotify
-      swaylock-effects
       swww
       wl-clip-persist
       wlsunset
