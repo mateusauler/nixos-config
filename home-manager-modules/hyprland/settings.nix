@@ -233,9 +233,7 @@ in
     "${modKey}, mouse:273, resizewindow"
   ];
 
-  bindl = [
-    ", switch:on:[Lid Switch], exec, ${swaylock}"
-  ];
+  bindl = ", switch:on:Lid Switch, exec, ${swaylock}";
 }
   //
 (
