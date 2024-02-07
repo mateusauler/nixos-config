@@ -10,6 +10,7 @@ in
   imports = [
     ./appimage.nix
     ./barrier.nix
+    ./bluetooth.nix
     ./deploy-secrets
     ./desktop.nix
     ./distrobox.nix
