@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }@args:
+{ config, lib, pkgs, pkgs-unstable, specialArgs, ... }@args:
 
 let
   cfg = config.modules.hyprland;
@@ -120,12 +120,13 @@ in
     home.packages = with pkgs; [
       hyprland-protocols
       hyprpicker
-      hyprshot
       libnotify
       swww
       wl-clip-persist
       wlsunset
     ]
+    # FIXME: Install normally, when hyprshot gets to stable
+    ++ [ pkgs-unstable.hyprshot ]
     ++ (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
     ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
   };
