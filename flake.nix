@@ -33,24 +33,18 @@
     # TODO: Revert to the original repo, once https://github.com/Misterio77/nix-colors/pull/39 is merged.
     nix-colors.url = "github:mateusauler/nix-colors/textmate-theme";
 
-    hyprshot = {
-      url = "github:mateusauler/hyprshot-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     satisfactory-mod-manager = {
       url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage";
       flake = false;
     };
   };
 
-  outputs = inputs@{ hyprshot, nix-colors, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }:
+  outputs = inputs@{ nix-colors, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
 
       overlays = [
         (final: prev: {
-          inherit (hyprshot.packages.${final.system}) hyprshot;
           lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
         })
       ];

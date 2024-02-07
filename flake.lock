@@ -77,43 +77,6 @@
         "type": "github"
       }
     },
-    "hyprshot": {
-      "inputs": {
-        "hyprshot": "hyprshot_2",
-        "nixpkgs": [
-          "nixpkgs-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1695937613,
-        "narHash": "sha256-0mTFwMFzZvVAYiJnernkhHziANGBjUHCOHJxOyQEfiQ=",
-        "owner": "mateusauler",
-        "repo": "hyprshot-nix",
-        "rev": "814e7bb96e9cd2d864999aca9a9fe23ce04fd1b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mateusauler",
-        "repo": "hyprshot-nix",
-        "type": "github"
-      }
-    },
-    "hyprshot_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1695925275,
-        "narHash": "sha256-sew47VR5ZZaLf1kh0d8Xc5GVYbJ1yWhlug+Wvf+k7iY=",
-        "owner": "Gustash",
-        "repo": "Hyprshot",
-        "rev": "0c60c492d6946ee959082709e7909ca338f16830",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Gustash",
-        "repo": "Hyprshot",
-        "type": "github"
-      }
-    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -218,7 +181,6 @@
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
-        "hyprshot": "hyprshot",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
