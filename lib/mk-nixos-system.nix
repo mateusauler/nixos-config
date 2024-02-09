@@ -25,6 +25,9 @@ let
   home-manager = get-variable "home-manager" inputs.home-manager inputs;
 
   specialArgs' = specialArgs // { inherit inputs; };
+
+  configPath = dir + /configuration.nix;
+  inherit (import configPath { inherit (pkgs) lib; }) enabledUsers;
 in
 nixpkgs.lib.nixosSystem rec {
   # TODO: Look into replacing system with localSystem
@@ -34,12 +37,12 @@ nixpkgs.lib.nixosSystem rec {
   specialArgs = specialArgs' // { inherit (pkgs) lib; };
 
   modules = [
-    (dir + /configuration.nix)
+    configPath
     ../modules
     home-manager.nixosModules.home-manager
     {
       home-manager = {
-        users = lib.mapAttrs (_: _: import (dir + /home.nix)) lib.getUsers;
+        users = lib.foldl (acc: u: acc // { ${u} = import (dir + /home.nix); }) { } enabledUsers;
         useGlobalPkgs = true;
         useUserPackages = false;
         extraSpecialArgs = specialArgs';
