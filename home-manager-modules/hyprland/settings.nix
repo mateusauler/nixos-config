@@ -1,4 +1,4 @@
-{ config, custom, lib, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -24,7 +24,7 @@ in
   exec-once = [ "kitty" ] ++ lib.optional cfg.disable-middle-paste "wl-paste -p --watch wl-copy -p ''";
 
   input = {
-    kb_layout = custom.keyboard-layout;
+    kb_layout = "br";
 
     repeat_rate = 50;
     repeat_delay = 400;

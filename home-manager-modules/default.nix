@@ -1,12 +1,12 @@
-{ custom, config, inputs, lib, osConfig, pkgs, nix-colors, ... }@args:
+{ config, inputs, lib, osConfig, pkgs, nix-colors, ... }@args:
 
 let
   inherit (lib) mkDefault;
-  inherit (custom) dots-path color-scheme;
-
   module-names = [ "bat" "fish" "neovim" "wget" "xdg" "xdg.compliance" ];
 in
 {
+  options.dots-path = lib.mkOption { default = "~/nixos"; };
+
   imports = [
     nix-colors.homeManagerModules.default
     ./bash.nix
@@ -41,37 +41,39 @@ in
     ./xresources.nix
   ];
 
-  colorScheme = mkDefault nix-colors.colorSchemes.${color-scheme};
+  config = {
+    colorScheme = mkDefault nix-colors.colorSchemes."catppuccin-mocha";
 
-  programs.home-manager.enable = true;
+    programs.home-manager.enable = true;
 
-  modules = pkgs.lib.enableModules module-names;
+    modules = pkgs.lib.enableModules module-names;
 
-  home = {
-    sessionVariables = {
-      TERMINAL = "$TERM";
-      COLORTERM = "$TERM";
-      VISUAL = "$EDITOR";
+    home = {
+      sessionVariables = {
+        TERMINAL = "$TERM";
+        COLORTERM = "$TERM";
+        VISUAL = "$EDITOR";
+      };
+
+      packages = with pkgs; [
+        btop
+        du-dust
+        htop-vim
+        python3
+        tldr
+      ];
+
+      activation.clone-dots = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+        pkgs.lib.cloneRepo {
+          path = config.dots-path;
+          url = "https://github.com/mateusauler/nixos-config";
+          ssh-uri = "git@github.com:mateusauler/nixos-config.git";
+        }
+      );
     };
 
-    packages = with pkgs; [
-      btop
-      du-dust
-      htop-vim
-      python3
-      tldr
-    ];
-
-    activation.clone-dots = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      pkgs.lib.cloneRepo {
-        path = dots-path;
-        url = "https://github.com/mateusauler/nixos-config";
-        ssh-uri = "git@github.com:mateusauler/nixos-config.git";
-      }
-    );
+    # Use the same nix settings in home-manager as in the full system config
+    # This is useful if using standalone home-manager
+    nix.settings = osConfig.nix.settings;
   };
-
-  # Use the same nix settings in home-manager as in the full system config
-  # This is useful if using standalone home-manager
-  nix.settings = osConfig.nix.settings;
 }

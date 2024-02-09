@@ -1,7 +1,7 @@
-{ custom, ... }:
+{ config, ... }:
 
 let
-  inherit (custom) dots-path;
+  inherit (config) dots-path;
 in
 rec {
   mn = "udisksctl mount -b";

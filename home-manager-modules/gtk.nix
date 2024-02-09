@@ -1,4 +1,4 @@
-{ config, custom, lib, nix-colors, pkgs, ... }:
+{ config, lib, nix-colors, osConfig, pkgs, ... }:
 
 let
   cfg = config.modules.gtk;
@@ -19,7 +19,7 @@ in {
         gtk-application-prefer-dark-theme = true;
         gtk-decoration-layout = "menu:none";
         gtk-enable-animations = true;
-        gtk-font-name = "${custom.font-sans.name}, ${toString custom.font-sans.size}";
+        gtk-font-name = "${osConfig.defaultFonts.sans.name}, ${toString osConfig.defaultFonts.sans.size}";
         gtk-menu-images = true;
         gtk-primary-button-warps-slider = false;
         gtk-titlebar-double-click = "menu";

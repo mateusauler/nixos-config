@@ -1,13 +1,29 @@
-{ pkgs, custom, config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (custom) username;
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
   module-names = [ "barrier" "distrobox" "localsend" "wally" ];
 in
 {
-  options.modules.desktop.enable = lib.mkEnableOption "desktop";
+  options = {
+    modules.desktop.enable = lib.mkEnableOption "desktop";
+    defaultFonts = lib.mkOption {
+      default = rec {
+        sans = {
+          package = pkgs.roboto;
+          name = "Roboto";
+          size = 12;
+        };
+        serif = sans;
+        mono = {
+          package = pkgs.nerdfonts;
+          name = "FiraCode Nerd Font Mono";
+          size = 12;
+        };
+      };
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     xdg.portal = {
@@ -40,14 +56,6 @@ in
         mountOnMedia = mkDefault true;
       };
 
-      syncthing = {
-        enable = mkDefault true;
-        openDefaultPorts = mkDefault true;
-        user = mkDefault "${username}";
-        dataDir = mkDefault "/home/${username}/Sync";
-        configDir = mkDefault "/home/${username}/.config/syncthing";
-      };
-
       mullvad-vpn = {
         enable = mkDefault true;
         package = mkDefault pkgs.mullvad-vpn;
@@ -70,7 +78,7 @@ in
 
     modules = lib.enableModules module-names;
 
-    fonts = with custom;{
+    fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
         font-awesome
@@ -79,14 +87,15 @@ in
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
-        font-sans.package
-        font-serif.package
-        font-mono.package
-      ];
-      fontconfig.defaultFonts = {
-        sansSerif = [ font-sans.name ];
-        serif = [ font-serif.name ];
-        monospace = [ font-mono.name ];
+      ] ++ (with config.defaultFonts; [
+        sans.package
+        serif.package
+        mono.package
+      ]);
+      fontconfig.defaultFonts = with config.defaultFonts; {
+        sansSerif = [ sans.name ];
+        serif = [ serif.name ];
+        monospace = [ mono.name ];
       };
     };
 

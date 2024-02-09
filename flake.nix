@@ -63,24 +63,6 @@
       lib-stable = pkgs-stable.lib;
       lib-unstable = pkgs-unstable.lib;
 
-      # Default values of the custom set
-      customDefaults = rec {
-        dots-path = "~/nixos";
-        color-scheme = "catppuccin-mocha";
-        keyboard-layout = "br";
-        font-sans = {
-          package = pkgs.roboto;
-          name = "Roboto";
-          size = 12;
-        };
-        font-serif = font-sans;
-        font-mono = {
-          package = pkgs.nerdfonts;
-          name = "FiraCode Nerd Font Mono";
-          size = 12;
-        };
-      };
-
       private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
       hosts-preferred-nixpkgs-branch = { };
@@ -90,11 +72,11 @@
       mkHost = acc: hostname:
         acc // {
           ${hostname} =
-            lib-stable.mkNixosSystem { inherit hostname system inputs pkgs customDefaults specialArgs private-config hosts-preferred-nixpkgs-branch; };
+            lib-stable.mkNixosSystem { inherit hostname system inputs pkgs specialArgs private-config hosts-preferred-nixpkgs-branch; };
         };
     in
     {
-      nixosConfigurations = (private-config.systems { inherit system inputs pkgs customDefaults specialArgs; }) // (lib.foldl mkHost { } machines);
+      nixosConfigurations = (private-config.systems { inherit system inputs pkgs specialArgs; }) // (lib.foldl mkHost { } machines);
       devShells.${system}.default = import ./shell.nix { inherit pkgs; };
     };
 }

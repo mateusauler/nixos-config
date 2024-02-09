@@ -1,4 +1,4 @@
-{ config, custom, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -8,7 +8,6 @@ let
       type = "lua";
       config = "require('${name}').setup(${args})";
     };
-  inherit (custom) dots-path;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -27,7 +26,7 @@ in
           plugin = alpha-nvim;
           type = "lua";
           config = ''
-            local dotspath = '${dots-path}'
+            local dotspath = '${config.dots-path}'
             ${builtins.readFile ./alpha-nvim.lua}
           '';
         }

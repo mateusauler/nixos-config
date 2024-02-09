@@ -1,4 +1,4 @@
-{ config, custom, lib, pkgs, ... }@args:
+{ config, lib, osConfig, pkgs, ... }@args:
 
 let
   cfg = config.modules.waybar;
@@ -14,10 +14,10 @@ in {
     programs.waybar = rec {
       enable = true;
       settings.mainBar = import ./settings.nix (args // { config = cfg; });
-      style = with config.colorScheme.colors; ''
+      style = with config.colorScheme.colors; with osConfig.defaultFonts; ''
         * {
-          font-family: FontAwesome, ${custom.font-sans.name}, Roboto, Helvetica, Arial, sans-serif;
-          font-size: ${toString (custom.font-sans.size - 1)}pt;
+          font-family: FontAwesome, ${sans.name}, Roboto, Helvetica, Arial, sans-serif;
+          font-size: ${toString (sans.size - 1)}pt;
         }
 
         window#waybar {

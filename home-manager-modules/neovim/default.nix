@@ -1,4 +1,4 @@
-{ config, custom, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -27,7 +27,7 @@ in
         source ${colors}
         ${builtins.readFile ./config.vim}
       '';
-      extraLuaConfig = with custom.font-mono; ''
+      extraLuaConfig = with osConfig.defaultFonts.mono; ''
         ${lib.optionalString cfg.neovide.enable "vim.o.guifont = \"${name}:h${toString size}\""}
         ${builtins.readFile ./config.lua}
       '';
