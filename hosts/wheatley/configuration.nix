@@ -1,4 +1,4 @@
-{ config, lib, pkgs, custom, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   module-names = [ "desktop" "zswap" ];
