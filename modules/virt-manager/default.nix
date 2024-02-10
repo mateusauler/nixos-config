@@ -17,8 +17,24 @@ in
         enable = true;
         onBoot = mkDefault "ignore";
         qemu.runAsRoot = mkDefault false;
+        qemu.ovmf.enable = true;
       };
     };
+
+    networking.firewall = {
+      allowedTCPPortRanges = [
+        # spice
+        { from = 5900; to = 5999; }
+      ];
+      allowedTCPPorts = [
+        # libvirt
+        16509
+      ];
+    };
+
+    environment.systemPackages = [
+      pkgs.virtiofsd
+    ];
 
     users.groups.libvirtd = { };
 
