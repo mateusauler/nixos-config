@@ -10,6 +10,7 @@ in
     path = lib.mkOption { default = "~/nixos"; };
     url = lib.mkOption { default = "https://github.com/mateusauler/nixos-config"; };
     ssh-uri = lib.mkOption { default = "git@github.com:mateusauler/nixos-config.git"; };
+    nix-uri = lib.mkOption { default = "github:mateusauler/nixos-config"; };
   };
 
   imports = [

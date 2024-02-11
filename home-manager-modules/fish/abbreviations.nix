@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  dots-path = with config.dots; if clone then path else url;
+  dots-path = with config.dots; if clone then path else nix-uri;
 in
 rec {
   mn = "udisksctl mount -b";
