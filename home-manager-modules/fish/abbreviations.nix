@@ -10,6 +10,7 @@ rec {
   g = "git";
 
   ga = "git add";
+  gaa = "git add -A";
   gap = "git add -p";
   gb = "git branch";
   gcaa = "git commit --amend -a";
