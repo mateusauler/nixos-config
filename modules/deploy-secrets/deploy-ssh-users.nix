@@ -7,8 +7,9 @@ let
 in
 lib.mkIf cfg.enable {
   sops.secrets = foldlUsersKeys (acc: name: user: k: acc // {
-    "ssh/${name}/keys/${k}" = {
-      sopsFile = ../../users/secrets.yaml;
+    "ssh-${name}-keys-${k}" = {
+      sopsFile = ../../users/${name}/secrets.yaml;
+      key = "ssh/keys/${k}";
       owner = name;
       path = "${user.home}/.ssh/id_${k}";
     };

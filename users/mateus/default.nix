@@ -42,8 +42,9 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
       dataDir = home;
     };
 
-  sops.secrets.password-mateus = {
-    sopsFile = ../secrets.yaml;
+  sops.secrets."password-${username}" = {
+    sopsFile = ./password;
+    format = "binary";
     neededForUsers = true;
   };
 }

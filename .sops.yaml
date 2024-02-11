@@ -5,10 +5,20 @@ keys:
   - &wheatley age199l2w9j84pc4naz6ees3dhw6kp0tp3xn54wk42mfkh9q5ewj6ydqxfjjyt
   - &work age1t52tqzfzst322eja6hxrz4n537uyts3d6szu6pvjkuwf45zuhcxsjfey99
 creation_rules:
-  - path_regex: users/secrets.ya?ml$
+  - path_regex: users/mateus/secrets.ya?ml$
     key_groups:
     -
       age:
+        - *glados
+        - *wheatley
+        - *work
+      pgp:
+        - *pgp
+  - path_regex: users/mateus/password$
+    key_groups:
+    -
+      age:
+        - *amadeus
         - *glados
         - *wheatley
         - *work

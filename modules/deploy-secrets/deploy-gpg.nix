@@ -7,12 +7,14 @@ in
 lib.mkIf cfg.enable {
   sops.secrets = foldlUsers {
     fn = acc: name: _: acc // {
-      "gpg/${name}/keys" = {
-        sopsFile = ../../users/secrets.yaml;
+      "gpg-${name}-keys" = {
+        key = "gpg/keys";
+        sopsFile = ../../users/${name}/secrets.yaml;
         owner = name;
       };
-      "gpg/${name}/password" = {
-        sopsFile = ../../users/secrets.yaml;
+      "gpg-${name}-password" = {
+        key = "gpg/password";
+        sopsFile = ../../users/${name}/secrets.yaml;
         owner = name;
       };
     };
@@ -23,8 +25,8 @@ lib.mkIf cfg.enable {
       "deploy-gpg-keys-${name}" = {
         script =
           let
-            secret-path = config.sops.secrets."gpg/${name}/keys".path;
-            password-path = config.sops.secrets."gpg/${name}/password".path;
+            secret-path = config.sops.secrets."gpg-${name}-keys".path;
+            password-path = config.sops.secrets."gpg-${name}-password".path;
             sort-list = list: ''($(printf "%s\n" "''${${list}[@]}" | sort))'';
             getSecretKeyIDs = "$(gpg --list-secret-keys --keyid-format LONG | awk '/sec/{if (match($0, /([0-9A-F]{16,})/, m)) print m[1]}')";
           in
