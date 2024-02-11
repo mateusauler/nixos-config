@@ -50,6 +50,9 @@ in
       zip
     ];
 
+    # Don't allow non-wheel users to execute the sudo binary
+    security.sudo.execWheelOnly = true;
+
     # FIXME: Only enable this if swaylock is installed
     security.pam.services.swaylock = {};
 

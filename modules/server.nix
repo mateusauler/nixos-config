@@ -10,7 +10,6 @@ in
     users.users = lib.foldl' (acc: u: acc // { ${u}.hashedPasswordFile = null; }) { } config.enabledUsers;
 
     security.sudo = {
-      execWheelOnly = true;
       wheelNeedsPassword = false;
     };
 
