@@ -13,12 +13,14 @@ in
     ssh = {
       system.enable = lib.mkTrueEnableOption "Deploy system ssh keys using sops";
       users.enable = lib.mkTrueEnableOption "Deploy user ssh keys using sops";
+      users-server.enable = lib.mkEnableOption "Deploy (server) user ssh keys using sops";
     };
   };
 
   imports = [
     ./deploy-gpg.nix
     ./deploy-ssh-users.nix
+    ./deploy-ssh-users-server.nix
     ./deploy-ssh-system.nix
   ];
 
@@ -27,6 +29,7 @@ in
       gpg.enable = lib.mkForce false;
       ssh.system.enable = lib.mkForce false;
       ssh.users.enable = lib.mkForce false;
+      ssh.users-server.enable = lib.mkForce false;
     };
   };
 }

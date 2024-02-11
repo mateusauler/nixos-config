@@ -17,6 +17,7 @@ in
     modules.deploy-secrets = {
       gpg.enable = false;
       ssh.users.enable = false;
+      ssh.users-server.enable = true;
     };
   };
 }

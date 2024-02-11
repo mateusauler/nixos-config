@@ -24,6 +24,13 @@ creation_rules:
         - *work
       pgp:
         - *pgp
+  - path_regex: users/mateus/id_server$
+    key_groups:
+    -
+      age:
+        - *amadeus
+      pgp:
+        - *pgp
   - path_regex: hosts/amadeus/secrets.ya?ml$
     key_groups:
     -
