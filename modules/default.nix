@@ -20,6 +20,7 @@ in
     ./localsend.nix
     ./nix.nix
     ./openssh.nix
+    ./server.nix
     ./virt-manager
     ./wally.nix
     ./zswap.nix

@@ -25,7 +25,7 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
       "vpn"
     ];
 
-    hashedPasswordFile = config.sops.secrets."password-${username}".path;
+    hashedPasswordFile = lib.mkDefault config.sops.secrets."password-${username}".path;
     shell = pkgs.fish;
 
     createHome = true;
