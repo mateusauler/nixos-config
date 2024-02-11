@@ -1,7 +1,7 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
-  inherit (config) dots-path;
+  dots-path = with config.dots; if clone then path else url;
 in
 rec {
   mn = "udisksctl mount -b";
@@ -48,7 +48,9 @@ rec {
 
   nfc = "nix flake check --verbose --show-trace";
 
-  dots = "cd ${dots-path}";
+} // lib.optionalAttrs config.dots.clone {
+  dots = "cd ${config.dots.path}";
+} // rec {
 
   z = "zathura";
 

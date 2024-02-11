@@ -5,7 +5,12 @@ let
   module-names = [ "bat" "fish" "neovim" "wget" "xdg" "xdg.compliance" ];
 in
 {
-  options.dots-path = lib.mkOption { default = "~/nixos"; };
+  options.dots = {
+    clone = lib.mkOption { default = true; };
+    path = lib.mkOption { default = "~/nixos"; };
+    url = lib.mkOption { default = "https://github.com/mateusauler/nixos-config"; };
+    ssh-uri = lib.mkOption { default = "git@github.com:mateusauler/nixos-config.git"; };
+  };
 
   imports = [
     nix-colors.homeManagerModules.default
@@ -63,13 +68,11 @@ in
         tldr
       ];
 
-      activation.clone-dots = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+      activation.clone-dots = lib.optionalString config.dots.clone (lib.hm.dag.entryAfter [ "writeBoundary" ] (
         pkgs.lib.cloneRepo {
-          path = config.dots-path;
-          url = "https://github.com/mateusauler/nixos-config";
-          ssh-uri = "git@github.com:mateusauler/nixos-config.git";
+          inherit (config.dots) path url ssh-uri;
         }
-      );
+      ));
     };
 
     # Use the same nix settings in home-manager as in the full system config

@@ -26,7 +26,8 @@ in
           plugin = alpha-nvim;
           type = "lua";
           config = ''
-            local dotspath = '${config.dots-path}'
+            local dotscloned = ${if config.dots.clone then "true" else "false"}
+            local dotspath = '${config.dots.path}'
             ${builtins.readFile ./alpha-nvim.lua}
           '';
         }
