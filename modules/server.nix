@@ -9,6 +9,9 @@ in
   config = lib.mkIf cfg.enable {
     users.users = lib.foldl' (acc: u: acc // { ${u}.hashedPasswordFile = null; }) { } config.enabledUsers;
 
+    # Use stable kernel
+    boot.kernelPackages = pkgs.linuxPackages;
+
     security.sudo = {
       wheelNeedsPassword = false;
     };

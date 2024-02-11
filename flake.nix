@@ -65,7 +65,9 @@
 
       private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
-      hosts-preferred-nixpkgs-branch = { };
+      hosts-preferred-nixpkgs-branch = {
+        amadeus = "stable";
+      };
 
       specialArgs = { inherit nix-colors pkgs-stable pkgs-unstable lib-stable lib-unstable; };
 
