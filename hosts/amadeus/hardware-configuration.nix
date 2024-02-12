@@ -13,6 +13,9 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/disk/by-path/pci-0000:00:1d.0-usb-0:1.4:1.0-scsi-0:0:0:0";
+
   fileSystems."/" =
     { device = "/dev/disk/by-label/NIX_ROOT";
       fsType = "ext4";
