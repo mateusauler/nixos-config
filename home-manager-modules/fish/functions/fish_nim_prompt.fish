@@ -80,11 +80,15 @@ function fish_nim_prompt
 	end
 
 	if test -n "$IN_NIX_SHELL"
-		set -l shell_name nix-shell
+		set -l shell_name
 		if test -n "$name"
 			set shell_name "$(echo $name | sed 's/-env//; s/-/ /g')"
-		else if test -n "$NIX_SHELL_PKGS"
-			set shell_name "$NIX_SHELL_PKGS"
+		end
+		if test -n "$NIX_SHELL_PKGS"
+			set shell_name $(test -n "$shell_name" && echo "$shell_name :: ")"$NIX_SHELL_PKGS"
+		end
+		if test -z "$shell_name"
+			set shell_name nix-shell
 		end
 		_prompt_wrapper "$shell_name" blue 
 	end
