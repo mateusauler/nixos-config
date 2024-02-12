@@ -24,7 +24,7 @@ let
   pkgs = get-variable "pkgs" args.pkgs specialArgs;
   home-manager = get-variable "home-manager" inputs.home-manager inputs;
 
-  specialArgs' = specialArgs // { inherit inputs; };
+  specialArgs' = specialArgs // { inherit inputs private-config; };
 
   configPath = dir + /configuration.nix;
   inherit (import configPath (args // { inherit (pkgs) lib; inherit pkgs; })) enabledUsers;
