@@ -10,7 +10,6 @@ in
   options.modules.fish = {
     enable = mkEnableOption "fish";
     pfetch.enable = mkEnableOption "pfetch";
-    eza.enable = mkTrueEnableOption "eza";
     ondir.enable = mkEnableOption "ondir";
     functions = with lib.types; mkOption {
       type = attrsOf (submodule {
@@ -31,10 +30,9 @@ in
     modules.fish.functions.default.path = lib.mkDefault ./functions;
 
     programs = {
-      eza.enable = cfg.eza.enable;
       fish = {
         enable = true;
-        shellAliases = (import ../shell-aliases.nix args);
+        shellAliases = config.shell-aliases;
         shellAbbrs = (import ./abbreviations.nix args);
 
         interactiveShellInit = ''

@@ -6,7 +6,7 @@ let
 in {
   programs.bash = {
     enable = true;
-    shellAliases = (import ./shell-aliases.nix args)
+    shellAliases = config.shell-aliases
                 // config.programs.fish.shellAbbrs
                 // { ".." = "cd .."; };
     historyControl = [ "ignorespace" "ignoredups" "erasedups" ];

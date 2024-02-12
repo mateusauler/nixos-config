@@ -25,6 +25,16 @@ in
     };
   };
 
+  imports = [
+    ./barrier.nix
+    ./bluetooth.nix
+    ./distrobox.nix
+    ./gaming.nix
+    ./localsend.nix
+    ./virt-manager
+    ./wally.nix
+  ];
+
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;

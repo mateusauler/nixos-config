@@ -25,6 +25,29 @@ in
 {
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
+  imports = [
+    ./copyq
+    ./ferdium.nix
+    ./gtk.nix
+    ./hyprland
+    ./kitty
+    ./librewolf
+    ./mako.nix
+    ./mega.nix
+    ./meld.nix
+    ./mpv.nix
+    ./nsxiv.nix
+    ./obs.nix
+    ./qt.nix
+    ./rofi
+    ./scripts
+    ./smm.nix
+    ./swaylock.nix
+    ./waybar
+    ./wofi.nix
+    ./xresources.nix
+  ];
+
   config = lib.mkIf cfg.enable {
     modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
       change-wallpaper.command = "${pkgs.swww}/bin/swww img";

@@ -8,7 +8,7 @@ lib.mkIf cfg.enable {
   sops.secrets = foldlUsers config {
     fn = acc: name: user: acc // {
       "ssh-${name}-keys-server" = {
-        sopsFile = ../../users/${name}/id_server;
+        sopsFile = ../../../users/${name}/id_server;
         format = "binary";
         owner = name;
         path = "${user.home}/.ssh/id_server";
@@ -21,7 +21,7 @@ lib.mkIf cfg.enable {
       ${name} = {
         home.file."ssh_id_server.pub" = {
           target = ".ssh/id_server.pub";
-          source = ../../users/${name}/id_server.pub;
+          source = ../../../users/${name}/id_server.pub;
         };
         programs.git.extraConfig.core.sshCommand = "ssh -i ${user.home}/.ssh/id_server";
       };

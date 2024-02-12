@@ -9,12 +9,12 @@ lib.mkIf cfg.enable {
     fn = acc: name: _: acc // {
       "gpg-${name}-keys" = {
         key = "gpg/keys";
-        sopsFile = ../../users/${name}/secrets.yaml;
+        sopsFile = ../../../users/${name}/secrets.yaml;
         owner = name;
       };
       "gpg-${name}-password" = {
         key = "gpg/password";
-        sopsFile = ../../users/${name}/secrets.yaml;
+        sopsFile = ../../../users/${name}/secrets.yaml;
         owner = name;
       };
     };

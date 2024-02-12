@@ -8,22 +8,9 @@ in
   options.hostBaseDir = lib.mkOption { default = ../hosts/${config.networking.hostName}; };
 
   imports = [
-    ./appimage.nix
-    ./barrier.nix
-    ./bluetooth.nix
-    ./deploy-secrets
-    ./desktop.nix
-    ./distrobox.nix
-    ./efi.nix
-    ./gaming.nix
-    ./locale.nix
-    ./localsend.nix
-    ./nix.nix
-    ./openssh.nix
-    ./server.nix
-    ./virt-manager
-    ./wally.nix
-    ./zswap.nix
+    ./common
+    ./desktop
+    ./server
     ../users
     inputs.sops-nix.nixosModules.sops
   ];

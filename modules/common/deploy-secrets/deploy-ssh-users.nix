@@ -8,7 +8,7 @@ in
 lib.mkIf cfg.enable {
   sops.secrets = foldlUsersKeys (acc: name: user: k: acc // {
     "ssh-${name}-keys-${k}" = {
-      sopsFile = ../../users/${name}/secrets.yaml;
+      sopsFile = ../../../users/${name}/secrets.yaml;
       key = "ssh/keys/${k}";
       owner = name;
       path = "${user.home}/.ssh/id_${k}";
@@ -18,7 +18,7 @@ lib.mkIf cfg.enable {
   home-manager.users = foldlUsersKeys (acc: name: _: k: lib.recursiveUpdate acc {
     ${name}.home.file."ssh_id_${k}.pub" = {
       target = ".ssh/id_${k}.pub";
-      source = ../../users + "/${name}/id_${k}.pub";
+      source = ../../../users + "/${name}/id_${k}.pub";
     };
   });
 }

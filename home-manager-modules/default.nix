@@ -15,36 +15,9 @@ in
 
   imports = [
     nix-colors.homeManagerModules.default
-    ./bash.nix
-    ./bat.nix
     ./common
-    ./copyq
-    ./direnv.nix
-    ./ferdium.nix
-    ./fish
-    ./git.nix
-    ./gtk.nix
-    ./hyprland
-    ./kitty
-    ./librewolf
-    ./libvirtd.nix
-    ./mako.nix
-    ./mega.nix
-    ./meld.nix
-    ./mpv.nix
-    ./neovim
-    ./nsxiv.nix
-    ./obs.nix
-    ./qt.nix
-    ./rofi
-    ./scripts
-    ./smm.nix
-    ./swaylock.nix
-    ./waybar
-    ./wget.nix
-    ./wofi.nix
-    ./xdg
-    ./xresources.nix
+    ./desktop
+    ./server
   ];
 
   config = {
