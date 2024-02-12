@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 let
   inherit (lib) mkDefault;
@@ -64,7 +64,7 @@ in
       onlyoffice-bin
       pcmanfm
       qbittorrent
-      # rustdesk
+      pkgs-unstable.rustdesk-flutter
       session-desktop
       signal-desktop
       spotify
