@@ -54,32 +54,26 @@ function fish_nim_prompt
 		echo -n '╭╼ '
 	end
 
-	# Building 'user@host cwd'
-	set -l info
-
-	# Only append 'user@host' if in an ssh session
+	# Only show 'user@host' if in an ssh session
 	if test ! -z "$SSH_CLIENT"
 		set -l color yellow
 		if functions -q fish_is_root_user; and fish_is_root_user
 			set color red
 		end
 
-		set info "$info"(set_color -o $color)
-		set info "$info"$USER
-		set info "$info"(set_color -o white)
-		set info "$info"@
-		set info "$info"(set_color -o blue)
-		set info "$info"(prompt_hostname)
-		set info "$info "
+		set -l user_host
+		set user_host "$user_host"(set_color -o $color)
+		set user_host "$user_host"$USER
+		set user_host "$user_host"(set_color -o white)
+		set user_host "$user_host"@
+		set user_host "$user_host"(set_color -o blue)
+		set user_host "$user_host"(prompt_hostname)
+
+		_prompt_wrapper $user_host
 	end
 
-	# Append the cwd
-	set info "$info"(set_color -o white)
-	set info "$info"(prompt_pwd)
-	set info "$info"(set_color -o $color_bg)
-
-	# Wrap the info
-	_prompt_wrapper $info
+	# Display cwd
+	_prompt_wrapper (set_color -o white)(prompt_pwd)(set_color -o $color_bg)
 
 	if test -n "$DISTROBOX_ENTER_PATH"
 		_prompt_wrapper "$(hostname -s)" yellow 
