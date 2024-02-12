@@ -51,11 +51,6 @@ in
         jack.enable = mkDefault true;
       };
 
-      udisks2 = {
-        enable = mkDefault true;
-        mountOnMedia = mkDefault true;
-      };
-
       mullvad-vpn = {
         enable = mkDefault true;
         package = mkDefault pkgs.mullvad-vpn;

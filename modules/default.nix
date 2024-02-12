@@ -50,11 +50,16 @@ in
       zip
     ];
 
+    services.udisks2 = {
+      enable = mkDefault true;
+      mountOnMedia = mkDefault true;
+    };
+
     # Don't allow non-wheel users to execute the sudo binary
     security.sudo.execWheelOnly = true;
 
     # FIXME: Only enable this if swaylock is installed
-    security.pam.services.swaylock = {};
+    security.pam.services.swaylock = { };
 
     # TODO: Handle this in home-manager
     programs.fish.enable = true;
