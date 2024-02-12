@@ -27,7 +27,7 @@ let
   specialArgs' = specialArgs // { inherit inputs; };
 
   configPath = dir + /configuration.nix;
-  inherit (import configPath { inherit (pkgs) lib; }) enabledUsers;
+  inherit (import configPath (args // { inherit (pkgs) lib; inherit pkgs; })) enabledUsers;
 in
 nixpkgs.lib.nixosSystem rec {
   # TODO: Look into replacing system with localSystem
