@@ -31,7 +31,11 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
     createHome = true;
     home = "/home/${username}";
 
-    openssh.authorizedKeys.keys = [ (builtins.readFile ./id_ed25519.pub) ];
+    openssh.authorizedKeys.keys = [
+      # Phone
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP56bdfAtV1Lng/GCo182w6goeKJsokYft15f5S3rpRg"
+      (builtins.readFile ./id_ed25519.pub)
+    ];
   };
 
   services.syncthing = let home = config.users.users.${username}.home; in
