@@ -15,9 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nixpkgs = nixpkgs-unstable;
-    home-manager = home-manager-unstable;
-
     private-config = {
       # url = "path:/home/mateus/repos/nixos-private-config";
       url = "git+ssh://git@github.com/mateusauler/nixos-private-config";
@@ -42,6 +39,7 @@
   outputs = inputs@{ nix-colors, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
+      default-channel = "unstable";
 
       overlays = [
         (final: prev: {
@@ -55,9 +53,9 @@
         config.allowUnfree = true;
       };
 
-      pkgs = import nixpkgs pkgs-args;
       pkgs-stable = import nixpkgs-stable pkgs-args;
       pkgs-unstable = import nixpkgs-unstable pkgs-args;
+      pkgs = if default-channel == "stable" then pkgs-stable else pkgs-unstable;
 
       inherit (pkgs) lib;
       lib-stable = pkgs-stable.lib;
@@ -65,7 +63,7 @@
 
       private-config = import inputs.private-config (inputs // { inherit lib pkgs; });
       machines = lib.readDirNames ./hosts;
-      hosts-preferred-nixpkgs-branch = {
+      hosts-preferred-nixpkgs-channel = {
         amadeus = "stable";
       };
 
@@ -74,11 +72,11 @@
       mkHost = acc: hostname:
         acc // {
           ${hostname} =
-            lib-stable.mkNixosSystem { inherit hostname system inputs pkgs specialArgs private-config hosts-preferred-nixpkgs-branch; };
+            lib-stable.mkNixosSystem { inherit hostname system inputs default-channel pkgs specialArgs private-config hosts-preferred-nixpkgs-channel; };
         };
     in
     {
-      nixosConfigurations = (private-config.systems { inherit system inputs pkgs specialArgs; }) // (lib.foldl mkHost { } machines);
+      nixosConfigurations = (private-config.systems { inherit system inputs default-channel pkgs specialArgs; }) // (lib.foldl mkHost { } machines);
       devShells.${system}.default = import ./shell.nix { inherit pkgs; };
     };
 }
