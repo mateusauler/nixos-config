@@ -47,7 +47,7 @@ nixpkgs.lib.nixosSystem rec {
         useUserPackages = false;
         extraSpecialArgs = specialArgs';
         verbose = true;
-        sharedModules = [ ../home-manager-modules ];
+        sharedModules = [ ../hm-modules ];
       };
     }
     private-config.hosts.${hostname} or { }
