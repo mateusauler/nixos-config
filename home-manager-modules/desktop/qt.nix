@@ -1,23 +1,16 @@
-{ config, lib, nix-colors, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.qt;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
-in {
+in
+{
   options.modules.qt.enable = lib.mkEnableOption "qt";
 
-  config = lib.mkIf cfg.enable {
+  config = {
     qt = {
-      enable = true;
+      inherit (cfg) enable;
       platformTheme = "gtk";
-      style = {
-        package = nix-colors-lib.gtkThemeFromScheme {
-          scheme = config.colorScheme;
-        };
-        name = "${config.colorScheme.slug}";
-      };
-    # qt.style.name = "Arc-dark";
-    # qt.style.package = pkgs.arc-theme;
+      style = config.gtk.theme;
     };
   };
 }
