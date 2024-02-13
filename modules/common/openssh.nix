@@ -27,6 +27,7 @@ in
       openssh = {
         inherit knownHosts;
         enable = true;
+        startWhenNeeded = true;
         settings = {
           PermitRootLogin = "no";
           PasswordAuthentication = false;
