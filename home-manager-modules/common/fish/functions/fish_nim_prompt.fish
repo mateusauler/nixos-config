@@ -28,7 +28,7 @@ function fish_nim_prompt
 		set cbracket '>'
 	end
 
-	# Wraps a given text in [...]
+	# Wraps a given text in <...>
 	function _prompt_wrapper -Sa value color label
 		if test -z "$value"
 			return
@@ -54,10 +54,14 @@ function fish_nim_prompt
 		echo -n '╭╼ '
 	end
 
+	function is_root
+		functions -q fish_is_root_user; and fish_is_root_user
+	end
+
 	# Only show 'user@host' if in an ssh session
-	if test ! -z "$SSH_CLIENT"
+	if is_root; or test ! -z "$SSH_CLIENT"
 		set -l color yellow
-		if functions -q fish_is_root_user; and fish_is_root_user
+		if is_root
 			set color red
 		end
 
