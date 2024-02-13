@@ -42,7 +42,7 @@ nixpkgs.lib.nixosSystem rec {
     home-manager.nixosModules.home-manager
     {
       home-manager = {
-        users = lib.foldl (acc: u: acc // { ${u} = import (dir + /home.nix); }) { } enabledUsers;
+        users = lib.foldl (acc: u: acc // { ${u} = import (dir + /home.nix); }) { } (enabledUsers ++ [ "root" ]);
         useGlobalPkgs = true;
         useUserPackages = false;
         extraSpecialArgs = specialArgs';
