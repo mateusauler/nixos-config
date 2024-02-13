@@ -32,7 +32,7 @@ rec {
   gs = "git status";
   gsh = "git show";
   gsp = "git stash pop";
-  gst = "git stash";
+  gst = "git stash -u";
   gu = "git push";
   cg = "cd (git rev-parse --show-toplevel)";
 
