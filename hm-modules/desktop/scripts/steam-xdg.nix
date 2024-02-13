@@ -32,12 +32,16 @@ in
           find ${cfg.fakeHome} -maxdepth 1 -type l -delete
 
           # If .steam exists in ~/, move it to the fake home, updating the newer files
-          [ -d ${homeDirectory}/.steam ] && mv -uf ${homeDirectory}/.steam/* ${cfg.fakeHome}/ && rmdir ${homeDirectory}/.steam
+          if [ -d ${homeDirectory}/.steam ]; then
+            mv -uf ${homeDirectory}/.steam/* ${cfg.fakeHome}/.steam
+            rmdir ${homeDirectory}/.steam
+          fi
+          # Remove runtime steam files from the user's home
           rm -f ${homeDirectory}/.steampath ${homeDirectory}/.steampid
 
           # Export the function so we can use it in a new bash context
           export -f link_dir
-          # Link every file in the root of the home directory
+          # Link every file in the root of the home directory to the fake home
           find ${homeDirectory} -maxdepth 1 | xargs -P$(nproc) -I{} bash -c 'link_dir "$0"' {}
 
           HOME=${cfg.fakeHome} exec ${pkgs.steam}/bin/steam $@
