@@ -38,6 +38,7 @@ in
         btop
         du-dust
         htop-vim
+        jq
         python3
         tldr
       ];
