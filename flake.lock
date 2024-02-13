@@ -63,16 +63,15 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1697297799,
-        "narHash": "sha256-P7ZIeW+uEA9DDdbm9E+gW5YTnF4j3yFzZeaHFKL+acM=",
-        "owner": "mateusauler",
+        "lastModified": 1707825078,
+        "narHash": "sha256-hTfge2J2W+42SZ7VHXkf4kjU+qzFqPeC9k66jAUBMHk=",
+        "owner": "Misterio77",
         "repo": "nix-colors",
-        "rev": "3ebbaf8ed1da1fd964477014ac83467cff403ff4",
+        "rev": "b01f024090d2c4fc3152cd0cf12027a7b8453ba1",
         "type": "github"
       },
       "original": {
-        "owner": "mateusauler",
-        "ref": "textmate-theme",
+        "owner": "Misterio77",
         "repo": "nix-colors",
         "type": "github"
       }

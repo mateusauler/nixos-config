@@ -20,7 +20,7 @@ in {
       };
     };
 
-    xdg.configFile."rofi/colors.rasi".text = with config.colorScheme.colors; ''
+    xdg.configFile."rofi/colors.rasi".text = with config.colorScheme.palette; ''
       * {
         font:   "${osConfig.defaultFonts.sans.name} ${toString osConfig.defaultFonts.sans.size}";
         bg0:    #${base00}F2;

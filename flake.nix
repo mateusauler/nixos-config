@@ -27,8 +27,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
-    # TODO: Revert to the original repo, once https://github.com/Misterio77/nix-colors/pull/39 is merged.
-    nix-colors.url = "github:mateusauler/nix-colors/textmate-theme";
+    nix-colors.url = "github:Misterio77/nix-colors";
 
     satisfactory-mod-manager = {
       url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage";

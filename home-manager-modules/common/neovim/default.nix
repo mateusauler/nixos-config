@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.neovim;
-  colors = pkgs.writeText "colors.vim" (import ./colors.nix config.colorscheme);
+  colors = pkgs.writeText "colors.vim" (import ./colors.nix config.colorScheme);
 in
 {
   options.modules.neovim = {

@@ -6,7 +6,7 @@ in {
   options.modules.kitty.enable = lib.mkEnableOption "kitty";
 
   config = lib.mkIf cfg.enable {
-    programs.kitty = with config.colorScheme.colors; {
+    programs.kitty = with config.colorScheme.palette; {
       enable = true;
       settings = {
         font_family = osConfig.defaultFonts.mono.name;

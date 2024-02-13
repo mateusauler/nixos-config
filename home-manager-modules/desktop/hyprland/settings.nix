@@ -34,7 +34,7 @@ in
     accel_profile = "flat";
   };
 
-  general = with config.colorScheme.colors; {
+  general = with config.colorScheme.palette; {
     border_size = 3;
 
     "col.active_border"   = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";

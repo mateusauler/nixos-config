@@ -9,7 +9,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.swaylock-effects ];
     # TODO: Allow for extra configurations
-    xdg.configFile."swaylock/config".text = with config.colorScheme.colors; ''
+    xdg.configFile."swaylock/config".text = with config.colorScheme.palette; ''
       clock
       screenshots
       show-failed-attempts

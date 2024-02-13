@@ -14,7 +14,7 @@ in {
     programs.waybar = rec {
       enable = true;
       settings.mainBar = import ./settings.nix (args // { config = cfg; });
-      style = with config.colorScheme.colors; with osConfig.defaultFonts; ''
+      style = with config.colorScheme.palette; with osConfig.defaultFonts; ''
         * {
           font-family: FontAwesome, ${sans.name}, Roboto, Helvetica, Arial, sans-serif;
           font-size: ${toString (sans.size - 1)}pt;

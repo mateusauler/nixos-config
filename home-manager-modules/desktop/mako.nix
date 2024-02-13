@@ -6,7 +6,7 @@ in {
   options.modules.mako.enable = lib.mkEnableOption "mako";
 
   config = lib.mkIf cfg.enable {
-    services.mako = with config.colorScheme.colors; {
+    services.mako = with config.colorScheme.palette; {
       enable = true;
       backgroundColor = "#${base01}";
       borderColor = "#${base0E}";

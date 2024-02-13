@@ -1,6 +1,6 @@
 scheme:
 let
-  c = scheme.colors;
+  c = scheme.palette;
 in
 ''
   let g:colors_name="nix-${scheme.slug}"
