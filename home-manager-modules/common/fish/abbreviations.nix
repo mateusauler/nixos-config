@@ -48,10 +48,6 @@ rec {
 
   nfc = "nix flake check --verbose --show-trace";
 
-} // lib.optionalAttrs config.dots.clone {
-  dots = "cd ${config.dots.path}";
-} // rec {
-
   z = "zathura";
 
   n = "nvim";
@@ -64,4 +60,7 @@ rec {
   hexdump = "hexdump -C";
 
   py = "python3";
+
+} // lib.optionalAttrs config.dots.clone {
+  dots = "cd ${config.dots.path}";
 }
