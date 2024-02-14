@@ -1,0 +1,80 @@
+{ config, lib, pkgs, ... }:
+
+let
+  service-name = "google-ddns";
+  cfg = config.services.${service-name};
+  description = "Google Domains DDNS update using Google's API";
+
+  StateDirectory = service-name;
+  RuntimeDirectory = service-name;
+
+  preStart = pkgs.writeShellScript "${service-name}-prestart" (lib.foldl
+    (acc: { domain, usernameFile, passwordFile }: ''
+      ${acc}
+      install --mode=600 --owner=$USER ${passwordFile} /run/${RuntimeDirectory}/password-${domain}.key
+      install --mode=600 --owner=$USER ${usernameFile} /run/${RuntimeDirectory}/username-${domain}.txt
+    '')
+    ""
+    cfg.domains);
+
+  script = pkgs.writeShellScript service-name (lib.foldl
+    (acc: { domain, ... }: ''
+      ${acc}
+      username=$(cat /run/${RuntimeDirectory}/username-${domain}.txt)
+      password=$(cat /run/${RuntimeDirectory}/password-${domain}.key)
+      auth="$(echo -n "$username:$password" | base64)"
+      curl --request POST \
+        --url "https://${cfg.endpoint}?hostname=${domain}" \
+        --header "Authorization: Basic $auth"
+    '')
+    ""
+    cfg.domains);
+
+  inherit (lib) mkOption;
+in
+{
+  options.services.${service-name} = with lib.types; {
+    enable = lib.mkEnableOption description;
+    domains = mkOption {
+      type = listOf (submodule {
+        options = {
+          domain = mkOption { type = str; };
+          usernameFile = mkOption { type = str; };
+          passwordFile = mkOption { type = str; };
+        };
+      });
+    };
+    interval = mkOption { default = "10min"; };
+    endpoint = mkOption { default = "domains.google.com/nic/update"; };
+  };
+
+  config = lib.mkIf cfg.enable {
+    systemd.services.${service-name} = {
+      inherit description;
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      path = [
+        pkgs.curl
+        pkgs.coreutils
+      ];
+      serviceConfig = rec {
+        DynamicUser = true;
+        RuntimeDirectoryMode = "0700";
+        inherit StateDirectory;
+        inherit RuntimeDirectory;
+        Type = "oneshot";
+        ExecStartPre = "!${preStart}";
+        ExecStart = script;
+      };
+    };
+
+    systemd.timers.${service-name} = {
+      description = "Run ${service-name}";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = cfg.interval;
+        OnUnitInactiveSec = cfg.interval;
+      };
+    };
+  };
+}
