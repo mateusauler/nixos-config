@@ -24,6 +24,7 @@ in
           gtk-application-prefer-dark-theme = true;
           gtk-decoration-layout = "menu:none";
           gtk-enable-animations = true;
+          gtk-error-bell = 0;
           gtk-font-name = "${osConfig.defaultFonts.sans.name}, ${toString osConfig.defaultFonts.sans.size}";
           gtk-menu-images = true;
           gtk-primary-button-warps-slider = false;
@@ -59,7 +60,7 @@ in
             (lib.attrsets.foldlAttrs
               (acc: name: value: acc ++ [
                 ("${name}=" + (
-                  if builtins.typeOf value == "string" then (if lib.strings.hasPrefix "GTK_" value then value else "\"${value}\"")
+                  if builtins.typeOf value == "string" then (if lib.hasPrefix "GTK_" value then value else "\"${value}\"")
                   else if builtins.typeOf value == "bool" then (if value then "1" else "0")
                   else toString value
                 ))
