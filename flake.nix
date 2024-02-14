@@ -66,7 +66,7 @@
         amadeus = "stable";
       };
 
-      specialArgs = { inherit nix-colors pkgs-stable pkgs-unstable lib-stable lib-unstable; };
+      specialArgs = { inherit nix-colors nixpkgs-stable nixpkgs-unstable pkgs-stable pkgs-unstable lib-stable lib-unstable; };
 
       mkHost = acc: hostname:
         acc // {
