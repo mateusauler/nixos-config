@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  module-names = [ "server" ];
+  module-names = [ "server" "zswap" ];
 in
 {
   imports = [

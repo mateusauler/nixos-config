@@ -12,10 +12,9 @@ in
       description = "Enable ZSwap, set to ZSTD and Z3FOLD";
       enable = true;
       wantedBy = [ "basic.target" ];
-      path = [ pkgs.bash ];
       serviceConfig = {
         ExecStart = ''
-          bash -c 'cd /sys/module/zswap/parameters && \
+          ${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters && \
           echo 1 > enabled && \
           echo 20 > max_pool_percent && \
           echo zstd > compressor && \
