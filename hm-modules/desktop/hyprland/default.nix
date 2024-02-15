@@ -25,26 +25,26 @@ in
       };
     };
     autostart =
-      builtins.mapAttrs
-        (
-          name: value:
-            {
-              enable = mkEnableOption "${name}";
-              command = mkOption { default = value; };
-            }
-        )
+      (builtins.mapAttrs
+        (name: value: {
+          enable = mkEnableOption "${name}";
+          command = mkOption { default = value; };
+        })
         {
           copyq = "copyq --start-server";
           easyeffects = "easyeffects --gapplication-service";
           megasync = "megasync";
-          swww = "sleep 0.5 && swww init";
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
           xwaylandvideobridge = "xwaylandvideobridge";
-
           # TODO: Add kdeconnect & syncthing-tray
+        }) // {
+        apply-wallpaper = {
+          enable = mkEnableOption "apply-wallpaper";
+          command = mkOption { type = lib.types.str; };
         };
+      };
     autostart-wait-for = { megasync.wait-for = mkOption { default = "waybar"; }; };
     extraAutostart = with lib.types; mkOption {
       default = { };
@@ -63,6 +63,7 @@ in
 
           specials = {
             # Programs with non-standard default enable conditions
+            apply-wallpaper.enable = with config.modules.change-wallpaper; mkDefault (enable && command != null);
             waybar.enable = mkDefault config.modules.waybar.enable;
             wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
           };
@@ -121,7 +122,6 @@ in
       hyprland-protocols
       hyprpicker
       libnotify
-      swww
       wl-clip-persist
       wlsunset
     ]

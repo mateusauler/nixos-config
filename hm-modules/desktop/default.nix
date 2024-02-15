@@ -49,9 +49,15 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
-      change-wallpaper.command = "${pkgs.swww}/bin/swww img";
-    };
+    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) (
+      let
+        swww = lib.getExe pkgs.swww;
+      in
+      {
+        change-wallpaper.command = "${swww} img";
+        hyprland.autostart.apply-wallpaper.command = "sleep 0.5 && ${swww} init";
+      }
+    );
 
     home.packages = with pkgs; [
       at-spi2-core
