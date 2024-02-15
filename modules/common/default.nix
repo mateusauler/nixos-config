@@ -3,6 +3,7 @@
 {
   imports = [
     ./appimage.nix
+    ./battery.nix
     ./deploy-secrets
     ./docker.nix
     ./efi.nix
