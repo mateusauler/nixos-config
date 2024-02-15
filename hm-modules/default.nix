@@ -27,6 +27,13 @@ in
 
     modules = pkgs.lib.enableModules module-names;
 
+    programs.zoxide = {
+      enable = lib.mkDefault true;
+      enableFishIntegration = true;
+      enableBashIntegration = true;
+      options = [ "--cmd cd" ];
+    };
+
     home = {
       sessionVariables = {
         TERMINAL = "$TERM";
