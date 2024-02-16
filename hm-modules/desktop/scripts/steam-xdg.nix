@@ -44,7 +44,7 @@ in
           # Link every file in the root of the home directory to the fake home
           find ${homeDirectory} -maxdepth 1 | xargs -P$(nproc) -I{} bash -c 'link_dir "$0"' {}
 
-          HOME=${cfg.fakeHome} exec ${pkgs.steam}/bin/steam $@
+          HOME=${cfg.fakeHome} exec ${lib.getExe pkgs.steam} $@
         '';
       in
       [ steam-xdg ];

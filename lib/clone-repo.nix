@@ -2,9 +2,9 @@
 
 { path, url, ssh-uri ? null }:
 let
-  git = "${pkgs.git}/bin/git";
-  ssh = "${pkgs.openssh}/bin/ssh";
-  grep = "${pkgs.gnugrep}/bin/grep";
+  git = "${lib.getExe pkgs.git}";
+  ssh = "${lib.getExe pkgs.openssh}";
+  grep = "${lib.getExe pkgs.gnugrep}";
   ssh-check = "${ssh} -T ${lib.head (lib.splitString ":" ssh-uri)} 2>&1 | ${grep} -v \"Permission denied\"";
 in
 ''

@@ -37,7 +37,7 @@ in
     xdg.configFile."nvim/init.lua".onChange = ''
       XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
       for server in $XDG_RUNTIME_DIR/nvim.*; do
-        $DRY_RUN_CMD ${pkgs.neovim}/bin/nvim --server $server --remote-send ':source ${config.xdg.configHome}/nvim/init.lua<CR>' &
+        $DRY_RUN_CMD ${lib.getExe pkgs.neovim} --server $server --remote-send ':source ${config.xdg.configHome}/nvim/init.lua<CR>' &
       done
     '';
   };

@@ -36,7 +36,7 @@ in {
       executable = true;
       target = "openwith/open_with_linux.py";
       text = ''
-        #!${pkgs.python3}/bin/python3
+        #!${lib.getExe pkgs.python3}
         ${builtins.readFile ./open_with_linux.py}
       '';
     };
@@ -70,7 +70,7 @@ in {
               ],
               "description": "KeePassXC integration with native messaging support",
               "name": "org.keepassxc.keepassxc_browser",
-              "path": "${pkgs.keepassxc}/bin/keepassxc-proxy",
+              "path": "${lib.getBin pkgs.keepassxc}/keepassxc-proxy",
               "type": "stdio"
             }
           '';

@@ -14,7 +14,7 @@ in
       wantedBy = [ "basic.target" ];
       serviceConfig = {
         ExecStart = ''
-          ${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters && \
+          ${lib.getExe pkgs.bash} -c 'cd /sys/module/zswap/parameters && \
           echo 1 > enabled && \
           echo 20 > max_pool_percent && \
           echo zstd > compressor && \

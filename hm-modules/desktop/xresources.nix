@@ -3,7 +3,7 @@
 let
   cfg = config.modules.xresources;
   xresources = "${config.xdg.configHome}/X11/Xresources";
-  load-xresources = "${pkgs.xorg.xrdb}/bin/xrdb ${xresources}";
+  load-xresources = "${lib.getExe pkgs.xorg.xrdb} ${xresources}";
 in {
   options.modules.xresources.enable = lib.mkEnableOption "xresources";
 

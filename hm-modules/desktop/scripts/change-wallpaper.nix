@@ -46,10 +46,10 @@ in
 
       packages =
         let
-          find = "${pkgs.findutils}/bin/find";
-          head = "${pkgs.coreutils}/bin/head";
-          nsxiv = "${pkgs.nsxiv}/bin/nsxiv";
-          shuf = "${pkgs.coreutils}/bin/shuf";
+          find = "${lib.getExe pkgs.findutils}";
+          head = "${lib.getBin pkgs.coreutils}/head";
+          nsxiv = "${lib.getBin pkgs.nsxiv}/nsxiv";
+          shuf = "${lib.getBin pkgs.coreutils}/shuf";
           change-wallpaper = pkgs.writeShellScriptBin "chw" ''
             file=$(${find} ${wall-dir} -type f | ${shuf} | ${nsxiv} -oiqt | ${head} -n 1)
             [ ! -z $file ] && ln -sf $file ${dest}

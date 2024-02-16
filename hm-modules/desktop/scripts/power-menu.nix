@@ -9,7 +9,7 @@ in
   options.modules.power-menu = {
     enable = lib.mkEnableOption "Power menu";
     command = {
-      line = mkOption { default = "${pkgs.wofi}/bin/wofi --columns 1 --dmenu"; };
+      line = mkOption { default = "${lib.getExe pkgs.wofi} --columns 1 --dmenu"; };
       prompt-arg = mkOption { default = "--prompt"; };
     };
     actions = with lib.types; {

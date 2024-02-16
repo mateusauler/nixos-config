@@ -76,7 +76,7 @@ let
     sudo qemu-nbd --connect $DEV $RO $1
 
     function mount_disk {
-      sudo ${pkgs.udisks}/bin/udisksctl mount -b $1
+      sudo ${lib.getBin pkgs.udisks}/udiskctl mount -b $1
     }
 
     if [ ! -z $PART ]; then
