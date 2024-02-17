@@ -70,7 +70,7 @@ in {
               ],
               "description": "KeePassXC integration with native messaging support",
               "name": "org.keepassxc.keepassxc_browser",
-              "path": "${lib.getBin pkgs.keepassxc}/keepassxc-proxy",
+              "path": "${pkgs.keepassxc}/bin/keepassxc-proxy",
               "type": "stdio"
             }
           '';
