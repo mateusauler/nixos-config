@@ -9,8 +9,8 @@ rec {
 
   g = "git";
 
-  ga = "git add";
   gaa = "git add -A";
+  ga = "git add";
   gap = "git add -p";
   gb = "git branch";
   gcaa = "git commit --amend -a";
@@ -31,6 +31,7 @@ rec {
   gri = "git rebase -i";
   gs = "git status";
   gsh = "git show";
+  gsl = "git stash list";
   gsp = "git stash pop";
   gst = "git stash -u";
   gu = "git push";
