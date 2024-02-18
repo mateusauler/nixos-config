@@ -89,7 +89,7 @@ function fish_nim_prompt
 			set shell_name "$(echo $name | sed 's/-env//; s/-/ /g')"
 		end
 		if test -n "$NIX_SHELL_PKGS"
-			set shell_name $(test -n "$shell_name" && echo "$shell_name :: ")"$NIX_SHELL_PKGS"
+			set shell_name "$(test -n "$shell_name" && echo "$shell_name :: ")$NIX_SHELL_PKGS"
 		end
 		if test -z "$shell_name"
 			set shell_name nix-shell
