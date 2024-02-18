@@ -42,6 +42,7 @@ in
           pictures = mkDefault "${home}/pics";
           videos = mkDefault "${home}/vids";
         };
+      configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
       mimeApps = {
         enable = mkDefault true;
         defaultApplications = {

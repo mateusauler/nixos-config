@@ -62,8 +62,6 @@ in
 
         atexit.register(write_history)
       '';
-
-      "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
     };
   };
 }
