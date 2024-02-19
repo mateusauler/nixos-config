@@ -23,6 +23,7 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
       "networkmanager"
       "syncthing"
       "vpn"
+      "wireshark"
     ];
 
     hashedPasswordFile = lib.mkDefault config.sops.secrets."password-${username}".path;
