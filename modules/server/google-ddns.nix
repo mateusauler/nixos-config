@@ -9,7 +9,7 @@ let
   RuntimeDirectory = service-name;
 
   preStart = pkgs.writeShellScript "${service-name}-prestart" (lib.foldl
-    (acc: { domain, usernameFile, passwordFile }: ''
+    (acc: { domain, usernameFile, passwordFile, ... }: ''
       ${acc}
       install --mode=600 --owner=$USER ${passwordFile} /run/${RuntimeDirectory}/password-${domain}.key
       install --mode=600 --owner=$USER ${usernameFile} /run/${RuntimeDirectory}/username-${domain}.txt
@@ -18,12 +18,13 @@ let
     cfg.domains);
 
   script = pkgs.writeShellScript service-name (lib.foldl
-    (acc: { domain, ... }: ''
+    (acc: { domain, version, ... }: ''
       ${acc}
       username=$(cat /run/${RuntimeDirectory}/username-${domain}.txt)
       password=$(cat /run/${RuntimeDirectory}/password-${domain}.key)
       auth="$(echo -n "$username:$password" | base64)"
-      curl --request POST \
+      curl ${lib.optionalString (version != null) "--${version}"} \
+        --request POST \
         --url "https://${cfg.endpoint}?hostname=${domain}" \
         --header "Authorization: Basic $auth"
     '')
@@ -41,6 +42,10 @@ in
           domain = mkOption { type = str; };
           usernameFile = mkOption { type = str; };
           passwordFile = mkOption { type = str; };
+          version = mkOption {
+            type = nullOr (enum [ "ipv4" "ipv6" ]);
+            default = null;
+          };
         };
       });
     };
