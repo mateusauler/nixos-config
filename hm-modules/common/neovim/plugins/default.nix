@@ -22,6 +22,7 @@ in
 
       plugins = with pkgs.vimPlugins; [
         vim-numbertoggle
+        (requireAndSetupLua nvim-surround { })
         (requireAndSetupLua diffview-nvim { })
 
         {
