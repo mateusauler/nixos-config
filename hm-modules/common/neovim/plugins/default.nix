@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.neovim;
-  requireAndSetupLua = { plugin, name ? (lib.removeSuffix ".nvim" plugin.pname), args ? "" }:
+  requireAndSetupLua = plugin: { name ? (lib.removeSuffix ".nvim" plugin.pname), args ? "" }:
     {
       inherit plugin;
       type = "lua";
@@ -20,7 +20,7 @@ in
 
       plugins = with pkgs.vimPlugins; [
         vim-numbertoggle
-        (requireAndSetupLua { plugin = diffview-nvim; })
+        (requireAndSetupLua diffview-nvim { })
 
         {
           plugin = alpha-nvim;
@@ -32,10 +32,10 @@ in
           '';
         }
 
-        (requireAndSetupLua { plugin = bufferline-nvim; })
-        (requireAndSetupLua { plugin = nvim-web-devicons; })
+        (requireAndSetupLua bufferline-nvim { })
+        (requireAndSetupLua nvim-web-devicons { })
 
-        (requireAndSetupLua { plugin = lualine-nvim; args = "{ icons_enabled = true }"; })
+        (requireAndSetupLua lualine-nvim { args = "{ icons_enabled = true }"; })
         {
           plugin = neo-tree-nvim;
           type = "lua";
@@ -57,9 +57,11 @@ in
           config = builtins.readFile ./lsp.lua;
         }
 
-        (requireAndSetupLua { plugin = comment-nvim; name = "Comment"; })
-        (requireAndSetupLua { plugin = auto-session; })
-        (requireAndSetupLua { plugin = gitsigns-nvim; })
+        (requireAndSetupLua comment-nvim { name = "Comment"; })
+        (requireAndSetupLua auto-session { })
+        (requireAndSetupLua gitsigns-nvim { })
+
+        (requireAndSetupLua which-key-nvim { })
       ];
     };
   };
