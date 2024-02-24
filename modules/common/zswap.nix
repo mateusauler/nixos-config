@@ -13,7 +13,7 @@ in
       enable = true;
       wantedBy = [ "basic.target" ];
       serviceConfig = {
-        ExecStart = ''
+        ExecStart = /* bash */ ''
           ${lib.getExe pkgs.bash} -c 'cd /sys/module/zswap/parameters && \
           echo 1 > enabled && \
           echo 20 > max_pool_percent && \

@@ -48,7 +48,7 @@ in {
         open-with-messaging-host = {
           enable = cfg.openwith.enable;
           target = "${nmh-path}/open_with.json";
-          text = ''
+          text = /* json */ ''
             {
               "allowed_extensions": [
                 "openwith@darktrojan.net"
@@ -63,7 +63,7 @@ in {
         keepassxc-native-messaging-host = {
           enable = cfg.keepassxc.enable;
           target = "${nmh-path}/org.keepassxc.keepassxc_browser.json";
-          text = ''
+          text = /* json */ ''
             {
               "allowed_extensions": [
                 "keepassxc-browser@keepassxc.org"

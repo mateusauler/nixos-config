@@ -11,7 +11,7 @@ in
     # Ensures the cursor icon always works
     xdg.dataFile."icons/default/index.theme" = {
       inherit (cfg) enable;
-      text = ''
+      text = /* ini */ ''
         [Icon Theme]
         Name=Default
         Comment=Default Cursor Theme

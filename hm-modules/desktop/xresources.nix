@@ -13,7 +13,7 @@ in {
 	    packages = [ pkgs.xorg.xrdb ];
       file.${xresources} = {
         enable = true;
-        text = with config.colorScheme.palette; ''
+        text = with config.colorScheme.palette; /* css */ ''
           #ifdef background_opacity
             *background: [background_opacity]#${base00}
           #else

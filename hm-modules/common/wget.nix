@@ -10,7 +10,7 @@ in {
     home = {
       sessionVariables = { inherit WGETRC; };
       packages = [ pkgs.wget ];
-      activation.create-wgetrc = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      activation.create-wgetrc = lib.hm.dag.entryAfter ["writeBoundary"] /* bash */ ''
         $DRY_RUN_CMD mkdir -p $(dirname "${WGETRC}")
         $DRY_RUN_CMD touch "${WGETRC}"
       '';

@@ -26,7 +26,7 @@ in {
     };
     home.packages =
     let
-      browser = pkgs.writeShellScriptBin "browser" ''
+      browser = pkgs.writeShellScriptBin "browser" /* bash */ ''
         browser_cmd="${cfg.commandName} --new-tab"
         video_player="${cfg.videoPlayer.package}/bin/${cfg.videoPlayer.executableName}"
 

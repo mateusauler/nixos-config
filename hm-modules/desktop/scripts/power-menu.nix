@@ -58,9 +58,9 @@ in
         confirmation = action:
           lib.optionalString
             action.confirm
-            ''[ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&'';
+            /* bash */ ''[ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&'';
 
-        power-menu = pkgs.writeShellScriptBin "power-menu" ''
+        power-menu = pkgs.writeShellScriptBin "power-menu" /* bash */ ''
           choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
 
           case "$choice" in

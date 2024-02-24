@@ -14,7 +14,7 @@ in
       nix-direnv.enable = mkDefault true;
     };
 
-    xdg.configFile."direnv/direnv.toml".text = ''
+    xdg.configFile."direnv/direnv.toml".text = /* toml */ ''
       [global]
       warn_timeout = "10h"
     '';

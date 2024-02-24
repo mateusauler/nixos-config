@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  mount-nbd = pkgs.writeShellScriptBin "mount-nbd" ''
+  mount-nbd = pkgs.writeShellScriptBin "mount-nbd" /* bash */ ''
     function usage {
       pname=$(basename $0)
       echo "Usage:"

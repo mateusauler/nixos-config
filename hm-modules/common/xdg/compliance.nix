@@ -43,7 +43,7 @@ in
         '';
 
     xdg.configFile = {
-      "python/pythonrc".text = ''
+      "python/pythonrc".text = /* python */ ''
         import os
         import atexit
         import readline

@@ -9,7 +9,7 @@ let
   RuntimeDirectory = service-name;
 
   preStart = pkgs.writeShellScript "${service-name}-prestart" (lib.foldl
-    (acc: { domain, usernameFile, passwordFile, ... }: ''
+    (acc: { domain, usernameFile, passwordFile, ... }: /* bash */ ''
       ${acc}
       install --mode=600 --owner=$USER ${passwordFile} /run/${RuntimeDirectory}/password-${domain}.key
       install --mode=600 --owner=$USER ${usernameFile} /run/${RuntimeDirectory}/username-${domain}.txt
@@ -18,7 +18,7 @@ let
     cfg.domains);
 
   script = pkgs.writeShellScript service-name (lib.foldl
-    (acc: { domain, version, ... }: ''
+    (acc: { domain, version, ... }: /* bash */ ''
       ${acc}
       username=$(cat /run/${RuntimeDirectory}/username-${domain}.txt)
       password=$(cat /run/${RuntimeDirectory}/password-${domain}.key)

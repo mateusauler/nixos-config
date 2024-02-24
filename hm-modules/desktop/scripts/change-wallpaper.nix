@@ -34,7 +34,7 @@ in
               height = 2160;
               logoScale = 5.0;
             };
-            link-wallpaper = ''
+            link-wallpaper = /* bash */ ''
               if [ ! -e ${dest} ]; then
                 $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
                 [ ! -z "$DISPLAY" ] && $DRY_RUN_CMD ${set-wallpaper-command}

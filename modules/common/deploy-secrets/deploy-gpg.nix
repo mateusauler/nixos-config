@@ -30,7 +30,7 @@ lib.mkIf cfg.enable {
             sort-list = list: ''($(printf "%s\n" "''${${list}[@]}" | sort))'';
             getSecretKeyIDs = "$(gpg --list-secret-keys --keyid-format LONG | awk '/sec/{if (match($0, /([0-9A-F]{16,})/, m)) print m[1]}')";
           in
-          ''
+          /* bash */ ''
             mkdir -p "$GNUPGHOME" -m "0700"
 
             if [ -s "${secret-path}" ] ; then

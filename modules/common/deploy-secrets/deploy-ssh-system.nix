@@ -32,7 +32,7 @@ lib.mkIf cfg.enable {
           ssh-key-path = "/etc/ssh/ssh_host_${k}_key";
         in
         acc +
-        ''
+        /* bash */ ''
           if [ -s "${secret-path}" ] ; then
             echo Deploying ${k}...
             cp ${secret-path} ${ssh-key-path}

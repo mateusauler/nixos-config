@@ -40,7 +40,7 @@ in
           ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
         '';
 
-        shellInit = ''
+        shellInit = /* fish */ ''
           set fish_greeting
           fish_vi_key_bindings
           ${lib.optionalString cfg.ondir.enable "ondir_prompt_hook"}
@@ -51,7 +51,7 @@ in
     # The `fish_variables` file includes all of the abbreviations and some other variables that I don't care about.
     # So, if an abbreviation is removed in the config, it will still exist in the fish_variables file.
     # Therefore, let's remove it.
-    home.activation."remove-fish_variables" = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation."remove-fish_variables" = lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */ ''
       $DRY_RUN_CMD rm -f $VERBOSE_ARG ${config.xdg.configHome}/fish/fish_variables
     '';
 
@@ -81,7 +81,7 @@ in
     ) // {
       "fish/functions/ondir_prompt_hook.fish" = {
         enable = cfg.ondir.enable;
-        text = ''
+        text = /* fish */ ''
           function ondir_prompt_hook --on-event fish_prompt
             if test ! -e "$OLDONDIRWD"; set -g OLDONDIRWD /; end
             echo "$PWD" > "/tmp/ondir-$USER-cd"

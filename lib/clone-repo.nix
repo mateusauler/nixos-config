@@ -7,7 +7,7 @@ let
   grep = "${lib.getExe pkgs.gnugrep}";
   ssh-check = "${ssh} -T ${lib.head (lib.splitString ":" ssh-uri)} 2>&1 | ${grep} -v \"Permission denied\"";
 in
-''
+/* bash */ ''
   if [ ! -d ${path} ]; then
     $DRY_RUN_CMD ${git} clone $VERBOSE_ARG ${url} ${path}
     $DRY_RUN_CMD pushd ${path}

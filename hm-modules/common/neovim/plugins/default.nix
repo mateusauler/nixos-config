@@ -29,7 +29,7 @@ in
         {
           plugin = alpha-nvim;
           type = "lua";
-          config = ''
+          config = /* lua */ ''
             local dotscloned = ${toString config.dots.clone}
             local dotspath = '${config.dots.path}'
             ${builtins.readFile ./alpha-nvim.lua}

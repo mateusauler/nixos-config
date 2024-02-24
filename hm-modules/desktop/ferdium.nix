@@ -14,7 +14,7 @@ in
     home.packages =
       let
         pkg = pkgs.ferdium.overrideAttrs (old: lib.attrsets.optionalAttrs cfg.enableWayland {
-          postFixup = ''
+          postFixup = /* bash */ ''
             ${old.postFixup}
             sed -i -E "s/Exec=ferdium/Exec=ferdium --enable-features=UseOzonePlatform --ozone-platform=wayland/" $out/share/applications/ferdium.desktop
           '';

@@ -13,7 +13,7 @@ in
     home.packages =
       let
         inherit (config.home) homeDirectory;
-        steam-xdg = pkgs.writeShellScriptBin "steam" ''
+        steam-xdg = pkgs.writeShellScriptBin "steam" /* bash */ ''
           # Symlink a file to the fake home
           link_dir() {
             # Replace HOME with FAKEHOME in the link name
