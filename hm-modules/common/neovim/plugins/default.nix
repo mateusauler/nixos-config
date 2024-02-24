@@ -64,6 +64,12 @@ in
         (requireAndSetupLua gitsigns-nvim { })
 
         (requireAndSetupLua which-key-nvim { })
+
+        {
+          plugin = telescope-nvim;
+          type = "lua";
+          config = builtins.readFile ./telescope.lua;
+        }
       ];
     };
   };
