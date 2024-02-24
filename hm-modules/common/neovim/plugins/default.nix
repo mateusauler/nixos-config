@@ -13,8 +13,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.neovim = {
       extraPackages = with pkgs; [
+        fd
         luajitPackages.lua-lsp
         rnix-lsp
+        tree-sitter
         wl-clipboard
       ];
 
