@@ -61,7 +61,6 @@ in
       firefox
       gimp
       keepassxc
-      megasync
       onlyoffice-bin
       pcmanfm
       qbittorrent
