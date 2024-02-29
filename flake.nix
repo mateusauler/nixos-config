@@ -77,5 +77,6 @@
     {
       nixosConfigurations = (private-config.systems { inherit system inputs default-channel pkgs specialArgs; }) // (lib.foldl mkHost { } machines);
       devShells.${system}.default = import ./shell.nix { inherit pkgs; };
+      templates = import ./templates;
     };
 }
