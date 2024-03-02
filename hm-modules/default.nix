@@ -14,7 +14,6 @@ in
   };
 
   imports = [
-    nix-colors.homeManagerModules.default
     ./common
     ./desktop
     ./server

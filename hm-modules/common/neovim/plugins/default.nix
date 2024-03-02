@@ -2,76 +2,47 @@
 
 let
   cfg = config.modules.neovim;
-  requireAndSetupLua = plugin: { name ? (lib.removeSuffix ".nvim" plugin.pname), args ? "" }:
-    {
-      inherit plugin;
-      type = "lua";
-      config = "require('${name}').setup(${args})";
-    };
 in
 {
+  imports = [
+    ./lsp.nix
+  ];
+
   config = lib.mkIf cfg.enable {
-    programs.neovim = {
+    programs.nixvim = {
       extraPackages = with pkgs; [
         fd
-        luajitPackages.lua-lsp
-        rnix-lsp
-        tree-sitter
-        wl-clipboard
       ];
-
-      plugins = with pkgs.vimPlugins; [
+      plugins = {
+        auto-session.enable = true;
+        bufferline.enable = true;
+        comment-nvim.enable = true;
+        diffview.enable = true;
+        gitsigns.enable = true;
+        lualine.enable = true;
+        neo-tree.enable = true;
+        nix.enable = true;
+        nvim-autopairs.enable = true;
+        surround.enable = true;
+        telescope = {
+          enable = true;
+          keymaps = {
+            "<leader>ff" = { action = "find_files"; desc = "Telescope: Find files"; };
+            "<leader>fg" = { action = "live_grep";  desc = "Telescope: Live grep"; };
+            "<leader>fb" = { action = "buffers";    desc = "Telescope: Buffers"; };
+            "<leader>fh" = { action = "help_tags";  desc = "Telescope: Help tags"; };
+          };
+        };
+        treesitter = {
+          enable = true;
+          indent = true;
+          nixvimInjections = true;
+        };
+        which-key.enable = true;
+      };
+      extraPlugins = with pkgs.vimPlugins; [
         vim-numbertoggle
-        (requireAndSetupLua nvim-surround { })
-        (requireAndSetupLua nvim-autopairs { })
-        (requireAndSetupLua diffview-nvim { })
-
-        {
-          plugin = alpha-nvim;
-          type = "lua";
-          config = /* lua */ ''
-            local dotscloned = ${toString config.dots.clone}
-            local dotspath = '${config.dots.path}'
-            ${builtins.readFile ./alpha-nvim.lua}
-          '';
-        }
-
-        (requireAndSetupLua bufferline-nvim { })
-        (requireAndSetupLua nvim-web-devicons { })
-
-        (requireAndSetupLua lualine-nvim { args = "{ icons_enabled = true }"; })
-        {
-          plugin = neo-tree-nvim;
-          type = "lua";
-          config = builtins.readFile ./neo-tree.lua;
-        }
-
-        {
-          plugin = nvim-treesitter.withAllGrammars;
-          type = "lua";
-          config = builtins.readFile ./treesitter.lua;
-        }
-
-        vim-nix
         neodev-nvim
-
-        {
-          plugin = nvim-lspconfig;
-          type = "lua";
-          config = builtins.readFile ./lsp.lua;
-        }
-
-        (requireAndSetupLua comment-nvim { name = "Comment"; })
-        (requireAndSetupLua auto-session { })
-        (requireAndSetupLua gitsigns-nvim { })
-
-        (requireAndSetupLua which-key-nvim { })
-
-        {
-          plugin = telescope-nvim;
-          type = "lua";
-          config = builtins.readFile ./telescope.lua;
-        }
       ];
     };
   };

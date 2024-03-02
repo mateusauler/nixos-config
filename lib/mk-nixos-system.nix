@@ -47,7 +47,11 @@ nixpkgs.lib.nixosSystem rec {
         useUserPackages = false;
         extraSpecialArgs = specialArgs';
         verbose = true;
-        sharedModules = [ ../hm-modules ];
+        sharedModules = [
+          ../hm-modules
+          inputs.nix-colors.homeManagerModules.default
+          inputs.nixvim.homeManagerModules.nixvim
+        ];
       };
     }
     private-config.hosts.${hostname} or { }

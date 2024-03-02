@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
