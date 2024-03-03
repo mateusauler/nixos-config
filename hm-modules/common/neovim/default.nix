@@ -23,6 +23,7 @@ in
   options.modules.neovim = {
     enable = lib.mkEnableOption "neovim";
     neovide.enable = lib.mkEnableOption "neovide";
+    defaultEditor = pkgs.lib.mkTrueEnableOption "Set neovim as default editor";
   };
 
   imports = [
@@ -111,12 +112,16 @@ in
       '';
     };
 
+    home.sessionVariables = lib.mkIf cfg.defaultEditor {
+      EDITOR = lib.mkDefault "nvim";
+      VISUAL = lib.mkDefault "nvim";
+    };
+
     programs.neovim = {
       enable = false;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-      defaultEditor = true;
     };
 
     # Re-source the config on running nvim instances
