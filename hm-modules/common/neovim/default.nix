@@ -12,7 +12,7 @@ let
     };
   };
 
-  mapISilent = mapSilent "i";
+  mapISilent = key: action: mapSilent "i" key "<Esc>${action}a";
   mapNSilent = mapSilent "n";
   mapINSilent = key: action: desc: [
     (mapISilent key action desc)
