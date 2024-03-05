@@ -61,7 +61,13 @@ in
         nix.enable = true;
         nvim-autopairs.enable = true;
         # FIXME: Should be rustaceanvim, but it's not available in nixvim stable
-        rust-tools.enable = true;
+        rust-tools = {
+          enable = true;
+          server = {
+            check.command = "clippy";
+            typing.autoClosingAngleBrackets.enable = true;
+          };
+        };
         surround.enable = true;
         telescope = {
           enable = true;
