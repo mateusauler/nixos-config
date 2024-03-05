@@ -16,6 +16,24 @@ in
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
+
+        # TODO: Configure keymaps
+        # TODO: Configure individual sources
+        nvim-cmp = {
+          enable = true;
+          sources = [
+            { name = "buffer"; }
+            { name = "calc"; }
+            { name = "fish"; }
+            { name = "latex-symbols"; }
+            { name = "nvim-lsp"; }
+            { name = "nvim-lsp-document-symbol"; }
+            { name = "nvim-lsp-signature-help"; }
+            { name = "path"; }
+            { name = "treesitter"; }
+          ];
+        };
+
         comment-nvim.enable = true;
         diffview.enable = true;
         gitsigns.enable = true;
