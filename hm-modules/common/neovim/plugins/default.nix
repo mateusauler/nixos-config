@@ -26,9 +26,9 @@ in
             { name = "fish"; }
             { name = "latex-symbols"; }
             { name = "luasnip"; }
-            { name = "nvim-lsp"; }
-            { name = "nvim-lsp-document-symbol"; }
-            { name = "nvim-lsp-signature-help"; }
+            { name = "nvim_lsp"; }
+            { name = "nvim_lsp-document-symbol"; }
+            { name = "nvim_lsp-signature-help"; }
             { name = "path"; }
             { name = "treesitter"; }
           ];
