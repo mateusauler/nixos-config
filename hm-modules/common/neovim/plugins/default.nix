@@ -48,7 +48,7 @@ in
                   end
                 end
               '';
-              modes = [ "i" "s" "n" ];
+              modes = [ "i" "s" ];
             };
           };
         };
