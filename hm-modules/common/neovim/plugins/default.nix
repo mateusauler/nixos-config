@@ -60,6 +60,8 @@ in
         neo-tree.enable = true;
         nix.enable = true;
         nvim-autopairs.enable = true;
+        # FIXME: Should be rustaceanvim, but it's not available in nixvim stable
+        rust-tools.enable = true;
         surround.enable = true;
         telescope = {
           enable = true;
