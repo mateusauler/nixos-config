@@ -39,10 +39,11 @@ in
                 function(fallback)
                   if cmp.visible() then
                     cmp.select_next_item()
-                  elseif luasnip ~=nil and luasnip.expandable() then
+                  ${lib.optionalString config.programs.nixvim.plugins.luasnip.enable /* lua */ ''
+                  elseif luasnip.expandable() then
                     luasnip.expand()
-                  elseif luasnip ~=nil and luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
+                  elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()''}
                   else
                     fallback()
                   end
@@ -57,6 +58,7 @@ in
         diffview.enable = true;
         gitsigns.enable = true;
         lualine.enable = true;
+        luasnip.enable = true;
         neo-tree.enable = true;
         nix.enable = true;
         nvim-autopairs.enable = true;
