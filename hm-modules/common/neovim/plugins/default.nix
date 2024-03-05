@@ -33,6 +33,7 @@ in
             "<leader>fh" = { action = "help_tags";  desc = "Telescope: Help tags"; };
           };
         };
+        todo-comments.enable = true;
         treesitter = {
           enable = true;
           indent = true;
