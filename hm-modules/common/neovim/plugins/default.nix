@@ -17,7 +17,6 @@ in
         auto-session.enable = true;
         bufferline.enable = true;
 
-        # TODO: Configure keymaps
         # TODO: Configure individual sources
         nvim-cmp = {
           enable = true;
@@ -26,12 +25,33 @@ in
             { name = "calc"; }
             { name = "fish"; }
             { name = "latex-symbols"; }
+            { name = "luasnip"; }
             { name = "nvim-lsp"; }
             { name = "nvim-lsp-document-symbol"; }
             { name = "nvim-lsp-signature-help"; }
             { name = "path"; }
             { name = "treesitter"; }
           ];
+          mapping = {
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = {
+              action = /* lua */ ''
+                function(fallback)
+                  if cmp.visible() then
+                    cmp.select_next_item()
+                  ${lib.optionalString (lib.any ({ name, ... }: name == "luasnip") config.programs.nixvim.plugins.nvim-cmp.sources or [ ]) /* lua */ ''
+                  elseif luasnip.expandable() then
+                    luasnip.expand()
+                  elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()''}
+                  else
+                    fallback()
+                  end
+                end
+              '';
+              modes = [ "i" "s" "n" ];
+            };
+          };
         };
 
         comment-nvim.enable = true;
