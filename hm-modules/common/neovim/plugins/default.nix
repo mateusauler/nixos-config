@@ -39,11 +39,10 @@ in
                 function(fallback)
                   if cmp.visible() then
                     cmp.select_next_item()
-                  ${lib.optionalString (lib.any ({ name, ... }: name == "luasnip") config.programs.nixvim.plugins.nvim-cmp.sources or [ ]) /* lua */ ''
-                  elseif luasnip.expandable() then
+                  elseif luasnip ~=nil and luasnip.expandable() then
                     luasnip.expand()
-                  elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()''}
+                  elseif luasnip ~=nil and luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
                   else
                     fallback()
                   end
