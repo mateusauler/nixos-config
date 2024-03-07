@@ -62,6 +62,7 @@ in
         neo-tree.enable = true;
         nix.enable = true;
         nvim-autopairs.enable = true;
+        rainbow-delimiters.enable = true;
         # FIXME: Should be rustaceanvim, but it's not available in nixvim stable
         rust-tools = {
           enable = true;
