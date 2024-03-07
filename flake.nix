@@ -21,10 +21,8 @@
       flake = false;
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    nixvim-stable.url = "github:nix-community/nixvim/nixos-23.11";
+    nixvim-unstable.url = "github:nix-community/nixvim";
 
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -54,7 +52,12 @@
       pkgs-args = {
         inherit overlays;
         localSystem = system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "freeimage-unstable-2021-11-01"
+          ];
+        };
       };
 
       pkgs-stable = import nixpkgs-stable pkgs-args;

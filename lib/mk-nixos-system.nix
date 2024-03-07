@@ -23,6 +23,7 @@ let
   nixpkgs = get-variable "nixpkgs" inputs;
   pkgs = get-variable "pkgs" specialArgs;
   home-manager = get-variable "home-manager" inputs;
+  nixvim = get-variable "nixvim" inputs;
 
   specialArgs' = specialArgs // { inherit inputs private-config default-channel nixpkgs-channel; };
 
@@ -50,7 +51,7 @@ nixpkgs.lib.nixosSystem rec {
         sharedModules = [
           ../hm-modules
           inputs.nix-colors.homeManagerModules.default
-          inputs.nixvim.homeManagerModules.nixvim
+          nixvim.homeManagerModules.nixvim
         ];
       };
     }

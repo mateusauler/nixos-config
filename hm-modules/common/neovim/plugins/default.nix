@@ -5,55 +5,22 @@ let
 in
 {
   imports = [
+    ./cmp.nix
     ./lsp.nix
   ];
 
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
+      # Hacky way of creating a "global" luasnip variable
+      extraConfigLuaPre = lib.optionalString config.programs.nixvim.plugins.luasnip.enable /* lua */ "local luasnip = require('luasnip')";
+
       extraPackages = with pkgs; [
         fd
       ];
+
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
-
-        # TODO: Configure individual sources
-        nvim-cmp = {
-          enable = true;
-          sources = [
-            { name = "buffer"; }
-            { name = "calc"; }
-            { name = "fish"; }
-            { name = "latex-symbols"; }
-            { name = "luasnip"; }
-            { name = "nvim_lsp"; }
-            { name = "nvim_lsp-document-symbol"; }
-            { name = "nvim_lsp-signature-help"; }
-            { name = "path"; }
-            { name = "treesitter"; }
-          ];
-          mapping = {
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<Tab>" = {
-              action = /* lua */ ''
-                function(fallback)
-                  if cmp.visible() then
-                    cmp.select_next_item()
-                  ${lib.optionalString config.programs.nixvim.plugins.luasnip.enable /* lua */ ''
-                  elseif luasnip.expandable() then
-                    luasnip.expand()
-                  elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()''}
-                  else
-                    fallback()
-                  end
-                end
-              '';
-              modes = [ "i" "s" ];
-            };
-          };
-        };
-
         comment-nvim.enable = true;
         diffview.enable = true;
         gitsigns.enable = true;
@@ -89,6 +56,7 @@ in
         };
         which-key.enable = true;
       };
+
       extraPlugins = with pkgs.vimPlugins; [
         vim-numbertoggle
         neodev-nvim
