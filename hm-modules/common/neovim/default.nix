@@ -78,12 +78,14 @@ in
       ];
 
       keymaps = lib.flatten [
+        { key = ";"; action = ":"; options.desc = "Command"; }
+
         (mapNSilent  "<leader>w" ":w<CR>" "Save")
         (mapINSilent "<C-S>"     ":w<CR>" "Save")
         (mapNSilent  "<leader>q" ":q<CR>" "Quit")
         (mapINSilent "<C-Q>"     ":q<CR>" "Quit")
 
-        # Normal shortcuts
+        # Common shortcuts
         (mapISilent  "<C-V>"   "p"         "Paste from clipboard")
         (mapINSilent "<C-Z>"   ":undo<CR>" "Undo last action")
         (mapINSilent "<C-S-Z>" ":redo<CR>" "Redo last undone action")
