@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v25
         with:
           extra_nix_config: warn-dirty = false
 
@@ -36,7 +36,7 @@ jobs:
 
 
       - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: |
             Bump flake.lock
