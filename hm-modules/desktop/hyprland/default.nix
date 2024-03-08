@@ -27,7 +27,7 @@ in
     autostart =
       (builtins.mapAttrs
         (name: value: {
-          enable = mkEnableOption "${name}";
+          enable = mkEnableOption name;
           command = mkOption { default = value; };
         })
         {
@@ -54,7 +54,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.fish.loginShellInit = "[ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland";
+    programs.fish.loginShellInit = /* fish */ "[ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland";
 
     modules = pkgs.lib.enableModules module-names // {
       hyprland.autostart =
@@ -116,6 +116,20 @@ in
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ autostart else v)
           (cfg.extraOptions // import ./settings.nix args);
+      extraConfig = lib.foldl
+        (acc: d: acc + ''
+          device {
+            name=logitech-g903-${d}
+            sensitivity=-0.93
+          }
+        '')
+        ""
+        [
+          "lightspeed-wireless-gaming-mouse-w/-hero"
+          "lightspeed-wireless-gaming-mouse-w/-hero-1"
+          "lightspeed-wireless-gaming-mouse-w/-hero-2"
+          "ls-1"
+        ];
     };
 
     home.packages = with pkgs; [

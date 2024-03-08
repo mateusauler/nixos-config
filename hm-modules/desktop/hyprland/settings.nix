@@ -98,13 +98,13 @@ in
     "workspace 10 silent, class:(Spotify)"
 
     # Browser screen sharing indicator
-    "move 50% 100%-32,    title:^(.*— Sharing Indicator)"
-    "minsize 52 32,       title:^(.*— Sharing Indicator)"
-    "float,               title:^(.*— Sharing Indicator)"
-    "fakefullscreen,      title:^(.*— Sharing Indicator)"
-    "nofullscreenrequest, title:^(.*— Sharing Indicator)"
-    "noinitialfocus,      title:^(.*— Sharing Indicator)"
-    "noborder,            title:^(.*— Sharing Indicator)"
+    "move 50% 100%-32,         title:^(.*— Sharing Indicator)"
+    "minsize 52 32,            title:^(.*— Sharing Indicator)"
+    "float,                    title:^(.*— Sharing Indicator)"
+    "fakefullscreen,           title:^(.*— Sharing Indicator)"
+    "suppressevent fullscreen, title:^(.*— Sharing Indicator)"
+    "noinitialfocus,           title:^(.*— Sharing Indicator)"
+    "noborder,                 title:^(.*— Sharing Indicator)"
 
     # CopyQ
     "float,  class:(com\\.github\\.hluk\\.copyq)"
@@ -231,16 +231,3 @@ in
 
   bindl = ", switch:on:Lid Switch, exec, swaylock";
 }
-  //
-(
-  let
-    genDeviceConfig = (acc: d: acc // { "device:logitech-g903-${d}" = { sensitivity = -0.93; }; });
-    devices = [
-      "lightspeed-wireless-gaming-mouse-w/-hero"
-      "lightspeed-wireless-gaming-mouse-w/-hero-1"
-      "lightspeed-wireless-gaming-mouse-w/-hero-2"
-      "ls-1"
-    ];
-  in
-  builtins.foldl' genDeviceConfig { } devices
-)
