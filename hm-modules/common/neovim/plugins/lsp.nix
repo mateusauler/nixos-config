@@ -40,6 +40,10 @@ lib.mkIf cfg.enable {
         enable = true;
         installCargo = true;
         installRustc = true;
+        settings.workspace.symbol.search = {
+          kind = "all_symbols";
+          scope = "workspace_and_dependencies";
+        };
       };
       texlab.enable = true;
       yamlls.enable = true;
