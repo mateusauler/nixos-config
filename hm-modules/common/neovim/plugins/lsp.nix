@@ -35,7 +35,7 @@ lib.mkIf cfg.enable {
       java-language-server.enable = true;
       jsonls.enable = true;
       lua-ls.enable = true;
-      rnix-lsp.enable = true;
+      nixd.enable = true;
       rust-analyzer = {
         enable = true;
         installCargo = true;

@@ -56,6 +56,7 @@
           allowUnfree = true;
           permittedInsecurePackages = [
             "freeimage-unstable-2021-11-01"
+            "nix-2.16.2" # FIXME: https://github.com/nix-community/nixd/issues/357
           ];
         };
       };
