@@ -4,6 +4,7 @@
   inputs = rec {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = nixpkgs-stable;
 
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -21,8 +22,15 @@
       flake = false;
     };
 
-    nixvim-stable.url = "github:nix-community/nixvim/nixos-23.11";
-    nixvim-unstable.url = "github:nix-community/nixvim";
+    nixvim-stable = {
+      url = "github:nix-community/nixvim/nixos-23.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+    nixvim-unstable = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
 
     sops-nix = {
       url = "github:mic92/sops-nix";
