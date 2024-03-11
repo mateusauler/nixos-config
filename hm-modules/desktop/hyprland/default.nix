@@ -33,7 +33,6 @@ in
         {
           copyq = "copyq --start-server";
           easyeffects = "easyeffects --gapplication-service";
-          megasync = "megasync";
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
@@ -45,7 +44,7 @@ in
           command = mkOption { type = lib.types.str; };
         };
       };
-    autostart-wait-for = { megasync.wait-for = mkOption { default = "waybar"; }; };
+    autostart-wait-for = { };
     extraAutostart = with lib.types; mkOption {
       default = { };
       type = attrsOf str;
