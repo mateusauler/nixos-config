@@ -20,6 +20,7 @@ let
     "power-menu"
     "qt"
     "xresources"
+    "zathura"
   ];
 in
 {
@@ -46,6 +47,7 @@ in
     ./waybar
     ./wofi.nix
     ./xresources.nix
+    ./zathura.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -76,7 +78,6 @@ in
       vscodium-fhs
       wl-clipboard
       yt-dlp
-      zathura
     ];
   };
 }
