@@ -24,6 +24,10 @@ in
     };
   };
 
+  imports = [
+    ./abbreviations.nix
+  ];
+
   config = lib.mkIf cfg.enable {
     home.packages = (lib.optional cfg.pfetch.enable pkgs.pfetch) ++ (lib.optional cfg.ondir.enable pkgs.ondir);
 
@@ -33,7 +37,6 @@ in
       fish = {
         enable = true;
         shellAliases = config.shell-aliases;
-        shellAbbrs = (import ./abbreviations.nix args);
 
         interactiveShellInit = ''
           ${lib.getExe pkgs.bash} ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
