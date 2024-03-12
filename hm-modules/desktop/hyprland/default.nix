@@ -131,16 +131,16 @@ in
         ];
     };
 
-    home.packages = with pkgs; [
+    home.packages = with pkgs; lib.flatten [
       hyprland-protocols
       hyprpicker
       libnotify
       wl-clip-persist
       wlsunset
-    ]
-    # FIXME: Install normally, when hyprshot gets to stable
-    ++ [ pkgs-unstable.hyprshot ]
-    ++ (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
-    ++ (lib.optional config.modules.rofi.enable rofi-power-menu);
+      # FIXME: Install normally, when hyprshot gets to stable
+      pkgs-unstable.hyprshot
+      (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
+      (lib.optional config.modules.rofi.enable rofi-power-menu)
+    ];
   };
 }
