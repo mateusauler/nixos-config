@@ -12,11 +12,7 @@ in
       enable = true;
       enableBashIntegration = mkDefault true;
       nix-direnv.enable = mkDefault true;
+      config.global.warn_timeout = "10h";
     };
-
-    xdg.configFile."direnv/direnv.toml".text = /* toml */ ''
-      [global]
-      warn_timeout = "10h"
-    '';
   };
 }
