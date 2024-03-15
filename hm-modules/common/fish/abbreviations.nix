@@ -31,6 +31,8 @@ in
       gmt = "git mergetool";
       gp = "git pull";
       gr = "git rebase";
+      gra = "git rebase --abort";
+      grc = "git rebase --continue";
       gri = "git rebase -i";
       gs = "git status";
       gsh = "git show";
