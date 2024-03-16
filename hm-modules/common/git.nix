@@ -8,9 +8,11 @@ in {
       type = types.nullOr types.str;
       default = null;
     };
+    lazygit = pkgs.lib.mkTrueEnableOption "Lazygit";
   };
 
   config = {
+    programs.lazygit.enable = cfg.lazygit;
     programs.git = {
       enable = true;
       userName = "Mateus Auler";

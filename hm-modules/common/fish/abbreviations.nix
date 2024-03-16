@@ -69,5 +69,7 @@ in
 
     } // lib.optionalAttrs config.dots.clone {
       dots = "cd ${config.dots.path}";
+    } // lib.optionalAttrs config.programs.lazygit.enable {
+      lg = "lazygit";
     };
 }
