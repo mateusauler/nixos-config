@@ -45,10 +45,10 @@ in
         maplocalleader = " ";
       };
 
-      options = {
-        # Use system clipboard
-        clipboard = "unnamedplus";
+      # Use system clipboard
+      clipboard.register = "unnamedplus";
 
+      options = {
         # Line numbers
         number = true;
         relativenumber = true;
