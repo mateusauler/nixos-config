@@ -42,6 +42,8 @@ in
       gu = "git push";
       cg = "cd (git rev-parse --show-toplevel)";
 
+      l = "ls";
+
       nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
       nrs = "sudo nixos-rebuild --verbose --flake ${dots-path} switch";
       nrt = "sudo nixos-rebuild --verbose --flake ${dots-path} test";

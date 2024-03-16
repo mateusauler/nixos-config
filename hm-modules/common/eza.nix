@@ -13,6 +13,10 @@ in
       extraOptions = [ "--group-directories-first" ];
     };
     shell-aliases = {
+      # FIXME: Use eza module shell integrations when 24.05 hits stable
+      ls = "eza";
+      lt = "ls --tree";
+
       llt = "lt -l";
       lat = "lt -a";
       llat = "lt -la";
