@@ -16,6 +16,7 @@ in
 
       extraPackages = with pkgs; [
         fd
+        mercurial
       ];
 
       plugins = {
