@@ -5,7 +5,6 @@ let
   cfg = config.services.${service-name};
   description = "Google Domains DDNS update using Google's API";
 
-  StateDirectory = service-name;
   RuntimeDirectory = service-name;
 
   preStart = pkgs.writeShellScript "${service-name}-prestart" (lib.foldl
@@ -57,7 +56,7 @@ in
     systemd.services.${service-name} = {
       inherit description;
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      after = [ "network-online.target" ];
       path = [
         pkgs.curl
         pkgs.coreutils
@@ -65,7 +64,7 @@ in
       serviceConfig = rec {
         DynamicUser = true;
         RuntimeDirectoryMode = "0700";
-        inherit StateDirectory;
+        StateDirectory =  service-name;
         inherit RuntimeDirectory;
         Type = "oneshot";
         ExecStartPre = "!${preStart}";
