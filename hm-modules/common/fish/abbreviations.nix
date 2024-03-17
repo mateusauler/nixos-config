@@ -15,8 +15,11 @@ in
       ga = "git add";
       gap = "git add -p";
       gb = "git branch";
-      gcaa = "git commit --amend -a";
-      gca = "git commit --amend";
+      gcaa = "git commit -a --amend";
+      gcaan = "git commit -a --amend --no-edit";
+      gca = "git commit -a";
+      gcam = "git commit --amend";
+      gcan = "git commit --amend --no-edit";
       gc = "git commit";
       gdc = "git diff --cached";
       gd = "git diff";
