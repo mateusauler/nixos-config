@@ -31,6 +31,7 @@ in
           };
         };
         diffview.enable = true;
+        friendly-snippets.enable = true;
         gitsigns.enable = true;
         lualine.enable = true;
         luasnip.enable = true;
