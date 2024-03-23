@@ -23,6 +23,13 @@ in
         auto-session.enable = true;
         bufferline.enable = true;
         comment-nvim.enable = true;
+        cursorline = {
+          enable = true;
+          cursorline = {
+            timeout = 0;
+            number = true;
+          };
+        };
         diffview.enable = true;
         gitsigns.enable = true;
         lualine.enable = true;
