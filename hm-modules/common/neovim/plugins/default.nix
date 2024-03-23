@@ -29,10 +29,12 @@ in
             timeout = 0;
             number = true;
           };
+          cursorword.enable = false;
         };
         diffview.enable = true;
         friendly-snippets.enable = true;
         gitsigns.enable = true;
+        illuminate.enable = true;
         lualine.enable = true;
         luasnip.enable = true;
         neo-tree.enable = true;
