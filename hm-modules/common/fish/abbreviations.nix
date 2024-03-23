@@ -30,6 +30,7 @@ in
       gh = "git checkout";
       gl = "git log";
       gll = "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      glp = "git log -p";
       gm = "git merge";
       gmt = "git mergetool";
       gp = "git pull";
