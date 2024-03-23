@@ -60,12 +60,7 @@
       pkgs-args = {
         inherit overlays;
         localSystem = system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            "nix-2.16.2" # FIXME: https://github.com/nix-community/nixd/issues/357
-          ];
-        };
+        config.allowUnfree = true;
       };
 
       pkgs-stable = import nixpkgs-stable pkgs-args;
