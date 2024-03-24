@@ -7,7 +7,7 @@ in
   options.modules.ferdium = {
     enable = lib.mkEnableOption "ferdium";
     # FIXME: There is a bug with the current ferdium version, when running with wayland enabled
-    enableWayland = lib.mkEnableOption "running under Wayland" // { default = false && config.modules.hyprland.enable; };
+    enableWayland = lib.mkEnableOption "running under Wayland" // { default = config.modules.hyprland.enable; };
   };
 
   config = lib.mkIf cfg.enable {
