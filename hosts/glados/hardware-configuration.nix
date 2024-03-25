@@ -16,16 +16,28 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/nix_root";
     fsType = "ext4";
+    options = [
+      "defaults"
+      "noatime"
+    ];
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/nix_home";
     fsType = "ext4";
+    options = [
+      "defaults"
+      "noatime"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/nix_efi";
     fsType = "vfat";
+    options = [
+      "defaults"
+      "noatime"
+    ];
   };
 
   fileSystems."/tmp".fsType = "tmpfs";
