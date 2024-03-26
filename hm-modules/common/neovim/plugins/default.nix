@@ -1,7 +1,22 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nixpkgs-channel, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
+
+  plugins = {
+    stable = {
+      comment-nvim.enable = true;
+    };
+    unstable = {
+      comment.enable = true;
+      friendly-snippets.enable = true;
+      vimtex = {
+        enable = true;
+        texlivePackage = null;
+        settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
+      };
+    };
+  };
 in
 {
   imports = [
@@ -22,7 +37,6 @@ in
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
-        comment-nvim.enable = true;
         cursorline = {
           enable = true;
           cursorline = {
@@ -32,7 +46,6 @@ in
           cursorword.enable = false;
         };
         diffview.enable = true;
-        friendly-snippets.enable = true;
         gitsigns.enable = true;
         illuminate.enable = true;
         lualine.enable = true;
@@ -78,13 +91,8 @@ in
           indent = true;
           nixvimInjections = true;
         };
-        vimtex = {
-          enable = true;
-          texlivePackage = null;
-          settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
-        };
         which-key.enable = true;
-      };
+      } // plugins.${nixpkgs-channel} or { };
 
       extraPlugins = with pkgs.vimPlugins; [
         vim-numbertoggle
