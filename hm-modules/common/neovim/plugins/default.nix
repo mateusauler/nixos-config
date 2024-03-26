@@ -78,6 +78,11 @@ in
           indent = true;
           nixvimInjections = true;
         };
+        vimtex = {
+          enable = true;
+          texlivePackage = null;
+          settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
+        };
         which-key.enable = true;
       };
 
