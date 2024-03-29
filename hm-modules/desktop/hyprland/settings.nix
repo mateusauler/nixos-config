@@ -21,7 +21,10 @@ in
     "XDG_SESSION_TYPE,wayland"
   ];
 
-  exec-once = [ "kitty" ] ++ lib.optional cfg.disable-middle-paste "wl-paste -p --watch wl-copy -p ''";
+  exec-once = lib.flatten [
+    "kitty"
+    (lib.optional cfg.disable-middle-paste "wl-paste -p --watch wl-copy -p ''")
+  ];
 
   input = {
     kb_layout = "br";
@@ -86,7 +89,7 @@ in
 
   binds.scroll_event_delay = 80;
 
-  windowrulev2 = [
+  windowrulev2 = lib.flatten [
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
     "workspace 4 silent, class:((V|v)encord(D|d)esktop)"
@@ -141,25 +144,27 @@ in
     "noanim,                            class:^(xwaylandvideobridge)$"
     "nofocus,                           class:^(xwaylandvideobridge)$"
     "noinitialfocus,                    class:^(xwaylandvideobridge)$"
-  ] ++ builtins.foldl'
-    (acc: game: acc ++ [
-      "monitor $mon1, ${game}"
-      "workspace 9,   ${game}"
-    ])
-    [ ]
-    [
-      "class:(steam_app.*)" # Steam games
-      "class:(factorio)"
-      "class:(cs2)"
-      "title:(shapez)"
-    ];
+
+    (lib.concatMap
+      (game: [
+        "monitor $mon1, ${game}"
+        "workspace 9,   ${game}"
+      ])
+      [
+        "class:(steam_app.*)" # Steam games
+        "class:(factorio)"
+        "class:(cs2)"
+        "title:(shapez)"
+      ]
+    )
+  ];
 
   layerrule = [
     "blur,       waybar"
     "ignorezero, waybar"
   ];
 
-  bind = [
+  bind = lib.flatten [
     "${modKey},         T, exec, kitty"
     "${modKey},         W, exec, $BROWSER"
     "${modKey} SHIFT,   W, exec, $BROWSER_PRIV"
@@ -167,17 +172,19 @@ in
     "${modKey},         C, exec, copyq show"
     "${modKey},         E, exec, pcmanfm"
 
-  ] ++ (if config.modules.rofi.enable then [
-    "${modKey},       D,      exec, rofi -show drun -prompt ''"
-    "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
-    "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
-  ]
-  else if config.modules.wofi.enable then [
-    "${modKey},       D, exec, wofi --show drun --prompt ''"
-    "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
-  ]
-  else [ ]
-  ) ++ lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu" ++ [
+    (if config.modules.rofi.enable then [
+      "${modKey},       D,      exec, rofi -show drun -prompt ''"
+      "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
+      "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
+    ]
+    else if config.modules.wofi.enable then [
+      "${modKey},       D, exec, wofi --show drun --prompt ''"
+      "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
+    ]
+    else [ ])
+
+    (lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu")
+
     "${modKey}, PRINT, exec, hyprshot -m window"
     ",          PRINT, exec, hyprshot -m region"
 
@@ -210,11 +217,12 @@ in
     # Scroll through existing workspaces on the same monitor with mainMod + scroll
     "${modKey}, mouse_down, workspace, m+1"
     "${modKey}, mouse_up,   workspace, m-1"
-  ] ++
-  (lib.mapAttrsToList (key: name:      "${modKey},       ${key}, workspace,             ${name}") workspaces) ++
-  (lib.mapAttrsToList (key: name:      "${modKey} SHIFT, ${key}, movetoworkspacesilent, ${name}") workspaces) ++
-  (lib.mapAttrsToList (key: direction: "${modKey},       ${key}, movefocus,             ${direction}") directionsHJKL) ++
-  (lib.mapAttrsToList (key: direction: "${modKey} SHIFT, ${key}, movewindow,            ${direction}") directionsHJKL);
+
+    (lib.mapAttrsToList (key: name:      "${modKey},       ${key}, workspace,             ${name}") workspaces)
+    (lib.mapAttrsToList (key: name:      "${modKey} SHIFT, ${key}, movetoworkspacesilent, ${name}") workspaces)
+    (lib.mapAttrsToList (key: direction: "${modKey},       ${key}, movefocus,             ${direction}") directionsHJKL)
+    (lib.mapAttrsToList (key: direction: "${modKey} SHIFT, ${key}, movewindow,            ${direction}") directionsHJKL)
+  ];
 
   binde = [
     "${modKey}, left,  resizeactive, -50 0"
@@ -230,4 +238,16 @@ in
   ];
 
   bindl = ", switch:on:Lid Switch, exec, swaylock";
+
+  device = map
+    (name: {
+      name = "logitech-g903-${name}";
+      sensitivity = -0.93;
+    })
+    [
+      "lightspeed-wireless-gaming-mouse-w/-hero"
+      "lightspeed-wireless-gaming-mouse-w/-hero-1"
+      "lightspeed-wireless-gaming-mouse-w/-hero-2"
+      "ls-1"
+    ];
 }

@@ -115,20 +115,6 @@ in
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ autostart else v)
           (cfg.extraOptions // import ./settings.nix args);
-      extraConfig = lib.foldl
-        (acc: d: acc + ''
-          device {
-            name=logitech-g903-${d}
-            sensitivity=-0.93
-          }
-        '')
-        ""
-        [
-          "lightspeed-wireless-gaming-mouse-w/-hero"
-          "lightspeed-wireless-gaming-mouse-w/-hero-1"
-          "lightspeed-wireless-gaming-mouse-w/-hero-2"
-          "ls-1"
-        ];
     };
 
     home.packages = with pkgs; lib.flatten [
