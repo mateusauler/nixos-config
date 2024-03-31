@@ -16,6 +16,11 @@ in
 
   environment.systemPackages = [ pkgs.refind ];
 
+  services.hardware.openrgb = {
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
+  };
+
   system.stateVersion = "22.11";
 }
 
