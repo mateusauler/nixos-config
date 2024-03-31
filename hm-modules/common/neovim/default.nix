@@ -1,4 +1,4 @@
-{ config, lib, osConfig, pkgs, ... }:
+{ config, lib, nixpkgs-channel, osConfig, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -18,6 +18,26 @@ let
     (mapISilent key action desc)
     (mapNSilent key action desc)
   ];
+
+  opts = {
+    # Line numbers
+    number = true;
+    relativenumber = true;
+
+    # Tabs
+    tabstop = 4;     # 4 char-wide tab
+    softtabstop = 0; # Use same length as 'tabstop'
+    shiftwidth = 0;  # Use same length as 'tabstop'
+
+    updatetime = 300;
+
+    termguicolors = true;
+    signcolumn = "yes";
+
+    mouse = "a";
+  } // lib.optionalAttrs cfg.neovide.enable {
+    guifont = with osConfig.defaultFonts.mono; "${name}:h${toString size}";
+  };
 in
 {
   options.modules.neovim = {
@@ -47,26 +67,6 @@ in
 
       # Use system clipboard
       clipboard.register = "unnamedplus";
-
-      options = {
-        # Line numbers
-        number = true;
-        relativenumber = true;
-
-        # Tabs
-        tabstop = 4;     # 4 char-wide tab
-        softtabstop = 0; # Use same length as 'tabstop'
-        shiftwidth = 0;  # Use same length as 'tabstop'
-
-        updatetime = 300;
-
-        termguicolors = true;
-        signcolumn = "yes";
-
-        mouse = "a";
-      } // lib.optionalAttrs cfg.neovide.enable {
-        guifont = with osConfig.defaultFonts.mono; "${name}:h${toString size}";
-      };
 
       autoCmd = [
         # 2 char-wide overrides
@@ -116,7 +116,7 @@ in
       extraConfigLua = /* lua */ ''
         ${builtins.readFile ./plugins/neo-tree.lua}
       '';
-    };
+    } // (if nixpkgs-channel == "stable" then { options = opts; } else { inherit opts; });
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {
       EDITOR = lib.mkDefault "nvim";
