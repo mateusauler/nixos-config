@@ -60,6 +60,8 @@ in
     programs.nixvim = {
       enable = true;
 
+      options = opts;
+
       globals = {
         mapleader = " ";
         maplocalleader = " ";
@@ -116,7 +118,7 @@ in
       extraConfigLua = /* lua */ ''
         ${builtins.readFile ./plugins/neo-tree.lua}
       '';
-    } // (if nixpkgs-channel == "stable" then { options = opts; } else { inherit opts; });
+    };
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {
       EDITOR = lib.mkDefault "nvim";

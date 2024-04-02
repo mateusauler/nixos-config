@@ -4,11 +4,8 @@ let
   cfg = config.modules.neovim;
 
   plugins = {
-    stable = {
-      comment-nvim.enable = true;
-    };
+    stable = { };
     unstable = {
-      comment.enable = true;
       friendly-snippets.enable = true;
       vimtex = {
         enable = true;
@@ -37,6 +34,7 @@ in
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
+        comment-nvim.enable = true;
         cursorline = {
           enable = true;
           cursorline = {

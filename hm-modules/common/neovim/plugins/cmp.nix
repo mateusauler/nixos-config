@@ -44,20 +44,9 @@ let
   };
 in
 {
-  programs.nixvim.plugins =
-    if nixpkgs-channel == "stable" then {
-      nvim-cmp = {
-        enable = true;
-        inherit sources mapping;
-        snippet.expand = "luasnip";
-      };
-    } else {
-      cmp = {
-        enable = true;
-        settings = {
-          inherit sources mapping;
-          snippet.expand = /* lua */ "function(args) if luasnip ~= nil then luasnip.lsp_expand(args.body) end end";
-        };
-      };
-    };
+  programs.nixvim.plugins.nvim-cmp = {
+    enable = true;
+    inherit sources mapping;
+    snippet.expand = "luasnip";
+  };
 }
