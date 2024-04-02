@@ -43,6 +43,7 @@ in {
       signing.key = lib.strings.optionalString (cfg.gpgKey != null) cfg.gpgKey;
       extraConfig = {
         pull.rebase = true;
+        rebase.autostash = true;
         push.autoSetupRemote = true;
         submodule.recurse = true;
         advice = {
