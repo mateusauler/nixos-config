@@ -60,12 +60,7 @@
       pkgs-args = {
         inherit overlays;
         localSystem = system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            "freeimage-unstable-2021-11-01"
-          ];
-        };
+        config.allowUnfree = true;
       };
 
       pkgs-stable = import nixpkgs-stable pkgs-args;
