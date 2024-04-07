@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, nixpkgs-channel, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -239,15 +239,32 @@ in
 
   bindl = ", switch:on:Lid Switch, exec, swaylock";
 
-  device = map
-    (name: {
-      name = "logitech-g903-${name}";
-      sensitivity = -0.93;
-    })
-    [
+  device = let
+    devices = [
       "lightspeed-wireless-gaming-mouse-w/-hero"
       "lightspeed-wireless-gaming-mouse-w/-hero-1"
       "lightspeed-wireless-gaming-mouse-w/-hero-2"
       "ls-1"
     ];
+    prefix = "logitech-g903-";
+    sensitivity = -0.93;
+  in (
+    if nixpkgs-channel == "stable" then (
+      builtins.foldl'
+      (acc: name:
+        acc // {
+          "device:${prefix}${name}" = {
+            inherit sensitivity;
+          };
+        })
+      { }
+    )
+    else (
+      map (name: {
+        inherit sensitivity;
+        name = "${prefix}${name}";
+      })
+    )
+  )
+  devices;
 }
