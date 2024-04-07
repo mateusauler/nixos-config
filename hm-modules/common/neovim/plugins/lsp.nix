@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nixpkgs-channel, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -36,6 +36,9 @@ lib.mkIf cfg.enable {
       jsonls.enable = true;
       lua-ls.enable = true;
       nixd.enable = true;
+      texlab.enable = true;
+      yamlls.enable = true;
+    } // lib.optionalAttrs (nixpkgs-channel == "stable") {
       rust-analyzer = {
         enable = true;
         installCargo = true;
@@ -45,8 +48,6 @@ lib.mkIf cfg.enable {
           scope = "workspace_and_dependencies";
         };
       };
-      texlab.enable = true;
-      yamlls.enable = true;
     };
   };
 }

@@ -6,10 +6,18 @@ let
   plugins = {
     stable = {
       comment-nvim.enable = true;
+      rust-tools = {
+        enable = true;
+        server = {
+          check.command = "clippy";
+          typing.autoClosingAngleBrackets.enable = true;
+        };
+      };
     };
     unstable = {
       comment.enable = true;
       friendly-snippets.enable = true;
+      rustaceanvim.enable = true;
       vimtex = {
         enable = true;
         texlivePackage = null;
@@ -55,14 +63,6 @@ in
         nvim-colorizer.enable = true;
         nvim-autopairs.enable = true;
         rainbow-delimiters.enable = true;
-        # FIXME: Should be rustaceanvim, but it's not available in nixvim stable
-        rust-tools = {
-          enable = true;
-          server = {
-            check.command = "clippy";
-            typing.autoClosingAngleBrackets.enable = true;
-          };
-        };
         surround.enable = true;
         telescope = {
           enable = true;
