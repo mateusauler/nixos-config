@@ -146,7 +146,6 @@ lib.mkIf cfg.enable {
         "title"
         "artist"
       ];
-      ignored-players = [ "firefox" ];
     };
 
     pulseaudio = {
