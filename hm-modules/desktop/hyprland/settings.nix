@@ -218,6 +218,8 @@ in
     "${modKey}, mouse_down, workspace, m+1"
     "${modKey}, mouse_up,   workspace, m-1"
 
+    ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
     (lib.mapAttrsToList (key: name:      "${modKey},       ${key}, workspace,             ${name}") workspaces)
     (lib.mapAttrsToList (key: name:      "${modKey} SHIFT, ${key}, movetoworkspacesilent, ${name}") workspaces)
     (lib.mapAttrsToList (key: direction: "${modKey},       ${key}, movefocus,             ${direction}") directionsHJKL)
@@ -237,7 +239,19 @@ in
     "${modKey}, mouse:273, resizewindow"
   ];
 
-  bindl = ", switch:on:Lid Switch, exec, swaylock";
+  bindl = [
+    ", switch:on:Lid Switch, exec, swaylock"
+    ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    ", XF86AudioPlay, exec, playerctl play-pause"
+    ", XF86AudioPause, exec, playerctl play-pause"
+    ", XF86AudioNext, exec, playerctl next"
+    ", XF86AudioPrev, exec, playerctl previous"
+  ];
+
+  bindel = [
+    ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+    ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+  ];
 
   device = let
     devices = [

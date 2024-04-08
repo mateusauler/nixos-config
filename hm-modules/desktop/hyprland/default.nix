@@ -111,7 +111,7 @@ in
             );
         in
         # Concatenates the exec-once list with the generated autostart
-          # TODO: Find a more elegant way to do this
+        # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ autostart else v)
           (cfg.extraOptions // import ./settings.nix args);
@@ -121,6 +121,7 @@ in
       hyprland-protocols
       hyprpicker
       libnotify
+      playerctl
       wl-clip-persist
       wlsunset
       # FIXME: Install normally, when hyprshot gets to stable
