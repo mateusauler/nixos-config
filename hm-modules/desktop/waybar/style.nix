@@ -71,6 +71,7 @@ lib.mkIf cfg.enable {
     #mode,
     #idle_inhibitor,
     #scratchpad,
+    #mpris,
     #mpd,
     #keyboard-state {
       padding: 0 10px;

@@ -19,7 +19,7 @@ lib.mkIf cfg.enable {
     ];
 
     modules-right = lib.flatten [
-      "idle_inhibitor"
+      "mpris"
       "pulseaudio"
       "network"
       "cpu"
@@ -52,14 +52,6 @@ lib.mkIf cfg.enable {
       format-icons = {
         locked   = "";
         unlocked = "";
-      };
-    };
-
-    idle_inhibitor = {
-      format = "{icon}";
-      format-icons = {
-        activated = "";
-        deactivated = "";
       };
     };
 
@@ -141,23 +133,40 @@ lib.mkIf cfg.enable {
       interval            = 5;
     };
 
+    mpris = {
+      format        = "{dynamic}  {player_icon}";
+      format-paused = "{dynamic}  {status_icon}";
+      player-icons = {
+        default = "";
+        mpv     = "";
+        spotify = "";
+      };
+      status-icons.paused = "";
+      dynamic-order = [
+        "title"
+        "artist"
+      ];
+      ignored-players = [ "firefox" ];
+    };
+
     pulseaudio = {
-      format                 = "{icon} {volume}% {format_source}";
-      format-bluetooth       = "{volume}% {icon} {format_source}";
-      format-bluetooth-muted = " {icon} {format_source}";
+      format                 = "{icon}  {volume}% {format_source}";
+      format-bluetooth       = "{volume}% {desc} {format_source}";
+      format-bluetooth-muted = " {desc} {format_source}";
       format-muted           = " {format_source}";
       format-source          = "| {volume}% ";
       format-source-muted    = "| ";
       format-icons = {
-        headphone  = " ";
-        hands-free = " ";
-        headset    = " ";
-        phone      = " ";
-        portable   = " ";
-        car        = " ";
-        default    = [ " " " " " " ];
+        headphone  = "";
+        hands-free = "";
+        headset    = "";
+        phone      = "";
+        portable   = "";
+        car        = "";
+        default    = [ "" "" "" ];
       };
       on-click = "pavucontrol";
+      ignored-sinks = [ "Easy Effects Sink" ];
     };
   };
 }
