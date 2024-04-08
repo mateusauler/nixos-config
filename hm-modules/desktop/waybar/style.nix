@@ -23,6 +23,11 @@ lib.mkIf cfg.enable {
       opacity: 0.2;
     }
 
+    tooltip {
+      background-color: #${base01};
+      color: #${base05};
+    }
+
     button {
       /* Use box-shadow instead of border so the text isn't offset */
       box-shadow: inset 0 -3px transparent;
