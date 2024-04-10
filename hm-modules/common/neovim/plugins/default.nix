@@ -77,7 +77,7 @@ in
         cursorline = {
           enable = true;
           cursorline = {
-            timeout = 0;
+            timeout = 450;
             number = true;
           };
           cursorword.enable = false;
