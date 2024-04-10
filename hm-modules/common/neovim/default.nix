@@ -112,10 +112,6 @@ in
       extraConfigVim = /* vim */ ''
         source ${colors}
       '';
-
-      extraConfigLua = /* lua */ ''
-        ${builtins.readFile ./plugins/neo-tree.lua}
-      '';
     } // (if nixpkgs-channel == "stable" then { options = opts; } else { inherit opts; });
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {

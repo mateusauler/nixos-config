@@ -244,6 +244,22 @@
         "type": "github"
       }
     },
+    "gx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711038705,
+        "narHash": "sha256-MgRAw3SAYKJ9f0k/kWDBeYIY3eX2KyDmv8mwCLh5A7g=",
+        "owner": "chrishrb",
+        "repo": "gx.nvim",
+        "rev": "ea4cc715326a8bd060a450c24c3c9831cdee2f59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrishrb",
+        "repo": "gx.nvim",
+        "type": "github"
+      }
+    },
     "home-manager-stable": {
       "inputs": {
         "nixpkgs": [
@@ -554,6 +570,7 @@
     },
     "root": {
       "inputs": {
+        "gx": "gx",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "nix-colors": "nix-colors",

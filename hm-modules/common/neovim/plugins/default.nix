@@ -1,4 +1,4 @@
-{ config, lib, nixpkgs-channel, pkgs, ... }:
+{ config, inputs, lib, nixpkgs-channel, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -25,6 +25,8 @@ let
       };
     };
   };
+
+  cfg-plug = config.programs.nixvim.plugins;
 in
 {
   imports = [
@@ -35,12 +37,39 @@ in
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
       # Hacky way of creating a "global" luasnip variable
-      extraConfigLuaPre = lib.optionalString config.programs.nixvim.plugins.luasnip.enable /* lua */ "local luasnip = require('luasnip')";
+      extraConfigLuaPre = lib.optionalString cfg-plug.luasnip.enable /* lua */ "local luasnip = require('luasnip')";
 
       extraPackages = with pkgs; [
         fd
         mercurial
       ];
+
+      globals = lib.optionalAttrs cfg-plug.oil.enable {
+        netrw_nogx = 1;
+      };
+
+      keymaps = lib.flatten [
+        (lib.optional cfg-plug.oil.enable [
+          {
+            mode = "n";
+            key = "-";
+            action = "<Cmd>Oil<CR>";
+            options.desc = "Oil: Open parent directory";
+          }
+          {
+            mode = [ "n" "x" ];
+            key = "gx";
+            action = "<Cmd>Browse<CR>";
+          }
+        ])
+      ];
+
+      extraConfigLua = (builtins.readFile ./neo-tree.lua) +
+        (lib.optionalString cfg-plug.oil.enable /* lua */ ''
+          require("gx").setup({
+            handler_options = { search_engine = "duckduckgo" },
+          })
+        '');
 
       plugins = {
         auto-session.enable = true;
@@ -62,6 +91,12 @@ in
         nix.enable = true;
         nvim-colorizer.enable = true;
         nvim-autopairs.enable = true;
+        oil = let
+          settings = {
+            default_file_explorer = true;
+            experimental_watch_for_changes = true;
+          };
+        in { enable = true; } // (if nixpkgs-channel == "stable" then { extraOptions = settings; } else { inherit settings; });
         rainbow-delimiters.enable = true;
         surround.enable = true;
         telescope = {
@@ -93,8 +128,11 @@ in
         };
         which-key.enable = true;
       } // plugins.${nixpkgs-channel} or { };
-
-      extraPlugins = with pkgs.vimPlugins; [
+      extraPlugins = with pkgs.vimPlugins; lib.flatten [
+        (lib.optionals cfg-plug.oil.enable pkgs.vimUtils.buildVimPlugin {
+          name = "gx";
+          src = inputs.gx;
+        })
         vim-numbertoggle
         neodev-nvim
       ];
