@@ -80,33 +80,33 @@ in
       keymaps = lib.flatten [
         { key = ";"; action = ":"; options.desc = "Command"; }
 
-        (mapNSilent  "<leader>w" ":w<CR>" "Save")
-        (mapINSilent "<C-S>"     ":w<CR>" "Save")
-        (mapNSilent  "<leader>q" ":q<CR>" "Quit")
-        (mapINSilent "<C-Q>"     ":q<CR>" "Quit")
+        (mapNSilent  "<leader>w" "<Cmd>w<CR>" "Save")
+        (mapINSilent "<C-S>"     "<Cmd>w<CR>" "Save")
+        (mapNSilent  "<leader>q" "<Cmd>q<CR>" "Quit")
+        (mapINSilent "<C-Q>"     "<Cmd>q<CR>" "Quit")
 
         # Common shortcuts
-        (mapISilent  "<C-V>"   "p"         "Paste from clipboard")
-        (mapINSilent "<C-Z>"   ":undo<CR>" "Undo last action")
-        (mapINSilent "<C-S-Z>" ":redo<CR>" "Redo last undone action")
+        (mapISilent  "<C-V>"   "p"             "Paste from clipboard")
+        (mapINSilent "<C-Z>"   "<Cmd>undo<CR>" "Undo last action")
+        (mapINSilent "<C-S-Z>" "<Cmd>redo<CR>" "Redo last undone action")
 
         (mapISilent "<C-BS>" "vbd" "Delete previous word")
 
         # Buffer commands
-        (mapNSilent  "<leader>c" ":bd<CR>" "Close buffer")
-        (mapINSilent "<C-Tab>"   ":bn<CR>" "Next buffer")
-        (mapINSilent "<A-l>"     ":bn<CR>" "Next buffer")
-        (mapINSilent "<C-S-Tab>" ":bp<CR>" "Previous buffer")
-        (mapINSilent "<A-h>"     ":bp<CR>" "Previous buffer")
+        (mapNSilent  "<leader>c" "<Cmd>bd<CR>" "Close buffer")
+        (mapINSilent "<C-Tab>"   "<Cmd>bn<CR>" "Next buffer")
+        (mapINSilent "<A-l>"     "<Cmd>bn<CR>" "Next buffer")
+        (mapINSilent "<C-S-Tab>" "<Cmd>bp<CR>" "Previous buffer")
+        (mapINSilent "<A-h>"     "<Cmd>bp<CR>" "Previous buffer")
 
         # Split
-        (mapNSilent "<C-|>"  ":split<CR>" "Horizontal split")
-        (mapNSilent "<C-\\>" ":vsplit<CR>" "Vertical split")
+        (mapNSilent "<C-|>"  "<Cmd>split<CR>"  "Horizontal split")
+        (mapNSilent "<C-\\>" "<Cmd>vsplit<CR>" "Vertical split")
         # Movement
-        (mapNSilent "<C-K>" ":wincmd k<CR>" "Move to split above")
-        (mapNSilent "<C-J>" ":wincmd j<CR>" "Move to split below")
-        (mapNSilent "<C-H>" ":wincmd h<CR>" "Move to split left")
-        (mapNSilent "<C-L>" ":wincmd l<CR>" "Move to split right")
+        (mapNSilent "<C-K>" "<Cmd>wincmd k<CR>" "Move to split above")
+        (mapNSilent "<C-J>" "<Cmd>wincmd j<CR>" "Move to split below")
+        (mapNSilent "<C-H>" "<Cmd>wincmd h<CR>" "Move to split left")
+        (mapNSilent "<C-L>" "<Cmd>wincmd l<CR>" "Move to split right")
       ];
 
       extraConfigVim = /* vim */ ''
