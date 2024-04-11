@@ -2,10 +2,10 @@
 
 let
   cfg = config.modules.neovim;
+  cfg-plug = config.programs.nixvim.plugins;
 in
 lib.mkIf cfg.enable {
   programs.nixvim.plugins.lsp = {
-    enable = true;
     onAttach = /* lua */ ''
       local bufmap = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
@@ -38,9 +38,8 @@ lib.mkIf cfg.enable {
       nixd.enable = true;
       texlab.enable = true;
       yamlls.enable = true;
-    } // lib.optionalAttrs (nixpkgs-channel == "stable") {
       rust-analyzer = {
-        enable = true;
+        enable = cfg-plug.rust-tools.enable;
         installCargo = true;
         installRustc = true;
         settings.workspace.symbol.search = {
