@@ -28,13 +28,13 @@ ADDRESSES=()
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-h|--host)
-			(( $# <= 1 )) && missing_argument $1
+			(( $# <= 1 )) && missing_argument "$1"
 			HOSTS+=("${2//,/ }")
 			shift 2
 			;;
 
 		-a|--addr|--address)
-			(( $# <= 1 )) && missing_argument $1
+			(( $# <= 1 )) && missing_argument "$1"
 			ADDRESSES+=("${2//,/ }")
 			shift 2
 			;;
@@ -51,12 +51,18 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
-(( ${#HOSTS[@]} <= 0 )) && error "No hosts were provided"
-
 echo "${EXTRA_ARGS[@]}" | grep -qvwE "boot|switch|test" && error "Missing nixos-rebuild operation (boot, switch or test)"
+flake_root=$(realpath "$(dirname "$0")")
 
-function match_host_ip {
-	for host in ${HOSTS[@]}; do
+
+function deploy_local
+{
+	sudo nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}"
+}
+
+function deploy_remote
+{
+	for host in "${HOSTS[@]}"; do
 		addr="$host"
 
 		if (( $# > 0 )); then
@@ -64,8 +70,12 @@ function match_host_ip {
 			shift
 		fi
 
-		nixos-rebuild --flake $(realpath $(dirname "$0"))\#"$host" --target-host "$addr" --use-remote-sudo ${EXTRA_ARGS[@]}
+		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
 	done
 }
 
-match_host_ip ${ADDRESSES[@]}
+if (( ${#HOSTS[@]} <= 0 )); then
+	deploy_local
+else
+	deploy_remote "${ADDRESSES[@]}"
+fi
