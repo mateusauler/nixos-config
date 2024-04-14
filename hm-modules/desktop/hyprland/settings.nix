@@ -98,7 +98,7 @@ in
     "workspace 6 silent, class:((S|s)team)"
     "workspace 6 silent, title:((S|s)team)"
     "float,              title:((S|s)team (S|s)ettings)"
-    "workspace 10 silent, class:(Spotify)"
+    "workspace special silent, class:(Spotify)"
 
     # Browser screen sharing indicator
     "move 50% 100%-32,         title:^(.*— Sharing Indicator)"
