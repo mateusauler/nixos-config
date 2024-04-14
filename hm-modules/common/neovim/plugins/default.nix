@@ -85,8 +85,9 @@ in
       } // plugins.${nixpkgs-channel} or { };
 
       extraPlugins = with pkgs.vimPlugins; [
-        vim-numbertoggle
+        eyeliner-nvim
         neodev-nvim
+        vim-numbertoggle
       ];
     };
   };
