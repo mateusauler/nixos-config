@@ -28,7 +28,6 @@ in
         "4, monitor:$mon3"
         "5, monitor:$mon2"
         "6, monitor:$mon2"
-        "10, monitor:$mon2"
       ];
     };
     git.gpgKey = "37C12B2664A4FFBC42E743B24D551E363428C47E";
