@@ -36,6 +36,7 @@ in
     ./neo-tree.nix
     ./oil.nix
     ./telescope.nix
+    ./ufo.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -67,8 +68,9 @@ in
         luasnip.enable = true;
         neo-tree.enable = true;
         nix.enable = true;
-        nvim-colorizer.enable = true;
         nvim-autopairs.enable = true;
+        nvim-colorizer.enable = true;
+        nvim-ufo.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
         surround.enable = true;

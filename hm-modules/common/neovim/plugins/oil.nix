@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.neovim;
-  cfg-plug = config.programs.nixvim.plugins;
+  enabled = config.programs.nixvim.plugins.oil.enable;
   settings = {
     default_file_explorer = true;
     experimental_watch_for_changes = true;
@@ -10,11 +10,11 @@ let
 in
 lib.mkIf cfg.enable {
   programs.nixvim = {
-    globals = lib.optionalAttrs cfg-plug.oil.enable {
+    globals = lib.optionalAttrs enabled {
       netrw_nogx = 1;
     };
 
-    keymaps = lib.optionals cfg-plug.oil.enable [
+    keymaps = lib.optionals enabled [
       {
         mode = "n";
         key = "-";
@@ -28,7 +28,7 @@ lib.mkIf cfg.enable {
       }
     ];
 
-    extraConfigLua = lib.optionalString cfg-plug.oil.enable /* lua */ ''
+    extraConfigLua = lib.optionalString enabled /* lua */ ''
       require("gx").setup({
         handler_options = { search_engine = "duckduckgo" },
       })
@@ -39,7 +39,7 @@ lib.mkIf cfg.enable {
     else
       { inherit settings; };
 
-    extraPlugins = lib.optional cfg-plug.oil.enable (pkgs.vimUtils.buildVimPlugin {
+    extraPlugins = lib.optional enabled (pkgs.vimUtils.buildVimPlugin {
       name = "gx";
       src = inputs.gx;
     });
