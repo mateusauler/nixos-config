@@ -110,8 +110,8 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      firejail
       nodejs
+      pwvucontrol
     ];
   };
 }

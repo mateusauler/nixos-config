@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.waybar;
@@ -164,7 +164,7 @@ lib.mkIf cfg.enable {
         car        = "";
         default    = [ "" "" "" ];
       };
-      on-click = "pavucontrol";
+      on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
       ignored-sinks = [ "Easy Effects Sink" ];
     };
   };

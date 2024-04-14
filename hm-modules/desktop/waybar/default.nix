@@ -14,7 +14,6 @@ in {
   ];
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.pavucontrol ];
     programs.waybar.enable = true;
   };
 }
