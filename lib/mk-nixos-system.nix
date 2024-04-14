@@ -31,8 +31,6 @@ let
   inherit (import configPath (args // { inherit (pkgs) lib; })) enabledUsers;
 in
 nixpkgs.lib.nixosSystem rec {
-  # TODO: Look into replacing system with localSystem
-  #       Suggested here: https://discordapp.com/channels/568306982717751326/741347063077535874/1140546315990859816
   inherit system pkgs;
 
   specialArgs = specialArgs' // { inherit (pkgs) lib; };
