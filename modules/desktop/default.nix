@@ -8,19 +8,23 @@ in
 {
   options = {
     modules.desktop.enable = lib.mkEnableOption "desktop";
-    defaultFonts = lib.mkOption {
-      default = rec {
-        sans = {
-          package = pkgs.roboto;
-          name = "Roboto";
-          size = 12;
-        };
-        serif = sans;
-        mono = {
-          package = pkgs.nerdfonts;
-          name = "FiraCode Nerd Font Mono";
-          size = 12;
-        };
+    defaultFonts = with lib.types; lib.mkOption {
+      type = submodule {
+        options = lib.foldl' (acc: name:
+          acc // {
+            ${name} = lib.mkOption {
+              type = submodule {
+                options = {
+                  package = lib.mkOption { };
+                  name = lib.mkOption { };
+                  size = lib.mkOption { };
+                };
+              };
+            };
+          }
+        )
+        { }
+        [ "mono" "sans" "serif" ];
       };
     };
   };
@@ -47,6 +51,20 @@ in
         xdg-desktop-portal-hyprland
       ];
     };
+
+      defaultFonts = rec {
+        sans = {
+          package = lib.mkDefault pkgs.roboto;
+          name = lib.mkDefault "Roboto";
+          size = lib.mkDefault 12;
+        };
+        serif = sans;
+        mono = {
+          package = lib.mkDefault pkgs.nerdfonts;
+          name = lib.mkDefault "FiraCode Nerd Font Mono";
+          size = lib.mkDefault 12;
+        };
+      };
 
     sound.enable = true;
 
