@@ -32,6 +32,7 @@ in
 {
   imports = [
     ./cmp.nix
+    ./eyeliner.nix
     ./lsp.nix
     ./neo-tree.nix
     ./oil.nix
@@ -85,7 +86,6 @@ in
       } // plugins.${nixpkgs-channel} or { };
 
       extraPlugins = with pkgs.vimPlugins; [
-        eyeliner-nvim
         neodev-nvim
         vim-numbertoggle
       ];
