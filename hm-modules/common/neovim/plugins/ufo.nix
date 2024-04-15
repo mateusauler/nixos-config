@@ -5,14 +5,14 @@ let
   enabled = config.programs.nixvim.plugins.nvim-ufo.enable;
 in
 lib.mkIf cfg.enable {
-  programs.nixvim = {
-    globals = lib.optionalAttrs enabled {
-      foldcolumn = 1;
-      foldlevel = 99;
-      foldlevelstart = 99;
-      foldenable = true;
-    };
+  modules.neovim.opts = lib.optionalAttrs enabled {
+    foldcolumn = "1";
+    foldlevel = 99;
+    foldlevelstart = 99;
+    foldenable = true;
+  };
 
+  programs.nixvim = {
     keymaps = lib.optionals enabled [
       {
         mode = "n";
