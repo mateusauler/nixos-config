@@ -18,32 +18,14 @@ let
     (mapISilent key action desc)
     (mapNSilent key action desc)
   ];
-
-  opts = {
-    # Line numbers
-    number = true;
-    relativenumber = true;
-
-    # Tabs
-    tabstop = 4;     # 4 char-wide tab
-    softtabstop = 0; # Use same length as 'tabstop'
-    shiftwidth = 0;  # Use same length as 'tabstop'
-
-    updatetime = 300;
-
-    termguicolors = true;
-    signcolumn = "yes";
-
-    mouse = "a";
-  } // lib.optionalAttrs cfg.neovide.enable {
-    guifont = with osConfig.defaultFonts.mono; "${name}:h${toString size}";
-  };
 in
 {
   options.modules.neovim = {
     enable = lib.mkEnableOption "neovim";
     neovide.enable = lib.mkEnableOption "neovide";
     defaultEditor = pkgs.lib.mkTrueEnableOption "Set neovim as default editor";
+
+    opts = lib.mkOption { default = { }; };
 
     viAlias      = pkgs.lib.mkTrueEnableOption "Set vi alias";
     vimAlias     = pkgs.lib.mkTrueEnableOption "Set vim alias";
@@ -56,6 +38,26 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = lib.optional cfg.neovide.enable pkgs.neovide;
+
+    modules.neovim.opts = {
+      # Line numbers
+      number = true;
+      relativenumber = true;
+
+      # Tabs
+      tabstop = 4;     # 4 char-wide tab
+      softtabstop = 0; # Use same length as 'tabstop'
+      shiftwidth = 0;  # Use same length as 'tabstop'
+
+      updatetime = 300;
+
+      termguicolors = true;
+      signcolumn = "yes";
+
+      mouse = "a";
+    } // lib.optionalAttrs cfg.neovide.enable {
+      guifont = with osConfig.defaultFonts.mono; "${name}:h${toString size}";
+    };
 
     programs.nixvim = {
       enable = true;
@@ -112,7 +114,7 @@ in
       extraConfigVim = /* vim */ ''
         source ${colors}
       '';
-    } // (if nixpkgs-channel == "stable" then { options = opts; } else { inherit opts; });
+    } // (if nixpkgs-channel == "stable" then { options = cfg.opts; } else { inherit (cfg) opts; });
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {
       EDITOR = lib.mkDefault "nvim";
