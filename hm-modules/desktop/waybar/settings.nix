@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 let
   cfg = config.modules.waybar;
@@ -6,7 +6,7 @@ in
 lib.mkIf cfg.enable {
   programs.waybar.settings.mainBar = {
     layer   = "top";
-    height  = 30;
+    height  = pkgs.lib.round (osConfig.defaultFonts.sans.size * 2.5);
     spacing = 8;
 
     modules-left = [
