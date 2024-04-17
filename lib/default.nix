@@ -11,4 +11,5 @@
   mkNixosSystem      = import ./mk-nixos-system.nix       args;
   mkTrueEnableOption = import ./mk-true-enable-option.nix args;
   readDirNames       = import ./read-dir-names.nix        args;
+  round              = import ./round.nix                 args;
 }
