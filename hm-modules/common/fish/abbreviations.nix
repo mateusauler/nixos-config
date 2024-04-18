@@ -44,6 +44,10 @@ in
       gsp = "git stash pop";
       gst = "git stash -u";
       gu = "git push";
+      gw = "git worktree";
+      gwa = "git worktree add";
+      gwl = "git worktree list";
+      gwr = "git worktree remove";
       cg = "cd (git rev-parse --show-toplevel)";
 
       l = "ls";
