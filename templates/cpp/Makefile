@@ -37,6 +37,9 @@ install: $(BUILD_DIR)/$(TARGET_EXEC)
 	install -Dt $(BIN_DIR) $<
 
 run: $(BUILD_DIR)/$(TARGET_EXEC)
-	./$<
+	./$< $(filter-out $@, $(MAKECMDGOALS))
+
+%:
+	@true
 
 -include $(DEPS)
