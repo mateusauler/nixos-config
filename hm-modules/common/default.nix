@@ -7,7 +7,7 @@
     ./direnv.nix
     ./eza.nix
     ./fish
-    ./git.nix
+    ./git
     ./libvirtd.nix
     ./neovim
     ./shell-aliases.nix

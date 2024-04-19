@@ -45,6 +45,11 @@
       flake = false;
     };
 
+    git-worktree-switcher = {
+      url = github:yankeexe/git-worktree-switcher;
+      flake = false;
+    };
+
     satisfactory-mod-manager = {
       url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage";
       flake = false;

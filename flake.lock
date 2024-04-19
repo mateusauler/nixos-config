@@ -200,6 +200,22 @@
         "type": "github"
       }
     },
+    "git-worktree-switcher": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698334878,
+        "narHash": "sha256-JN2ANsJ226KVP5XtMzjIyLj6+ZZ7zmdX7CrkCade/Fk=",
+        "owner": "yankeexe",
+        "repo": "git-worktree-switcher",
+        "rev": "d1278461982826f9a22639fedb96b8fe44da5df3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yankeexe",
+        "repo": "git-worktree-switcher",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -570,6 +586,7 @@
     },
     "root": {
       "inputs": {
+        "git-worktree-switcher": "git-worktree-switcher",
         "gx": "gx",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",

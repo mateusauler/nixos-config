@@ -1,0 +1,77 @@
+diff --git a/wt b/wt
+index 766b613..0a388e6 100755
+--- a/wt
++++ b/wt
+@@ -5,12 +5,6 @@ set -e
+ 
+ args=("$@")
+ VERSION="0.1.1"
+-TMP_PATH=$(mktemp)
+-BINARY_PATH=$(which wt)
+-JQ_URL="https://stedolan.github.io/jq/download"
+-RELEASE_URL="https://github.com/yankeexe/git-worktree-switcher/releases/latest"
+-RELEASE_API_URL="https://api.github.com/repos/yankeexe/git-worktree-switcher/releases/latest"
+-
+ 
+ # Escape forward slash
+ arg=$(echo "${args[0]}" | sed 's/\//\\\//g')
+@@ -25,7 +19,6 @@ help_message() {
+ 	echo "Usage:"
+ 	echo -e "\twt <worktree-name>: search for worktree names and change to that directory."
+ 	echo -e "\twt list: list out all the git worktrees."
+-	echo -e "\twt update: update to the latest release of worktree switcher."
+ 	echo -e "\twt version: show the CLI version."
+ 	echo -e "\twt help: shows this help message."
+ }
+@@ -42,41 +35,6 @@ goto_main_worktree() {
+ 	fi
+ }
+ 
+-download_latest_update() {
+-	download_url=$(curl -sL $RELEASE_API_URL | jq -r '.assets[0].browser_download_url')
+-
+-	echo "Downloading latest version $fetched_tag_name"
+-	curl -sL -o "$TMP_PATH" "$download_url"
+-
+-	echo "Updating to latest version..."
+-	chmod +x "$TMP_PATH"
+-	sudo mv "$TMP_PATH" "$BINARY_PATH"
+-	rm -f "$TMP_PATH"
+-
+-	echo "You are using the latest version of worktree switcher: $fetched_tag_name"
+-}
+-
+-check_release_version() {
+-	fetched_tag_name=$(curl -sL $RELEASE_API_URL | jq -r '.tag_name')
+-
+-	if [ "$fetched_tag_name" == $VERSION ]; then
+-		echo "You have the latest version of worktree switcher!"
+-		echo "Version: $VERSION"
+-	else
+-		download_latest_update
+-	fi
+-}
+-
+-update() {
+-	if [ -z "$(command -v jq)" ]; then
+-		echo "jq is required for updating worktree switcher via this command."
+-		echo -e "Install jq:\n$JQ_URL.\n"
+-		echo -e "Or visit:\n$RELEASE_URL"
+-	else
+-		check_release_version
+-	fi
+-}
+-
+ if [ -z "${args[0]}" ]; then
+ 	help_message
+ 	exit 0
+@@ -86,9 +44,6 @@ case "${args[0]}" in
+ list)
+ 	worktree_list
+ 	;;
+-update)
+-	update
+-	;;
+ help)
+ 	help_message
+ 	;;

@@ -9,7 +9,12 @@ in {
       default = null;
     };
     lazygit = pkgs.lib.mkTrueEnableOption "Lazygit";
+    wt = pkgs.lib.mkTrueEnableOption "git-worktree-switcher";
   };
+
+  imports = [
+    ./wt
+  ];
 
   config = {
     programs.lazygit.enable = cfg.lazygit;
