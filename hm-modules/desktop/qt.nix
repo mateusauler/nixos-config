@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nixpkgs-channel, pkgs, ... }:
 
 let
   cfg = config.modules.qt;
@@ -9,7 +9,7 @@ in
   config = {
     qt = {
       inherit (cfg) enable;
-      platformTheme = "gtk";
+      platformTheme = if nixpkgs-channel == "stable" then "gtk" else { name = "gtk"; };
       style = config.gtk.theme;
     };
   };
