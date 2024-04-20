@@ -6,11 +6,19 @@ in
 {
   options.modules.qt.enable = lib.mkEnableOption "qt";
 
-  config = {
+  config = lib.mkIf cfg.enable {
     qt = {
-      inherit (cfg) enable;
+      enable = true;
       platformTheme = if nixpkgs-channel == "stable" then "gtk" else { name = "gtk"; };
-      style = config.gtk.theme;
+      style = {
+        package = config.gtk.theme.package;
+        name = "gtk2";
+      };
     };
+
+    home.packages = with pkgs; [
+      libsForQt5.qtstyleplugins
+      kdePackages.qt6gtk2
+    ];
   };
 }
