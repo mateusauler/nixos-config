@@ -6,8 +6,7 @@ let
 in
   lib.mkIf cfg.enable {
     programs.fish.shellAbbrs = rec {
-      mn = "udisksctl mount -b";
-      um = "udisksctl unmount -b";
+      # Git
 
       g = "git";
 
@@ -50,7 +49,7 @@ in
       gwr = "git worktree remove";
       cg = "cd (git rev-parse --show-toplevel)";
 
-      l = "ls";
+      # Nix
 
       nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
       nrs = "sudo nixos-rebuild --verbose --flake ${dots-path} switch";
@@ -64,6 +63,15 @@ in
 
       nfc = "nix flake check --verbose --show-trace";
 
+      # Utilities & common commands
+
+      c = "cd";
+
+      l = "ls";
+
+      mn = "udisksctl mount -b";
+      um = "udisksctl unmount -b";
+
       z = "zathura";
 
       n = "nvim";
@@ -73,6 +81,7 @@ in
       im = img;
 
       md = "mkdir -p";
+
       hexdump = "hexdump -C";
 
       py = "python3";
