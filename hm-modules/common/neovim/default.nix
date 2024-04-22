@@ -109,6 +109,8 @@ in
         (mapNSilent "<C-J>" "<Cmd>wincmd j<CR>" "Move to split below")
         (mapNSilent "<C-H>" "<Cmd>wincmd h<CR>" "Move to split left")
         (mapNSilent "<C-L>" "<Cmd>wincmd l<CR>" "Move to split right")
+
+        (mapNSilent "<leader>h" "<Cmd>noh<CR>" "Clear highlighting")
       ];
 
       extraConfigVim = /* vim */ ''
