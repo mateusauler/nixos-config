@@ -13,7 +13,9 @@ let
     patches = [
       ./remove_update_functionality.diff
       # https://github.com/yankeexe/git-worktree-switcher/pull/14
-      ./fail-silent.diff
+      ./fail_silent.diff
+
+      ./cd_no_new_shell.diff
     ];
 
     installPhase = /* bash */ ''
@@ -28,4 +30,10 @@ let
 in
 lib.mkIf cfg.wt {
   home.packages = [ package ];
+  programs.fish.shellInit = /* fish */ ''
+    command wt init fish | source
+  '';
+  programs.bash.initExtra = /* bash */ ''
+    eval "$(command wt init bash)"
+  '';
 }
