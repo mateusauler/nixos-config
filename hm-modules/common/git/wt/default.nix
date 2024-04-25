@@ -14,7 +14,7 @@ let
       ./remove_update_functionality.diff
       # https://github.com/yankeexe/git-worktree-switcher/pull/14
       ./fail_silent.diff
-
+      # https://github.com/yankeexe/git-worktree-switcher/pull/15
       ./cd_no_new_shell.diff
     ];
 
