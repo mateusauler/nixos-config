@@ -123,6 +123,9 @@ in
     "monitor $mon1, class:(mpv)"
     "fullscreen,    class:(mpv)"
 
+    # Neovide
+    "suppressevent maximize, class:(neovide)"
+
     # nsxiv
     "tile, class:(Nsxiv)"
 
@@ -195,8 +198,9 @@ in
     "${modKey},         V, togglesplit," # dwindle
     "${modKey} SHIFT,   V, togglefloating,"
 
-    "${modKey},       F, fullscreen"
-    "${modKey} SHIFT, F, fakefullscreen"
+    "${modKey},         F, fullscreen"
+    "${modKey} CONTROL, F, fullscreen, 1"
+    "${modKey} SHIFT,   F, fakefullscreen"
 
     "${modKey}, N, movecurrentworkspacetomonitor, -1"
     "${modKey}, M, swapactiveworkspaces, -1 current"
