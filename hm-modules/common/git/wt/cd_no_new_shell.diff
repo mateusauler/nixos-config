@@ -6,7 +6,7 @@ index 0a388e6..02c116b 100755
  
  args=("$@")
  VERSION="0.1.1"
-+CHANGE_DIRECTORY_PREFIX="changedir"
++CHANGE_DIRECTORY_PREFIX="changedir:"
 +
  
  # Escape forward slash
@@ -39,7 +39,7 @@ index 0a388e6..02c116b 100755
 +	fi
 +
 +	result="\$(command wt "\$@")"
-+	dest_path="\$(echo "\$result" | awk '/^$CHANGE_DIRECTORY_PREFIX:.*/ {sub("$CHANGE_DIRECTORY_PREFIX:", ""); print; exit}')"
++	dest_path="\$(echo "\$result" | awk '/^$CHANGE_DIRECTORY_PREFIX.*/ {sub("$CHANGE_DIRECTORY_PREFIX", ""); print; exit}')"
 +
 +	if [[ -n "\$dest_path" ]]; then
 +		cd "\$dest_path" || return
@@ -61,7 +61,7 @@ index 0a388e6..02c116b 100755
 +	end
 +
 +	set -l result "\$(command wt \$argv)"
-+	set -l dest_path "\$(echo "\$result" | awk '/^$CHANGE_DIRECTORY_PREFIX:.*/ {sub("$CHANGE_DIRECTORY_PREFIX:", ""); print; exit}')"
++	set -l dest_path "\$(echo "\$result" | awk '/^$CHANGE_DIRECTORY_PREFIX.*/ {sub("$CHANGE_DIRECTORY_PREFIX", ""); print; exit}')"
 +
 +	if test -n "\$dest_path"
 +		cd "\$dest_path"
@@ -120,5 +120,5 @@ index 0a388e6..02c116b 100755
  	:
  else
 -	change_worktree
-+	echo "$CHANGE_DIRECTORY_PREFIX:$directory"
++	echo "$CHANGE_DIRECTORY_PREFIX$directory"
  fi
