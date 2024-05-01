@@ -1,4 +1,4 @@
-{ config, lib, options, pkgs, private-config, ... }@args:
+{ config, lib, pkgs, private-config, ... }@args:
 
 let
   inherit (lib) mkDefault;

@@ -1,4 +1,4 @@
-{ config, inputs, lib, osConfig, pkgs, nix-colors, ... }@args:
+{ config, lib, osConfig, pkgs, nix-colors, ... }:
 
 let
   inherit (lib) mkDefault;

@@ -1,9 +1,9 @@
-{ config, lib, nix-colors, pkgs, ... }@args:
+{ config, lib, nix-colors, pkgs, ... }:
 
 let
   cfg = config.modules.fish;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
-  inherit (lib) mkDefault mkEnableOption mkOption;
+  inherit (lib) mkEnableOption mkOption;
   inherit (pkgs.lib) mkTrueEnableOption;
 in
 {

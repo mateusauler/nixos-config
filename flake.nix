@@ -2,51 +2,51 @@
   description = "My NixOS config";
 
   inputs = rec {
-    nixpkgs-stable.url = github:nixos/nixpkgs/nixos-23.11;
-    nixpkgs-unstable.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs = nixpkgs-stable;
 
     home-manager-stable = {
-      url = github:nix-community/home-manager/release-23.11;
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     home-manager-unstable = {
-      url = github:nix-community/home-manager;
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     private-config = {
-      # url = path:/home/mateus/repos/nixos-private-config;
-      url = git+ssh://git@github.com/mateusauler/nixos-private-config;
+      # url = "path:/home/mateus/repos/nixos-private-config";
+      url = "git+ssh://git@github.com/mateusauler/nixos-private-config";
       flake = false;
     };
 
     nixvim-stable = {
-      url = github:nix-community/nixvim/nixos-23.11;
+      url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nixvim-unstable = {
-      url = github:nix-community/nixvim;
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager-unstable";
     };
 
     sops-nix = {
-      url = github:mic92/sops-nix;
+      url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
-    nix-colors.url = github:Misterio77/nix-colors;
+    nix-colors.url = "github:Misterio77/nix-colors";
 
     gx = {
-      url = github:chrishrb/gx.nvim;
+      url = "github:chrishrb/gx.nvim";
       flake = false;
     };
 
     git-worktree-switcher = {
-      url = github:yankeexe/git-worktree-switcher;
+      url = "github:yankeexe/git-worktree-switcher";
       flake = false;
     };
 
@@ -56,7 +56,7 @@
     };
   };
 
-  outputs = inputs@{ nix-colors, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }:
+  outputs = inputs@{ nix-colors, nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
       default-channel = "unstable";

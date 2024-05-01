@@ -21,7 +21,7 @@ lib.mkIf cfg.enable {
   };
 
   systemd.user.services = foldlUsers {
-    fn = acc: name: user: acc // {
+    fn = acc: name: _: acc // {
       "deploy-gpg-keys-${name}" = {
         script =
           let

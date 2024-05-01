@@ -1,4 +1,4 @@
-{ config, lib, nixpkgs-channel, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.modules.neovim;

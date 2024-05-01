@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkDefault;
   cfg = config.modules.server;
 
   module-names = [ ];

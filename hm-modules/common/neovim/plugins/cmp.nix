@@ -1,4 +1,4 @@
-{ config, lib, nixpkgs-channel, pkgs, ... }:
+{ nixpkgs-channel, ... }:
 
 let
   # TODO: Configure individual sources

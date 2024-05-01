@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.librewolf;
-  inherit (lib) mkDefault;
   inherit (pkgs.lib) mkTrueEnableOption;
 in {
   options.modules.librewolf = {

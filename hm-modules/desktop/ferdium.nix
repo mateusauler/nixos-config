@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.ferdium;

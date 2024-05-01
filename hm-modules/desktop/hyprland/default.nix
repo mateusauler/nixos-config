@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, specialArgs, ... }@args:
+{ config, lib, pkgs, pkgs-unstable, ... }@args:
 
 let
   cfg = config.modules.hyprland;

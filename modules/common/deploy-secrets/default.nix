@@ -1,9 +1,6 @@
 { config, lib, ... }:
 
 let
-  foldlUsers = lib.foldlUsers config;
-  foldlKeyTypes = { acc ? { }, fn }: lib.foldl' fn acc [ "ed25519" "rsa" ];
-  foldlUsersKeys = f: foldlUsers config { fn = acc: name: user: acc // foldlKeyTypes { fn = acc: f acc name user; }; };
   cfg = config.modules.deploy-secrets;
 in
 {

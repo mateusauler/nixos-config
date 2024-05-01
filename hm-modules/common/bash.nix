@@ -1,7 +1,6 @@
-{ config, lib, nix-colors, pkgs, ... }@args:
+{ config, lib, nix-colors, pkgs, ... }:
 
 let
-  cfg = config.modules.bash;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in {
   programs.bash = {

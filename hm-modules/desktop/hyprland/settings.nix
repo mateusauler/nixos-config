@@ -3,8 +3,7 @@
 let
   cfg = config.modules.hyprland;
   workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // { "0" = "10"; };
-  directionsArrows = { left = "l"; right = "r"; up = "u"; down = "d"; };
-  directionsHJKL   = { H    = "l"; L     = "r"; K  = "u"; J    = "d"; };
+  directionsHJKL = { H = "l"; L = "r"; K = "u"; J = "d"; };
   inherit (cfg) modKey;
 in
 {

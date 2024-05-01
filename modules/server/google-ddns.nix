@@ -61,7 +61,7 @@ in
         pkgs.curl
         pkgs.coreutils
       ];
-      serviceConfig = rec {
+      serviceConfig =  {
         DynamicUser = true;
         RuntimeDirectoryMode = "0700";
         StateDirectory =  service-name;

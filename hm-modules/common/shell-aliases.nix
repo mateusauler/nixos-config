@@ -1,8 +1,5 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
-let
-  cfg = config.shell-aliases;
-in
 {
   options.shell-aliases = lib.mkOption { type = with lib.types; attrsOf str; };
 

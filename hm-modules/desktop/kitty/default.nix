@@ -1,4 +1,4 @@
-{ config, lib, osConfig, pkgs, specialArgs, ... }:
+{ config, lib, osConfig, ... }:
 
 let
   cfg = config.modules.kitty;

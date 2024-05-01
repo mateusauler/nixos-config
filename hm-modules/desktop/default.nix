@@ -1,7 +1,6 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  inherit (lib) mkDefault;
   cfg = config.modules.desktop;
 
   module-names = [
