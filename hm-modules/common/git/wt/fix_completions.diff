@@ -1,0 +1,139 @@
+diff --git a/completions/_wt_completion b/completions/_wt_completion
+index 0653585..bea3239 100644
+--- a/completions/_wt_completion
++++ b/completions/_wt_completion
+@@ -3,22 +3,21 @@
+ # AUTOCOMPLETION FOR ZSH
+ # Reference: https://zsh.sourceforge.io/Doc/Release/Completion-Widgets.html
+ 
+-# wt list: list all the available worktrees
+-# | awk '{ print $1; }': grab the first column of the output
+-# | tr "\n" " ": replace line break character with space to put the worktrees on single line
+-# separated by space
+-
+-list="$(wt list | awk '{ print $1; }' | tr "\n" " ")"
++# Declare an associative array named `opts`
+ declare -A opts
+ 
++# Split the worktree names into an array, line-by-line.
++list=("${(@f)$(wt names)}")
++
+ # Create associative array with key same as its value
+ # Completion keywords are taken as keys of arrays and the possible matches are their values
+-# shwordsplit: iterate over a string separated by space (like sh/bash)
+-setopt shwordsplit
+ for item in $list; do
+-    base="$(basename -- "$item")"
+-    opts+=(["$base"]="$base")
++	# Escape every element's special characters
++	item=$(printf '%q' "$item")
++	opts+=(["$item"]="$item")
+ done
+-unsetopt shwordsplit
+ 
++# Add the keys of `opts` as completion options for the `wt` command.
++# `-Q` quotes the completion options.
++# `-a` specifies that the options are taken from an associative array.
+ compadd -Qa opts
+diff --git a/completions/wt.fish b/completions/wt.fish
+index de8c7b5..24c1cbb 100644
+--- a/completions/wt.fish
++++ b/completions/wt.fish
+@@ -1,16 +1,4 @@
+ # AUTOCOMPLETION FOR FISH
+ # Reference: https://fishshell.com/docs/current/completions.html
+ 
+-# wt list: list all the available worktrees
+-# | awk '{ print $1; }': grab the first column of the output
+-# | tr "\n" " ": replace line break character with space to put the worktrees on single line
+-# separated by space
+-
+-set list (wt list | awk '{ print $1; }' | tr "\n" " ")
+-set opts ""
+-
+-for item in (string split " " "$list")
+-   set -a opts (basename -- "$item")
+-end
+-
+-complete -c wt -f -n '__fish_is_nth_token 1' -a "$opts"
++complete -c wt -f -n '__fish_is_nth_token 1' -a "(wt names)"
+diff --git a/completions/wt_completion b/completions/wt_completion
+index 9efb259..723df49 100644
+--- a/completions/wt_completion
++++ b/completions/wt_completion
+@@ -3,28 +3,23 @@
+ # AUTOCOMPLETION FOR BASH
+ # Reference: https://www.gnu.org/software/bash/manual/html_node/A-Programmable-Completion-Example.html
+ 
+-# wt list: list all the available worktrees
+-# | awk '{ print $1; }': grab the first column of the output
+-# | tr "\n" " ": replace line break character with space to put the worktrees on single line
+-# separated by space
+-
+ _wt() {
+-    local cur opts
+-    COMPREPLY=()
+-    cur="${COMP_WORDS[COMP_CWORD]}"
+-    list="$(wt list | awk '{ print $1; }' | tr "\n" " ")"
+-    opts=""
+-
+-    for item in $list; do
+-        opts+="$(basename -- "$item") "
+-    done
++    local cur
++	# The currently typed prefix to be completed
++	cur="${COMP_WORDS[COMP_CWORD]}"
++	COMPREPLY=()
+ 
+     # Only show suggestions for the root command (wt)
+     # Pass autocompletion suggestion as "words (-W)" to `compgen` separated by space
++	# Escape each suggestion special characters
+     if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]]; then
+-        local cur=${COMP_WORDS[COMP_CWORD]}
+-        # shellcheck disable=SC2207
+-        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
++		# Use the newline as a separator for the suggestions
++		local IFS=$'\n'
++		local suggestions
++		suggestions=$(compgen -W "$(wt names)" -- "$cur")
++		for word in $suggestions; do
++			COMPREPLY+=("$(printf '%q' "$word")")
++		done
+     fi
+ }
+ 
+diff --git a/wt b/wt
+index 766b613..db2df8a 100755
+--- a/wt
++++ b/wt
+@@ -20,11 +20,20 @@ worktree_list() {
+ 	git worktree list
+ }
+ 
++worktree_list_names() {
++	if git rev-parse --git-dir &> /dev/null; then
++		git worktree list --porcelain \
++			| awk '/^worktree / { sub("worktree ", ""); print; }' \
++			| xargs -I{} basename {}
++	fi
++}
++
+ help_message() {
+ 	echo -e "wt lets you switch between your git worktrees with speed.\n"
+ 	echo "Usage:"
+ 	echo -e "\twt <worktree-name>: search for worktree names and change to that directory."
+ 	echo -e "\twt list: list out all the git worktrees."
++	echo -e "\twt names: list out only the git worktree names."
+ 	echo -e "\twt version: show the CLI version."
+ 	echo -e "\twt help: shows this help message."
+ }
+@@ -86,6 +95,9 @@ case "${args[0]}" in
+ list)
+ 	worktree_list
+ 	;;
++names)
++	worktree_list_names
++	;;
+ help)
+ 	help_message
+ 	;;
