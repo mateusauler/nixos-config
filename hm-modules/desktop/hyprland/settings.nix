@@ -88,6 +88,10 @@ in
 
   binds.scroll_event_delay = 80;
 
+  workspace = [
+    "s[true], gapsout:80, gapsin:20"
+  ];
+
   windowrulev2 = lib.flatten [
     "workspace 2 silent, class:(librewolf)"
     "workspace 3 silent, class:(KeePassXC)"
