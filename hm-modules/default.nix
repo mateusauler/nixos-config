@@ -45,6 +45,7 @@ in
         du-dust
         htop-vim
         jq
+        progress
         python3
         tldr
       ];
