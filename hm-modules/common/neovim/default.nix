@@ -65,6 +65,8 @@ in
       globals = {
         mapleader = " ";
         maplocalleader = " ";
+      } // lib.optionalAttrs cfg.neovide.enable {
+        neovide_transparency = 0.8;
       };
 
       # Use system clipboard
