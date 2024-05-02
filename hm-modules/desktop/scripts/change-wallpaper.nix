@@ -49,9 +49,9 @@ in
           find = "${lib.getExe pkgs.findutils}";
           head = "${pkgs.coreutils}/bin/head";
           nsxiv = "${pkgs.nsxiv}/bin/nsxiv";
-          shuf = "${pkgs.coreutils}/bin/shuf";
+          sort = "${pkgs.coreutils}/bin/sort";
           change-wallpaper = pkgs.writeShellScriptBin "chw" ''
-            file=$(${find} ${wall-dir} -type f | ${shuf} | ${nsxiv} -oiqt | ${head} -n 1)
+            file=$(${find} ${wall-dir} -type f | ${sort} | ${nsxiv} -oiqt | ${head} -n 1)
             [ ! -z $file ] && ln -sf $file ${dest}
             ${set-wallpaper-command}
           '';
