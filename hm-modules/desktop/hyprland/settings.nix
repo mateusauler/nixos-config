@@ -50,8 +50,8 @@ in
     rounding = 5;
     dim_special = "0.4";
     blur = {
-      size = 10;
-      passes = 2;
+      size = 15;
+      passes = 4;
     };
   };
 
