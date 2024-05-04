@@ -20,8 +20,6 @@ in
         monitor = [
           "$mon1,prefered,auto,1"
         ];
-
-        workspace = [ ];
       };
     };
     autostart =
