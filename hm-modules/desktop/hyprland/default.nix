@@ -30,7 +30,6 @@ in
           command = mkOption { type = lib.types.str; };
         };
       };
-    autostart-wait-for = { };
     extraAutostart = with lib.types; mkOption {
       default = { };
       type = attrsOf str;
@@ -72,27 +71,10 @@ in
       # User configured autostart
       settings.exec-once = map # Map the list of command attrsets into a list of command strings
         (e: e.command)
-        # TODO: Find a better way to modify the commands with the wait-for logic
-        (map # Apply the wait-for logic on the commands
-          (v: v //
-            {
-              command =
-                # Prepend the waiting machinery to the command
-                if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
-                # TODO: Improve the wait-for machinery
-                  "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
-                else
-                  v.command;
-            }
-          )
-          (builtins.filter # Filter the enabled commands
-            (e: e.enable)
-            (builtins.attrValues # Get the command sets as a list
-              (lib.recursiveUpdate # Append wait-for option to command sets that need it
-                (cfg.autostart // cfg.extraAutostart)
-                cfg.autostart-wait-for
-              )
-            )
+        (builtins.filter # Filter the enabled commands
+          (e: e.enable)
+          (builtins.attrValues # Get the command sets as a list
+            (cfg.autostart // cfg.extraAutostart)
           )
         );
     };
