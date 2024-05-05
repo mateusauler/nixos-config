@@ -10,18 +10,6 @@ in
     enable = mkEnableOption "hyprland";
     modKey = mkOption { default = "SUPER"; };
     disable-middle-paste = mkOption { default = true; };
-    extraOptions = mkOption {
-      default = {
-        "$mon1" = "";
-        "$mon2" = "$mon1";
-        "$mon3" = "$mon2";
-
-        # monitor = name,resolution,position,scale
-        monitor = [
-          "$mon1,prefered,auto,1"
-        ];
-      };
-    };
     autostart =
       (builtins.mapAttrs
         (name: value: {
@@ -112,7 +100,7 @@ in
         # TODO: Find a more elegant way to do this
         lib.attrsets.mapAttrs
           (n: v: if n == "exec-once" then v ++ autostart else v)
-          (cfg.extraOptions // import ./settings.nix args);
+          (import ./settings.nix args);
     };
 
     home.packages = with pkgs; lib.flatten [

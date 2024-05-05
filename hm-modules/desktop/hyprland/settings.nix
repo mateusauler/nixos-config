@@ -46,6 +46,13 @@ in
     cursor_inactive_timeout = 2;
   };
 
+  "$mon1" = lib.mkDefault "";
+  "$mon2" = lib.mkDefault "$mon1";
+  "$mon3" = lib.mkDefault "$mon2";
+
+  # monitor = name,resolution,position,scale
+  monitor = lib.mkDefault "$mon1,prefered,auto,1";
+
   decoration = {
     rounding = 5;
     dim_special = "0.4";
