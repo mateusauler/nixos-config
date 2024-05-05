@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }@args:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -38,6 +38,8 @@ in
     };
   };
 
+  imports = [ ./settings.nix ];
+
   config = lib.mkIf cfg.enable {
     programs.fish.loginShellInit = /* fish */ "[ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland";
 
@@ -67,40 +69,32 @@ in
       enable = true;
       systemd.enable = mkDefault true;
       xwayland.enable = mkDefault true;
-      settings =
-        let
-          # User configured autostart
-          autostart = map # Map the list of command attrsets into a list of command strings
-            (e: e.command)
-            # TODO: Find a better way to modify the commands with the wait-for logic
-            (map # Apply the wait-for logic on the commands
-              (v: v //
-                {
-                  command =
-                    # Prepend the waiting machinery to the command
-                    if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
-                    # TODO: Improve the wait-for machinery
-                      "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
-                    else
-                      v.command;
-                }
+      # User configured autostart
+      settings.exec-once = map # Map the list of command attrsets into a list of command strings
+        (e: e.command)
+        # TODO: Find a better way to modify the commands with the wait-for logic
+        (map # Apply the wait-for logic on the commands
+          (v: v //
+            {
+              command =
+                # Prepend the waiting machinery to the command
+                if lib.attrsets.hasAttrByPath [ "wait-for" ] v then
+                # TODO: Improve the wait-for machinery
+                  "while ! [ $(pgrep ${v.wait-for}) ]; do sleep 1; done && sleep 2 && ${v.command}"
+                else
+                  v.command;
+            }
+          )
+          (builtins.filter # Filter the enabled commands
+            (e: e.enable)
+            (builtins.attrValues # Get the command sets as a list
+              (lib.recursiveUpdate # Append wait-for option to command sets that need it
+                (cfg.autostart // cfg.extraAutostart)
+                cfg.autostart-wait-for
               )
-              (builtins.filter # Filter the enabled commands
-                (e: e.enable)
-                (builtins.attrValues # Get the command sets as a list
-                  (lib.recursiveUpdate # Append wait-for option to command sets that need it
-                    (cfg.autostart // cfg.extraAutostart)
-                    cfg.autostart-wait-for
-                  )
-                )
-              )
-            );
-        in
-        # Concatenates the exec-once list with the generated autostart
-        # TODO: Find a more elegant way to do this
-        lib.attrsets.mapAttrs
-          (n: v: if n == "exec-once" then v ++ autostart else v)
-          (import ./settings.nix args);
+            )
+          )
+        );
     };
 
     home.packages = with pkgs; lib.flatten [
