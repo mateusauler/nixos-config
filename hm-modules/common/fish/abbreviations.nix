@@ -47,7 +47,7 @@ in
       gwa = "git worktree add";
       gwl = "git worktree list";
       gwr = "git worktree remove";
-      cg = "cd (git rev-parse --show-toplevel)";
+      cg = "cd $(git rev-parse --show-toplevel 2> /dev/null || pwd | sed 's|/\\.git.*$||')";
 
       # Nix
 
