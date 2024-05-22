@@ -47,7 +47,7 @@ in
         jq
         progress
         python3
-        tldr
+        tlrc
       ];
 
       activation.clone-dots = lib.optionalString config.dots.clone (lib.hm.dag.entryAfter [ "writeBoundary" ] (
