@@ -82,8 +82,6 @@ in
       ];
 
       keymaps = lib.flatten [
-        { key = ";"; action = ":"; options.desc = "Command"; }
-
         (mapNSilent  "<leader>w" "<Cmd>w<CR>" "Save")
         (mapINSilent "<C-S>"     "<Cmd>w<CR>" "Save")
         (mapNSilent  "<leader>q" "<Cmd>q<CR>" "Quit")
