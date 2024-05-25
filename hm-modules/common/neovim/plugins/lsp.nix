@@ -38,7 +38,10 @@ lib.mkIf cfg.enable {
         java-language-server.enable = true;
         jsonls.enable = true;
         lua-ls.enable = true;
-        nixd.enable = true;
+        nixd = {
+          enable = true;
+          settings.formatting.command = [ "nixpkgs-fmt" ];
+        };
         texlab.enable = true;
         yamlls.enable = true;
         rust-analyzer = {
