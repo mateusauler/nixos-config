@@ -55,6 +55,20 @@ in
       hyprland.autostart.apply-wallpaper.command = "sleep 0.5 && swww init";
     };
 
+    programs.chromium = {
+      enable = true;
+      package = pkgs.ungoogled-chromium;
+      extensions = [
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # Ublock Origin
+        { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
+        { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
+        { # Chromium Web Store
+          id = "ocaahdebbfolfmndjeplogmgcagdmblk";
+          updateUrl = "https://raw.githubusercontent.com/NeverDecaf/chromium-web-store/master/updates.xml";
+        }
+      ];
+    };
+
     home.packages = with pkgs; [
       at-spi2-core
       brave
@@ -71,7 +85,6 @@ in
       spotify
       swww
       syncthing-tray
-      ungoogled-chromium
       vesktop
       vlc
       vscodium-fhs
