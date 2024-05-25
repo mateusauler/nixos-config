@@ -15,18 +15,19 @@ in {
       enable = true;
       package = pkgs.librewolf-wayland;
       settings = {
-        "privacy.resistFingerprinting.letterboxing" = true;
-        "network.dns.disableIPv6" = false;
-        "media.peerconnection.ice.no_host" = false;
-        "identity.fxaccounts.enabled" = true;
-        "privacy.clearOnShutdown.history" = false;
-        "privacy.clearOnShutdown.downloads" = false;
-        "browser.uidensity" = 1;
-        "mousewheel.system_scroll_override.enabled" = false;
-        "devtools.theme" = "dark";
-        "privacy.sanitize.sanitizeOnShutdown" = false;
-        "keyword.enabled" = false;
         "browser.search.widget.inNavBar" = false;
+        "browser.uidensity" = 1;
+        "devtools.theme" = "dark";
+        "identity.fxaccounts.enabled" = true;
+        "keyword.enabled" = false;
+        "media.hardwaremediakeys.enabled" = false;
+        "media.peerconnection.ice.no_host" = false;
+        "mousewheel.system_scroll_override.enabled" = false;
+        "network.dns.disableIPv6" = false;
+        "privacy.clearOnShutdown.downloads" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.resistFingerprinting.letterboxing" = true;
+        "privacy.sanitize.sanitizeOnShutdown" = false;
       };
     };
 
