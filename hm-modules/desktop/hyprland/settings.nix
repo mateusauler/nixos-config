@@ -137,9 +137,6 @@ in
       "monitor $mon1, class:(mpv)"
       "fullscreen,    class:(mpv)"
 
-      # Neovide
-      "suppressevent maximize, class:(neovide)"
-
       # nsxiv
       "tile, class:(Nsxiv)"
 

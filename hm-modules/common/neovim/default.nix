@@ -1,4 +1,4 @@
-{ config, lib, nixpkgs-channel, osConfig, pkgs, ... }:
+{ config, lib, nixpkgs-channel, pkgs, ... }:
 
 let
   cfg = config.modules.neovim;
@@ -33,12 +33,11 @@ in
   };
 
   imports = [
+    ./neovide.nix
     ./plugins
   ];
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.optional cfg.neovide.enable pkgs.neovide;
-
     modules.neovim.opts = {
       # Line numbers
       number = true;
@@ -55,8 +54,6 @@ in
       signcolumn = "yes";
 
       mouse = "a";
-    } // lib.optionalAttrs cfg.neovide.enable {
-      guifont = with osConfig.defaultFonts.mono; "${name}:h${toString size}";
     };
 
     programs.nixvim = {
@@ -65,8 +62,6 @@ in
       globals = {
         mapleader = " ";
         maplocalleader = " ";
-      } // lib.optionalAttrs cfg.neovide.enable {
-        neovide_transparency = 0.8;
       };
 
       # Use system clipboard
