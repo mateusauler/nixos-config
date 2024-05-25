@@ -44,8 +44,9 @@ in
       "col.inactive_border" = "rgba(${base01}aa)";
 
       layout = "dwindle";
-      cursor_inactive_timeout = 2;
     };
+
+    cursor.inactive_timeout = 2;
 
     "$mon1" = lib.mkDefault "";
     "$mon2" = lib.mkDefault "$mon1";
