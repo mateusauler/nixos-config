@@ -93,6 +93,8 @@ in
       disable_splash_rendering = true;
       disable_hyprland_logo = true;
       background_color = "0x000000";
+
+      initial_workspace_tracking = 2;
     };
 
     binds.scroll_event_delay = 80;
