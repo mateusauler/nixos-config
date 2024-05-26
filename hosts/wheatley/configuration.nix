@@ -1,12 +1,13 @@
 { lib, ... }:
 
 let
-  module-names = [ "desktop" "zswap" ];
+  module-names = [
+    "desktop"
+    "zswap"
+  ];
 in
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot.loader = {
     grub = {

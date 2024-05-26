@@ -56,14 +56,25 @@
     };
   };
 
-  outputs = inputs@{ nix-colors, nixpkgs-stable, nixpkgs-unstable, ... }:
+  outputs =
+    inputs@{
+      nix-colors,
+      nixpkgs-stable,
+      nixpkgs-unstable,
+      ...
+    }:
     let
       system = "x86_64-linux";
       default-channel = "unstable";
 
       overlays = [
         (final: prev: {
-          lib = prev.lib // import ./lib { inherit (final) lib; inherit pkgs; };
+          lib =
+            prev.lib
+            // import ./lib {
+              inherit (final) lib;
+              inherit pkgs;
+            };
         })
       ];
 
@@ -87,16 +98,48 @@
         amadeus = "stable";
       };
 
-      specialArgs = { inherit nix-colors nixpkgs-stable nixpkgs-unstable pkgs-stable pkgs-unstable lib-stable lib-unstable; };
+      specialArgs = {
+        inherit
+          nix-colors
+          nixpkgs-stable
+          nixpkgs-unstable
+          pkgs-stable
+          pkgs-unstable
+          lib-stable
+          lib-unstable
+          ;
+      };
 
-      mkHost = acc: hostname:
-        acc // {
-          ${hostname} =
-            lib-stable.mkNixosSystem { inherit hostname system inputs default-channel pkgs specialArgs private-config hosts-preferred-nixpkgs-channel; };
+      mkHost =
+        acc: hostname:
+        acc
+        // {
+          ${hostname} = lib-stable.mkNixosSystem {
+            inherit
+              hostname
+              system
+              inputs
+              default-channel
+              pkgs
+              specialArgs
+              private-config
+              hosts-preferred-nixpkgs-channel
+              ;
+          };
         };
     in
     {
-      nixosConfigurations = (private-config.systems { inherit system inputs default-channel pkgs specialArgs; }) // (lib.foldl mkHost { } machines);
+      nixosConfigurations =
+        (private-config.systems {
+          inherit
+            system
+            inputs
+            default-channel
+            pkgs
+            specialArgs
+            ;
+        })
+        // (lib.foldl mkHost { } machines);
       devShells.${system}.default = import ./shell.nix { inherit pkgs; };
       templates = import ./templates;
     };

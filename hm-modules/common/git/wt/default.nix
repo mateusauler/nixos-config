@@ -1,4 +1,10 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.git;
@@ -18,20 +24,21 @@ let
       ./fix_completions.diff
     ];
 
-    installPhase = /* bash */ ''
-      mkdir -p $out/bin
-      cp wt $out/bin/wt
-      installShellCompletion --cmd wt \
-        --bash completions/wt_completion \
-        --fish completions/wt.fish \
-        --zsh completions/_wt_completion
-    '';
+    installPhase = # bash
+      ''
+        mkdir -p $out/bin
+        cp wt $out/bin/wt
+        installShellCompletion --cmd wt \
+          --bash completions/wt_completion \
+          --fish completions/wt.fish \
+          --zsh completions/_wt_completion
+      '';
   };
 in
 lib.mkIf cfg.wt {
   home.packages = [ package ];
   programs = {
-    fish.shellInit = /* fish */ "command wt init fish | source";
-    bash.initExtra = /* bash */ ''eval "$(command wt init bash)"'';
+    fish.shellInit = "command wt init fish | source";
+    bash.initExtra = ''eval "$(command wt init bash)"'';
   };
 }

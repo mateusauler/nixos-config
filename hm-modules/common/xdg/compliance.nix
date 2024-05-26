@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.xdg.compliance;
@@ -35,33 +40,34 @@ in
         stateHome = config.xdg.stateHome or "${home}/.local/state";
         mv = source: destination: "$DRY_RUN_CMD test -f ${source} && mv ${source} ${destination} || true";
       in
-        lib.optionalString config.nix.settings.use-xdg-base-directories or false ''
-          $DRY_RUN_CMD mkdir -p ${stateHome}
-          ${mv "${home}/.nix-profile" "${stateHome}/profile"}
-          ${mv "${home}/.nix-defexpr" "${stateHome}/defexpr"}
-          ${mv "${home}/.nix-channels" "${stateHome}/channels"}
-        '';
+      lib.optionalString config.nix.settings.use-xdg-base-directories or false ''
+        $DRY_RUN_CMD mkdir -p ${stateHome}
+        ${mv "${home}/.nix-profile" "${stateHome}/profile"}
+        ${mv "${home}/.nix-defexpr" "${stateHome}/defexpr"}
+        ${mv "${home}/.nix-channels" "${stateHome}/channels"}
+      '';
 
     xdg.configFile = {
-      "python/pythonrc".text = /* python */ ''
-        import os
-        import atexit
-        import readline
+      "python/pythonrc".text = # python
+        ''
+          import os
+          import atexit
+          import readline
 
-        history = os.path.join(os.environ['XDG_CACHE_HOME'], 'python_history')
-        try:
-          readline.read_history_file(history)
-        except OSError:
-          pass
-
-        def write_history():
+          history = os.path.join(os.environ['XDG_CACHE_HOME'], 'python_history')
           try:
-            readline.write_history_file(history)
+            readline.read_history_file(history)
           except OSError:
             pass
 
-        atexit.register(write_history)
-      '';
+          def write_history():
+            try:
+              readline.write_history_file(history)
+            except OSError:
+              pass
+
+          atexit.register(write_history)
+        '';
     };
   };
 }

@@ -2,7 +2,8 @@
 
 let
   cfg = config.modules.mako;
-in {
+in
+{
   options.modules.mako.enable = lib.mkEnableOption "mako";
 
   config = lib.mkIf cfg.enable {
@@ -18,4 +19,3 @@ in {
     };
   };
 }
-

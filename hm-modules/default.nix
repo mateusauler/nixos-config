@@ -1,8 +1,22 @@
-{ config, lib, osConfig, pkgs, nix-colors, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  nix-colors,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
-  module-names = [ "bat" "fish" "neovim" "wget" "xdg" "xdg.compliance" ];
+  module-names = [
+    "bat"
+    "fish"
+    "neovim"
+    "wget"
+    "xdg"
+    "xdg.compliance"
+  ];
 in
 {
   options.dots = {
@@ -50,11 +64,11 @@ in
         tlrc
       ];
 
-      activation.clone-dots = lib.optionalString config.dots.clone (lib.hm.dag.entryAfter [ "writeBoundary" ] (
-        pkgs.lib.cloneRepo {
-          inherit (config.dots) path url ssh-uri;
-        }
-      ));
+      activation.clone-dots = lib.optionalString config.dots.clone (
+        lib.hm.dag.entryAfter [ "writeBoundary" ] (
+          pkgs.lib.cloneRepo { inherit (config.dots) path url ssh-uri; }
+        )
+      );
     };
 
     # Use the same nix settings in home-manager as in the full system config

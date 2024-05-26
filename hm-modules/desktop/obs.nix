@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.obs;
-in {
+in
+{
   options.modules.obs.enable = lib.mkEnableOption "obs";
 
   config = lib.mkIf cfg.enable {

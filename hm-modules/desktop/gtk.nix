@@ -1,4 +1,11 @@
-{ config, lib, nix-colors, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  nix-colors,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.gtk;
@@ -11,12 +18,13 @@ in
     # Ensures the cursor icon always works
     xdg.dataFile."icons/default/index.theme" = {
       inherit (cfg) enable;
-      text = /* ini */ ''
-        [Icon Theme]
-        Name=Default
-        Comment=Default Cursor Theme
-        Inherits=${config.gtk.cursorTheme.name}
-      '';
+      text = # ini
+        ''
+          [Icon Theme]
+          Name=Default
+          Comment=Default Cursor Theme
+          Inherits=${config.gtk.cursorTheme.name}
+        '';
     };
     gtk =
       let
@@ -56,18 +64,25 @@ in
         };
         gtk2 = {
           configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc-2.0";
-          extraConfig = lib.strings.concatLines
-            (lib.attrsets.foldlAttrs
-              (acc: name: value: acc ++ [
-                ("${name}=" + (
-                  if builtins.typeOf value == "string" then (if lib.hasPrefix "GTK_" value then value else "\"${value}\"")
-                  else if builtins.typeOf value == "bool" then (if value then "1" else "0")
-                  else toString value
-                ))
-              ])
-              [ ]
-              commonConfigs
-            );
+          extraConfig = lib.strings.concatLines (
+            lib.attrsets.foldlAttrs (
+              acc: name: value:
+              acc
+              ++ [
+                (
+                  "${name}="
+                  + (
+                    if builtins.typeOf value == "string" then
+                      (if lib.hasPrefix "GTK_" value then value else "\"${value}\"")
+                    else if builtins.typeOf value == "bool" then
+                      (if value then "1" else "0")
+                    else
+                      toString value
+                  )
+                )
+              ]
+            ) [ ] commonConfigs
+          );
         };
         gtk3.extraConfig = commonConfigs;
         gtk4.extraConfig = commonConfigs;

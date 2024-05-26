@@ -1,9 +1,15 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
   cfg = config.modules.efi;
-in {
+in
+{
   options.modules.efi.enable = lib.mkEnableOption "efi";
 
   config = lib.mkIf cfg.enable {
@@ -13,8 +19,6 @@ in {
       timeout = mkDefault 0;
     };
 
-    environment.systemPackages = with pkgs; [
-      efibootmgr
-    ];
+    environment.systemPackages = with pkgs; [ efibootmgr ];
   };
 }

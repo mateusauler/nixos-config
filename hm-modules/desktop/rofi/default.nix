@@ -1,8 +1,15 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.rofi;
-in {
+in
+{
   options.modules.rofi.enable = lib.mkEnableOption "rofi";
 
   config = lib.mkIf cfg.enable {

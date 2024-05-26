@@ -1,30 +1,32 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  ifTheyExist = groups:
-    builtins.filter
-      (group: builtins.hasAttr
-        group
-        config.users.groups)
-      groups;
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   username = "mateus";
 in
 lib.mkIf (builtins.elem username config.enabledUsers) {
   users.users.${username} = {
     isNormalUser = true;
     group = "users";
-    extraGroups = [
-      "disk"
-      "input"
-      "wheel"
-    ] ++ ifTheyExist [
-      "docker"
-      "libvirtd"
-      "networkmanager"
-      "syncthing"
-      "vpn"
-      "wireshark"
-    ];
+    extraGroups =
+      [
+        "disk"
+        "input"
+        "wheel"
+      ]
+      ++ ifTheyExist [
+        "docker"
+        "libvirtd"
+        "networkmanager"
+        "syncthing"
+        "vpn"
+        "wireshark"
+      ];
 
     hashedPasswordFile = lib.mkDefault config.sops.secrets."password-${username}".path;
     shell = pkgs.fish;
@@ -39,7 +41,10 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
     ];
   };
 
-  services.syncthing = let home = config.users.users.${username}.home; in
+  services.syncthing =
+    let
+      home = config.users.users.${username}.home;
+    in
     {
       enable = lib.mkDefault true;
       openDefaultPorts = true;

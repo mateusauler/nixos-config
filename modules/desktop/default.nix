@@ -1,32 +1,52 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
   cfg = config.modules.desktop;
-  module-names = [ "barrier" "distrobox" "localsend" "wally" ];
+  module-names = [
+    "barrier"
+    "distrobox"
+    "localsend"
+    "wally"
+  ];
 in
 {
   options = {
     modules.desktop.enable = lib.mkEnableOption "desktop";
-    defaultFonts = with lib.types; lib.mkOption {
-      type = submodule {
-        options = lib.foldl' (acc: name:
-          acc // {
-            ${name} = lib.mkOption {
-              type = submodule {
-                options = {
-                  package = lib.mkOption { };
-                  name = lib.mkOption { };
-                  size = lib.mkOption { };
-                };
-              };
-            };
-          }
-        )
-        { }
-        [ "mono" "sans" "serif" ];
+    defaultFonts =
+      with lib.types;
+      lib.mkOption {
+        type = submodule {
+          options =
+            lib.foldl'
+              (
+                acc: name:
+                acc
+                // {
+                  ${name} = lib.mkOption {
+                    type = submodule {
+                      options = {
+                        package = lib.mkOption { };
+                        name = lib.mkOption { };
+                        size = lib.mkOption { };
+                      };
+                    };
+                  };
+                }
+              )
+              { }
+              [
+                "mono"
+                "sans"
+                "serif"
+              ];
+        };
       };
-    };
   };
 
   imports = [
@@ -44,7 +64,10 @@ in
       enable = true;
       config = {
         common.default = [ "gtk" ];
-        hyprland.default = [ "gtk" "hyprland" ];
+        hyprland.default = [
+          "gtk"
+          "hyprland"
+        ];
       };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
@@ -52,19 +75,19 @@ in
       ];
     };
 
-      defaultFonts = rec {
-        sans = {
-          package = lib.mkDefault pkgs.roboto;
-          name = lib.mkDefault "Roboto";
-          size = lib.mkDefault 12;
-        };
-        serif = sans;
-        mono = {
-          package = lib.mkDefault pkgs.nerdfonts;
-          name = lib.mkDefault "FiraCode Nerd Font Mono";
-          size = lib.mkDefault 12;
-        };
+    defaultFonts = rec {
+      sans = {
+        package = lib.mkDefault pkgs.roboto;
+        name = lib.mkDefault "Roboto";
+        size = lib.mkDefault 12;
       };
+      serif = sans;
+      mono = {
+        package = lib.mkDefault pkgs.nerdfonts;
+        name = lib.mkDefault "FiraCode Nerd Font Mono";
+        size = lib.mkDefault 12;
+      };
+    };
 
     sound.enable = true;
 
@@ -103,18 +126,21 @@ in
 
     fonts = {
       enableDefaultPackages = true;
-      packages = with pkgs; [
-        font-awesome
-        liberation_ttf
-        nerdfonts
-        noto-fonts
-        noto-fonts-cjk
-        noto-fonts-emoji
-      ] ++ (with config.defaultFonts; [
-        sans.package
-        serif.package
-        mono.package
-      ]);
+      packages =
+        with pkgs;
+        [
+          font-awesome
+          liberation_ttf
+          nerdfonts
+          noto-fonts
+          noto-fonts-cjk
+          noto-fonts-emoji
+        ]
+        ++ (with config.defaultFonts; [
+          sans.package
+          serif.package
+          mono.package
+        ]);
       fontconfig.defaultFonts = with config.defaultFonts; {
         sansSerif = [ sans.name ];
         serif = [ serif.name ];

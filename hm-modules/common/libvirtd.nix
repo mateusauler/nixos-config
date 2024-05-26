@@ -2,7 +2,8 @@
 
 let
   cfg = config.modules.libvirtd;
-in {
+in
+{
   options.modules.libvirtd.enable = lib.mkEnableOption "libvirtd";
 
   config = lib.mkIf cfg.enable {

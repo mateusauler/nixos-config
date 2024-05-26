@@ -6,12 +6,14 @@ let
 in
 lib.mkIf cfg.enable {
   programs.nixvim = {
-    extraConfigLua = lib.optionalString cfg-plug.neo-tree.enable /* lua */ ''
-      vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
-      vim.fn.sign_define("DiagnosticSignWarn",  {text = " ", texthl = "DiagnosticSignWarn"})
-      vim.fn.sign_define("DiagnosticSignInfo",  {text = " ", texthl = "DiagnosticSignInfo"})
-      vim.fn.sign_define("DiagnosticSignHint",  {text = "󰌵 ", texthl = "DiagnosticSignHint"})
-    '';
+    extraConfigLua =
+      lib.optionalString cfg-plug.neo-tree.enable # lua
+        ''
+          vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+          vim.fn.sign_define("DiagnosticSignWarn",  {text = " ", texthl = "DiagnosticSignWarn"})
+          vim.fn.sign_define("DiagnosticSignInfo",  {text = " ", texthl = "DiagnosticSignInfo"})
+          vim.fn.sign_define("DiagnosticSignHint",  {text = "󰌵 ", texthl = "DiagnosticSignHint"})
+        '';
 
     keymaps = lib.optionals cfg-plug.neo-tree.enable [
       {
@@ -43,11 +45,12 @@ lib.mkIf cfg.enable {
         groupEmptyDirs = true;
       };
 
-      eventHandlers.file_opened  = /* lua */ ''
-        function(file_path)
-          require("neo-tree.command").execute({ action = "close" })
-        end
-      '';
+      eventHandlers.file_opened = # lua
+        ''
+          function(file_path)
+            require("neo-tree.command").execute({ action = "close" })
+          end
+        '';
 
       filesystem = {
         scanMode = "deep";
@@ -61,7 +64,10 @@ lib.mkIf cfg.enable {
       gitStatus.window.mappings.g = {
         command = "show_help";
         nowait = false;
-        config = { title = "Git"; prefix_key = "g"; };
+        config = {
+          title = "Git";
+          prefix_key = "g";
+        };
       };
 
       sourceSelector = {

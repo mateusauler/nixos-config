@@ -1,4 +1,10 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
 let
   cfg = config.modules.desktop;
@@ -62,7 +68,8 @@ in
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # Ublock Origin
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
         { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
-        { # Chromium Web Store
+        {
+          # Chromium Web Store
           id = "ocaahdebbfolfmndjeplogmgcagdmblk";
           updateUrl = "https://raw.githubusercontent.com/NeverDecaf/chromium-web-store/master/updates.xml";
         }

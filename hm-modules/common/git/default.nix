@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.git;
-in {
+in
+{
   options.modules.git = with lib; {
     gpgKey = mkOption {
       type = types.nullOr types.str;
@@ -12,9 +18,7 @@ in {
     wt = pkgs.lib.mkTrueEnableOption "Git Worktree Switcher";
   };
 
-  imports = [
-    ./wt
-  ];
+  imports = [ ./wt ];
 
   config = {
     programs.lazygit.enable = cfg.lazygit;

@@ -1,4 +1,11 @@
-{ config, inputs, lib, nixpkgs-channel, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  nixpkgs-channel,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.neovim;
@@ -10,9 +17,7 @@ let
 in
 lib.mkIf cfg.enable {
   programs.nixvim = {
-    globals = lib.optionalAttrs enabled {
-      netrw_nogx = 1;
-    };
+    globals = lib.optionalAttrs enabled { netrw_nogx = 1; };
 
     keymaps = lib.optionals enabled [
       {
@@ -22,26 +27,31 @@ lib.mkIf cfg.enable {
         options.desc = "Oil: Open parent directory";
       }
       {
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
         key = "gx";
         action = "<Cmd>Browse<CR>";
       }
     ];
 
-    extraConfigLua = lib.optionalString enabled /* lua */ ''
-      require("gx").setup({
-        handler_options = { search_engine = "duckduckgo" },
-      })
-    '';
+    extraConfigLua =
+      lib.optionalString enabled # lua
+        ''
+          require("gx").setup({
+            handler_options = { search_engine = "duckduckgo" },
+          })
+        '';
 
-    plugins.oil = if nixpkgs-channel == "stable" then
-      { extraOptions = settings; }
-    else
-      { inherit settings; };
+    plugins.oil =
+      if nixpkgs-channel == "stable" then { extraOptions = settings; } else { inherit settings; };
 
-    extraPlugins = lib.optional enabled (pkgs.vimUtils.buildVimPlugin {
-      name = "gx";
-      src = inputs.gx;
-    });
+    extraPlugins = lib.optional enabled (
+      pkgs.vimUtils.buildVimPlugin {
+        name = "gx";
+        src = inputs.gx;
+      }
+    );
   };
 }

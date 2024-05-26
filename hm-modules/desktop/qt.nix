@@ -1,4 +1,10 @@
-{ config, lib, nixpkgs-channel, pkgs, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.qt;

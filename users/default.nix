@@ -6,9 +6,7 @@
     default = [ ];
   };
 
-  imports = [
-    ./mateus
-  ];
+  imports = [ ./mateus ];
 
   config.users = {
     mutableUsers = lib.mkDefault false;

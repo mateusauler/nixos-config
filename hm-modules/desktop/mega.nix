@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.mega;
@@ -10,9 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      megacmd
-    ];
+    home.packages = with pkgs; [ megacmd ];
 
     modules.hyprland.extraAutostart.megacmd = "mega-cmd-server";
 

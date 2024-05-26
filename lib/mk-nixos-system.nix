@@ -1,23 +1,37 @@
 { lib, ... }:
 
-{ hostname
-, system
-, inputs
-, default-channel
-, specialArgs ? { }
-, dir ? ../hosts/${hostname}
-, private-config ? import inputs.private-config (inputs // { inherit lib; inherit (args) pkgs; })
-, hosts-preferred-nixpkgs-channel ? { }
-, ...
+{
+  hostname,
+  system,
+  inputs,
+  default-channel,
+  specialArgs ? { },
+  dir ? ../hosts/${hostname},
+  private-config ? import inputs.private-config (
+    inputs
+    // {
+      inherit lib;
+      inherit (args) pkgs;
+    }
+  ),
+  hosts-preferred-nixpkgs-channel ? { },
+  ...
 }@args:
 
-assert lib.assertOneOf "default-channel" default-channel [ "stable" "unstable" ];
+assert lib.assertOneOf "default-channel" default-channel [
+  "stable"
+  "unstable"
+];
 
 let
   nixpkgs-channel = hosts-preferred-nixpkgs-channel.${hostname} or default-channel;
 
-  get-variable = base-name: origin:
-    assert lib.assertOneOf "nixpkgs channel for ${hostname}" nixpkgs-channel [ "stable" "unstable" ];
+  get-variable =
+    base-name: origin:
+    assert lib.assertOneOf "nixpkgs channel for ${hostname}" nixpkgs-channel [
+      "stable"
+      "unstable"
+    ];
     origin."${base-name}-${nixpkgs-channel}";
 
   nixpkgs = get-variable "nixpkgs" inputs;
@@ -25,7 +39,14 @@ let
   home-manager = get-variable "home-manager" inputs;
   nixvim = get-variable "nixvim" inputs;
 
-  specialArgs' = specialArgs // { inherit inputs private-config default-channel nixpkgs-channel; };
+  specialArgs' = specialArgs // {
+    inherit
+      inputs
+      private-config
+      default-channel
+      nixpkgs-channel
+      ;
+  };
 
   configPath = dir + /configuration.nix;
   inherit (import configPath (args // { inherit (pkgs) lib; })) enabledUsers;
@@ -33,7 +54,9 @@ in
 nixpkgs.lib.nixosSystem rec {
   inherit system pkgs;
 
-  specialArgs = specialArgs' // { inherit (pkgs) lib; };
+  specialArgs = specialArgs' // {
+    inherit (pkgs) lib;
+  };
 
   modules = [
     configPath
@@ -41,7 +64,9 @@ nixpkgs.lib.nixosSystem rec {
     home-manager.nixosModules.home-manager
     {
       home-manager = {
-        users = lib.foldl (acc: u: acc // { ${u} = import (dir + /home.nix); }) { } (enabledUsers ++ [ "root" ]);
+        users = lib.foldl (acc: u: acc // { ${u} = import (dir + /home.nix); }) { } (
+          enabledUsers ++ [ "root" ]
+        );
         useGlobalPkgs = true;
         useUserPackages = false;
         extraSpecialArgs = specialArgs';

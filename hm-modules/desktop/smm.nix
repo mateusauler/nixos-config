@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.modules.smm;
@@ -39,13 +45,13 @@ let
       cp $src/bin/satisfactory-mod-manager $out/bin
     '';
 
-    fixupPhase = with config.modules.steam-xdg; lib.optionalString enable "wrapProgram $out/bin/satisfactory-mod-manager --set HOME ${fakeHome}";
+    fixupPhase =
+      with config.modules.steam-xdg;
+      lib.optionalString enable "wrapProgram $out/bin/satisfactory-mod-manager --set HOME ${fakeHome}";
   });
 in
 {
   options.modules.smm.enable = lib.mkEnableOption "Satisfactory Mod Manager";
 
-  config = lib.mkIf cfg.enable {
-    home.packages = [ package ];
-  };
+  config = lib.mkIf cfg.enable { home.packages = [ package ]; };
 }

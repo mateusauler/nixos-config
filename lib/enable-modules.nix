@@ -2,7 +2,8 @@
 
 module-names:
 let
-  join-modules = acc: mod:
+  join-modules =
+    acc: mod:
     let
       path = (lib.strings.splitString "." mod) ++ [ "enable" ];
     in

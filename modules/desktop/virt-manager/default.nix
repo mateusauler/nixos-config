@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.modules.virt-manager;
@@ -24,7 +29,10 @@ in
     networking.firewall = {
       allowedTCPPortRanges = [
         # spice
-        { from = 5900; to = 5999; }
+        {
+          from = 5900;
+          to = 5999;
+        }
       ];
       allowedTCPPorts = [
         # libvirt
@@ -32,9 +40,7 @@ in
       ];
     };
 
-    environment.systemPackages = [
-      pkgs.virtiofsd
-    ];
+    environment.systemPackages = [ pkgs.virtiofsd ];
 
     users.groups.libvirtd = { };
 

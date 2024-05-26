@@ -1,9 +1,21 @@
-{ config, lib, nixpkgs-channel, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  ...
+}:
 
 let
   cfg = config.modules.hyprland;
-  workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // { "0" = "10"; };
-  directionsHJKL = { H = "l"; L = "r"; K = "u"; J = "d"; };
+  workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // {
+    "0" = "10";
+  };
+  directionsHJKL = {
+    H = "l";
+    L = "r";
+    K = "u";
+    J = "d";
+  };
   inherit (cfg) modKey;
 in
 {
@@ -40,7 +52,7 @@ in
     general = with config.colorScheme.palette; {
       border_size = 3;
 
-      "col.active_border"   = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
+      "col.active_border" = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
       "col.inactive_border" = "rgba(${base01}aa)";
 
       layout = "dwindle";
@@ -99,9 +111,7 @@ in
 
     binds.scroll_event_delay = 80;
 
-    workspace = [
-      "s[true], gapsout:80, gapsin:20"
-    ];
+    workspace = [ "s[true], gapsout:80, gapsin:20" ];
 
     windowrulev2 = lib.flatten [
       "workspace 2 silent, class:(librewolf)"
@@ -186,16 +196,21 @@ in
       "${modKey},         C, exec, copyq show"
       "${modKey},         E, exec, pcmanfm"
 
-      (if config.modules.rofi.enable then [
-        "${modKey},       D,      exec, rofi -show drun -prompt ''"
-        "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
-        "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
-      ]
-      else if config.modules.wofi.enable then [
-        "${modKey},       D, exec, wofi --show drun --prompt ''"
-        "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
-      ]
-      else [ ])
+      (
+        if config.modules.rofi.enable then
+          [
+            "${modKey},       D,      exec, rofi -show drun -prompt ''"
+            "${modKey} SHIFT, D,      exec, rofi -show run  -prompt ''"
+            "${modKey},       ESCAPE, exec, rofi -show p -no-show-icons -modi p:rofi-power-menu"
+          ]
+        else if config.modules.wofi.enable then
+          [
+            "${modKey},       D, exec, wofi --show drun --prompt ''"
+            "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
+          ]
+        else
+          [ ]
+      )
 
       (lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu")
 
@@ -268,33 +283,34 @@ in
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
 
-    device = let
-      devices = [
-        "lightspeed-wireless-gaming-mouse-w/-hero"
-        "lightspeed-wireless-gaming-mouse-w/-hero-1"
-        "lightspeed-wireless-gaming-mouse-w/-hero-2"
-        "ls-1"
-      ];
-      prefix = "logitech-g903-";
-      sensitivity = -0.93;
-    in (
-      if nixpkgs-channel == "stable" then (
-        builtins.foldl'
-        (acc: name:
-          acc // {
-            "device:${prefix}${name}" = {
-              inherit sensitivity;
-            };
-          })
-        { }
+    device =
+      let
+        devices = [
+          "lightspeed-wireless-gaming-mouse-w/-hero"
+          "lightspeed-wireless-gaming-mouse-w/-hero-1"
+          "lightspeed-wireless-gaming-mouse-w/-hero-2"
+          "ls-1"
+        ];
+        prefix = "logitech-g903-";
+        sensitivity = -0.93;
+      in
+      (
+        if nixpkgs-channel == "stable" then
+          (builtins.foldl' (
+            acc: name:
+            acc
+            // {
+              "device:${prefix}${name}" = {
+                inherit sensitivity;
+              };
+            }
+          ) { })
+        else
+          (map (name: {
+            inherit sensitivity;
+            name = "${prefix}${name}";
+          }))
       )
-      else (
-        map (name: {
-          inherit sensitivity;
-          name = "${prefix}${name}";
-        })
-      )
-    )
-    devices;
+        devices;
   };
 }

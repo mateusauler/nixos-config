@@ -2,7 +2,8 @@
 
 let
   cfg = config.modules.wofi;
-in {
+in
+{
   options.modules.wofi.enable = lib.mkEnableOption "wofi";
 
   config = lib.mkIf cfg.enable {

@@ -1,12 +1,15 @@
 { lib, pkgs, ... }:
 
 let
-  module-names = [ "desktop" "efi" "gaming" "virt-manager" ];
+  module-names = [
+    "desktop"
+    "efi"
+    "gaming"
+    "virt-manager"
+  ];
 in
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   modules = lib.enableModules module-names;
 
@@ -23,4 +26,3 @@ in
 
   system.stateVersion = "22.11";
 }
-

@@ -6,7 +6,11 @@ in
 {
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "auto-allocate-uids"
+      ];
       auto-allocate-uids = true;
       auto-optimise-store = mkDefault true;
       keep-outputs = mkDefault true;

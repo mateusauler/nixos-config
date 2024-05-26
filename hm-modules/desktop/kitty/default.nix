@@ -1,8 +1,14 @@
-{ config, lib, osConfig, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}:
 
 let
   cfg = config.modules.kitty;
-in {
+in
+{
   options.modules.kitty.enable = lib.mkEnableOption "kitty";
 
   config = lib.mkIf cfg.enable {
@@ -10,7 +16,7 @@ in {
       enable = true;
       settings = {
         font_family = osConfig.defaultFonts.mono.name;
-        font_size =   osConfig.defaultFonts.mono.size;
+        font_size = osConfig.defaultFonts.mono.size;
         enable_audio_bell = false;
         foreground = "#${base05}";
         background = "#${base00}";
@@ -25,16 +31,16 @@ in {
         inactive_tab_background = "#${base01}";
         inactive_tab_foreground = "#${base04}";
         tab_bar_background = "#${base01}";
-        color0  = "#${base00}";
-        color1  = "#${base08}";
-        color2  = "#${base0B}";
-        color3  = "#${base0A}";
-        color4  = "#${base0D}";
-        color5  = "#${base0E}";
-        color6  = "#${base0C}";
-        color7  = "#${base05}";
-        color8  = "#${base03}";
-        color9  = "#${base08}";
+        color0 = "#${base00}";
+        color1 = "#${base08}";
+        color2 = "#${base0B}";
+        color3 = "#${base0A}";
+        color4 = "#${base0D}";
+        color5 = "#${base0E}";
+        color6 = "#${base0C}";
+        color7 = "#${base05}";
+        color8 = "#${base03}";
+        color9 = "#${base08}";
         color10 = "#${base0B}";
         color11 = "#${base0A}";
         color12 = "#${base0D}";

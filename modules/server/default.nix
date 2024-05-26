@@ -1,4 +1,11 @@
-{ config, lib, nixpkgs-channel, nixpkgs-unstable, pkgs, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  nixpkgs-unstable,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.server;
@@ -6,11 +13,12 @@ in
 {
   options.modules.server.enable = lib.mkEnableOption "server";
 
-  imports = [
-    ./google-ddns.nix
-  ]
-  # FIXME: Don't import rustdesk-server once it hits stable
-  ++ lib.optional (nixpkgs-channel == "stable") "${nixpkgs-unstable}/nixos/modules/services/monitoring/rustdesk-server.nix";
+  imports =
+    [ ./google-ddns.nix ]
+    # FIXME: Don't import rustdesk-server once it hits stable
+    ++ lib.optional (
+      nixpkgs-channel == "stable"
+    ) "${nixpkgs-unstable}/nixos/modules/services/monitoring/rustdesk-server.nix";
 
   config = lib.mkIf cfg.enable {
     # Use stable kernel

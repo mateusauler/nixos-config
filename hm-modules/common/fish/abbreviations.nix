@@ -4,8 +4,9 @@ let
   cfg = config.modules.fish;
   dots-path = with config.dots; if clone then path else nix-uri;
 in
-  lib.mkIf cfg.enable {
-    programs.fish.shellAbbrs = rec {
+lib.mkIf cfg.enable {
+  programs.fish.shellAbbrs =
+    rec {
       # Git
 
       g = "git";
@@ -85,10 +86,7 @@ in
       hexdump = "hexdump -C";
 
       py = "python3";
-
-    } // lib.optionalAttrs config.dots.clone {
-      dots = "cd ${config.dots.path}";
-    } // lib.optionalAttrs config.programs.lazygit.enable {
-      lg = "lazygit";
-    };
+    }
+    // lib.optionalAttrs config.dots.clone { dots = "cd ${config.dots.path}"; }
+    // lib.optionalAttrs config.programs.lazygit.enable { lg = "lazygit"; };
 }

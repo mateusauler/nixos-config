@@ -1,7 +1,10 @@
 { lib, ... }:
 
 let
-  module-names = [ "server" "zswap" ];
+  module-names = [
+    "server"
+    "zswap"
+  ];
 in
 {
   imports = [
@@ -21,4 +24,3 @@ in
 
   system.stateVersion = "23.11";
 }
-

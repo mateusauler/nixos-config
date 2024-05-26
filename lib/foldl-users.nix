@@ -1,11 +1,11 @@
 { lib, ... }:
 
 config:
-{ acc ? { }, fn }:
+{
+  acc ? { },
+  fn,
+}:
 let
-  users =
-    lib.filterAttrs
-      (_: v: v.isNormalUser)
-      config.users.users;
+  users = lib.filterAttrs (_: v: v.isNormalUser) config.users.users;
 in
 lib.foldlAttrs fn acc users

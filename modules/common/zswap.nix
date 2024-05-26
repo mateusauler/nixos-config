@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.zswap;
@@ -13,13 +18,14 @@ in
       enable = true;
       wantedBy = [ "basic.target" ];
       serviceConfig = {
-        ExecStart = /* bash */ ''
-          ${lib.getExe pkgs.bash} -c 'cd /sys/module/zswap/parameters && \
-          echo 1 > enabled && \
-          echo 20 > max_pool_percent && \
-          echo zstd > compressor && \
-          echo z3fold > zpool'
-        '';
+        ExecStart = # bash
+          ''
+            ${lib.getExe pkgs.bash} -c 'cd /sys/module/zswap/parameters && \
+            echo 1 > enabled && \
+            echo 20 > max_pool_percent && \
+            echo zstd > compressor && \
+            echo z3fold > zpool'
+          '';
         Type = "simple";
       };
     };

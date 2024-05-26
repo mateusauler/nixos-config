@@ -1,19 +1,29 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.wget;
   WGETRC = "${config.xdg.configHome}/wget/wgetrc";
-in {
+in
+{
   options.modules.wget.enable = lib.mkEnableOption "wget";
 
   config = lib.mkIf cfg.enable {
     home = {
-      sessionVariables = { inherit WGETRC; };
+      sessionVariables = {
+        inherit WGETRC;
+      };
       packages = [ pkgs.wget ];
-      activation.create-wgetrc = lib.hm.dag.entryAfter ["writeBoundary"] /* bash */ ''
-        $DRY_RUN_CMD mkdir -p $(dirname "${WGETRC}")
-        $DRY_RUN_CMD touch "${WGETRC}"
-      '';
+      activation.create-wgetrc =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
+          ''
+            $DRY_RUN_CMD mkdir -p $(dirname "${WGETRC}")
+            $DRY_RUN_CMD touch "${WGETRC}"
+          '';
     };
   };
 }

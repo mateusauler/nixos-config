@@ -1,4 +1,10 @@
-{ config, lib, nix-colors, pkgs, ... }:
+{
+  config,
+  lib,
+  nix-colors,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.change-wallpaper;
@@ -11,10 +17,12 @@ in
 {
   options.modules.change-wallpaper = {
     enable = lib.mkEnableOption "change-wallpaper";
-    command = with lib.types; lib.mkOption {
-      type = nullOr str;
-      default = null;
-    };
+    command =
+      with lib.types;
+      lib.mkOption {
+        type = nullOr str;
+        default = null;
+      };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,14 +42,18 @@ in
               height = 2160;
               logoScale = 5.0;
             };
-            link-wallpaper = /* bash */ ''
-              if [ ! -e ${dest} ]; then
-                $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
-                [ ! -z "$DISPLAY" ] && $DRY_RUN_CMD ${set-wallpaper-command}
-              fi
-            '';
+            link-wallpaper = # bash
+              ''
+                if [ ! -e ${dest} ]; then
+                  $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
+                  [ ! -z "$DISPLAY" ] && $DRY_RUN_CMD ${set-wallpaper-command}
+                fi
+              '';
           in
-          lib.hm.dag.entryAfter [ "writeBoundary" "clone-wallpapers" ] link-wallpaper;
+          lib.hm.dag.entryAfter [
+            "writeBoundary"
+            "clone-wallpapers"
+          ] link-wallpaper;
       };
 
       packages =

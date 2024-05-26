@@ -1,8 +1,18 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
-  module-names = [ "appimage" "deploy-secrets" "openssh" ];
+  module-names = [
+    "appimage"
+    "deploy-secrets"
+    "openssh"
+  ];
 in
 {
   options.hostBaseDir = lib.mkOption { default = ../hosts/${config.networking.hostName}; };

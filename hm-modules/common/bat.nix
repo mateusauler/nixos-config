@@ -1,4 +1,10 @@
-{ config, lib, nix-colors, pkgs, ... }:
+{
+  config,
+  lib,
+  nix-colors,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.bat;

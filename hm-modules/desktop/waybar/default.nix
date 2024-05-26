@@ -2,7 +2,8 @@
 
 let
   cfg = config.modules.waybar;
-in {
+in
+{
   options.modules.waybar = {
     enable = lib.mkEnableOption "Waybar";
     battery.enable = lib.mkEnableOption "Battery";
@@ -13,7 +14,5 @@ in {
     ./style.nix
   ];
 
-  config = lib.mkIf cfg.enable {
-    programs.waybar.enable = true;
-  };
+  config = lib.mkIf cfg.enable { programs.waybar.enable = true; };
 }

@@ -1,12 +1,18 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.waybar;
 in
 lib.mkIf cfg.enable {
   programs.waybar.settings.mainBar = {
-    layer   = "top";
-    height  = pkgs.lib.round (osConfig.defaultFonts.sans.size * 2.5);
+    layer = "top";
+    height = pkgs.lib.round (osConfig.defaultFonts.sans.size * 2.5);
     spacing = 8;
 
     modules-left = [
@@ -14,9 +20,7 @@ lib.mkIf cfg.enable {
       "hyprland/window"
     ];
 
-    modules-center = [
-      "clock"
-    ];
+    modules-center = [ "clock" ];
 
     modules-right = lib.flatten [
       "mpris"
@@ -40,7 +44,7 @@ lib.mkIf cfg.enable {
     "hyprland/workspaces" = {
       disable-scroll = false;
       on-click = "activate";
-      on-scroll-up   = "hyprctl dispatch workspace m+1";
+      on-scroll-up = "hyprctl dispatch workspace m+1";
       on-scroll-down = "hyprctl dispatch workspace m-1";
       sort-by-number = true;
     };
@@ -50,7 +54,7 @@ lib.mkIf cfg.enable {
       capslock = true;
       format = "{name} {icon}";
       format-icons = {
-        locked   = "";
+        locked = "";
         unlocked = "";
       };
     };
@@ -77,12 +81,12 @@ lib.mkIf cfg.enable {
           today    = "<span color='#${base08}'><b><u>{}</u></b></span>";
         };
       };
-      actions =  {
-        on-click-right    = "mode";
-        on-click-forward  = "tz_up";
+      actions = {
+        on-click-right = "mode";
+        on-click-forward = "tz_up";
         on-click-backward = "tz_down";
-        on-scroll-up      = "shift_up";
-        on-scroll-down    = "shift_down";
+        on-scroll-up = "shift_up";
+        on-scroll-down = "shift_down";
       };
     };
 
@@ -102,7 +106,11 @@ lib.mkIf cfg.enable {
       critical-threshold = 80;
       format = "{temperatureC}°C {icon}";
       format-icons = [
-        "" "" "" "" ""
+        ""
+        ""
+        ""
+        ""
+        ""
       ];
       interval = 1;
     };
@@ -112,11 +120,17 @@ lib.mkIf cfg.enable {
         warning = 30;
         critical = 15;
       };
-      format          = "{capacity}% {icon}";
+      format = "{capacity}% {icon}";
       format-charging = "{capacity}% ";
-      format-plugged  = "{capacity}% ";
-      format-alt      = "{time} {icon}";
-      format-icons    = [ "" "" "" "" "" ];
+      format-plugged = "{capacity}% ";
+      format-alt = "{time} {icon}";
+      format-icons = [
+        ""
+        ""
+        ""
+        ""
+        ""
+      ];
     };
 
     "battery#bat2" = {
@@ -130,7 +144,7 @@ lib.mkIf cfg.enable {
       format-linked       = "{ifname} (No IP) ";
       format-disconnected = "Disconnected ⚠";
       format-alt          = "{ifname}: {ipaddr}/{cidr}";
-      interval            = 5;
+      interval = 5;
     };
 
     mpris = {
@@ -162,7 +176,11 @@ lib.mkIf cfg.enable {
         phone      = "";
         portable   = "";
         car        = "";
-        default    = [ "" "" "" ];
+        default = [
+          ""
+          ""
+          ""
+        ];
       };
       on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
       ignored-sinks = [ "Easy Effects Sink" ];

@@ -1,4 +1,10 @@
-{ config, lib, nixpkgs-channel, pkgs, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.neovim;
@@ -72,7 +78,10 @@ in
         {
           event = "FileType";
           pattern = "nix";
-          command = /* vim */ "setlocal tabstop=2 expandtab";
+          command = # vim
+            ''
+              setlocal tabstop=2 expandtab
+            '';
         }
       ];
 
@@ -108,9 +117,10 @@ in
         (mapNSilent "<leader>h" "<Cmd>noh<CR>" "Clear highlighting")
       ];
 
-      extraConfigVim = /* vim */ ''
-        source ${colors}
-      '';
+      extraConfigVim = # vim
+        ''
+          source ${colors}
+        '';
     } // (if nixpkgs-channel == "stable" then { options = cfg.opts; } else { inherit (cfg) opts; });
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {
@@ -118,21 +128,21 @@ in
       VISUAL = lib.mkDefault "nvim";
     };
 
-    shell-aliases =
-      lib.foldl'
-        (acc: n: acc // { ${n} = "nvim"; })
-        { }
-        (lib.filter
-          (n: cfg."${n}Alias")
-          [ "vi" "vim" "vimdiff" ]
-        );
+    shell-aliases = lib.foldl' (acc: n: acc // { ${n} = "nvim"; }) { } (
+      lib.filter (n: cfg."${n}Alias") [
+        "vi"
+        "vim"
+        "vimdiff"
+      ]
+    );
 
     # Re-source the config on running nvim instances
-    xdg.configFile."nvim/init.lua".onChange = /* bash */ ''
-      XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
-      for server in $XDG_RUNTIME_DIR/nvim.*; do
-        $DRY_RUN_CMD ${lib.getExe pkgs.neovim} --server $server --remote-send '<Esc>:source ${config.xdg.configHome}/nvim/init.lua<CR>' &
-      done
-    '';
+    xdg.configFile."nvim/init.lua".onChange = # bash
+      ''
+        XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+        for server in $XDG_RUNTIME_DIR/nvim.*; do
+          $DRY_RUN_CMD ${lib.getExe pkgs.neovim} --server $server --remote-send '<Esc>:source ${config.xdg.configHome}/nvim/init.lua<CR>' &
+        done
+      '';
   };
 }

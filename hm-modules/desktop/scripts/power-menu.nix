@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.power-menu;
@@ -17,7 +22,10 @@ in
         type = attrsOf (submodule {
           options = {
             enable = pkgs.lib.mkTrueEnableOption null;
-            confirm = mkOption { type = bool; default = true; };
+            confirm = mkOption {
+              type = bool;
+              default = true;
+            };
             icon = mkOption { type = str; };
             text = mkOption { type = str; };
             command = mkOption { type = str; };
@@ -26,7 +34,13 @@ in
       };
       order = mkOption {
         type = listOf str;
-        default = [ "shutdown" "reboot" "lock" "logout" "firmware" ];
+        default = [
+          "shutdown"
+          "reboot"
+          "lock"
+          "logout"
+          "firmware"
+        ];
       };
       icons = pkgs.lib.mkTrueEnableOption "icons";
     };
@@ -34,18 +48,45 @@ in
 
   config = lib.mkIf cfg.enable {
     modules.power-menu.actions.set = lib.mapAttrs (_: lib.mapAttrs (_: mkDefault)) {
-      shutdown = { icon = ""; text = "Shut Down"; command = "systemctl poweroff"; };
-      reboot = { icon = ""; text = "Reboot"; command = "systemctl reboot"; };
-      firmware = { icon = ""; text = "Reboot to UEFI firmware interface"; command = "systemctl reboot --firmware-setup"; };
-      logout = { icon = ""; text = "Log out"; command = "loginctl terminate-session \${XDG_SESSION_ID-}"; };
-      lock = { icon = ""; text = "Lock Screen"; command = "loginctl lock-session \${XDG_SESSION_ID-}"; confirm = false; };
+      shutdown = {
+        icon = "";
+        text = "Shut Down";
+        command = "systemctl poweroff";
+      };
+      reboot = {
+        icon = "";
+        text = "Reboot";
+        command = "systemctl reboot";
+      };
+      firmware = {
+        icon = "";
+        text = "Reboot to UEFI firmware interface";
+        command = "systemctl reboot --firmware-setup";
+      };
+      logout = {
+        icon = "";
+        text = "Log out";
+        command = "loginctl terminate-session \${XDG_SESSION_ID-}";
+      };
+      lock = {
+        icon = "";
+        text = "Lock Screen";
+        command = "loginctl lock-session \${XDG_SESSION_ID-}";
+        confirm = false;
+      };
     };
 
     home.packages =
       let
         genLabel = value: (lib.optionalString cfg.actions.icons value.icon + "  ") + value.text;
 
-        order = lib.unique (cfg.actions.order ++ lib.foldlAttrs (acc: name: _: acc ++ [ name ]) [ ] cfg.actions.set);
+        order = lib.unique (
+          cfg.actions.order
+          ++ lib.foldlAttrs (
+            acc: name: _:
+            acc ++ [ name ]
+          ) [ ] cfg.actions.set
+        );
 
         actionList = lib.filter (a: a.enable) (map (el: cfg.actions.set.${el}) order);
 
@@ -55,29 +96,33 @@ in
 
         promptCommand = with cfg.command; "${line} ${prompt-arg}";
 
-        confirmation = action:
-          lib.optionalString
-            action.confirm
-            /* bash */ ''[ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&'';
+        confirmation =
+          action:
+          lib.optionalString action.confirm
+            # bash
+            ''
+              [ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&
+            '';
 
-        power-menu = pkgs.writeShellScriptBin "power-menu" /* bash */ ''
-          choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
+        power-menu =
+          pkgs.writeShellScriptBin "power-menu" # bash
+            ''
+              choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
 
-          case "$choice" in
-            ${
-              lib.concatMapStrings (action: ''
-                "${genLabel action}")
-                  ${confirmation action} ${action.command}
+              case "$choice" in
+                ${
+                  lib.concatMapStrings (action: ''
+                    "${genLabel action}")
+                      ${confirmation action} ${action.command}
+                      ;;
+                  '') actionList
+                }
+                *)
+                  echo "Unknown action: '$choice'" >&2
+                  exit 1
                   ;;
-              '')
-              actionList
-            }
-            *)
-              echo "Unknown action: '$choice'" >&2
-              exit 1
-              ;;
-          esac
-        '';
+              esac
+            '';
       in
       [ power-menu ];
   };

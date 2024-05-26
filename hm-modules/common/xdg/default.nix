@@ -1,18 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
   cfg = config.modules.xdg;
 
-  genAssociations = { types, handlers }:
-    lib.foldl
-      (acc: t: acc // {
-        "${t}" = (map (v: "${v}.desktop") handlers);
-      })
-      { }
-      types;
+  genAssociations =
+    { types, handlers }:
+    lib.foldl (acc: t: acc // { "${t}" = (map (v: "${v}.desktop") handlers); }) { } types;
 
-  extractMimeTypes = package: desktopFile:
+  extractMimeTypes =
+    package: desktopFile:
     let
       inherit (lib) strings lists;
       file = builtins.readFile (package + "/share/applications/${desktopFile}.desktop");
@@ -32,7 +34,10 @@ in
   config = lib.mkIf cfg.enable {
     xdg = {
       enable = mkDefault true;
-      userDirs = let home = config.home.homeDirectory; in
+      userDirs =
+        let
+          home = config.home.homeDirectory;
+        in
         {
           enable = mkDefault true;
           desktop = mkDefault null;
@@ -45,36 +50,71 @@ in
       configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }";
       mimeApps = {
         enable = mkDefault true;
-        defaultApplications = {
-          "inode/directory" = "pcmanfm.desktop";
-          "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
-        } // (
-          lib.foldl (acc: e: acc // (genAssociations e))
-            { }
-            (
-              [
-                {
-                  types = [ "text/html" "application/xhtml+xml" ]
-                    ++ (map (t: "x-scheme-handler/${t}") [ "http" "https" "ftp" "chrome" ])
-                    ++ (map (t: "application/x-extension-${t}") [ "htm" "html" "shtml" "xhtml" "xht" ]);
-                  handlers = [ "browser" ];
-                }
-              ] ++ (
-                map
-                  ({ pkg, desktopFile, extraDesktopFiles ? [ ] }:
-                    {
-                      types = extractMimeTypes pkg desktopFile;
-                      handlers = lib.lists.flatten [ desktopFile extraDesktopFiles ];
-                    }
-                  )
-                  (with pkgs; [
-                    { pkg = nsxiv; desktopFile = "nsxiv"; }
-                    { pkg = mpv-unwrapped; desktopFile = "mpv"; extraDesktopFiles = "vlc"; }
-                    { pkg = neovim; desktopFile = "nvim"; extraDesktopFiles = "codium"; }
+        defaultApplications =
+          {
+            "inode/directory" = "pcmanfm.desktop";
+            "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
+          }
+          // (lib.foldl (acc: e: acc // (genAssociations e)) { } (
+            [
+              {
+                types =
+                  [
+                    "text/html"
+                    "application/xhtml+xml"
+                  ]
+                  ++ (map (t: "x-scheme-handler/${t}") [
+                    "http"
+                    "https"
+                    "ftp"
+                    "chrome"
                   ])
+                  ++ (map (t: "application/x-extension-${t}") [
+                    "htm"
+                    "html"
+                    "shtml"
+                    "xhtml"
+                    "xht"
+                  ]);
+                handlers = [ "browser" ];
+              }
+            ]
+            ++ (map
+              (
+                {
+                  pkg,
+                  desktopFile,
+                  extraDesktopFiles ? [ ],
+                }:
+                {
+                  types = extractMimeTypes pkg desktopFile;
+                  handlers = lib.lists.flatten [
+                    desktopFile
+                    extraDesktopFiles
+                  ];
+                }
+              )
+              (
+                with pkgs;
+                [
+                  {
+                    pkg = nsxiv;
+                    desktopFile = "nsxiv";
+                  }
+                  {
+                    pkg = mpv-unwrapped;
+                    desktopFile = "mpv";
+                    extraDesktopFiles = "vlc";
+                  }
+                  {
+                    pkg = neovim;
+                    desktopFile = "nvim";
+                    extraDesktopFiles = "codium";
+                  }
+                ]
               )
             )
-        );
+          ));
       };
     };
 
