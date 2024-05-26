@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  ...
+}:
 
 let
   cfg = config.modules.neovim;
@@ -41,7 +46,7 @@ lib.mkIf cfg.enable {
         lua-ls.enable = true;
         nixd = {
           enable = true;
-          settings.formatting.command = [ "nixpkgs-fmt" ];
+          settings.formatting.command = (if nixpkgs-channel == "stable" then lib.id else lib.toList) "nixpkgs-fmt";
         };
         texlab.enable = true;
         yamlls.enable = true;
