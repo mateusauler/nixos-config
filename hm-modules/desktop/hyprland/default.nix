@@ -64,7 +64,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.fish.loginShellInit = # fish
       ''
-        [ -z \"$DISPLAY\" ] && test (tty) = \"/dev/tty1\" && Hyprland
+        [ -z "$DISPLAY" ] && test (tty) = "/dev/tty1" && Hyprland
       '';
 
     modules = pkgs.lib.enableModules module-names // {
