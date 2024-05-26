@@ -12,7 +12,7 @@ let
   conf = (pkgs.formats.toml { }).generate "neovide-config.toml" {
     fork = true;
     idle = false;
-    maximized = false;
+    maximized = false; # FIXME: Not working
   };
 in
 lib.mkIf (cfg.enable && cfg.neovide.enable) {
