@@ -58,7 +58,7 @@ in
   config = lib.mkIf cfg.enable {
     modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
       change-wallpaper.command = "swww img";
-      hyprland.autostart.apply-wallpaper.command = "sleep 0.5 && swww init";
+      hyprland.autostart.apply-wallpaper.command = "swww-daemon";
     };
 
     programs.chromium = {
