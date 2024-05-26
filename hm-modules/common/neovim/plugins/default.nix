@@ -56,6 +56,15 @@ in
         rustc
       ];
 
+      keymaps = lib.optionals config.programs.nixvim.plugins.flash.enable [
+        { key = "s";     mode = [ "n" "x" "o" ]; lua = true; action = "require('flash').jump";              options.desc = "Flash"; }
+        { key = "S";     mode = [ "n" "x" "o" ]; lua = true; action = "require('flash').treesitter";        options.desc = "Flash Treesitter"; }
+        { key = "r";     mode = "o";             lua = true; action = "require('flash').remote";            options.desc = "Remote Flash"; }
+        { key = "R";     mode = [ "o" "x" ];     lua = true; action = "require('flash').treesitter_search"; options.desc = "Treesitter Search"; }
+        { key = "<C-s>"; mode = "c";             lua = true; action = "require('flash').toggle";            options.desc = "Toggle Flash Search"; }
+        { key = "<C-s>"; mode = [ "n" "x" "o" ]; action = "s"; }
+      ];
+
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
@@ -68,6 +77,13 @@ in
           cursorword.enable = false;
         };
         diffview.enable = true;
+        flash = {
+          enable = true;
+          jump = {
+            autojump = true;
+            nohlsearch = true;
+          };
+        };
         gitsigns.enable = true;
         illuminate.enable = true;
         lsp.enable = true;

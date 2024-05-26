@@ -87,7 +87,6 @@ in
 
       keymaps = lib.flatten [
         (mapNSilent  "<leader>w" "<Cmd>w<CR>" "Save")
-        (mapINSilent "<C-S>"     "<Cmd>w<CR>" "Save")
         (mapNSilent  "<leader>q" "<Cmd>q<CR>" "Quit")
         (mapINSilent "<C-Q>"     "<Cmd>q<CR>" "Quit")
 
