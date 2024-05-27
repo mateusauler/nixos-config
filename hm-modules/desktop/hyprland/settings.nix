@@ -137,9 +137,6 @@ in
       "float,  class:(com\\.github\\.hluk\\.copyq)"
       "center, class:(com\\.github\\.hluk\\.copyq)"
 
-      # OnlyOffice
-      "tile, class:(DesktopEditors)"
-
       # Mega
       "float, class:(nz\\.co\\.mega\\.)"
 
