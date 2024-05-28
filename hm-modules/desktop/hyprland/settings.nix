@@ -228,8 +228,8 @@ in
       "${modKey} CONTROL, F, fullscreen, 1"
       "${modKey} SHIFT,   F, fakefullscreen"
 
-      "${modKey}, N, movecurrentworkspacetomonitor, -1"
-      "${modKey}, M, swapactiveworkspaces, -1 current"
+      "${modKey} SHIFT, N, movecurrentworkspacetomonitor, -1"
+      "${modKey},       N, swapactiveworkspaces,          -1 current"
 
       "${modKey} SHIFT, R,   movetoworkspacesilent, empty"
       "${modKey},       R,   workspace,             empty"
@@ -271,11 +271,11 @@ in
 
     bindl = [
       ", switch:on:Lid Switch, exec, swaylock"
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioPlay, exec, playerctl play-pause"
+      ", XF86AudioMute,  exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioPlay,  exec, playerctl play-pause"
       ", XF86AudioPause, exec, playerctl play-pause"
-      ", XF86AudioNext, exec, playerctl next"
-      ", XF86AudioPrev, exec, playerctl previous"
+      ", XF86AudioNext,  exec, playerctl next"
+      ", XF86AudioPrev,  exec, playerctl previous"
     ];
 
     bindel = [
