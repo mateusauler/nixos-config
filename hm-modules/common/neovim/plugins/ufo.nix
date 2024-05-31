@@ -5,33 +5,31 @@ let
   enabled = config.programs.nixvim.plugins.nvim-ufo.enable;
 in
 lib.mkIf cfg.enable {
-  modules.neovim.opts = lib.optionalAttrs enabled {
-    foldcolumn = "1";
-    foldlevel = 99;
-    foldlevelstart = 99;
-    foldenable = true;
-  };
-
   programs.nixvim = {
+    opts = {
+      foldcolumn = "1";
+      foldlevel = 99;
+      foldlevelstart = 99;
+      foldenable = true;
+    };
+
     keymaps = lib.optionals enabled [
       {
         mode = "n";
         key = "zR";
-        action = "require('ufo').openAllFolds";
+        action.__raw = "require('ufo').openAllFolds";
         options.desc = "Open all folds";
-        lua = true;
       }
       {
         mode = "n";
         key = "zM";
-        action = "require('ufo').closeAllFolds";
+        action.__raw = "require('ufo').closeAllFolds";
         options.desc = "Close all folds";
-        lua = true;
       }
       {
         mode = "n";
         key = "zK";
-        action = # lua
+        action.__raw = # lua
           ''
             function()
               local winid = require("ufo").peekFoldedLinesUnderCursor()
@@ -41,7 +39,6 @@ lib.mkIf cfg.enable {
             end
           '';
         options.desc = "Peek Fold";
-        lua = true;
       }
     ];
 

@@ -76,6 +76,7 @@ in
       inherit description;
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
       path = [
         pkgs.curl
         pkgs.coreutils

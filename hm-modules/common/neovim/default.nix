@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nixpkgs-channel,
   pkgs,
   ...
 }:
@@ -31,8 +30,6 @@ in
     neovide.enable = lib.mkEnableOption "neovide";
     defaultEditor = pkgs.lib.mkTrueEnableOption "Set neovim as default editor";
 
-    opts = lib.mkOption { default = { }; };
-
     viAlias      = pkgs.lib.mkTrueEnableOption "Set vi alias";
     vimAlias     = pkgs.lib.mkTrueEnableOption "Set vim alias";
     vimdiffAlias = pkgs.lib.mkTrueEnableOption "Set vimdiff alias";
@@ -44,26 +41,26 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    modules.neovim.opts = {
-      # Line numbers
-      number = true;
-      relativenumber = true;
-
-      # Tabs
-      tabstop = 4;     # 4 char-wide tab
-      softtabstop = 0; # Use same length as 'tabstop'
-      shiftwidth = 0;  # Use same length as 'tabstop'
-
-      updatetime = 300;
-
-      termguicolors = true;
-      signcolumn = "yes";
-
-      mouse = "a";
-    };
-
     programs.nixvim = {
       enable = true;
+
+      opts = {
+        # Line numbers
+        number = true;
+        relativenumber = true;
+
+        # Tabs
+        tabstop = 4;     # 4 char-wide tab
+        softtabstop = 0; # Use same length as 'tabstop'
+        shiftwidth = 0;  # Use same length as 'tabstop'
+
+        updatetime = 300;
+
+        termguicolors = true;
+        signcolumn = "yes";
+
+        mouse = "a";
+      };
 
       globals = {
         mapleader = " ";
@@ -120,7 +117,7 @@ in
         ''
           source ${colors}
         '';
-    } // (if nixpkgs-channel == "stable" then { options = cfg.opts; } else { inherit (cfg) opts; });
+    };
 
     home.sessionVariables = lib.mkIf cfg.defaultEditor {
       EDITOR = lib.mkDefault "nvim";

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nixpkgs-channel,
   pkgs,
   ...
 }:
@@ -15,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     qt = {
       enable = true;
-      platformTheme = if nixpkgs-channel == "stable" then "gtk" else { name = "gtk"; };
+      platformTheme.name = "gtk";
       style = {
         package = config.gtk.theme.package;
         name = "gtk2";

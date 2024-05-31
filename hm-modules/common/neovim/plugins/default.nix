@@ -1,38 +1,12 @@
 {
   config,
   lib,
-  nixpkgs-channel,
   pkgs,
   ...
 }:
 
 let
   cfg = config.modules.neovim;
-
-  plugins = {
-    stable = {
-      comment-nvim.enable = true;
-      rust-tools = {
-        enable = true;
-        server = {
-          check.command = "clippy";
-          typing.autoClosingAngleBrackets.enable = true;
-        };
-      };
-    };
-    unstable = {
-      comment.enable = true;
-      friendly-snippets.enable = true;
-      dap.enable = true;
-      rustaceanvim.enable = true;
-      vimtex = {
-        enable = true;
-        texlivePackage = null;
-        settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
-      };
-    };
-  };
-
   cfg-plug = config.programs.nixvim.plugins;
 in
 {
@@ -57,17 +31,18 @@ in
       ];
 
       keymaps = lib.optionals config.programs.nixvim.plugins.flash.enable [
-        { key = "s";     mode = [ "n" "x" "o" ]; lua = true; action = "require('flash').jump";              options.desc = "Flash"; }
-        { key = "S";     mode = [ "n" "x" "o" ]; lua = true; action = "require('flash').treesitter";        options.desc = "Flash Treesitter"; }
-        { key = "r";     mode = "o";             lua = true; action = "require('flash').remote";            options.desc = "Remote Flash"; }
-        { key = "R";     mode = [ "o" "x" ];     lua = true; action = "require('flash').treesitter_search"; options.desc = "Treesitter Search"; }
-        { key = "<C-s>"; mode = "c";             lua = true; action = "require('flash').toggle";            options.desc = "Toggle Flash Search"; }
+        { key = "s";     mode = [ "n" "x" "o" ]; action.__raw = "require('flash').jump";              options.desc = "Flash"; }
+        { key = "S";     mode = [ "n" "x" "o" ]; action.__raw = "require('flash').treesitter";        options.desc = "Flash Treesitter"; }
+        { key = "r";     mode = "o";             action.__raw = "require('flash').remote";            options.desc = "Remote Flash"; }
+        { key = "R";     mode = [ "o" "x" ];     action.__raw = "require('flash').treesitter_search"; options.desc = "Treesitter Search"; }
+        { key = "<C-s>"; mode = "c";             action.__raw = "require('flash').toggle";            options.desc = "Toggle Flash Search"; }
         { key = "<C-s>"; mode = [ "n" "x" "o" ]; action = "s"; }
       ];
 
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
+        comment.enable = true;
         cursorline = {
           enable = true;
           cursorline = {
@@ -76,6 +51,7 @@ in
           };
           cursorword.enable = false;
         };
+        dap.enable = true;
         diffview.enable = true;
         flash = {
           enable = true;
@@ -84,6 +60,7 @@ in
             nohlsearch = true;
           };
         };
+        friendly-snippets.enable = true;
         gitsigns.enable = true;
         illuminate.enable = true;
         lsp.enable = true;
@@ -96,6 +73,7 @@ in
         nvim-ufo.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
+        rustaceanvim.enable = true;
         surround.enable = true;
         telescope.enable = true;
         todo-comments.enable = true;
@@ -104,8 +82,13 @@ in
           indent = true;
           nixvimInjections = true;
         };
+        vimtex = {
+          enable = true;
+          texlivePackage = null;
+          settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
+        };
         which-key.enable = true;
-      } // plugins.${nixpkgs-channel} or { };
+      };
 
       extraPlugins = with pkgs.vimPlugins; [
         neodev-nvim

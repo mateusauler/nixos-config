@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nixpkgs-channel,
   ...
 }:
 
@@ -283,34 +282,16 @@ in
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
 
-    device =
-      let
-        devices = [
-          "lightspeed-wireless-gaming-mouse-w/-hero"
-          "lightspeed-wireless-gaming-mouse-w/-hero-1"
-          "lightspeed-wireless-gaming-mouse-w/-hero-2"
-          "ls-1"
-        ];
-        prefix = "logitech-g903-";
+    device = map
+      (name: {
         sensitivity = -0.93;
-      in
-      (
-        if nixpkgs-channel == "stable" then
-          (builtins.foldl' (
-            acc: name:
-            acc
-            // {
-              "device:${prefix}${name}" = {
-                inherit sensitivity;
-              };
-            }
-          ) { })
-        else
-          (map (name: {
-            inherit sensitivity;
-            name = "${prefix}${name}";
-          }))
-      )
-        devices;
+        name = "logitech-g903-${name}";
+      })
+      [
+        "lightspeed-wireless-gaming-mouse-w/-hero"
+        "lightspeed-wireless-gaming-mouse-w/-hero-1"
+        "lightspeed-wireless-gaming-mouse-w/-hero-2"
+        "ls-1"
+      ];
   };
 }

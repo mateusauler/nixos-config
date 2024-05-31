@@ -2,7 +2,6 @@
   config,
   inputs,
   lib,
-  nixpkgs-channel,
   pkgs,
   ...
 }:
@@ -44,8 +43,7 @@ lib.mkIf cfg.enable {
           })
         '';
 
-    plugins.oil =
-      if nixpkgs-channel == "stable" then { extraOptions = settings; } else { inherit settings; };
+    plugins.oil = { inherit settings; };
 
     extraPlugins = lib.optional enabled (
       pkgs.vimUtils.buildVimPlugin {
