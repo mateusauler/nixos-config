@@ -40,6 +40,7 @@ in
     environment.enableAllTerminfo = true;
     environment.systemPackages = with pkgs; [
       dconf
+      fd
       file
       ripgrep
       tree
