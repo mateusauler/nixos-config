@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -45,7 +46,11 @@ lib.mkIf cfg.enable {
         lua-ls.enable = true;
         nixd = {
           enable = true;
-          settings.formatting.command = [ "nixpkgs-fmt" ];
+          settings = {
+            # Not working right now. Seems to depend on NixOS/nixpkgs#316394
+            diagnostic.suppress = [ "sema-escaping-with" ];
+            formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+          };
         };
         texlab.enable = true;
         yamlls.enable = true;
