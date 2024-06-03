@@ -153,6 +153,8 @@ in
       package = pkgs.wireshark;
     };
 
+    programs.adb.enable = true;
+
     environment.systemPackages = with pkgs; [
       nodejs
       pwvucontrol
