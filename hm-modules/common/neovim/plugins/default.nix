@@ -82,6 +82,7 @@ in
           indent = true;
           nixvimInjections = true;
         };
+        trim.enable = true;
         vimtex = {
           enable = true;
           texlivePackage = null;
