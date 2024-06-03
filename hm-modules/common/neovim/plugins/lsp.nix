@@ -52,8 +52,8 @@ lib.mkIf cfg.enable {
             formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           };
         };
-        texlab.enable = true;
-        yamlls.enable = true;
+        pylyzer.enable = true;
+        ruff-lsp.enable = true;
         rust-analyzer = {
           enable = cfg-plug.rust-tools.enable;
           installCargo = true;
@@ -63,6 +63,8 @@ lib.mkIf cfg.enable {
             scope = "workspace_and_dependencies";
           };
         };
+        texlab.enable = true;
+        yamlls.enable = true;
       };
     };
   };
