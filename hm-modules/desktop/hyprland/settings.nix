@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.modules.hyprland;
@@ -281,16 +277,17 @@ in
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
 
-    device = map
-      (name: {
-        sensitivity = -0.93;
-        name = "logitech-g903-${name}";
-      })
-      [
-        "lightspeed-wireless-gaming-mouse-w/-hero"
-        "lightspeed-wireless-gaming-mouse-w/-hero-1"
-        "lightspeed-wireless-gaming-mouse-w/-hero-2"
-        "ls-1"
-      ];
+    device =
+      map
+        (name: {
+          sensitivity = -0.93;
+          name = "logitech-g903-${name}";
+        })
+        [
+          "lightspeed-wireless-gaming-mouse-w/-hero"
+          "lightspeed-wireless-gaming-mouse-w/-hero-1"
+          "lightspeed-wireless-gaming-mouse-w/-hero-2"
+          "ls-1"
+        ];
   };
 }

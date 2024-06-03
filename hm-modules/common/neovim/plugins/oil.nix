@@ -43,7 +43,9 @@ lib.mkIf cfg.enable {
           })
         '';
 
-    plugins.oil = { inherit settings; };
+    plugins.oil = {
+      inherit settings;
+    };
 
     extraPlugins = lib.optional enabled (
       pkgs.vimUtils.buildVimPlugin {
