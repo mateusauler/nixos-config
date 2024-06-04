@@ -73,7 +73,7 @@ lib.mkIf cfg.enable {
         mode = "month";
         mode-mon-col = 3;
         on-scroll = 1;
-        format = with config.colorScheme.palette; {
+        format = with config.lib.stylix.colors; {
           months   = "<span color='#${base07}'><b>{}</b></span>";
           days     = "<span color='#${base05}'><b>{}</b></span>";
           weeks    = "<span color='#${base0C}'><b>W{}</b></span>";

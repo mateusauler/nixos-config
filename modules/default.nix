@@ -29,7 +29,15 @@ in
 
     sops.gnupg.sshKeyPaths = [ ];
 
-    modules = lib.enableModules module-names;
+    stylix = {
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      image = pkgs.fetchurl {
+        url = "https://github.com/mateusauler/wallpapers/blob/251702e9f3431938cddb2a3b2094c141f6b16317/tropic_island_night.jpg?raw=true";
+        sha256 = "Fm800h7CbEHqcPDL7oKSBSIpGBhEWLFS6ioV5qM0SVw=";
+      };
+    };
+
+    modules = pkgs.lib.enableModules module-names;
 
     boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 

@@ -15,10 +15,10 @@ in
     qt = {
       enable = true;
       platformTheme.name = "gtk";
-      style = {
-        package = config.gtk.theme.package;
-        name = "gtk2";
-      };
+      # style = {
+      #   package = config.gtk.theme.package;
+      #   name = "gtk2";
+      # };
     };
 
     home.packages = with pkgs; [

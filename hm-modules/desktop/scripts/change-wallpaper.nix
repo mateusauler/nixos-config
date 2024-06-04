@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nix-colors,
   pkgs,
   ...
 }:
@@ -12,7 +11,6 @@ let
   wall-dir = "${pics-dir}/wall";
   dest = "${pics-dir}/wallpaper";
   set-wallpaper-command = lib.strings.optionalString (cfg.command != null) "${cfg.command} ${dest}";
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in
 {
   options.modules.change-wallpaper = {
@@ -34,26 +32,6 @@ in
             url = "https://github.com/mateusauler/wallpapers";
           }
         );
-        set-default-wallpaper =
-          let
-            default-wallpaper = nix-colors-lib.nixWallpaperFromScheme {
-              scheme = config.colorScheme;
-              width = 3840;
-              height = 2160;
-              logoScale = 5.0;
-            };
-            link-wallpaper = # bash
-              ''
-                if [ ! -e ${dest} ]; then
-                  $DRY_RUN_CMD ln $VERBOSE_ARG -s ${default-wallpaper} ${dest}
-                  [ ! -z "$DISPLAY" ] && $DRY_RUN_CMD ${set-wallpaper-command}
-                fi
-              '';
-          in
-          lib.hm.dag.entryAfter [
-            "writeBoundary"
-            "clone-wallpapers"
-          ] link-wallpaper;
       };
 
       packages =

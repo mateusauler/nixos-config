@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nix-colors,
   osConfig,
   pkgs,
   ...
@@ -9,7 +8,6 @@
 
 let
   cfg = config.modules.gtk;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in
 {
   options.modules.gtk.enable = lib.mkEnableOption "gtk";
@@ -49,11 +47,7 @@ in
         };
       in
       {
-        inherit (cfg) enable;
-        theme = {
-          package = nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
-          name = config.colorScheme.slug;
-        };
+        enable = lib.mkForce cfg.enable;
         cursorTheme = {
           package = pkgs.qogir-icon-theme;
           name = "Qogir";

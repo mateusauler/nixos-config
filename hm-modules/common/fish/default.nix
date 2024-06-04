@@ -1,14 +1,12 @@
 {
   config,
   lib,
-  nix-colors,
   pkgs,
   ...
 }:
 
 let
   cfg = config.modules.fish;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
   inherit (lib) mkEnableOption mkOption;
   inherit (pkgs.lib) mkTrueEnableOption;
 in
@@ -46,7 +44,6 @@ in
         shellAliases = config.shell-aliases;
 
         interactiveShellInit = ''
-          ${lib.getExe pkgs.bash} ${nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; }}
           ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
         '';
 

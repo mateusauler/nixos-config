@@ -13,7 +13,7 @@ let
 in
 lib.mkIf cfg.enable {
   programs.waybar.style =
-    with config.colorScheme.palette;
+    with config.lib.stylix.colors;
     with osConfig.defaultFonts; # css
     ''
       * {
