@@ -28,11 +28,9 @@ in
   options.modules.neovim = {
     enable = lib.mkEnableOption "neovim";
     neovide.enable = lib.mkEnableOption "neovide";
-    defaultEditor = pkgs.lib.mkTrueEnableOption "Set neovim as default editor";
 
-    viAlias      = pkgs.lib.mkTrueEnableOption "Set vi alias";
-    vimAlias     = pkgs.lib.mkTrueEnableOption "Set vim alias";
-    vimdiffAlias = pkgs.lib.mkTrueEnableOption "Set vimdiff alias";
+    viAlias  = pkgs.lib.mkTrueEnableOption "Set vi alias";
+    vimAlias = pkgs.lib.mkTrueEnableOption "Set vim alias";
   };
 
   imports = [
@@ -43,6 +41,8 @@ in
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
       enable = true;
+      defaultEditor = true;
+      vimdiffAlias = true;
 
       opts = {
         # Line numbers
@@ -119,18 +119,10 @@ in
         '';
     };
 
-    home.sessionVariables = lib.mkIf cfg.defaultEditor {
-      EDITOR = lib.mkDefault "nvim";
-      VISUAL = lib.mkDefault "nvim";
+    shell-aliases = {
+      vi  = lib.mkIf cfg.viAlias  "nvim";
+      vim = lib.mkIf cfg.vimAlias "nvim";
     };
-
-    shell-aliases = lib.foldl' (acc: n: acc // { ${n} = "nvim"; }) { } (
-      lib.filter (n: cfg."${n}Alias") [
-        "vi"
-        "vim"
-        "vimdiff"
-      ]
-    );
 
     # Re-source the config on running nvim instances
     xdg.configFile."nvim/init.lua".onChange = # bash
