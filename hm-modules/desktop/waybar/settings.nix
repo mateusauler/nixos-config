@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
@@ -12,7 +11,7 @@ in
 lib.mkIf cfg.enable {
   programs.waybar.settings.mainBar = {
     layer = "top";
-    height = pkgs.lib.round (osConfig.defaultFonts.sans.size * 2.5);
+    height = pkgs.lib.round (config.stylix.fonts.sizes.desktop * 2.5);
     spacing = 8;
 
     modules-left = [
@@ -73,7 +72,7 @@ lib.mkIf cfg.enable {
         mode = "month";
         mode-mon-col = 3;
         on-scroll = 1;
-        format = with config.colorScheme.palette; {
+        format = with config.lib.stylix.colors; {
           months   = "<span color='#${base07}'><b>{}</b></span>";
           days     = "<span color='#${base05}'><b>{}</b></span>";
           weeks    = "<span color='#${base0C}'><b>W{}</b></span>";

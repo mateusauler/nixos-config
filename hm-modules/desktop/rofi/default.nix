@@ -27,7 +27,7 @@ in
       };
     };
 
-    xdg.configFile."rofi/colors.rasi".text = with config.colorScheme.palette; ''
+    xdg.configFile."rofi/colors.rasi".text = with config.lib.stylix.colors; ''
       * {
         font:   "${osConfig.defaultFonts.sans.name} ${toString osConfig.defaultFonts.sans.size}";
         bg0:    #${base00}F2;

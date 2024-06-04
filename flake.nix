@@ -39,7 +39,15 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
-    nix-colors.url = "github:Misterio77/nix-colors";
+    stylix-stable = {
+      url = "github:danth/stylix/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    stylix-unstable = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     gx = {
       url = "github:chrishrb/gx.nvim";
@@ -53,12 +61,7 @@
   };
 
   outputs =
-    inputs@{
-      nix-colors,
-      nixpkgs-stable,
-      nixpkgs-unstable,
-      ...
-    }:
+    inputs@{ nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       system = "x86_64-linux";
       default-channel = "unstable";
@@ -96,7 +99,6 @@
 
       specialArgs = {
         inherit
-          nix-colors
           nixpkgs-stable
           nixpkgs-unstable
           pkgs-stable

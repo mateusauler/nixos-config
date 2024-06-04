@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
@@ -9,16 +8,17 @@
 let
   inherit (pkgs.lib) colorToRgba;
   inherit (config.programs.waybar.settings.mainBar) spacing;
+  inherit (config.stylix) fonts;
   cfg = config.modules.waybar;
 in
 lib.mkIf cfg.enable {
   programs.waybar.style =
-    with config.colorScheme.palette;
-    with osConfig.defaultFonts; # css
+    with config.lib.stylix.colors;
+    # css
     ''
       * {
-        font-family: FontAwesome, ${sans.name}, Roboto, Helvetica, Arial, sans-serif;
-        font-size: ${toString (sans.size - 1)}pt;
+        font-family: FontAwesome, ${fonts.sansSerif.name}, Roboto, Helvetica, Arial, sans-serif;
+        font-size: ${toString (fonts.sizes.desktop)}pt;
       }
 
       window#waybar {

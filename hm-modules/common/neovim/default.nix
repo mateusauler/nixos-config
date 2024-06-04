@@ -7,7 +7,6 @@
 
 let
   cfg = config.modules.neovim;
-  colors = pkgs.writeText "colors.vim" (import ./colors.nix config.colorScheme);
 
   mapSilent = mode: key: action: desc: {
     inherit key action mode;
@@ -115,11 +114,6 @@ in
 
         (mapNSilent "<leader>h" "<Cmd>noh<CR>" "Clear highlighting")
       ];
-
-      extraConfigVim = # vim
-        ''
-          source ${colors}
-        '';
     };
 
     shell-aliases = {

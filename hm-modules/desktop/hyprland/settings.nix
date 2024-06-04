@@ -19,9 +19,6 @@ in
       # https://wiki.hyprland.org/Configuring/Environment-variables/
       "CLUTTER_BACKEND,wayland" # Clutter package already has wayland enabled, this variable will force Clutter applications to try and use the Wayland backend
       "GDK_BACKEND,wayland,x11" # GTK: Use wayland if available, fall back to x11 if not.
-      "QT_AUTO_SCREEN_SCALE_FACTOR,1" # (From the Qt documentation) enables automatic scaling, based on the monitor’s pixel density
-      "QT_QPA_PLATFORM,wayland;xcb" # Qt: Use wayland if available, fall back to x11 if not.
-      "QT_WAYLAND_DISABLE_WINDOWDECORATION,1" # Disables window decorations on Qt applications
       "SDL_VIDEODRIVER,wayland" # Run SDL2 applications on Wayland. Remove or set to x11 if games that provide older versions of SDL cause compatibility issues
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_DESKTOP,Hyprland"
@@ -42,11 +39,11 @@ in
       accel_profile = "flat";
     };
 
-    general = with config.colorScheme.palette; {
+    general = with config.lib.stylix.colors; {
       border_size = 3;
 
-      "col.active_border" = "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
-      "col.inactive_border" = "rgba(${base01}aa)";
+      "col.active_border" = lib.mkForce "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
+      "col.inactive_border" = lib.mkForce "rgba(${base01}aa)";
 
       layout = "dwindle";
     };
@@ -104,7 +101,6 @@ in
 
       disable_splash_rendering = true;
       disable_hyprland_logo = true;
-      background_color = "0x000000";
 
       initial_workspace_tracking = 2;
 

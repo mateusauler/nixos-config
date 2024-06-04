@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
@@ -19,7 +18,9 @@ lib.mkIf (cfg.enable && cfg.neovide.enable) {
   home.packages = [ pkgs.neovide ];
 
   programs.nixvim = {
-    opts.guifont = lib.mkDefault (with osConfig.defaultFonts.mono; "${name}:h${toString size}");
+    opts.guifont = lib.mkDefault (
+      with config.stylix.fonts; "${monospace.name}:h${toString sizes.terminal}"
+    );
     globals.neovide_transparency = lib.mkDefault 0.8;
   };
 

@@ -3,12 +3,10 @@
   lib,
   osConfig,
   pkgs,
-  nix-colors,
   ...
 }:
 
 let
-  inherit (lib) mkDefault;
   module-names = [
     "bat"
     "fish"
@@ -34,8 +32,6 @@ in
   ];
 
   config = {
-    colorScheme = mkDefault nix-colors.colorSchemes."catppuccin-mocha";
-
     programs.home-manager.enable = true;
 
     modules = pkgs.lib.enableModules module-names;

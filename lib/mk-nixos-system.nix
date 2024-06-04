@@ -38,6 +38,7 @@ let
   pkgs = get-variable "pkgs" specialArgs;
   home-manager = get-variable "home-manager" inputs;
   nixvim = get-variable "nixvim" inputs;
+  stylix = get-variable "stylix" inputs;
 
   specialArgs' = specialArgs // {
     inherit
@@ -59,6 +60,7 @@ nixpkgs.lib.nixosSystem rec {
   };
 
   modules = [
+    stylix.nixosModules.stylix
     configPath
     ../modules
     home-manager.nixosModules.home-manager
@@ -73,7 +75,6 @@ nixpkgs.lib.nixosSystem rec {
         verbose = true;
         sharedModules = [
           ../hm-modules
-          inputs.nix-colors.homeManagerModules.default
           nixvim.homeManagerModules.nixvim
         ];
       };

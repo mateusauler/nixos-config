@@ -1,15 +1,12 @@
 {
   config,
   lib,
-  nix-colors,
-  osConfig,
   pkgs,
   ...
 }:
 
 let
   cfg = config.modules.gtk;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
 in
 {
   options.modules.gtk.enable = lib.mkEnableOption "gtk";
@@ -23,7 +20,7 @@ in
           [Icon Theme]
           Name=Default
           Comment=Default Cursor Theme
-          Inherits=${config.gtk.cursorTheme.name}
+          Inherits=${config.stylix.cursor.name}
         '';
     };
     gtk =
@@ -33,7 +30,6 @@ in
           gtk-decoration-layout = "menu:none";
           gtk-enable-animations = true;
           gtk-error-bell = 0;
-          gtk-font-name = "${osConfig.defaultFonts.sans.name}, ${toString osConfig.defaultFonts.sans.size}";
           gtk-menu-images = true;
           gtk-primary-button-warps-slider = false;
           gtk-titlebar-double-click = "menu";
@@ -49,15 +45,7 @@ in
         };
       in
       {
-        inherit (cfg) enable;
-        theme = {
-          package = nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
-          name = config.colorScheme.slug;
-        };
-        cursorTheme = {
-          package = pkgs.qogir-icon-theme;
-          name = "Qogir";
-        };
+        enable = lib.mkForce cfg.enable;
         iconTheme = {
           package = pkgs.papirus-icon-theme;
           name = "Papirus-Dark";
