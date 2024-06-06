@@ -163,6 +163,16 @@ in
       "nofocus,                           class:^(xwaylandvideobridge)$"
       "noinitialfocus,                    class:^(xwaylandvideobridge)$"
 
+      # Kdeconnect presentation pointer
+      "noblur, class:(kdeconnect.daemon)"
+      "xray 1, class:(kdeconnect.daemon)"
+      "noanim, class:(kdeconnect.daemon)"
+      "suppressevent fullscreen, class:(kdeconnect.daemon)"
+      "size 100% 100%, class:(kdeconnect.daemon)"
+      "noshadow, class:(kdeconnect.daemon)"
+      "noborder, class:(kdeconnect.daemon)"
+      "center, class:(kdeconnect.daemon)"
+
       (lib.concatMap
         (game: [
           "monitor $mon1, ${game}"

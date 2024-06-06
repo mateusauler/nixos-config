@@ -153,6 +153,8 @@ in
       package = pkgs.wireshark;
     };
 
+    programs.kdeconnect.enable = lib.mkDefault true;
+
     programs.adb.enable = true;
 
     environment.systemPackages = with pkgs; [
