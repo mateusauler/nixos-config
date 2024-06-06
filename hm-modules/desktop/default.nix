@@ -76,6 +76,11 @@ in
       ];
     };
 
+    services.kdeconnect = {
+      enable = lib.mkDefault true;
+      indicator = lib.mkDefault true;
+    };
+
     home.packages = with pkgs; [
       at-spi2-core
       brave

@@ -36,7 +36,7 @@ in
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
           xwaylandvideobridge = "xwaylandvideobridge";
-          # TODO: Add kdeconnect & syncthing-tray
+          # TODO: Add syncthing-tray
         }
       )
       // {
