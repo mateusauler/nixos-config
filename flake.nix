@@ -23,9 +23,9 @@
     };
 
     nixvim-stable = {
-      # TODO: Move to nixos-24.05 once it exists
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.home-manager.follows = "home-manager-stable";
     };
     nixvim-unstable = {
       url = "github:nix-community/nixvim";
