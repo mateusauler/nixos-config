@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   pkgs-unstable,
   ...
@@ -36,6 +37,7 @@ in
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
           xwaylandvideobridge = "xwaylandvideobridge";
+          kdeconnect = "kdeconnect-indicator";
           # TODO: Add syncthing-tray
         }
       )
@@ -79,6 +81,7 @@ in
               mkDefault (enable && command != null);
             waybar.enable = mkDefault config.modules.waybar.enable;
             wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
+            kdeconnect.enable = mkDefault osConfig.programs.kdeconnect.enable;
           };
 
           defaults =

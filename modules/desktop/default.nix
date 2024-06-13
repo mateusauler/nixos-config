@@ -155,6 +155,8 @@ in
       package = pkgs.wireshark;
     };
 
+    programs.kdeconnect.enable = true;
+
     programs.adb.enable = true;
 
     environment.systemPackages = with pkgs; [
