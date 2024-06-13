@@ -64,7 +64,6 @@ lib.mkIf cfg.enable {
           };
         };
         texlab.enable = true;
-        yamlls.enable = true;
       };
     };
   };
