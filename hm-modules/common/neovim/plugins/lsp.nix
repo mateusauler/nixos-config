@@ -47,7 +47,6 @@ lib.mkIf cfg.enable {
         nixd = {
           enable = true;
           settings = {
-            # Not working right now. Seems to depend on NixOS/nixpkgs#316394
             diagnostic.suppress = [ "sema-escaping-with" ];
             formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           };
