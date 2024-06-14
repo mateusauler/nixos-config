@@ -33,7 +33,7 @@ lib.mkIf cfg.enable {
 
           bufmap('K', vim.lsp.buf.hover, 'Hover')
 
-          local format = function(_) vim.lsp.buf.format() end
+          local format = vim.lsp.buf.format
           vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, {})
           bufmap('<leader>f', format, 'Format')
         '';

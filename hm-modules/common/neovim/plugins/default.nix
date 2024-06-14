@@ -12,12 +12,16 @@ in
 {
   imports = [
     ./cmp.nix
+    ./cursorline.nix
     ./eyeliner.nix
+    ./flash.nix
     ./lsp.nix
     ./neo-tree.nix
     ./oil.nix
     ./telescope.nix
+    ./treesitter.nix
     ./ufo.nix
+    ./vimtex.nix
   ];
 
   config = lib.mkIf cfg.enable {
@@ -30,36 +34,14 @@ in
         rustc
       ];
 
-      keymaps = lib.optionals config.programs.nixvim.plugins.flash.enable [
-        { key = "s";     mode = [ "n" "x" "o" ]; action.__raw = "require('flash').jump";              options.desc = "Flash"; }
-        { key = "S";     mode = [ "n" "x" "o" ]; action.__raw = "require('flash').treesitter";        options.desc = "Flash Treesitter"; }
-        { key = "r";     mode = "o";             action.__raw = "require('flash').remote";            options.desc = "Remote Flash"; }
-        { key = "R";     mode = [ "o" "x" ];     action.__raw = "require('flash').treesitter_search"; options.desc = "Treesitter Search"; }
-        { key = "<C-s>"; mode = "c";             action.__raw = "require('flash').toggle";            options.desc = "Toggle Flash Search"; }
-        { key = "<C-s>"; mode = [ "n" "x" "o" ]; action = "s"; }
-      ];
-
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
         comment.enable = true;
-        cursorline = {
-          enable = true;
-          cursorline = {
-            timeout = 450;
-            number = true;
-          };
-          cursorword.enable = false;
-        };
+        cursorline.enable = true;
         dap.enable = true;
         diffview.enable = true;
-        flash = {
-          enable = true;
-          jump = {
-            autojump = true;
-            nohlsearch = true;
-          };
-        };
+        flash.enable = true;
         friendly-snippets.enable = true;
         gitsigns.enable = true;
         illuminate.enable = true;
@@ -77,17 +59,9 @@ in
         surround.enable = true;
         telescope.enable = true;
         todo-comments.enable = true;
-        treesitter = {
-          enable = true;
-          indent = true;
-          nixvimInjections = true;
-        };
+        treesitter.enable = true;
         trim.enable = true;
-        vimtex = {
-          enable = true;
-          texlivePackage = null;
-          settings = lib.optionalAttrs config.programs.zathura.enable { view_method = "zathura"; };
-        };
+        vimtex.enable = true;
         which-key.enable = true;
       };
 
