@@ -9,10 +9,6 @@
 let
   cfg = config.modules.neovim;
   enabled = config.programs.nixvim.plugins.oil.enable;
-  settings = {
-    default_file_explorer = true;
-    experimental_watch_for_changes = true;
-  };
 in
 lib.mkIf cfg.enable {
   programs.nixvim = {
@@ -43,8 +39,19 @@ lib.mkIf cfg.enable {
           })
         '';
 
-    plugins.oil = {
-      inherit settings;
+    plugins.oil.settings = {
+      default_file_explorer = true;
+      experimental_watch_for_changes = true;
+      skip_confirm_for_simple_edits = true;
+      view_options = {
+        show_hidden = true;
+        is_always_hidden = # lua
+          ''
+            function(name, _)
+              return name == '..' or name == '.git'
+            end
+          '';
+      };
     };
 
     extraPlugins = lib.optional enabled (
