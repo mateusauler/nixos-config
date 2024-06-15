@@ -52,6 +52,8 @@ in
         TERMINAL = "$TERM";
         COLORTERM = "$TERM";
         VISUAL = "$EDITOR";
+        # Make less display unicode characters (https://man.archlinux.org/man/less.1.en#NATIONAL_CHARACTER_SETS)
+        LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
       };
 
       packages = with pkgs; [
