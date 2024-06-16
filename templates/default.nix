@@ -7,4 +7,8 @@
     description = "Rust template";
     path = ./rust;
   };
+  latex = {
+    description = "LaTeX template";
+    path = ./latex;
+  };
 }

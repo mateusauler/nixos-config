@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+nix build
+cp result/*.pdf .
+chmod 600 ./*.pdf
+git add ./*.pdf

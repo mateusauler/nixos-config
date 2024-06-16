@@ -1,0 +1,17 @@
+result
+auto
+.direnv
+
+*\(busy\)
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.nav
+*.out
+*.snm
+*.toc
+*.bbl
+*.blg
