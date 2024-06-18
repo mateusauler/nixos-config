@@ -86,15 +86,7 @@
       };
 
       pkgs-stable = import nixpkgs-stable pkgs-args;
-      pkgs-unstable = import nixpkgs-unstable (
-        pkgs-args
-        // {
-          overlays = pkgs-args.overlays ++ [
-            # TODO: Rollback when https://github.com/NixOS/nixpkgs/pull/319882 is merged
-            (final: prev: { ungoogled-chromium = pkgs-stable.ungoogled-chromium; })
-          ];
-        }
-      );
+      pkgs-unstable = import nixpkgs-unstable pkgs-args;
       pkgs = if default-channel == "stable" then pkgs-stable else pkgs-unstable;
 
       inherit (pkgs) lib;
