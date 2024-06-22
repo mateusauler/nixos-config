@@ -198,6 +198,8 @@ in
       "ignorezero, waybar"
 
       "dimaround, wofi"
+
+      "animation slide right, notifications"
     ];
 
     bind = lib.flatten [
