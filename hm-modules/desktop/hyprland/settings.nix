@@ -50,7 +50,11 @@ in
       layout = "dwindle";
     };
 
-    cursor.inactive_timeout = 2;
+    cursor = {
+      inactive_timeout = 2;
+      persistent_warps = true;
+      hide_on_key_press = true;
+    };
 
     "$mon1" = lib.mkDefault "";
     "$mon2" = lib.mkDefault "$mon1";
@@ -108,7 +112,12 @@ in
       middle_click_paste = !cfg.disable-middle-paste;
     };
 
-    binds.scroll_event_delay = 80;
+    binds = {
+      movefocus_cycles_fullscreen = false;
+      scroll_event_delay = 80;
+    };
+
+    xwayland.force_zero_scaling = true;
 
     workspace = [ "s[true], gapsout:80, gapsin:20" ];
 
