@@ -14,9 +14,11 @@ in
   options.modules.power-menu = {
     enable = lib.mkEnableOption "Power menu";
     command = {
-      line = mkOption { default = "${lib.getExe pkgs.wofi} --columns 1 --dmenu"; };
+      args = mkOption { default = "--columns 1 --dmenu"; };
+      executable = mkOption { default = "wofi"; };
       prompt-arg = mkOption { default = "--prompt"; };
     };
+    toggle = mkOption { default = true; };
     actions = with lib.types; {
       set = mkOption {
         type = attrsOf (submodule {
@@ -94,20 +96,23 @@ in
 
         options = lib.concatStringsSep "\\n" actionLabels;
 
-        promptCommand = with cfg.command; "${line} ${prompt-arg}";
+        promptCommand = with cfg.command; "${executable} ${args} ${prompt-arg}";
+
+        toggleCommand =
+          lib.optionalString cfg.toggle
+            # bash
+            "pkill ${cfg.command.executable} ||";
 
         confirmation =
-          action:
-          lib.optionalString action.confirm
+          { confirm, text, ... }:
+          lib.optionalString confirm
             # bash
-            ''
-              [ "$(printf "Yes, ${action.text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${action.text}" ] &&
-            '';
+            ''[[ "$(printf "Yes, ${text}\nNo, cancel" | ${promptCommand} "Are you sure?")" = "Yes, ${text}" ]] &&'';
 
         power-menu =
           pkgs.writeShellScriptBin "power-menu" # bash
             ''
-              choice=$(printf "${options}" | ${promptCommand} "What do you want to do?")
+              choice=$(${toggleCommand} printf "${options}" | ${promptCommand} "What do you want to do?")
 
               case "$choice" in
                 ${
