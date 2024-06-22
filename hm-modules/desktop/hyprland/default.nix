@@ -3,7 +3,6 @@
   lib,
   osConfig,
   pkgs,
-  pkgs-unstable,
   ...
 }:
 
@@ -121,8 +120,7 @@ in
         playerctl
         wl-clip-persist
         wlsunset
-        # FIXME: Install normally, when hyprshot gets to stable
-        pkgs-unstable.hyprshot
+        hyprshot
         (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
         (lib.optional config.modules.rofi.enable rofi-power-menu)
       ];
