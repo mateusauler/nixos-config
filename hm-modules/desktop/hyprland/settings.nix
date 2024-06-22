@@ -131,6 +131,7 @@ in
       # CopyQ
       "float,  class:(com\\.github\\.hluk\\.copyq)"
       "center, class:(com\\.github\\.hluk\\.copyq)"
+      "pin,    class:(com\\.github\\.hluk\\.copyq)"
 
       # Mega
       "float, class:(nz\\.co\\.mega\\.)"
