@@ -28,10 +28,7 @@ in
       "XDG_SESSION_TYPE,wayland"
     ];
 
-    exec-once = lib.flatten [
-      "kitty"
-      (lib.optional cfg.disable-middle-paste "wl-paste -p --watch wl-copy -p ''")
-    ];
+    exec-once = [ "kitty" ];
 
     input = {
       kb_layout = "br";
@@ -102,6 +99,8 @@ in
       background_color = "0x000000";
 
       initial_workspace_tracking = 2;
+
+      middle_click_paste = !cfg.disable-middle-paste;
     };
 
     binds.scroll_event_delay = 80;
