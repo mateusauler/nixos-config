@@ -203,8 +203,8 @@ in
           ]
         else if config.modules.wofi.enable then
           [
-            "${modKey},       D, exec, wofi --show drun --prompt ''"
-            "${modKey} SHIFT, D, exec, wofi --show run  --prompt ''"
+            "${modKey},       D, exec, pgrep wofi 2> /dev/null | xargs kill &> /dev/null || wofi --show drun --prompt ''"
+            "${modKey} SHIFT, D, exec, pgrep wofi 2> /dev/null | xargs kill &> /dev/null || wofi --show run  --prompt ''"
           ]
         else
           [ ]
