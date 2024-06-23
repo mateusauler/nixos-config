@@ -230,6 +230,8 @@ in
 
       (lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu")
 
+      (lib.optional config.modules.waybar.enable "${modKey}, B, exec, pkill waybar || waybar")
+
       "${modKey}, PRINT, exec, hyprshot -m window"
       ",          PRINT, exec, hyprshot -m region"
 
