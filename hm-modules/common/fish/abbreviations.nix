@@ -38,6 +38,8 @@ lib.mkIf cfg.enable {
       gra = "git rebase --abort";
       grc = "git rebase --continue";
       gri = "git rebase -i";
+      gre = "git reset";
+      grh = "git reset --hard";
       gs = "git status";
       gsh = "git show";
       gsl = "git stash list";
