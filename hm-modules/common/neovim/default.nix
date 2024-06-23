@@ -60,6 +60,9 @@ in
         signcolumn = "yes";
 
         mouse = "a";
+
+        ignorecase = true;
+        smartcase = true;
       };
 
       globals = {
