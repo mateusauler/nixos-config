@@ -125,7 +125,6 @@ in
     windowrulev2 = lib.flatten [
       "workspace 2 silent, class:(librewolf)"
       "workspace 3 silent, class:(KeePassXC)"
-      "workspace 4 silent, class:((V|v)encord(D|d)esktop)"
       "workspace 4 silent, class:((V|v)esktop)"
       "workspace 5 silent, class:((F|f)erdium)"
       "workspace 6 silent, class:((S|s)team)"
