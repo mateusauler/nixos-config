@@ -87,7 +87,7 @@ in
         "fade,             1, 2, default"
         "workspaces,       1, 3, easeOutQuint"
         "specialWorkspace, 1, 3, easeOutQuint, slidevert"
-        "layers,           1, 4, easeInOutQuint, popin"
+        "layers,           1, 3, easeInOutQuint, popin"
       ];
     };
 
