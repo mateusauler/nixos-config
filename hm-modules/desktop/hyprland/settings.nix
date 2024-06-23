@@ -87,7 +87,7 @@ in
         "fade,             1, 2, default"
         "workspaces,       1, 3, easeOutQuint"
         "specialWorkspace, 1, 3, easeOutQuint, slidevert"
-        "layers,           1, 2, easeInOutQuint, popin"
+        "layers,           1, 4, easeInOutQuint, popin"
       ];
     };
 
@@ -195,8 +195,9 @@ in
     ];
 
     layerrule = [
-      "blur,       waybar"
-      "ignorezero, waybar"
+      "blur,                waybar"
+      "ignorezero,          waybar"
+      "animation slide top, waybar"
 
       "dimaround, wofi"
 
