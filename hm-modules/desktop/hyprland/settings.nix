@@ -220,8 +220,8 @@ in
           ]
         else if config.modules.wofi.enable then
           [
-            "${modKey},       D, exec, pkill wofi || wofi --show drun"
-            "${modKey} SHIFT, D, exec, pkill wofi || wofi --show run"
+            "${modKey},       D, exec, pkill wofi || wofi --show drun --prompt ''"
+            "${modKey} SHIFT, D, exec, pkill wofi || wofi --show run  --prompt ''"
           ]
         else
           [ ]
