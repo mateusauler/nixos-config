@@ -96,8 +96,6 @@ in
       preserve_split = true;
     };
 
-    master.new_is_master = true;
-
     misc = {
       vrr = 2;
 
