@@ -1,8 +1,8 @@
 diff --git a/wt b/wt
-index 766b613..0a388e6 100755
+index 6fecbe1..1744c3c 100755
 --- a/wt
 +++ b/wt
-@@ -5,12 +5,6 @@ set -e
+@@ -5,11 +5,6 @@ set -e
  
  args=("$@")
  VERSION="0.1.1"
@@ -11,19 +11,18 @@ index 766b613..0a388e6 100755
 -JQ_URL="https://stedolan.github.io/jq/download"
 -RELEASE_URL="https://github.com/yankeexe/git-worktree-switcher/releases/latest"
 -RELEASE_API_URL="https://api.github.com/repos/yankeexe/git-worktree-switcher/releases/latest"
--
+ CHANGE_DIRECTORY_PREFIX="changedir:"
  
- # Escape forward slash
- arg=$(echo "${args[0]}" | sed 's/\//\\\//g')
-@@ -25,7 +19,6 @@ help_message() {
- 	echo "Usage:"
+ 
+@@ -35,7 +30,6 @@ help_message() {
  	echo -e "\twt <worktree-name>: search for worktree names and change to that directory."
  	echo -e "\twt list: list out all the git worktrees."
+ 	echo -e "\twt names: list out only the git worktree names."
 -	echo -e "\twt update: update to the latest release of worktree switcher."
  	echo -e "\twt version: show the CLI version."
+ 	echo -e "\twt init <shell>: print the init script for <shell>."
  	echo -e "\twt help: shows this help message."
- }
-@@ -42,41 +35,6 @@ goto_main_worktree() {
+@@ -51,41 +45,6 @@ goto_main_worktree() {
  	fi
  }
  
@@ -62,12 +61,12 @@ index 766b613..0a388e6 100755
 -	fi
 -}
 -
- if [ -z "${args[0]}" ]; then
- 	help_message
- 	exit 0
-@@ -86,9 +44,6 @@ case "${args[0]}" in
- list)
- 	worktree_list
+ init_bash() {
+ 	cat <<EOF
+ wt() {
+@@ -161,9 +120,6 @@ list)
+ names)
+ 	worktree_list_names
  	;;
 -update)
 -	update

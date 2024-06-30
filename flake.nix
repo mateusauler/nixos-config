@@ -47,7 +47,7 @@
     };
 
     git-worktree-switcher = {
-      url = "github:yankeexe/git-worktree-switcher";
+      url = "github:mateusauler/git-worktree-switcher";
       flake = false;
     };
 

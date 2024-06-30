@@ -255,15 +255,15 @@
     "git-worktree-switcher": {
       "flake": false,
       "locked": {
-        "lastModified": 1698334878,
-        "narHash": "sha256-JN2ANsJ226KVP5XtMzjIyLj6+ZZ7zmdX7CrkCade/Fk=",
-        "owner": "yankeexe",
+        "lastModified": 1719770349,
+        "narHash": "sha256-XHcyRHKC7jxaLDUfMQBDGg2pCpFn0YiTkBQcmL82skU=",
+        "owner": "mateusauler",
         "repo": "git-worktree-switcher",
-        "rev": "d1278461982826f9a22639fedb96b8fe44da5df3",
+        "rev": "0840e61f0867d0bd0de419665042c1a0729f449e",
         "type": "github"
       },
       "original": {
-        "owner": "yankeexe",
+        "owner": "mateusauler",
         "repo": "git-worktree-switcher",
         "type": "github"
       }

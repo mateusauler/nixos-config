@@ -16,13 +16,7 @@ let
 
     nativeBuildInputs = [ pkgs.installShellFiles ];
 
-    patches = [
-      ./remove_update_functionality.diff
-      # https://github.com/yankeexe/git-worktree-switcher/pull/15
-      ./cd_no_new_shell.diff
-      # https://github.com/yankeexe/git-worktree-switcher/pull/16
-      ./fix_completions.diff
-    ];
+    patches = [ ./remove_update_functionality.diff ];
 
     installPhase = # bash
       ''
