@@ -40,6 +40,8 @@ in
       float_switch_override_focus = 0;
 
       accel_profile = "flat";
+      # Temporary fix for https://github.com/hyprwm/Hyprland/issues/6681
+      scroll_factor = 5.0;
     };
 
     general = with config.colorScheme.palette; {
