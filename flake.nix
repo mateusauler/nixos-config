@@ -77,7 +77,7 @@
               inherit pkgs;
             };
         })
-      ];
+      ] ++ (import ./overlays { });
 
       pkgs-args = {
         inherit overlays;
