@@ -20,6 +20,7 @@ in
     ./oil.nix
     ./telescope.nix
     ./treesitter.nix
+    ./trim.nix
     ./ufo.nix
     ./vimtex.nix
   ];
