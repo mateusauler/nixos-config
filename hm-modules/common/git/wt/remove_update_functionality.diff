@@ -1,16 +1,16 @@
 diff --git a/wt b/wt
-index 6fecbe1..1744c3c 100755
+index 235b518..f18e6fd 100755
 --- a/wt
 +++ b/wt
 @@ -5,11 +5,6 @@ set -e
  
  args=("$@")
- VERSION="0.1.1"
+ VERSION="0.2.0-fork"
 -TMP_PATH=$(mktemp)
 -BINARY_PATH=$(which wt)
 -JQ_URL="https://stedolan.github.io/jq/download"
--RELEASE_URL="https://github.com/yankeexe/git-worktree-switcher/releases/latest"
--RELEASE_API_URL="https://api.github.com/repos/yankeexe/git-worktree-switcher/releases/latest"
+-RELEASE_URL="https://github.com/mateusauler/git-worktree-switcher/releases/latest"
+-RELEASE_API_URL="https://api.github.com/repos/mateusauler/git-worktree-switcher/releases/latest"
  CHANGE_DIRECTORY_PREFIX="changedir:"
  
  
