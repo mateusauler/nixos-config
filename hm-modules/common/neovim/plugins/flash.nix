@@ -15,7 +15,7 @@ lib.mkIf cfg.enable {
       { key = "<C-s>"; mode = [ "n" "x" "o" ]; action = "s"; }
     ];
 
-    plugins.flash.jump = {
+    plugins.flash.settings.jump = {
       autojump = true;
       nohlsearch = true;
     };
