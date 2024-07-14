@@ -5,7 +5,7 @@ let
 in
 lib.mkIf cfg.enable {
   programs.nixvim.plugins.treesitter = {
-    indent = true;
+    settings.indent.enable = true;
     nixvimInjections = true;
   };
 }
