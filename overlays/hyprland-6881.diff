@@ -1,0 +1,106 @@
+diff --git a/src/config/ConfigManager.cpp b/src/config/ConfigManager.cpp
+index a4a80944..aadbe6ed 100644
+--- a/src/config/ConfigManager.cpp
++++ b/src/config/ConfigManager.cpp
+@@ -470,6 +470,7 @@ CConfigManager::CConfigManager() {
+     m_pConfig->addConfigValue("input:scroll_button_lock", Hyprlang::INT{0});
+     m_pConfig->addConfigValue("input:scroll_factor", {1.f});
+     m_pConfig->addConfigValue("input:scroll_points", {STRVAL_EMPTY});
++    m_pConfig->addConfigValue("input:emulate_discrete_scroll", Hyprlang::INT{1});
+     m_pConfig->addConfigValue("input:touchpad:natural_scroll", Hyprlang::INT{0});
+     m_pConfig->addConfigValue("input:touchpad:disable_while_typing", Hyprlang::INT{1});
+     m_pConfig->addConfigValue("input:touchpad:clickfinger_behavior", Hyprlang::INT{0});
+diff --git a/src/managers/SeatManager.cpp b/src/managers/SeatManager.cpp
+index fc14f0fc..6589c4bf 100644
+--- a/src/managers/SeatManager.cpp
++++ b/src/managers/SeatManager.cpp
+@@ -333,9 +333,7 @@ void CSeatManager::sendPointerAxis(uint32_t timeMs, wl_pointer_axis axis, double
+             if (source == 0) {
+                 p->sendAxisValue120(axis, value120);
+                 p->sendAxisDiscrete(axis, discrete);
+-            }
+-
+-            if (value == 0)
++            } else if (value == 0)
+                 p->sendAxisStop(timeMs, axis);
+         }
+     }
+diff --git a/src/managers/input/InputManager.cpp b/src/managers/input/InputManager.cpp
+index 81a46f97..0b4ed32c 100644
+--- a/src/managers/input/InputManager.cpp
++++ b/src/managers/input/InputManager.cpp
+@@ -760,6 +760,7 @@ void CInputManager::onMouseWheel(IPointer::SAxisEvent e) {
+     static auto POFFWINDOWAXIS        = CConfigValue<Hyprlang::INT>("input:off_window_axis_events");
+     static auto PINPUTSCROLLFACTOR    = CConfigValue<Hyprlang::FLOAT>("input:scroll_factor");
+     static auto PTOUCHPADSCROLLFACTOR = CConfigValue<Hyprlang::FLOAT>("input:touchpad:scroll_factor");
++    static auto PEMULATEDISCRETE      = CConfigValue<Hyprlang::INT>("input:emulate_discrete_scroll");
+ 
+     auto        factor = (*PTOUCHPADSCROLLFACTOR <= 0.f || e.source == WL_POINTER_AXIS_SOURCE_FINGER ? *PTOUCHPADSCROLLFACTOR : *PINPUTSCROLLFACTOR);
+ 
+@@ -798,9 +799,44 @@ void CInputManager::onMouseWheel(IPointer::SAxisEvent e) {
+             }
+         }
+     }
+-    double deltaDiscrete = factor * e.deltaDiscrete / std::abs(e.deltaDiscrete);
+-    g_pSeatManager->sendPointerAxis(e.timeMs, e.axis, factor * e.delta, deltaDiscrete > 0 ? std::ceil(deltaDiscrete) : std::floor(deltaDiscrete),
+-                                    std::round(factor * e.deltaDiscrete), e.source, WL_POINTER_AXIS_RELATIVE_DIRECTION_IDENTICAL);
++
++    double discrete = (e.deltaDiscrete != 0) ? (factor * e.deltaDiscrete / std::abs(e.deltaDiscrete)) : 0;
++    double delta    = e.delta * factor;
++
++    if (e.source == 0) {
++        // if an application supports v120, it should ignore discrete anyways
++        if ((*PEMULATEDISCRETE >= 1 && std::abs(e.deltaDiscrete) != 120) || *PEMULATEDISCRETE >= 2) {
++
++            const int interval = factor != 0 ? std::round(120 * (1 / factor)) : 120;
++
++            // reset the accumulator when timeout is reached or direction/axis has changed
++            if (std::signbit(e.deltaDiscrete) != m_ScrollWheelState.lastEventSign || e.axis != m_ScrollWheelState.lastEventAxis ||
++                e.timeMs - m_ScrollWheelState.lastEventTime > 500 /* 500ms taken from libinput default timeout */) {
++
++                m_ScrollWheelState.accumulatedScroll = 0;
++                // send 1 discrete on first event for responsiveness
++                discrete = std::copysign(1, e.deltaDiscrete);
++            } else
++                discrete = 0;
++
++            for (int ac = m_ScrollWheelState.accumulatedScroll; ac >= interval; ac -= interval) {
++                discrete += std::copysign(1, e.deltaDiscrete);
++                m_ScrollWheelState.accumulatedScroll -= interval;
++            }
++
++            m_ScrollWheelState.lastEventSign = std::signbit(e.deltaDiscrete);
++            m_ScrollWheelState.lastEventAxis = e.axis;
++            m_ScrollWheelState.lastEventTime = e.timeMs;
++            m_ScrollWheelState.accumulatedScroll += std::abs(e.deltaDiscrete);
++
++            delta = 15.0 * discrete * factor;
++        }
++    }
++
++    int32_t value120      = std::round(factor * e.deltaDiscrete);
++    int32_t deltaDiscrete = std::abs(discrete) != 0 && std::abs(discrete) < 1 ? std::copysign(1, discrete) : std::round(discrete);
++
++    g_pSeatManager->sendPointerAxis(e.timeMs, e.axis, delta, deltaDiscrete, value120, e.source, WL_POINTER_AXIS_RELATIVE_DIRECTION_IDENTICAL);
+ }
+ 
+ Vector2D CInputManager::getMouseCoordsInternal() {
+diff --git a/src/managers/input/InputManager.hpp b/src/managers/input/InputManager.hpp
+index 8050defe..85ae6197 100644
+--- a/src/managers/input/InputManager.hpp
++++ b/src/managers/input/InputManager.hpp
+@@ -278,6 +278,14 @@ class CInputManager {
+ 
+     void restoreCursorIconToApp(); // no-op if restored
+ 
++    // discrete scrolling emulation using v120 data
++    struct {
++        bool     lastEventSign     = 0;
++        bool     lastEventAxis     = 0;
++        uint32_t lastEventTime     = 0;
++        uint32_t accumulatedScroll = 0;
++    } m_ScrollWheelState;
++
+     friend class CKeybindManager;
+     friend class CWLSurface;
+ };
