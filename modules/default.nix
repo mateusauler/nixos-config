@@ -56,10 +56,12 @@ in
     # Don't allow non-wheel users to execute the sudo binary
     security.sudo.execWheelOnly = true;
 
-    # FIXME: Only enable this if swaylock is installed
-    security.pam.services.swaylock = { };
+    security.pam.services = {
+      login.nodelay = true;
+      sudo.nodelay = true;
+      swaylock.nodelay = true;
+    };
 
-    # TODO: Handle this in home-manager
     programs.fish.enable = true;
 
     programs.nix-ld.enable = true;
