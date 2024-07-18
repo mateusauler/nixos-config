@@ -568,20 +568,7 @@
         "nixvim-stable": "nixvim-stable",
         "nixvim-unstable": "nixvim-unstable",
         "private-config": "private-config",
-        "satisfactory-mod-manager": "satisfactory-mod-manager",
         "sops-nix": "sops-nix"
-      }
-    },
-    "satisfactory-mod-manager": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-iXefGucxYm+KbForx2OGYHQXll4JzB0iVi4OEE9uYo0=",
-        "type": "file",
-        "url": "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/latest/download/Satisfactory-Mod-Manager.AppImage"
       }
     },
     "sops-nix": {
