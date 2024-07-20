@@ -36,7 +36,7 @@ in
     ./ferdium.nix
     ./gtk.nix
     ./hyprland
-    ./kitty
+    ./kitty.nix
     ./librewolf
     ./mako.nix
     ./mega.nix

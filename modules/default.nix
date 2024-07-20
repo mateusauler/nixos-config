@@ -40,6 +40,10 @@ in
         sha256 = "Fm800h7CbEHqcPDL7oKSBSIpGBhEWLFS6ioV5qM0SVw=";
       };
 
+      opacity = {
+        terminal = 0.8;
+      };
+
       cursor = {
         package = pkgs.qogir-icon-theme;
         name = "Qogir";

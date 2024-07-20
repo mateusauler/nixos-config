@@ -13,8 +13,8 @@ in
         font_family = config.stylix.fonts.monospace.name;
         font_size = config.stylix.fonts.sizes.terminal;
         enable_audio_bell = false;
+        scrollback_lines = 20000;
       };
-      extraConfig = (builtins.readFile ./kitty.conf);
       shellIntegration.enableFishIntegration = lib.mkDefault true;
     };
   };
