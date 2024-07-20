@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgs-unstable,
   ...
 }:
 
@@ -23,7 +22,6 @@ let
     "nsxiv"
     "obs"
     "power-menu"
-    "qt"
     "xresources"
     "zathura"
   ];
@@ -44,7 +42,6 @@ in
     ./mpv.nix
     ./nsxiv.nix
     ./obs.nix
-    ./qt.nix
     ./rofi
     ./scripts
     ./smm.nix
@@ -60,6 +57,8 @@ in
       change-wallpaper.command = "swww img";
       hyprland.autostart.apply-wallpaper.command = "swww-daemon";
     };
+
+    qt.enable = true;
 
     programs.chromium = {
       enable = true;
@@ -87,7 +86,7 @@ in
       onlyoffice-bin
       pcmanfm
       qbittorrent
-      pkgs-unstable.rustdesk-flutter
+      rustdesk-flutter
       session-desktop
       signal-desktop
       spotify
