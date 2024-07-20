@@ -12,6 +12,7 @@ let
   cfg = config.modules.waybar;
 in
 lib.mkIf cfg.enable {
+  stylix.targets.waybar.enable = false;
   programs.waybar.style =
     with config.lib.stylix.colors;
     # css
