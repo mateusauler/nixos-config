@@ -13,7 +13,7 @@
         ''
           git remote | sed '/^blacklist/{d}' | xargs -I {} git branch -u {}/(git branch --show-current) (git branch --show-current)
         '';
-      cleanup-after-bad-patch = "rm *.{rej, orig}";
+      cleanup-after-bad-patch = "rm **.{rej, orig}";
       wget = "wget --hsts-file $XDG_CACHE_HOME/wget-hsts";
       sqlite3 = "sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc";
 
