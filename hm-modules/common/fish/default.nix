@@ -33,27 +33,25 @@ in
   imports = [ ./abbreviations.nix ];
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      (lib.optional cfg.pfetch.enable pkgs.pfetch) ++ (lib.optional cfg.ondir.enable pkgs.ondir);
+    home.packages = lib.flatten [
+      (lib.optional cfg.pfetch.enable pkgs.pfetch)
+      (lib.optional cfg.ondir.enable pkgs.ondir)
+    ];
 
     modules.fish.functions.default.path = lib.mkDefault ./functions;
 
-    programs = {
-      fish = {
-        enable = true;
-        shellAliases = config.shell-aliases;
+    programs.fish = {
+      enable = true;
+      shellAliases = config.shell-aliases;
 
-        interactiveShellInit = ''
-          ${lib.strings.optionalString cfg.pfetch.enable "pfetch"}
+      interactiveShellInit = lib.strings.optionalString cfg.pfetch.enable "pfetch";
+
+      shellInit = # fish
+        ''
+          set fish_greeting
+          fish_vi_key_bindings
+          ${lib.optionalString cfg.ondir.enable "ondir_prompt_hook"}
         '';
-
-        shellInit = # fish
-          ''
-            set fish_greeting
-            fish_vi_key_bindings
-            ${lib.optionalString cfg.ondir.enable "ondir_prompt_hook"}
-          '';
-      };
     };
 
     # The `fish_variables` file includes all of the abbreviations and some other variables that I don't care about.
@@ -74,7 +72,7 @@ in
           # Transforms a given set into the format { "fish/functions/..." = ...; }
           mapToXdgFile =
             p: name: _:
-            lib.nameValuePair "fish/functions/${name}" ({ source = "${p}/${name}"; });
+            lib.nameValuePair "fish/functions/${name}" { source = "${p}/${name}"; };
 
           # Maps all found files in path `p` into xdg sets
           pathToXdgFileSet = p: lib.mapAttrs' (mapToXdgFile p) (readFiles p);
