@@ -1,10 +1,10 @@
 {
   description = "My NixOS config";
 
-  inputs = rec {
+  inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs = nixpkgs-stable;
 
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -27,6 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.home-manager.follows = "home-manager-stable";
     };
+
     nixvim-unstable = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
