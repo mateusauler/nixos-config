@@ -99,12 +99,19 @@ in
         "WebBrowser"
       ];
       mimeType = [
+        "application/x-extension-htm"
+        "application/x-extension-html"
+        "application/x-extension-shtml"
+        "application/x-extension-xht"
+        "application/x-extension-xhtml"
+        "application/xhtml+xml"
+        "application/x-xpinstall"
         "text/html"
         "text/xml"
-        "application/xhtml+xml"
+        "x-scheme-handler/chrome"
+        "x-scheme-handler/ftp"
         "x-scheme-handler/http"
         "x-scheme-handler/https"
-        "application/x-xpinstall"
       ];
       actions = {
         "new-window" = {
@@ -117,5 +124,7 @@ in
         };
       };
     };
+
+    xdg.mimeApps.defaultApplications = lib.genAttrs config.xdg.desktopEntries.browser.mimeType (_: "browser.desktop");
   };
 }

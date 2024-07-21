@@ -16,15 +16,28 @@ let
   extractMimeTypes =
     package: desktopFile:
     let
-      inherit (lib) strings lists;
       file = builtins.readFile (package + "/share/applications/${desktopFile}.desktop");
-      lines = strings.splitString "\n" file;
-      mimeLine = lists.findFirst (s: strings.hasPrefix "MimeType" s) "" lines;
+      lines = lib.splitString "\n" file;
+      mimeLine = lib.findFirst (s: lib.hasPrefix "MimeType" s) "" lines;
       mimeTypesCombined = builtins.substring 9 (-1) mimeLine;
-      mimeTypesDirty = strings.split ";" mimeTypesCombined;
-      mimeTypes = lists.flatten mimeTypesDirty;
+      mimeTypesDirty = lib.split ";" mimeTypesCombined;
+      mimeTypes = lib.flatten mimeTypesDirty;
     in
-    lists.remove "" mimeTypes;
+    lib.remove "" mimeTypes;
+
+  associateDesktopFileAndTypes =
+    {
+      pkg,
+      desktopFile,
+      extraDesktopFiles ? [ ],
+    }:
+    {
+      types = extractMimeTypes pkg desktopFile;
+      handlers = lib.lists.flatten [
+        desktopFile
+        extraDesktopFiles
+      ];
+    };
 in
 {
   imports = [ ./compliance.nix ];
@@ -57,67 +70,23 @@ in
           {
             "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
           }
-          // lib.optionalAttrs (cfg.file-manager != null) { "inode/directory" = cfg.file-manager; }
-          // (lib.foldl (acc: e: acc // (genAssociations e)) { } (
-            [
-              {
-                types =
-                  [
-                    "text/html"
-                    "application/xhtml+xml"
-                  ]
-                  ++ (map (t: "x-scheme-handler/${t}") [
-                    "http"
-                    "https"
-                    "ftp"
-                    "chrome"
-                  ])
-                  ++ (map (t: "application/x-extension-${t}") [
-                    "htm"
-                    "html"
-                    "shtml"
-                    "xhtml"
-                    "xht"
-                  ]);
-                handlers = [ "browser" ];
-              }
-            ]
-            ++ (map
-              (
-                {
-                  pkg,
-                  desktopFile,
-                  extraDesktopFiles ? [ ],
-                }:
-                {
-                  types = extractMimeTypes pkg desktopFile;
-                  handlers = lib.lists.flatten [
-                    desktopFile
-                    extraDesktopFiles
-                  ];
-                }
-              )
-              (
-                with pkgs;
-                [
-                  {
-                    pkg = nsxiv;
-                    desktopFile = "nsxiv";
-                  }
-                  {
-                    pkg = mpv-unwrapped;
-                    desktopFile = "mpv";
-                    extraDesktopFiles = "vlc";
-                  }
-                  {
-                    pkg = neovim;
-                    desktopFile = "nvim";
-                    extraDesktopFiles = "codium";
-                  }
-                ]
-              )
-            )
-          ));
+          // (lib.optionalAttrs (cfg.file-manager != null) { "inode/directory" = cfg.file-manager; })
+          // (lib.foldl (acc: e: acc // (genAssociations (associateDesktopFileAndTypes e))) { } [
+            {
+              pkg = pkgs.nsxiv;
+              desktopFile = "nsxiv";
+            }
+            {
+              pkg = pkgs.mpv-unwrapped;
+              desktopFile = "mpv";
+              extraDesktopFiles = "vlc";
+            }
+            {
+              pkg = pkgs.neovim;
+              desktopFile = "nvim";
+              extraDesktopFiles = "codium";
+            }
+          ]);
       };
     };
 
