@@ -12,6 +12,7 @@ let
     "barrier"
     "distrobox"
     "localsend"
+    "pipewire"
     "wally"
   ];
 in
@@ -26,6 +27,7 @@ in
     ./distrobox.nix
     ./gaming.nix
     ./localsend.nix
+    ./pipewire.nix
     ./virt-manager
     ./wally.nix
   ];
@@ -46,21 +48,9 @@ in
       ];
     };
 
-    services = {
-      pipewire = {
-        enable = mkDefault true;
-        alsa = {
-          enable = mkDefault true;
-          support32Bit = mkDefault true;
-        };
-        pulse.enable = mkDefault true;
-        jack.enable = mkDefault true;
-      };
-
-      mullvad-vpn = {
-        enable = mkDefault true;
-        package = mkDefault pkgs.mullvad-vpn;
-      };
+    services.mullvad-vpn = {
+      enable = mkDefault true;
+      package = mkDefault pkgs.mullvad-vpn;
     };
 
     programs.fuse.userAllowOther = true;
