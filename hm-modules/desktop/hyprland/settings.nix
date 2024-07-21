@@ -200,7 +200,7 @@ in
       "${modKey} SHIFT,   W, exec, $BROWSER_PRIV"
       "${modKey} CONTROL, W, exec, $BROWSER_PROF"
       "${modKey},         C, exec, copyq show"
-      "${modKey},         E, exec, pcmanfm"
+      "${modKey},         E, exec, ${cfg.file-manager}"
 
       (
         if config.modules.rofi.enable then

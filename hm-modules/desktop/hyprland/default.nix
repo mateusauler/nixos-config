@@ -23,6 +23,7 @@ in
     enable = mkEnableOption "hyprland";
     modKey = mkOption { default = "SUPER"; };
     disable-middle-paste = mkOption { default = true; };
+    file-manager = mkOption { type = lib.types.str; };
     autostart =
       (builtins.mapAttrs
         (name: value: {

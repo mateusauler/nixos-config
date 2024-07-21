@@ -12,6 +12,7 @@ let
     "browser"
     "change-wallpaper"
     "direnv"
+    "dolphin"
     "ferdium"
     "gtk"
     "hyprland"
@@ -31,6 +32,7 @@ in
 
   imports = [
     ./copyq
+    ./dolphin.nix
     ./ferdium.nix
     ./gtk.nix
     ./hyprland
@@ -84,7 +86,6 @@ in
       gimp
       keepassxc
       onlyoffice-bin
-      pcmanfm
       qbittorrent
       rustdesk-flutter
       session-desktop

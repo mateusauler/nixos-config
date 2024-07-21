@@ -29,7 +29,10 @@ in
 {
   imports = [ ./compliance.nix ];
 
-  options.modules.xdg.enable = lib.mkEnableOption "xdg";
+  options.modules.xdg = {
+    enable = lib.mkEnableOption "xdg";
+    file-manager = lib.mkOption { type = lib.types.str; };
+  };
 
   config = lib.mkIf cfg.enable {
     xdg = {
@@ -52,9 +55,9 @@ in
         enable = mkDefault true;
         defaultApplications =
           {
-            "inode/directory" = "pcmanfm.desktop";
             "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
           }
+          // lib.optionalAttrs (cfg.file-manager != null) { "inode/directory" = cfg.file-manager; }
           // (lib.foldl (acc: e: acc // (genAssociations e)) { } (
             [
               {
