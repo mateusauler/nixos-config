@@ -8,7 +8,7 @@
 let
   inherit (pkgs.lib) colorToRgba;
   inherit (config.programs.waybar.settings.mainBar) spacing;
-  inherit (config.stylix) fonts;
+  inherit (config.stylix) fonts opacity;
   cfg = config.modules.waybar;
   underline-size = "2px";
 in
@@ -24,7 +24,7 @@ lib.mkIf cfg.enable {
       }
 
       window#waybar {
-        background-color: ${colorToRgba base01 0.5};
+        background-color: ${colorToRgba base00 opacity.desktop};
         color: #${base05};
         transition: box-shadow .5s;
       }
@@ -54,7 +54,7 @@ lib.mkIf cfg.enable {
       }
 
       #workspaces button:hover {
-        background: ${colorToRgba base03 0.6};
+        background: ${colorToRgba base03 (opacity.desktop * 1.2)};
       }
 
       #workspaces button.active {
