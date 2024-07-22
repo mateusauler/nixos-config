@@ -10,6 +10,7 @@ let
   inherit (config.programs.waybar.settings.mainBar) spacing;
   inherit (config.stylix) fonts;
   cfg = config.modules.waybar;
+  underline-size = "2px";
 in
 lib.mkIf cfg.enable {
   stylix.targets.waybar.enable = false;
@@ -39,7 +40,7 @@ lib.mkIf cfg.enable {
 
       button {
         /* Use box-shadow instead of border so the text isn't offset */
-        box-shadow: inset 0 -3px transparent;
+        box-shadow: inset 0 ${underline-size} transparent;
         /* Avoid rounded borders under each button name */
         border: none;
         border-radius: 0;
@@ -58,7 +59,7 @@ lib.mkIf cfg.enable {
 
       #workspaces button.active {
         background-color: #${base03};
-        box-shadow: inset 0 -3px #${base05};
+        box-shadow: inset 0 -${underline-size} #${base05};
       }
 
       #workspaces button.urgent {
@@ -67,7 +68,7 @@ lib.mkIf cfg.enable {
 
       #mode {
         background-color: #${base03};
-        border-bottom: 3px solid #${base05};
+        border-bottom: ${underline-size} solid #${base05};
       }
 
       #clock,
@@ -90,7 +91,7 @@ lib.mkIf cfg.enable {
       #keyboard-state {
         padding: 0 10px;
         color: #${base05};
-        border-bottom: 3px solid #${base05};
+        border-bottom: ${underline-size} solid #${base05};
       }
 
       #window,
@@ -99,7 +100,7 @@ lib.mkIf cfg.enable {
       }
 
       #window {
-        box-shadow: inset 0 -3px #${base05};
+        box-shadow: inset 0 -${underline-size} #${base05};
         transition: box-shadow .5s, color .5s;
       }
 
