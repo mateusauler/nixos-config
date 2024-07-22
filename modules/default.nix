@@ -33,11 +33,11 @@ in
     stylix = {
       enable = true;
       polarity = "dark";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
       image = pkgs.fetchurl {
-        url = "https://github.com/mateusauler/wallpapers/blob/251702e9f3431938cddb2a3b2094c141f6b16317/tropic_island_night.jpg?raw=true";
-        sha256 = "Fm800h7CbEHqcPDL7oKSBSIpGBhEWLFS6ioV5qM0SVw=";
+        url = "https://github.com/mateusauler/wallpapers/blob/b2a40a2d2660700149aaf49ad5bae7f6c5618af1/2f0f4a54acb220ce.jpg?raw=true";
+        hash = "sha256-GdPWrMOI3huXoMXnXboq90DWFZhNljz4vJe+fmVBHdQ=";
       };
 
       opacity = {
