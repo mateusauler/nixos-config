@@ -944,15 +944,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1721478802,
-        "narHash": "sha256-+WMQs0fMAmpWPsKNgIFQoKLtvS4qtTj+mC++cD1May4=",
-        "owner": "danth",
+        "lastModified": 1721616586,
+        "narHash": "sha256-gk+ktb6smoyYmjM5Je2EYxyVLDrFNmRHDzf3iUoElJU=",
+        "owner": "mateusauler",
         "repo": "stylix",
-        "rev": "6f36b27afd7b7ac8664bb62b7b27728540972c82",
+        "rev": "2f5c2278afc67d978bd468209f870a43b7cf6db9",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
+        "owner": "mateusauler",
         "repo": "stylix",
         "type": "github"
       }
