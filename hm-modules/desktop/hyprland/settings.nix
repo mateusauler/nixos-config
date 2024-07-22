@@ -40,7 +40,7 @@ in
     };
 
     general = with config.lib.stylix.colors; {
-      border_size = 3;
+      border_size = 2;
 
       "col.active_border" = lib.mkForce "rgba(${base0E}ee) rgba(${base0C}ee) 45deg";
       "col.inactive_border" = lib.mkForce "rgba(${base01}aa)";
