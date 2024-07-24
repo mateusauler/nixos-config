@@ -46,7 +46,7 @@
     };
 
     stylix-unstable = {
-      url = "github:mateusauler/stylix";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
