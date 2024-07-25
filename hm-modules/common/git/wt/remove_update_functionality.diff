@@ -1,20 +1,21 @@
 diff --git a/wt b/wt
-index 235b518..f18e6fd 100755
+index 2940ec3..5cdbebe 100755
 --- a/wt
 +++ b/wt
-@@ -5,11 +5,6 @@ set -e
+@@ -5,12 +5,7 @@ set -e
  
  args=("$@")
- VERSION="0.2.0-fork"
+ VERSION="0.2.1-fork"
 -TMP_PATH=$(mktemp)
--BINARY_PATH=$(which wt)
+ BINARY_PATH=$(realpath "$0")
+-VERSION_CACHE_FILE=${XDG_CACHE_HOME:-$HOME/.cache}/wt_latest_update_check.json
 -JQ_URL="https://stedolan.github.io/jq/download"
 -RELEASE_URL="https://github.com/mateusauler/git-worktree-switcher/releases/latest"
 -RELEASE_API_URL="https://api.github.com/repos/mateusauler/git-worktree-switcher/releases/latest"
  CHANGE_DIRECTORY_PREFIX="changedir:"
  
  
-@@ -35,7 +30,6 @@ help_message() {
+@@ -37,7 +32,6 @@ help_message() {
  	echo -e "\twt <worktree-name>: search for worktree names and change to that directory."
  	echo -e "\twt list: list out all the git worktrees."
  	echo -e "\twt names: list out only the git worktree names."
@@ -22,7 +23,7 @@ index 235b518..f18e6fd 100755
  	echo -e "\twt version: show the CLI version."
  	echo -e "\twt init <shell>: print the init script for <shell>."
  	echo -e "\twt help: shows this help message."
-@@ -51,41 +45,6 @@ goto_main_worktree() {
+@@ -53,79 +47,6 @@ goto_main_worktree() {
  	fi
  }
  
@@ -41,7 +42,7 @@ index 235b518..f18e6fd 100755
 -}
 -
 -check_release_version() {
--	fetched_tag_name=$(curl -sL $RELEASE_API_URL | jq -r '.tag_name')
+-	fetched_tag_name=$(check_and_cache_update)
 -
 -	if [ "$fetched_tag_name" == $VERSION ]; then
 -		echo "You have the latest version of worktree switcher!"
@@ -61,10 +62,59 @@ index 235b518..f18e6fd 100755
 -	fi
 -}
 -
+-auto_check_update() {
+-	show_updates() {
+-		if [[ "$1" != "$VERSION" ]]; then
+-			echo "Version $1 available! Run 'wt update' to update." 1>&2
+-			echo "Currently running version $VERSION." 1>&2
+-		fi
+-	}
+-
+-	if [[ -f "$VERSION_CACHE_FILE" ]]; then
+-		check_timestamp=$(jq -r '.timestamp' < "$VERSION_CACHE_FILE")
+-		latest_known_version=$(jq -r '.version' < "$VERSION_CACHE_FILE")
+-		one_day_ago_epoch=$(date -d '1 days ago' +%s)
+-
+-		if (( check_timestamp > one_day_ago_epoch )); then
+-			show_updates "$latest_known_version"
+-			return 0
+-		fi
+-	fi
+-
+-	fetched_tag_name=$(check_and_cache_update)
+-	show_updates "$fetched_tag_name"
+-}
+-
+-check_and_cache_update() {
+-	echo "Checking for updates..." 1>&2
+-	fetched_tag_name=$(curl -sL $RELEASE_API_URL | jq -r '.tag_name')
+-
+-	echo "$fetched_tag_name"
+-
+-	# update checked file
+-cat > "$VERSION_CACHE_FILE" <<EOF
+-{
+-	"timestamp": "$(date +%s)",
+-	"version": "$fetched_tag_name"
+-}
+-EOF
+-}
+-
+ get_dest_path="\$(echo \"\$result\" | awk '/^$CHANGE_DIRECTORY_PREFIX.*/ {sub(\"$CHANGE_DIRECTORY_PREFIX\", \"\"); print; exit}')"
+ 
  init_bash() {
- 	cat <<EOF
- wt() {
-@@ -161,9 +120,6 @@ list)
+@@ -179,10 +100,6 @@ init() {
+ 	esac
+ }
+ 
+-if echo "${args[@]}" | grep -v update &> /dev/null; then
+-	auto_check_update
+-fi
+-
+ case "${args[0]}" in
+ list)
+ 	worktree_list
+@@ -190,9 +107,6 @@ list)
  names)
  	worktree_list_names
  	;;
