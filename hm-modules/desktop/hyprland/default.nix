@@ -32,11 +32,9 @@ in
         })
         {
           copyq = "copyq --start-server";
-          easyeffects = "easyeffects --gapplication-service";
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
           wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
-          xwaylandvideobridge = "xwaylandvideobridge";
           kdeconnect = "kdeconnect-indicator";
           # TODO: Add syncthing-tray
         }
@@ -80,7 +78,6 @@ in
               with config.modules.change-wallpaper;
               mkDefault (enable && command != null);
             waybar.enable = mkDefault config.modules.waybar.enable;
-            wl-clip-persist.enable = mkDefault cfg.autostart.copyq.enable;
             kdeconnect.enable = mkDefault osConfig.programs.kdeconnect.enable;
           };
 
@@ -119,10 +116,10 @@ in
         hyprpicker
         libnotify
         playerctl
-        wl-clip-persist
         wlsunset
         hyprshot
-        (lib.optional config.wayland.windowManager.hyprland.xwayland.enable xwaylandvideobridge)
+        # Temporary fix for https://github.com/hyprwm/Hyprland/issues/6725
+        # (lib.optional config.modules.copyq.enable wl-clip-persist)
         (lib.optional config.modules.rofi.enable rofi-power-menu)
       ];
   };
