@@ -18,7 +18,7 @@ in
     wt = pkgs.lib.mkTrueEnableOption "Git Worktree Switcher";
   };
 
-  imports = [ ./wt ];
+  imports = [ ./wt.nix ];
 
   config = {
     programs.lazygit.enable = cfg.lazygit;

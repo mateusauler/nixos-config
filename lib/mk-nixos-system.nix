@@ -63,6 +63,7 @@ nixpkgs.lib.nixosSystem rec {
     stylix.nixosModules.stylix
     configPath
     ../modules
+    ../overlays
     home-manager.nixosModules.home-manager
     {
       home-manager = {

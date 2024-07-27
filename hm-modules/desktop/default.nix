@@ -20,7 +20,6 @@ let
     "meld"
     "mpv"
     "neovim.neovide"
-    "nsxiv"
     "obs"
     "power-menu"
     "xresources"
@@ -42,7 +41,6 @@ in
     ./mega.nix
     ./meld.nix
     ./mpv.nix
-    ./nsxiv.nix
     ./obs.nix
     ./rofi
     ./scripts
@@ -85,6 +83,7 @@ in
       firefox
       gimp
       keepassxc
+      nsxiv
       onlyoffice-bin
       qbittorrent
       rustdesk-flutter

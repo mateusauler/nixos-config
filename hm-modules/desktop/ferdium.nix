@@ -18,19 +18,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      let
-        pkg = pkgs.ferdium.overrideAttrs (
-          old:
-          lib.attrsets.optionalAttrs cfg.enableWayland {
-            postFixup = # bash
-              ''
-                ${old.postFixup}
-                sed -i -E "s/Exec=ferdium/Exec=ferdium --enable-features=UseOzonePlatform --ozone-platform=wayland/" $out/share/applications/ferdium.desktop
-              '';
-          }
-        );
-      in
-      [ pkg ];
+    home.packages = [ (if cfg.enableWayland then pkgs.ferdium-wayland else pkgs.wayland) ];
   };
 }
