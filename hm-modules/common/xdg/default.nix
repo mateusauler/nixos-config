@@ -44,7 +44,10 @@ in
 
   options.modules.xdg = {
     enable = lib.mkEnableOption "xdg";
-    file-manager = lib.mkOption { type = lib.types.str; };
+    file-manager = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+    };
   };
 
   config = lib.mkIf cfg.enable {
