@@ -83,11 +83,8 @@ in
       packages = with pkgs; [
         font-awesome
         liberation_ttf
-        nerdfonts
         noto-fonts
         noto-fonts-cjk
-        noto-fonts-emoji
-        noto-fonts-emoji-blob-bin
       ];
     };
 
