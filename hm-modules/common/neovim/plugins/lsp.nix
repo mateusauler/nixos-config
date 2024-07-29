@@ -51,8 +51,8 @@ lib.mkIf cfg.enable {
             formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           };
         };
-        pylyzer.enable = true;
-        ruff-lsp.enable = true;
+        pylsp.enable = true;
+        pyright.enable = true;
         rust-analyzer = {
           enable = cfg-plug.rust-tools.enable;
           installCargo = true;
