@@ -42,7 +42,13 @@ in
 
     programs.fish = {
       enable = true;
-      shellAliases = config.shell-aliases;
+      shellAliases =
+        let
+          aliasNames = builtins.attrNames config.shell-aliases;
+          abbrsNames = builtins.attrNames config.programs.fish.shellAbbrs;
+          filteredNames = lib.subtractLists abbrsNames aliasNames;
+        in
+        lib.getAttrs filteredNames config.shell-aliases;
 
       interactiveShellInit = lib.strings.optionalString cfg.pfetch.enable "pfetch";
 
