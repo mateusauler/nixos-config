@@ -1,9 +1,14 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   programs.bash = {
     enable = true;
-    shellAliases = config.shell-aliases // config.programs.fish.shellAbbrs // { ".." = "cd .."; };
+    shellAliases =
+      config.shell-aliases
+      // (lib.filterAttrs (_: builtins.isString) config.programs.fish.shellAbbrs)
+      // {
+        ".." = "cd ..";
+      };
     historyControl = [
       "ignorespace"
       "ignoredups"
