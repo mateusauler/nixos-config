@@ -22,6 +22,7 @@ in
         "files.autoSave" = "afterDelay";
         "files.autoSaveDelay" = 500;
         "files.trimTrailingWhitespace" = true;
+        "python.languageServer" = "Jedi";
         "redhat.telemetry.enabled" = false;
         "update.showReleaseNotes" = false;
         "yaml.maxItemsComputed" = 50000;
@@ -56,7 +57,6 @@ in
           ms-python.python
           ms-python.debugpy
           ms-python.pylint
-          ms-python.vscode-pylance
           ms-python.black-formatter
 
           # Rust
