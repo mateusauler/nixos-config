@@ -11,6 +11,7 @@ let
   module-names = [
     "browser"
     "change-wallpaper"
+    "chromium"
     "direnv"
     "dolphin"
     "ferdium"
@@ -31,6 +32,7 @@ in
   options.modules.desktop.enable = lib.mkEnableOption "desktop";
 
   imports = [
+    ./chromium.nix
     ./copyq
     ./dolphin.nix
     ./ferdium.nix
@@ -61,22 +63,6 @@ in
     };
 
     qt.enable = true;
-
-    programs.chromium = {
-      enable = true;
-      package = pkgs.ungoogled-chromium;
-      extensions = [
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # Ublock Origin
-        { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
-        { id = "oboonakemofpalcgghocfoadofidjkkk"; } # KeePassXC-Browser
-        {
-          # Chromium Web Store
-          id = "ocaahdebbfolfmndjeplogmgcagdmblk";
-          updateUrl = "https://raw.githubusercontent.com/NeverDecaf/chromium-web-store/master/updates.xml";
-        }
-      ];
-    };
-
 
     home.packages = with pkgs; [
       at-spi2-core
