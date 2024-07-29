@@ -22,6 +22,7 @@ let
     "neovim.neovide"
     "obs"
     "power-menu"
+    "vscodium"
     "xresources"
     "zathura"
   ];
@@ -46,6 +47,7 @@ in
     ./scripts
     ./smm.nix
     ./swaylock.nix
+    ./vscodium.nix
     ./waybar
     ./wofi.nix
     ./xresources.nix
@@ -94,7 +96,6 @@ in
       syncthing-tray
       vesktop
       vlc
-      vscodium-fhs
       wl-clipboard
       yt-dlp
     ];
