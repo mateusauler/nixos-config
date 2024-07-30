@@ -12,6 +12,7 @@ in
 lib.mkIf cfg.enable {
   programs.nixvim.plugins = {
     clangd-extensions.enable = cfg-plug.lsp.enable;
+    lsp-lines.enable = true;
     lsp = {
       onAttach = # lua
         ''
@@ -51,7 +52,10 @@ lib.mkIf cfg.enable {
             formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           };
         };
-        pylsp.enable = true;
+        pylsp = {
+          enable = true;
+          settings.plugins.black.enable = true;
+        };
         pyright.enable = true;
         rust-analyzer = {
           enable = cfg-plug.rust-tools.enable;
