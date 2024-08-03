@@ -33,6 +33,8 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+
     xdg.portal = {
       enable = true;
       config = {
