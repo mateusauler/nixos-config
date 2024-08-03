@@ -15,6 +15,7 @@ in
     ./cursorline.nix
     ./eyeliner.nix
     ./flash.nix
+    ./indent-blankline.nix
     ./lsp.nix
     ./neo-tree.nix
     ./oil.nix
@@ -46,6 +47,7 @@ in
         friendly-snippets.enable = true;
         gitsigns.enable = true;
         illuminate.enable = true;
+        indent-blankline.enable = true;
         lsp.enable = true;
         lualine.enable = true;
         luasnip.enable = true;
@@ -57,6 +59,7 @@ in
         oil.enable = true;
         rainbow-delimiters.enable = true;
         rustaceanvim.enable = true;
+        sleuth.enable = true;
         surround.enable = true;
         telescope.enable = true;
         todo-comments.enable = true;
