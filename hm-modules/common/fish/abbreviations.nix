@@ -88,6 +88,11 @@ lib.mkIf cfg.enable {
       hexdump = "hexdump -C";
 
       py = "python3";
+
+      "!!" = {
+        position = "anywhere";
+        function = "last_history_item";
+      };
     }
     // lib.optionalAttrs config.dots.clone { dots = "cd ${config.dots.path}"; }
     // lib.optionalAttrs config.programs.lazygit.enable { lg = "lazygit"; };
