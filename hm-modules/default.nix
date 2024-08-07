@@ -34,7 +34,9 @@ in
   config = {
     programs.home-manager.enable = true;
 
-    modules = pkgs.lib.enableModules module-names;
+    modules = pkgs.lib.enableModules module-names // {
+      hyprland.autostart.apply-wallpaper.enable = ! config.stylix.enable;
+    };
 
     programs.zoxide = {
       enable = lib.mkDefault true;
