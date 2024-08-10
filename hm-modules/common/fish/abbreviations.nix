@@ -42,9 +42,11 @@ lib.mkIf cfg.enable {
       grh = "git reset --hard";
       gs = "git status";
       gsh = "git show";
+      gsd = "git stash drop";
       gsl = "git stash list";
       gsp = "git stash pop";
-      gst = "git stash -u";
+      gst = "git stash";
+      gsu = "git stash -u";
       gu = "git push";
       gw = "git worktree";
       gwa = "git worktree add";
