@@ -36,7 +36,7 @@ lib.mkIf cfg.enable {
 
           local format = vim.lsp.buf.format
           vim.api.nvim_buf_create_user_command(bufnr, 'Format', format, {})
-          bufmap('<leader>f', format, 'Format')
+          bufmap('<leader>F', format, 'Format')
         '';
       servers = {
         bashls.enable = true;
