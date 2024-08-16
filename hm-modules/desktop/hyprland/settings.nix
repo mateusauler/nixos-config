@@ -130,7 +130,7 @@ in
       "move 50% 100%-32,         title:^(.*— Sharing Indicator)"
       "minsize 52 32,            title:^(.*— Sharing Indicator)"
       "float,                    title:^(.*— Sharing Indicator)"
-      "fakefullscreen,           title:^(.*— Sharing Indicator)"
+      "fullscreenstate 0 2,      title:^(.*— Sharing Indicator)"
       "suppressevent fullscreen, title:^(.*— Sharing Indicator)"
       "noinitialfocus,           title:^(.*— Sharing Indicator)"
       "noborder,                 title:^(.*— Sharing Indicator)"
@@ -235,7 +235,7 @@ in
 
       "${modKey},         F, fullscreen"
       "${modKey} CONTROL, F, fullscreen, 1"
-      "${modKey} SHIFT,   F, fakefullscreen"
+      "${modKey} SHIFT,   F, fullscreenstate, 0 2"
 
       "${modKey} SHIFT, N, movecurrentworkspacetomonitor, -1"
       "${modKey},       N, swapactiveworkspaces,          -1 current"

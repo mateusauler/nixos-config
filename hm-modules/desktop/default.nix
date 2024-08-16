@@ -67,7 +67,6 @@ in
     home.packages = with pkgs; [
       at-spi2-core
       brave
-      easyeffects
       firefox
       gimp
       keepassxc
