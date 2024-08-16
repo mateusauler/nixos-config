@@ -25,5 +25,13 @@
           '';
       });
     })
+
+    (final: prev: {
+      vimPlugins = prev.vimPlugins // {
+        eyeliner-nvim = prev.vimPlugins.eyeliner-nvim.overrideAttrs (old: {
+          src = inputs.eyeliner-nvim;
+        });
+      };
+    })
   ];
 }

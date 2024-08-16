@@ -270,6 +270,22 @@
         "type": "github"
       }
     },
+    "eyeliner-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723163995,
+        "narHash": "sha256-PyCcoSC/LeJ/Iuzlm5gd/0lWx8sBS50Vhe7wudgZzqM=",
+        "owner": "jinh0",
+        "repo": "eyeliner.nvim",
+        "rev": "7385c1a29091b98ddde186ed2d460a1103643148",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jinh0",
+        "repo": "eyeliner.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -862,6 +878,7 @@
     },
     "root": {
       "inputs": {
+        "eyeliner-nvim": "eyeliner-nvim",
         "git-worktree-switcher": "git-worktree-switcher",
         "gx": "gx",
         "home-manager-stable": "home-manager-stable",

@@ -59,6 +59,11 @@
       url = "github:mateusauler/git-worktree-switcher";
       flake = false;
     };
+
+    eyeliner-nvim = {
+      url = "github:jinh0/eyeliner.nvim";
+      flake = false;
+    };
   };
 
   outputs =
