@@ -150,10 +150,6 @@ in
       # nsxiv
       "tile, class:(Nsxiv)"
 
-      # qBitTorrent
-      "monitor $mon2,   class:(org\\.qbittorrent\\.qBittorrent)"
-      "workspace empty silent, class:(org\\.qbittorrent\\.qBittorrent) title:^(qBittorrent v([0-9]\\.){2}[0-9])$"
-
       # XWaylandVideoBridge
       "opacity 0.0 override 0.0 override, class:^(xwaylandvideobridge)$"
       "noanim,                            class:^(xwaylandvideobridge)$"
