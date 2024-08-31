@@ -24,6 +24,7 @@ in
     programs.lazygit.enable = cfg.lazygit;
     programs.git = {
       enable = true;
+      lfs.enable = true;
       userName = "Mateus Auler";
       userEmail = "mateusauler@protonmail.com";
       ignores = [
