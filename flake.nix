@@ -22,17 +22,9 @@
       flake = false;
     };
 
-    nixvim-stable = {
-      url = "github:nix-community/nixvim/nixos-24.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.home-manager.follows = "home-manager-stable";
-    };
+    nixvim-stable.url = "github:nix-community/nixvim/nixos-24.05";
 
-    nixvim-unstable = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
-    };
+    nixvim-unstable.url = "github:nix-community/nixvim";
 
     sops-nix = {
       url = "github:mic92/sops-nix";
