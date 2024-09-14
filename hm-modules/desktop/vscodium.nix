@@ -54,7 +54,8 @@ in
           jnoortheen.nix-ide
 
           # Python
-          ms-python.python
+          # Currently broken
+          # ms-python.python
           ms-python.debugpy
           ms-python.pylint
           ms-python.black-formatter
