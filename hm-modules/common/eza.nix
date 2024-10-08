@@ -15,16 +15,17 @@ in
       enable = true;
       git = true;
       icons = true;
-      extraOptions = [ "--group-directories-first" ];
+      extraOptions = [
+        "-b"
+        "--group-directories-first"
+      ];
     };
-    shell-aliases = {
-      # FIXME: Use eza module shell integrations when 24.05 hits stable
-      ls = "eza";
-      lt = "ls --tree";
 
-      llt = "lt -l";
-      lat = "lt -a";
-      llat = "lt -la";
+    programs.fish.shellAbbrs = rec {
+      lt = "ls --tree";
+      llt = "${lt} -l";
+      lat = "${lt} -a";
+      llat = "${lt} -la";
     };
   };
 }

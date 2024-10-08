@@ -73,6 +73,9 @@ lib.mkIf cfg.enable {
       c = "cd";
 
       l = "ls";
+      la = "ls -a";
+      ll = "ls -l";
+      lla = "ls -la";
 
       mn = "udisksctl mount -b";
       um = "udisksctl unmount -b";

@@ -16,10 +16,6 @@
     wget = "wget --hsts-file $XDG_CACHE_HOME/wget-hsts";
     sqlite3 = "sqlite3 -init $XDG_CONFIG_HOME/sqlite3/sqliterc";
 
-    la = "ls -a";
-    ll = "ls -lb";
-    lla = "ll -a";
-
     rm = "rm -I";
     cp = "cp -r";
   };
