@@ -35,6 +35,8 @@ in
 
     networking.networkmanager.enable = mkDefault true;
 
+    home-manager.backupFileExtension = "hm-backup";
+
     environment = {
       enableAllTerminfo = true;
       systemPackages = with pkgs; [
