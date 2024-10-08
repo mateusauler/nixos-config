@@ -55,7 +55,6 @@ in
       };
 
       packages = with pkgs; [
-        btop
         du-dust
         htop-vim
         jq

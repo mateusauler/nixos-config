@@ -4,6 +4,7 @@
   imports = [
     ./bash.nix
     ./bat.nix
+    ./btop.nix
     ./direnv.nix
     ./eza.nix
     ./fish
