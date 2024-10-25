@@ -26,7 +26,7 @@ in
       enable = true;
       lfs.enable = true;
       userName = "Mateus Auler";
-      userEmail = "mateusauler@protonmail.com";
+      userEmail = "mateus@auler.dev";
       ignores = [
         # (n)vim
         "*.swp"

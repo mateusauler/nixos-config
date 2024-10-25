@@ -10,7 +10,7 @@ let
 in
 {
   modules = pkgs.lib.enableModules module-names // {
-    git.gpgKey = "37C12B2664A4FFBC42E743B24D551E363428C47E";
+    git.gpgKey = "47A8B3AF49EE54114A4F2081E5350C9F8A536581";
   };
 
   wayland.windowManager.hyprland.settings = {
