@@ -21,6 +21,19 @@ in
 
     modules.mega.syncdir = lib.mkDefault "${config.home.homeDirectory}/mega";
 
+    home.file.mega-excluded = {
+      target = ".megaCmd/exluded";
+      text = ''
+        .direnv/
+        Thumbs.db
+        build/
+        desktop.ini
+        result/
+        target/
+        ~*
+      '';
+    };
+
     # TODO: Add auto authentication & setup
     # home.activation."mega-sync-setup" =
     #   let
