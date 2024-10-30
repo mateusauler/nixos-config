@@ -177,6 +177,7 @@ in
           "class:(cs2)"
           "title:(shapez)"
           "class:(Lightning.bin.x86_64)" # Opus Magnum and maybe others
+          "class:(VampireSurvivors.exe)"
         ]
       )
     ];
