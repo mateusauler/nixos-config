@@ -3,6 +3,7 @@
   rust-analyzer,
   rustfmt,
   clippy,
+  rustPlatform,
 }:
 
 let
@@ -15,4 +16,5 @@ mainPkg.overrideAttrs (oa: {
     rustfmt
     clippy
   ] ++ (oa.nativeBuildInputs or [ ]);
+  RUST_SRC_PATH = rustPlatform.rustLibSrc;
 })
