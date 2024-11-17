@@ -27,9 +27,8 @@
     nixvim-unstable.url = "github:nix-community/nixvim";
 
     sops-nix = {
-      url = "github:mic92/sops-nix?rev=fe63071416471abdab06caa234122932a7c4b980"; # https://github.com/Mic92/sops-nix/issues/659
+      url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     stylix-stable = {
