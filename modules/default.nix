@@ -55,6 +55,8 @@ in
       mountOnMedia = mkDefault true;
     };
 
+    services.swapspace.enable = mkDefault true;
+
     # Don't allow non-wheel users to execute the sudo binary
     security.sudo.execWheelOnly = true;
 
