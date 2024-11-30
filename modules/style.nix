@@ -39,8 +39,8 @@ in
       };
 
       monospace = {
-        name = "FiraCode Nerd Font Mono";
-        package = pkgs.nerdfonts;
+        name = "FiraCode Nerd Font";
+        package = pkgs.nerd-fonts.fira-code;
       };
 
       sansSerif = {
