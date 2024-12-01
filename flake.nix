@@ -2,12 +2,12 @@
   description = "My NixOS config";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -22,7 +22,7 @@
       flake = false;
     };
 
-    nixvim-stable.url = "github:nix-community/nixvim/nixos-24.05";
+    nixvim-stable.url = "github:nix-community/nixvim/nixos-24.11";
 
     nixvim-unstable.url = "github:nix-community/nixvim";
 
@@ -32,7 +32,9 @@
     };
 
     stylix-stable = {
-      url = "github:danth/stylix/release-24.05";
+      # TODO: Switch to 24.11 once it releases
+      # url = "github:danth/stylix/release-24.05";
+      url = "github:mateusauler/stylix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
