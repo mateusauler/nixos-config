@@ -42,9 +42,9 @@ lib.mkIf cfg.enable {
         bashls.enable = true;
         clangd.enable = true;
         html.enable = true;
-        java-language-server.enable = true;
+        java_language_server.enable = true;
         jsonls.enable = true;
-        lua-ls.enable = true;
+        lua_ls.enable = true;
         nixd = {
           enable = true;
           settings = {
@@ -57,7 +57,7 @@ lib.mkIf cfg.enable {
           settings.plugins.black.enable = true;
         };
         pyright.enable = true;
-        rust-analyzer = {
+        rust_analyzer = {
           enable = cfg-plug.rust-tools.enable;
           installCargo = true;
           installRustc = true;

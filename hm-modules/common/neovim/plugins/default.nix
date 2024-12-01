@@ -60,12 +60,13 @@ in
         rainbow-delimiters.enable = true;
         rustaceanvim.enable = true;
         sleuth.enable = true;
-        surround.enable = true;
+        vim-surround.enable = true;
         telescope.enable = true;
         todo-comments.enable = true;
         treesitter.enable = true;
         trim.enable = true;
         vimtex.enable = true;
+        web-devicons.enable = true;
         which-key.enable = true;
       };
 

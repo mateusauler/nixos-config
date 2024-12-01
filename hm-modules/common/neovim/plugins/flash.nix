@@ -1,17 +1,12 @@
 {
   config,
   lib,
-  nixpkgs-channel,
   ...
 }:
 
 let
   cfg = config.modules.neovim;
   cfg-plug = config.programs.nixvim.plugins;
-  settings.jump = {
-    autojump = true;
-    nohlsearch = true;
-  };
 in
 lib.mkIf cfg.enable {
   programs.nixvim = {
@@ -24,7 +19,10 @@ lib.mkIf cfg.enable {
       { key = "<C-s>"; mode = [ "n" "x" "o" ]; action = "s"; }
     ];
 
-    plugins.flash = if nixpkgs-channel == "stable" then settings else { inherit settings; };
+    plugins.flash.settings.jump = {
+      autojump = true;
+      nohlsearch = true;
+    };
   };
 
 }

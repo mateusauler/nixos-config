@@ -6,7 +6,7 @@
 }:
 
 let
-inherit (lib) mkDefault;
+  inherit (lib) mkDefault;
 in
 {
   stylix = {
@@ -40,7 +40,7 @@ in
 
       monospace = {
         name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        package = (if pkgs ? nerd-fonts then pkgs.nerd-fonts.fira-code else pkgs.nerdfonts);
       };
 
       sansSerif = {

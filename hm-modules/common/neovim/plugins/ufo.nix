@@ -42,7 +42,7 @@ lib.mkIf cfg.enable {
       }
     ];
 
-    plugins.nvim-ufo.providerSelector = # lua
+    plugins.nvim-ufo.settings.provider_selector = # lua
       ''
         function(bufnr, filetype, buftype)
            return { "lsp", "indent" }
