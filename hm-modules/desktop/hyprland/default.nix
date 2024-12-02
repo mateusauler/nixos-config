@@ -34,7 +34,7 @@ in
           copyq = "copyq --start-server";
           waybar = "waybar";
           wl-clip-persist = "wl-clip-persist --clipboard regular";
-          wlsunset = "wlsunset -s 18:00 -S 8:00 -t 4500";
+          wlsunset = "wlsunset -s 18:00 -S 7:00 -t 4500";
           kdeconnect = "kdeconnect-indicator";
           # TODO: Add syncthing-tray
         }
