@@ -1031,15 +1031,16 @@
         "tinted-tmux": "tinted-tmux"
       },
       "locked": {
-        "lastModified": 1733069910,
-        "narHash": "sha256-ZLI778mm2sHDEWOGvCuCW89O1ehRcbNZ6qkTjCs5m08=",
-        "owner": "mateusauler",
+        "lastModified": 1732993760,
+        "narHash": "sha256-t1J6wgzGjvvGNfdd0ei8HnZf9sTw+SpvCNAX0i6Qgwc=",
+        "owner": "danth",
         "repo": "stylix",
-        "rev": "239365b8c45900784da238c299ee4808ebda226b",
+        "rev": "d13ffb381c83b6139b9d67feff7addf18f8408fe",
         "type": "github"
       },
       "original": {
-        "owner": "mateusauler",
+        "owner": "danth",
+        "ref": "release-24.11",
         "repo": "stylix",
         "type": "github"
       }

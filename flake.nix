@@ -32,9 +32,7 @@
     };
 
     stylix-stable = {
-      # TODO: Switch to 24.11 once it releases
-      # url = "github:danth/stylix/release-24.05";
-      url = "github:mateusauler/stylix";
+      url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
