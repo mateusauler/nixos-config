@@ -69,7 +69,6 @@ in
       brave
       firefox
       gimp
-      godot_4
       keepassxc
       nsxiv
       onlyoffice-bin
@@ -80,7 +79,6 @@ in
       spotify
       swww
       syncthing-tray
-      unityhub
       vesktop
       vlc
       wl-clipboard
