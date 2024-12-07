@@ -25,7 +25,9 @@ let
 
 in
 appimageTools.wrapType2 {
-  inherit name;
+  inherit name version;
+
+  pname = name;
 
   src = fetchurl {
     url = "https://github.com/satisfactorymodding/SatisfactoryModManager/releases/download/v${version}/Satisfactory-Mod-Manager.AppImage";
