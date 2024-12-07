@@ -20,12 +20,6 @@
             sed -i -E 's/Exec\s*=\s*nsxiv\s*(.*)$/Exec=nsxiv -a \1/' $out/share/applications/nsxiv.desktop
           '';
       });
-
-      vimPlugins = prev.vimPlugins // {
-        eyeliner-nvim = prev.vimPlugins.eyeliner-nvim.overrideAttrs (old: {
-          src = inputs.eyeliner-nvim;
-        });
-      };
     })
   ];
 }
