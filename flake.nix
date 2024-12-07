@@ -31,15 +31,9 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    stylix-stable = {
-      url = "github:danth/stylix/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    stylix-stable.url = "github:danth/stylix/release-24.11";
 
-    stylix-unstable = {
-      url = "github:mateusauler/stylix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    stylix-unstable.url = "github:mateusauler/stylix";
 
     gx = {
       url = "github:chrishrb/gx.nvim";
