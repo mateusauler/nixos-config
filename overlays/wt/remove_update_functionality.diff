@@ -5,7 +5,7 @@ index 9e18674..145894e 100755
 @@ -5,12 +5,7 @@ set -e
  
  args=("$@")
- VERSION="0.2.3-fork"
+ VERSION="0.2.4-fork"
 -TMP_PATH=$(mktemp)
  BINARY_PATH=$(realpath "$0")
 -VERSION_CACHE_FILE=${XDG_CACHE_HOME:-$HOME/.cache}/wt_latest_update_check.json
@@ -116,6 +116,6 @@ index 9e18674..145894e 100755
  	;;
  *)
 -	auto_check_update
- 	directory=$(git worktree list --porcelain | sed -n '/'"${arg:-.}"'/{s/^worktree\s*//p;q}')
+ 	directory=$(git worktree list --porcelain 2> /dev/null | sed -n '/'"${arg:-.}"'/{s/^worktree\s*//p;q}')
  	;;
  esac

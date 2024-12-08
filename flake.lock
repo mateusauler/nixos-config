@@ -449,11 +449,11 @@
     "git-worktree-switcher": {
       "flake": false,
       "locked": {
-        "lastModified": 1722013668,
-        "narHash": "sha256-fjY+ieUI7m/4gb68/1a+90aIc9iMyQortVd7oHN4STw=",
+        "lastModified": 1733670770,
+        "narHash": "sha256-N+bDsLEUM6FWhyliUav2n5hwMa5EEuVPoIK+Cja0DxA=",
         "owner": "mateusauler",
         "repo": "git-worktree-switcher",
-        "rev": "34db1f40bbedf0cd3c970618c9aca227fe294db6",
+        "rev": "e87aad26d2d68c6ebf5032cb9d4bc55bec1078e9",
         "type": "github"
       },
       "original": {
