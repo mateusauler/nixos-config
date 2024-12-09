@@ -13,6 +13,7 @@ in
         selection-clipboard = "clipboard";
         font = with config.stylix.fonts; "${sansSerif.name} ${toString sizes.applications}";
         recolor = true;
+        database = "sqlite";
       };
     };
   };
