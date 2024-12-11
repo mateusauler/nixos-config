@@ -7,6 +7,27 @@
 
 let
   cfg = config.modules.waybar;
+
+  append-modules =
+    new-modules: modules:
+    (lib.foldl (
+      acc: elem:
+      let
+        modules-to-be-added =
+          pos:
+          builtins.map ({ module-names, ... }: module-names) (
+            builtins.filter (el: builtins.elem elem el.reference-modules && el.position == pos) new-modules
+          );
+        mod-before = modules-to-be-added "before";
+        mod-after = modules-to-be-added "after";
+      in
+      lib.flatten [
+        acc
+        mod-before
+        elem
+        mod-after
+      ]
+    ) [ ] modules);
 in
 lib.mkIf cfg.enable {
   programs.waybar.settings.mainBar = {
@@ -14,14 +35,14 @@ lib.mkIf cfg.enable {
     height = pkgs.lib.round (config.stylix.fonts.sizes.desktop * 2.5);
     spacing = 8;
 
-    modules-left = [
+    modules-left = append-modules cfg.extra-modules.left [
       "hyprland/workspaces"
       "hyprland/window"
     ];
 
-    modules-center = [ "clock" ];
+    modules-center = append-modules cfg.extra-modules.center [ "clock" ];
 
-    modules-right = lib.flatten [
+    modules-right = append-modules cfg.extra-modules.right [
       "mpris"
       "pulseaudio"
       "network"
