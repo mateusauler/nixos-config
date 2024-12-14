@@ -15,10 +15,7 @@ in
       default = null;
     };
     lazygit = pkgs.lib.mkTrueEnableOption "Lazygit";
-    wt = pkgs.lib.mkTrueEnableOption "Git Worktree Switcher";
   };
-
-  imports = [ ./wt.nix ];
 
   config = {
     programs.lazygit.enable = cfg.lazygit;

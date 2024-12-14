@@ -446,22 +446,6 @@
         "type": "github"
       }
     },
-    "git-worktree-switcher": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733670770,
-        "narHash": "sha256-N+bDsLEUM6FWhyliUav2n5hwMa5EEuVPoIK+Cja0DxA=",
-        "owner": "mateusauler",
-        "repo": "git-worktree-switcher",
-        "rev": "e87aad26d2d68c6ebf5032cb9d4bc55bec1078e9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mateusauler",
-        "repo": "git-worktree-switcher",
-        "type": "github"
-      }
-    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -994,7 +978,6 @@
     },
     "root": {
       "inputs": {
-        "git-worktree-switcher": "git-worktree-switcher",
         "gx": "gx",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",

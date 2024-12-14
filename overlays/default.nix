@@ -1,9 +1,8 @@
-{ inputs, ... }:
+{ ... }:
 
 {
   nixpkgs.overlays = [
     (final: prev: {
-      git-worktree-switcher = final.callPackage ./wt { src = inputs.git-worktree-switcher; };
       satisfactory-mod-manager = final.callPackage ./smm.nix { };
 
       ferdium-wayland = prev.ferdium.overrideAttrs (old: {

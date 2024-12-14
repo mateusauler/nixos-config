@@ -39,11 +39,6 @@
       url = "github:chrishrb/gx.nvim";
       flake = false;
     };
-
-    git-worktree-switcher = {
-      url = "github:mateusauler/git-worktree-switcher";
-      flake = false;
-    };
   };
 
   outputs =

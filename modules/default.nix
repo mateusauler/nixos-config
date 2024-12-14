@@ -66,14 +66,18 @@ in
       swaylock.nodelay = true;
     };
 
-    programs = {
-      fish.enable = true;
-      nix-ld.enable = true;
-      mtr.enable = true;
-      gnupg.agent = {
-        enable = true;
-        enableSSHSupport = mkDefault true;
+    programs =
+      {
+        fish.enable = true;
+        nix-ld.enable = true;
+        mtr.enable = true;
+        gnupg.agent = {
+          enable = true;
+          enableSSHSupport = mkDefault true;
+        };
+      }
+      // lib.optionalAttrs (config.programs ? git-worktree-switcher) {
+        git-worktree-switcher.enable = true;
       };
-    };
   };
 }
