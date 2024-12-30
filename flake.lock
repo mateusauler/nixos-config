@@ -1059,11 +1059,11 @@
         "tinted-tmux": "tinted-tmux_2"
       },
       "locked": {
-        "lastModified": 1733580703,
-        "narHash": "sha256-YrfJHPo4i3FYyOGprpcGD7Pw5TrCuCCumMfBfPIiXgo=",
+        "lastModified": 1735524966,
+        "narHash": "sha256-ueCdwuhlwGVzQbPAuU1asKQlkYHYVByC9Yh4PsdS3mg=",
         "owner": "mateusauler",
         "repo": "stylix",
-        "rev": "a4c4b9364ea5921e191220757df0e5a9da2afde1",
+        "rev": "fd8a990e65387fa32949d80ffbd5fad0798a8a10",
         "type": "github"
       },
       "original": {
