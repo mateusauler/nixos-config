@@ -78,7 +78,6 @@ in
       signal-desktop
       spotify
       swww
-      syncthing-tray
       vesktop
       vlc
       wl-clipboard
