@@ -118,8 +118,8 @@ in
 
     windowrulev2 = lib.flatten [
       "workspace 2 silent, class:(librewolf)"
-      "workspace 3 silent, class:(KeePassXC), title:(.*)(- KeePassXC), floating:0"
-      "float,              class:(KeePassXC), title:(Access Request)"
+      "workspace 3 silent, class:(org\\.keepassxc\\.KeePassXC), title:(.*)(- KeePassXC), floating:0"
+      "float,              class:(org\\.keepassxc\\.KeePassXC), title:(Access Request)"
       "workspace 4 silent, class:((V|v)esktop)"
       "workspace 5 silent, class:((F|f)erdium)"
       "workspace 6 silent, class:((S|s)team)"
