@@ -22,7 +22,7 @@ in
     modules.mega.syncdir = lib.mkDefault "${config.home.homeDirectory}/mega";
 
     home.file.mega-excluded = {
-      target = ".megaCmd/exluded";
+      target = ".megaCmd/excluded";
       text = ''
         .direnv/
         Thumbs.db
