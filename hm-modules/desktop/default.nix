@@ -44,6 +44,7 @@ in
     ./mega.nix
     ./meld.nix
     ./mpv.nix
+    ./nixcord.nix
     ./obs.nix
     ./rofi
     ./scripts
@@ -78,7 +79,6 @@ in
       signal-desktop
       spotify
       swww
-      vesktop
       vlc
       wl-clipboard
       yt-dlp

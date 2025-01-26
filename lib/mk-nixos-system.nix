@@ -77,6 +77,7 @@ nixpkgs.lib.nixosSystem rec {
         sharedModules = [
           ../hm-modules
           nixvim.homeManagerModules.nixvim
+          inputs.nixcord.homeManagerModules.nixcord
         ];
       };
     }

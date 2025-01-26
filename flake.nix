@@ -26,6 +26,8 @@
 
     nixvim-unstable.url = "github:nix-community/nixvim";
 
+    nixcord.url = "github:kaylorben/nixcord";
+
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
