@@ -1,6 +1,4 @@
 {
-  description = "My NixOS config";
-
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
