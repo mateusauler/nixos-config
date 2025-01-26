@@ -24,14 +24,14 @@ jobs:
       - name: Update flake
         id: flake-update
         run: |
-          result=$(nix eval --impure --expr "(import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) { }).lib.attrNames $(cat flake.nix).inputs" | sed 's/" "/","/g' | jq -r '.[] | select(. != "private-config")' | xargs -L1 nix flake lock --update-input 2>&1 | grep -v warning:)
+          result=$(nix eval --impure --expr "(import (fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) { }).lib.attrNames $(cat flake.nix).inputs" | sed 's/" "/","/g' | jq -r '.[] | select(. != "private-config")' | xargs -L1 nix flake update)
           echo "::group::Flake update"
           echo "$result"
           echo "::endgroup::"
           {
             echo "FLAKE_UPDATE_RESULT<<EOF"
             echo "$result"
-            echo EOF 
+            echo EOF
           } >> "$GITHUB_OUTPUT"
 
 
@@ -47,5 +47,5 @@ jobs:
           file_pattern: flake.lock
           commit_user_name: Flake Bot
           commit_author: Flake Bot <actions@github.com>
-          skip_dirty_check: false    
+          skip_dirty_check: false
           skip_fetch: true
