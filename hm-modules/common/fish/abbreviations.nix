@@ -51,6 +51,7 @@ lib.mkIf cfg.enable {
       gw = "git worktree";
       gwa = "git worktree add";
       gwl = "git worktree list";
+      gwp = "git worktree prune";
       gwr = "git worktree remove";
       cg = "cd $(git rev-parse --show-toplevel 2> /dev/null || pwd | sed 's|/\\.git.*$||')";
 
