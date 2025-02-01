@@ -112,7 +112,6 @@ in
     home.packages =
       with pkgs;
       lib.flatten [
-        hyprland-protocols
         hyprpicker
         libnotify
         playerctl
