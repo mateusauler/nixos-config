@@ -97,10 +97,15 @@
         silentTyping = {
           enable = true;
           showIcon = true;
+          isEnabled = false;
         };
         spotifyCrack = {
           enable = true;
           keepSpotifyActivityOnIdle = true;
+        };
+        spotifyControls = {
+          enable = true;
+          useSpotifyUris = true;
         };
         spotifyShareCommands.enable = true;
         streamerModeOnStream.enable = true;
