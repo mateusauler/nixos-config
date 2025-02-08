@@ -19,6 +19,11 @@
             sed -i -E 's/Exec\s*=\s*nsxiv\s*(.*)$/Exec=nsxiv -a \1/' $out/share/applications/nsxiv.desktop
           '';
       });
+
+      # Fix broken package until https://github.com/NixOS/nixpkgs/pull/380251 lands on unstable
+      qogir-icon-theme = prev.qogir-icon-theme.overrideAttrs (old: {
+        dontCheckForBrokenSymlinks = true;
+      });
     })
   ];
 }
