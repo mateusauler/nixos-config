@@ -65,7 +65,6 @@
           hideFriendRequestsCount = false;
           hideMessageRequestCount = false;
         };
-        noScreensharePreview.enable = true;
         noUnblockToJump.enable = true;
         onePingPerDM = {
           enable = true;
