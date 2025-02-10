@@ -25,5 +25,31 @@ in
         }
       ];
     };
+
+    home.activation.disableChromiumAutoVolumeGain =
+      let
+        jq = "${pkgs.jq}/bin/jq";
+        sponge = "${pkgs.moreutils}/bin/sponge";
+
+        configDir = config.xdg.configHome;
+        localState = "${configDir}/chromium/Local State";
+
+        optionValue = "enable-webrtc-allow-input-volume-adjustment@2";
+        optionPath = ".browser.enabled_labs_experiments";
+      in
+      lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
+        ''
+          mkdir -p "${configDir}/chromium"
+
+          if [[ ! -f "${localState}" ]]; then
+            echo "{}" > "${localState}"
+          fi
+
+          if ! ${jq} -e '${optionPath}[] | select(. == "${optionValue}")' "${localState}" > /dev/null 2>&1;
+          then
+            ${jq} -c '${optionPath} += ["${optionValue}"]' "${localState}" \
+              | ${sponge} "${localState}"
+          fi
+        '';
   };
 }
