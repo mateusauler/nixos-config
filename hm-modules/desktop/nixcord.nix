@@ -3,7 +3,7 @@
 {
   programs.nixcord = {
     enable = true;
-    discord.enable = false;
+    discord.enable = true;
     vesktop.enable = true;
     config = {
       disableMinSize = true;
