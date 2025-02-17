@@ -171,7 +171,7 @@ in
       (lib.concatMap
         (game: [
           "monitor $mon1, ${game}"
-          "workspace 9,   ${game}"
+          "workspace 10,  ${game}"
         ])
         [
           "class:(steam_app.*)" # Steam games
