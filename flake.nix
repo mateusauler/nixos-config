@@ -4,9 +4,6 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # https://github.com/NixOS/nixpkgs/pull/383049
-    nixpkgs-pr-383049.url = "github:DarkKirb/nixpkgs/fix-rust-analyzer";
-
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";

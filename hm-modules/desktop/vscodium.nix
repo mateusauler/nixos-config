@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -62,7 +61,7 @@ in
           ms-python.black-formatter
 
           # Rust
-          inputs.nixpkgs-pr-383049.legacyPackages.${pkgs.system}.vscode-extensions.rust-lang.rust-analyzer
+          rust-lang.rust-analyzer
 
           # YAML
           redhat.vscode-yaml
