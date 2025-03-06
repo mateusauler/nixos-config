@@ -57,5 +57,27 @@ in
         "extension-mime-request-handling@2" # https://github.com/NeverDecaf/chromium-web-store?tab=readme-ov-file#read-this-first
       ]
     );
+
+    home.file.keepassxc-native-messaging-host-chromium =
+      let
+        nmh-path = "${config.xdg.configHome}/chromium/NativeMessagingHosts.hm-backup";
+      in
+      {
+        enable = true;
+        target = "${nmh-path}/org.keepassxc.keepassxc_browser.json";
+        text = # json
+          ''
+            {
+              "allowed_extensions": [
+                "chrome-extension://pdffhmdngciaglkoonimfcmckehcpafo/",
+                "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
+              ],
+              "description": "KeePassXC integration with native messaging support",
+              "name": "org.keepassxc.keepassxc_browser",
+              "path": "${pkgs.keepassxc}/bin/keepassxc-proxy",
+              "type": "stdio"
+            }
+          '';
+      };
   };
 }

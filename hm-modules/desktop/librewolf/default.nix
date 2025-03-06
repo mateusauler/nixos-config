@@ -52,7 +52,7 @@ in
         nmh-path = ".librewolf/native-messaging-hosts";
       in
       {
-        open-with-messaging-host = {
+        open-with-messaging-host-librewolf = {
           enable = cfg.openwith.enable;
           target = "${nmh-path}/open_with.json";
           text = # json
@@ -68,7 +68,7 @@ in
               }
             '';
         };
-        keepassxc-native-messaging-host = {
+        keepassxc-native-messaging-host-librewolf = {
           enable = cfg.keepassxc.enable;
           target = "${nmh-path}/org.keepassxc.keepassxc_browser.json";
           text = # json
