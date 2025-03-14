@@ -193,6 +193,10 @@ in
       "dimaround, wofi"
 
       "animation slide right, notifications"
+
+      # Prevent hyprpicker screenshots from having a black border
+      # https://github.com/Gustash/Hyprshot/issues/60#issuecomment-2576391751
+      "noanim, selection"
     ];
 
     bind = lib.flatten [
