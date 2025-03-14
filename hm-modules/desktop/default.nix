@@ -66,6 +66,7 @@ in
     qt.enable = true;
 
     home.packages = with pkgs; [
+      anytype
       at-spi2-core
       brave
       firefox
