@@ -11,6 +11,7 @@ let
     K = "u";
     J = "d";
   };
+  screenshots-dir = "${config.xdg.userDirs.pictures}/screenshots/$(date +'%Y/%m/%d')";
   inherit (cfg) modKey;
 in
 {
@@ -226,9 +227,8 @@ in
       (lib.optional config.modules.power-menu.enable "${modKey}, ESCAPE, exec, power-menu")
 
       (lib.optional config.modules.waybar.enable "${modKey}, B, exec, pkill waybar || waybar")
-
-      "${modKey}, PRINT, exec, hyprshot -m window"
-      ",          PRINT, exec, hyprshot -m region"
+      "${modKey}, PRINT, exec, hyprshot -zm window -o ${screenshots-dir}"
+      ",          PRINT, exec, hyprshot -zm region -o ${screenshots-dir}"
 
       "${modKey}, X, exec, swaylock"
 
