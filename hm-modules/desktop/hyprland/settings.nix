@@ -177,6 +177,7 @@ in
         ])
         [
           "class:(steam_app.*)" # Steam games
+          "class:(gamescope)"
           "class:(factorio)"
           "class:(cs2)"
           "title:(shapez)"
