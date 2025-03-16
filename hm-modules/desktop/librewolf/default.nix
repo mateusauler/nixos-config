@@ -22,6 +22,7 @@ in
       package = pkgs.librewolf-wayland;
       settings = {
         "browser.search.widget.inNavBar" = false;
+        "browser.tabs.insertAfterCurrent" = true;
         "browser.uidensity" = 1;
         "devtools.theme" = "dark";
         "identity.fxaccounts.enabled" = true;
