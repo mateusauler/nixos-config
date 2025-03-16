@@ -27,6 +27,7 @@ in
       config = {
         osc = false;
         save-position-on-quit = true;
+        background-color = lib.mkForce "#000000";
       };
 
       scriptOpts = {
