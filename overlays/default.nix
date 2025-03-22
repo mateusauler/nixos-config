@@ -20,8 +20,6 @@
           '';
       });
 
-      htop-vim = pkgs-stable.htop-vim; # https://github.com/NixOS/nixpkgs/issues/389663
-      wireplumber = pkgs-stable.wireplumber; # https://github.com/NixOS/nixpkgs/issues/389656
       rustdesk-flutter = pkgs-stable.rustdesk-flutter; # https://github.com/NixOS/nixpkgs/issues/389638
     })
   ];
