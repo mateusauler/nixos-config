@@ -21,6 +21,7 @@ let
     "meld"
     "mpv"
     "neovim.neovide"
+    "nixcord"
     "obs"
     "power-menu"
     "vscodium"
