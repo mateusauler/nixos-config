@@ -34,11 +34,6 @@
     stylix-stable.url = "github:danth/stylix/release-24.11";
 
     stylix-unstable.url = "github:danth/stylix";
-
-    gx = {
-      url = "github:chrishrb/gx.nvim";
-      flake = false;
-    };
   };
 
   outputs =
