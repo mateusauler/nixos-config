@@ -527,22 +527,6 @@
         "type": "github"
       }
     },
-    "gx": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1736242098,
-        "narHash": "sha256-S7GDbKvcmSfysahfq7yCw55R2LGriWM29yAX1mPn1LQ=",
-        "owner": "chrishrb",
-        "repo": "gx.nvim",
-        "rev": "c7e6a0ace694a098a5248d92a866c290bd2da1cc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chrishrb",
-        "repo": "gx.nvim",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -997,7 +981,6 @@
     },
     "root": {
       "inputs": {
-        "gx": "gx",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "jujutsu": "jujutsu",
