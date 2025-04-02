@@ -53,6 +53,7 @@ in
         luasnip.enable = true;
         neo-tree.enable = true;
         nix.enable = true;
+        numbertoggle.enable = true;
         nvim-autopairs.enable = true;
         nvim-colorizer.enable = true;
         nvim-ufo.enable = true;
@@ -72,7 +73,6 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         neodev-nvim
-        vim-numbertoggle
       ];
     };
   };
