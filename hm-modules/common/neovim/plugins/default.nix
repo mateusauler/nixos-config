@@ -39,6 +39,7 @@ in
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
+        colorizer.enable = true;
         comment.enable = true;
         cursorline.enable = true;
         dap.enable = true;
@@ -55,17 +56,16 @@ in
         nix.enable = true;
         numbertoggle.enable = true;
         nvim-autopairs.enable = true;
-        nvim-colorizer.enable = true;
         nvim-ufo.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
         rustaceanvim.enable = true;
         sleuth.enable = true;
-        vim-surround.enable = true;
         telescope.enable = true;
         todo-comments.enable = true;
         treesitter.enable = true;
         trim.enable = true;
+        vim-surround.enable = true;
         vimtex.enable = true;
         web-devicons.enable = true;
         which-key.enable = true;
