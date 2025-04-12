@@ -27,10 +27,9 @@ in
     workspace = [
       "1, monitor:$mon1"
       "2, monitor:$mon1"
-      "3, monitor:$mon1"
-      "4, monitor:$mon3"
+      "3, monitor:$mon3"
+      "4, monitor:$mon2"
       "5, monitor:$mon2"
-      "6, monitor:$mon2"
     ];
   };
 
