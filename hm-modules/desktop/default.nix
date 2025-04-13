@@ -70,6 +70,7 @@ in
       anytype
       at-spi2-core
       brave
+      bruno
       firefox
       gimp
       keepassxc
