@@ -21,7 +21,7 @@ lib.mkIf (cfg.enable && cfg.neovide.enable) {
     opts.guifont = lib.mkDefault (
       with config.stylix.fonts; "${monospace.name}:h${toString sizes.terminal}"
     );
-    globals.neovide_transparency = lib.mkDefault config.stylix.opacity.terminal;
+    globals.neovide_opacity = lib.mkDefault config.stylix.opacity.terminal;
   };
 
   xdg.configFile."neovide/config.toml".source = conf;
