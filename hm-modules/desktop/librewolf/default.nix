@@ -38,6 +38,8 @@ in
       };
     };
 
+    stylix.targets.librewolf.profileNames = [ "default" ];
+
     xdg.dataFile.open-with-script = {
       enable = cfg.openwith.enable;
       executable = true;
