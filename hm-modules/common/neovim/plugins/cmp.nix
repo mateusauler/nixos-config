@@ -3,7 +3,6 @@
 let
   # TODO: Configure individual sources
   sources = [
-    { name = "buffer"; }
     { name = "calc"; }
     { name = "fish"; }
     { name = "latex-symbols"; }
@@ -13,6 +12,7 @@ let
     { name = "nvim_lsp-signature-help"; }
     { name = "path"; }
     { name = "treesitter"; }
+    { name = "buffer"; }
   ];
 
   mapping = {
