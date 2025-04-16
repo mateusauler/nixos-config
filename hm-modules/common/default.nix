@@ -9,6 +9,7 @@
     ./eza.nix
     ./fish
     ./git
+    ./jujutsu.nix
     ./libvirtd.nix
     ./neovim
     ./shell-aliases.nix
