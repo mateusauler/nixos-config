@@ -39,6 +39,11 @@
       url = "github:chrishrb/gx.nvim";
       flake = false;
     };
+
+    jujutsu = {
+      url = "github:jj-vcs/jj";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
