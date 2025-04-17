@@ -8,7 +8,7 @@
     ./direnv.nix
     ./eza.nix
     ./fish
-    ./git
+    ./git.nix
     ./jujutsu.nix
     ./libvirtd.nix
     ./neovim
