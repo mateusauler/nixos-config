@@ -64,20 +64,6 @@ in
 
           # YAML
           redhat.vscode-yaml
-        ]
-        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "vscode-openapi";
-            publisher = "42Crunch";
-            version = "4.27.0";
-            hash = "sha256-urXGyHpIDWQ0Bc+8LODC0DcEo6jQ5tA/QptyxCej9yU=";
-          }
-          {
-            name = "openapi-designer";
-            publisher = "philosowaffle";
-            version = "0.3.0";
-            hash = "sha256-qDw5hBlRvM1FXpfdvtF1oBr3kHGWK2NK6hJ9QFOpgBM=";
-          }
         ];
     };
   };
