@@ -12,8 +12,6 @@
           '';
       });
 
-      rustdesk-flutter = pkgs-stable.rustdesk-flutter; # https://github.com/NixOS/nixpkgs/issues/389638
-
       copyq = pkgs-stable.copyq; # https://github.com/NixOS/nixpkgs/pull/398926
     })
 
