@@ -8,10 +8,9 @@
 let
   cfg = config.modules.smm;
 
-  package = pkgs.satisfactory-mod-manager.overrideAttrs (
+  package = pkgs.satisfactorymodmanager.overrideAttrs (
     old: with config.modules.steam-xdg; {
-      steamXdg = enable;
-      steamFakeHome = fakeHome;
+      fixupPhase = lib.optionalString enable "wrapProgram $out/bin/SatisfactoryModManager --set HOME ${fakeHome}";
     }
   );
 in

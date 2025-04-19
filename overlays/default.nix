@@ -3,8 +3,6 @@
 {
   nixpkgs.overlays = [
     (final: prev: {
-      satisfactory-mod-manager = final.callPackage ./smm.nix { };
-
       nsxiv = prev.nsxiv.overrideAttrs (old: {
         postInstall = # bash
           ''
