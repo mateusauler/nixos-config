@@ -7,9 +7,10 @@ in
   nix = {
     settings = {
       experimental-features = [
-        "nix-command"
-        "flakes"
         "auto-allocate-uids"
+        "flakes"
+        "nix-command"
+        "pipe-operators"
       ];
       auto-allocate-uids = true;
       auto-optimise-store = mkDefault true;

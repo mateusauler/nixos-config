@@ -21,6 +21,8 @@ function missing_argument {
 	error "Missing argument for $1 parameter"
 }
 
+source .env
+
 EXTRA_ARGS=()
 HOSTS=()
 ADDRESSES=()
