@@ -18,6 +18,7 @@ pkgs.mkShell {
     nix
     home-manager
     git
+    jujutsu
 
     sops
     ssh-to-age
