@@ -17,27 +17,28 @@ lib.mkIf cfg.enable {
       {
         mode = "n";
         key = "zR";
-        action.__raw = "require('ufo').openAllFolds";
+        action = config.lib.nixvim.mkRaw "require('ufo').openAllFolds";
         options.desc = "Open all folds";
       }
       {
         mode = "n";
         key = "zM";
-        action.__raw = "require('ufo').closeAllFolds";
+        action = config.lib.nixvim.mkRaw "require('ufo').closeAllFolds";
         options.desc = "Close all folds";
       }
       {
         mode = "n";
         key = "zK";
-        action.__raw = # lua
-          ''
-            function()
-              local winid = require("ufo").peekFoldedLinesUnderCursor()
-              if not winid then
-                vim.lsp.buf.hover()
+        action =
+          config.lib.nixvim.mkRaw # lua
+            ''
+              function()
+                local winid = require("ufo").peekFoldedLinesUnderCursor()
+                if not winid then
+                  vim.lsp.buf.hover()
+                end
               end
-            end
-          '';
+            '';
         options.desc = "Peek Fold";
       }
     ];
