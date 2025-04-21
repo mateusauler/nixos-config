@@ -31,12 +31,14 @@ in
         ui = {
           pager = ":builtin";
           default-command = "log";
+          show-cryptographic-signatures = true;
         };
         signing = lib.mkIf (cfg.gpgKey != null) {
-          behavior = "own";
+          behavior = "drop";
           backend = "gpg";
           key = cfg.gpgKey;
         };
+        git.sign-on-push = (cfg.gpgKey != null);
       };
     };
     home.packages = lib.optional cfg.lazyjj pkgs.lazyjj;
