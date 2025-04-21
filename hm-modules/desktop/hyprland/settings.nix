@@ -27,7 +27,10 @@ in
       "NIXOS_OZONE_WL,1"
     ];
 
-    exec-once = [ "kitty" ];
+    exec-once = [
+      "kitty"
+      "keepassxc"
+    ];
 
     input = {
       kb_layout = "br";
