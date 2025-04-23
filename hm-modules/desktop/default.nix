@@ -71,6 +71,7 @@ in
       at-spi2-core
       brave
       bruno
+      devenv
       firefox
       gimp
       keepassxc
