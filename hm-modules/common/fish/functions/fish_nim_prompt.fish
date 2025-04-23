@@ -8,7 +8,9 @@ function fish_nim_prompt
 
 	# Sets the return-code-based color
 	set -l retc $color_err
-	test $status = 0; and set retc $color_ok
+	if test $status = 0
+		set retc $color_ok
+	end
 
 	if ! set -q __fish_git_prompt_showupstream
 		set -g __fish_git_prompt_showupstream auto
@@ -36,14 +38,19 @@ function fish_nim_prompt
 
 		set_color -o $color_bg
 		echo -n "$obracket "
+
 		set_color normal
-		test -z $color; or set_color $color
-		if ! _is_tty; and test -n "$label"
+		test -z $color || set_color $color
+
+		if ! _is_tty && test -n "$label"
 			echo -n "$label "
 		end
+
 		echo -n $value
+
 		set_color -o $color_bg
 		echo -n " $cbracket"
+
 		set_color normal
 		echo -n ' '
 	end
@@ -55,11 +62,11 @@ function fish_nim_prompt
 	end
 
 	function is_root
-		functions -q fish_is_root_user; and fish_is_root_user
+		functions -q fish_is_root_user && fish_is_root_user
 	end
 
 	# Only show 'user@host' if in an ssh session
-	if is_root; or test ! -z "$SSH_CLIENT"
+	if is_root || test ! -z "$SSH_CLIENT"
 		set -l color yellow
 		if is_root
 			set color red
@@ -77,7 +84,7 @@ function fish_nim_prompt
 	end
 
 	# Display cwd
-	_prompt_wrapper (set_color -o white)(prompt_pwd)(set_color -o $color_bg)
+	_prompt_wrapper (prompt_pwd) white
 
 	if test -n "$DISTROBOX_ENTER_PATH"
 		_prompt_wrapper "$(hostname -s)" yellow 
@@ -85,15 +92,19 @@ function fish_nim_prompt
 
 	if test -n "$IN_NIX_SHELL"
 		set -l shell_name
+
 		if test -n "$name"
 			set shell_name "$(echo $name | sed 's/-env//; s/-/ /g')"
 		end
+
 		if test -n "$NIX_SHELL_PKGS"
 			set shell_name "$(test -n "$shell_name" && echo "$shell_name :: ")$NIX_SHELL_PKGS"
 		end
+
 		if test -z "$shell_name"
 			set shell_name nix-shell
 		end
+
 		_prompt_wrapper "$shell_name" blue 
 	end
 
@@ -109,13 +120,12 @@ function fish_nim_prompt
 	_prompt_wrapper "$prompt_git" $color_git 
 
 	# Battery status
-	type -q acpi
-	and test (acpi -a 2> /dev/null | string match -r off)
-	and _prompt_wrapper (acpi -b | cut -d' ' -f 4-) $retc B
+	if type -q acpi && test (acpi -a 2> /dev/null | string match -r off)
+		_prompt_wrapper (acpi -b | cut -d' ' -f 4-) $retc B
+	end
 
 	# Execution time of the last command
-	if set -q CMD_DURATION
-	   and test $CMD_DURATION -gt 0
+	if set -q CMD_DURATION && test $CMD_DURATION -gt 0
 		set -l seconds      (math -s 0 $CMD_DURATION / 1000)
 		set -l milliseconds (math -s 0 $CMD_DURATION % 1000)
 		set -l minutes      (math -s 0 $seconds      / 60)
@@ -126,8 +136,9 @@ function fish_nim_prompt
 		set -l formatted_timespan
 
 		function append_time -Sa num id
-			test $num -gt 0
-			and set formatted_timespan "$formatted_timespan $num$id"
+			if test $num -gt 0
+				set formatted_timespan "$formatted_timespan $num$id"
+			end
 		end
 
 		append_time $hours "h"
@@ -143,7 +154,7 @@ function fish_nim_prompt
 
 	# Vi-mode
 	# Won't display the mode prompt if it's in its default state (insert)
-	if test "$fish_key_bindings" = fish_vi_key_bindings; or test "$fish_key_bindings" = fish_hybrid_key_bindings
+	if test "$fish_key_bindings" = fish_vi_key_bindings || test "$fish_key_bindings" = fish_hybrid_key_bindings
 		set -l mode
 		set -l color
 
@@ -176,13 +187,16 @@ function fish_nim_prompt
 			set_color $retc
 			echo -n '│ '
 		end
+
 		set_color $color_bg
 		echo $job
 	end
 
 	# Last line of of the prompt
 	set -l last_line ╰╼
-	_is_tty; and set last_line '$'
+	if _is_tty
+		set last_line '$'
+	end
 
 	set_color normal
 	set_color $retc
