@@ -97,6 +97,7 @@ lib.mkIf cfg.enable {
 
     memory = {
       format = "{}% ";
+      interval = 1;
     };
 
     temperature = {
