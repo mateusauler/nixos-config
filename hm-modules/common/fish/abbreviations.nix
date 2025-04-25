@@ -55,6 +55,7 @@ lib.mkIf cfg.enable {
       gwl = "git worktree list";
       gwp = "git worktree prune";
       gwr = "git worktree remove";
+
       cg = "cd $(git rev-parse --show-toplevel 2> /dev/null || pwd | sed 's|/\\.git.*$||')";
 
       # Nix
@@ -103,5 +104,37 @@ lib.mkIf cfg.enable {
       };
     }
     // lib.optionalAttrs config.dots.clone { dots = "cd ${config.dots.path}"; }
-    // lib.optionalAttrs config.programs.lazygit.enable { lg = "lazygit"; };
+    // lib.optionalAttrs config.programs.lazygit.enable { lg = "lazygit"; }
+    // lib.optionalAttrs config.modules.jj.enable rec {
+      j = "jj";
+
+      ja = "jj abandon";
+      jb = "jj bookmark";
+      jbm = "jj bookmark move --allow-backwards";
+      jbmt = "${jbm} --from 'trunk()' --to $(jj log -r '::@ ~ empty()' -n 1 -T 'change_id' --no-graph)";
+      jc = "jj commit";
+      jdi = "jj diff";
+      jd = "jj desc";
+      je = "jj edit";
+      jf = "jj git fetch";
+      jg = "jj git";
+      jl = "jj log";
+      jlp = "jj log -p";
+      jn = "jj new";
+      jnt = "jj new 'trunk()'";
+      jp = "jj git push";
+      jre = "jj resolve";
+      jr = "jj rebase";
+      jrl = "jj resolve -l";
+      jsh = "jj show";
+      js = "jj status";
+      jsp = "jj split";
+      jsq = "jj squash";
+      ju = "jj undo";
+
+      cj = "cd $(jj root 2> /dev/null)";
+    }
+    // lib.optionalAttrs (with config.modules.jj; lazyjj && enable) {
+      lj = "lazyjj";
+    };
 }
