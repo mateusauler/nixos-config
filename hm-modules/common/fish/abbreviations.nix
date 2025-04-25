@@ -3,6 +3,8 @@
 let
   cfg = config.modules.fish;
   dots-path = with config.dots; if clone then path else nix-uri;
+
+  nom-suffix = "--verbose --log-format internal-json 2>&1 | nom --json";
 in
 lib.mkIf cfg.enable {
   programs.fish.shellAbbrs =
@@ -57,17 +59,17 @@ lib.mkIf cfg.enable {
 
       # Nix
 
-      nrb = "nixos-rebuild --verbose --flake ${dots-path} --show-trace build";
-      nrs = "sudo nixos-rebuild --verbose --flake ${dots-path} switch";
-      nrt = "sudo nixos-rebuild --verbose --flake ${dots-path} test";
-      nrbt = "sudo nixos-rebuild --verbose --flake ${dots-path} boot";
+      nrb = "nixos-rebuild --flake ${dots-path} --show-trace build ${nom-suffix}";
+      nrs = "sudo true && sudo nixos-rebuild --flake ${dots-path} switch ${nom-suffix}";
+      nrt = "sudo true && sudo nixos-rebuild --flake ${dots-path} test ${nom-suffix}";
+      nrbt = "sudo true && sudo nixos-rebuild --flake ${dots-path} boot ${nom-suffix}";
 
-      nrbf = "${nrb} --fast";
-      nrsf = "${nrs} --fast";
-      nrtf = "${nrt} --fast";
-      nrbtf = "${nrbt} --fast";
+      nrbf = "nixos-rebuild --flake ${dots-path} --show-trace build --fast ${nom-suffix}";
+      nrsf = "sudo true && sudo nixos-rebuild --flake ${dots-path} switch --fast ${nom-suffix}";
+      nrtf = "sudo true && sudo nixos-rebuild --flake ${dots-path} test --fast ${nom-suffix}";
+      nrbtf = "sudo true && sudo nixos-rebuild --flake ${dots-path} boot --fast ${nom-suffix}";
 
-      nfc = "nix flake check --verbose --show-trace";
+      nfc = "nix flake check --show-trace ${nom-suffix}";
 
       # Utilities & common commands
 

@@ -58,6 +58,7 @@ in
         du-dust
         htop-vim
         jq
+        nix-output-monitor
         progress
         python3
         tlrc
