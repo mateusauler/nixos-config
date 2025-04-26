@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 
 {
   nixpkgs.overlays = [
@@ -10,7 +10,5 @@
           '';
       });
     })
-
-    inputs.jujutsu.overlays.default
   ];
 }
