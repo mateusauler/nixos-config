@@ -1,4 +1,4 @@
-{ inputs, pkgs-stable, ... }:
+{ inputs, ... }:
 
 {
   nixpkgs.overlays = [
@@ -9,8 +9,6 @@
             sed -i -E 's/Exec\s*=\s*nsxiv\s*(.*)$/Exec=nsxiv -a \1/' $out/share/applications/nsxiv.desktop
           '';
       });
-
-      copyq = pkgs-stable.copyq; # https://github.com/NixOS/nixpkgs/pull/398926
     })
 
     inputs.jujutsu.overlays.default
