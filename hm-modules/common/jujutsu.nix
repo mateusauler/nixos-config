@@ -34,11 +34,10 @@ in
           show-cryptographic-signatures = true;
         };
         signing = lib.mkIf (cfg.gpgKey != null) {
-          behavior = "drop";
+          behavior = "own";
           backend = "gpg";
           key = cfg.gpgKey;
         };
-        git.sign-on-push = (cfg.gpgKey != null);
       };
     };
     home.packages = lib.optional cfg.lazyjj pkgs.lazyjj;
