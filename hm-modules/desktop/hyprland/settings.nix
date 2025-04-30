@@ -174,6 +174,9 @@ in
       "noborder, class:(kdeconnect.daemon)"
       "center, class:(kdeconnect.daemon)"
 
+      # QEMU
+      "float, class:(qemu)"
+
       (lib.concatMap
         (game: [
           "monitor $mon1, ${game}"
