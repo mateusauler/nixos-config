@@ -34,6 +34,8 @@ lib.mkIf cfg.enable {
                 table.insert(vimgrep_arguments, "--hidden")
                 table.insert(vimgrep_arguments, "--glob")
                 table.insert(vimgrep_arguments, "!**/.git/*")
+                table.insert(vimgrep_arguments, "--glob")
+                table.insert(vimgrep_arguments, "!**/.jj/*")
                 return vimgrep_arguments
               end)()
             '';
@@ -44,6 +46,8 @@ lib.mkIf cfg.enable {
           "--hidden"
           "--glob"
           "!**/.git/*"
+          "--glob"
+          "!**/.jj/*"
         ];
       };
     };
