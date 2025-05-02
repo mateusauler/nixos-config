@@ -30,6 +30,7 @@ in
         revset-aliases."immutable_heads()" = "builtin_immutable_heads() | (trunk().. & ~mine())";
         ui = {
           pager = ":builtin";
+          diff-editor = ":builtin";
           default-command = "log";
           show-cryptographic-signatures = true;
         };
