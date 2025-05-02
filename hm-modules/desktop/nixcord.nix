@@ -6,7 +6,7 @@ in
 {
   options.modules.nixcord.enable = lib.mkEnableOption "nixcord";
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.home.username != "root") {
     programs.nixcord = {
       enable = true;
       discord.enable = true;
