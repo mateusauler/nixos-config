@@ -29,8 +29,7 @@ let
           case $1 in
             -n|--nbd-number)
               NBD="$2"
-              shift
-              shift
+              shift 2
               ;;
             --rw)
               RO=""
@@ -38,8 +37,7 @@ let
               ;;
             -p|--partition)
               PART="$2"
-              shift
-              shift
+              shift 2
               ;;
             -h|--help)
               usage
@@ -60,14 +58,20 @@ let
 
         set -- "''${POSITIONAL_ARGS[@]}" # restore positional parameters
 
-        [[ ''${#POSITIONAL_ARGS[@]} -le 0 ]] && echo "Error: Missing disk argument" && echo && usage && exit 1
+        if [[ ''${#POSITIONAL_ARGS[@]} -le 0 ]]
+        then
+          echo "Error: Missing disk argument"
+          echo
+          usage
+          exit 1
+        fi
 
         sudo modprobe nbd
 
-        if [ -z $NBD ]; then
+        if [[ -z $NBD ]]; then
           # Get the numbers of the nbd devices that have partitions associated with them
           # This is a hacky way to get the devices that have a connection
-          parts=($(find /dev -name "nbd*p*" | sed -E "s|/dev/nbd([0-9]+)p.*|\\1|" | uniq | sort -n))
+          parts=($(find /dev -name "nbd*p*" | sed -E "s|/dev/nbd([0-9]+)p.*|\\1|" | sort -un))
 
           NBD=0
 
@@ -83,17 +87,17 @@ let
         sudo qemu-nbd --connect $DEV $RO $1
 
         function mount_disk {
-          sudo ${lib.getBin pkgs.udisks}/udiskctl mount -b $1
+          sudo ${pkgs.udisks}/bin/udisksctl mount -b $1
         }
 
-        if [ ! -z $PART ]; then
-          mount_disk "''${DEV}p$PART"
+        if [[ ! -z $PART ]]; then
+          mount_disk "$DEV"p"$PART"
         else
           # Mount all partitions of the device
-          parts=$(find /dev -name "nbd''${NBD}p*")
+          parts=$(find /dev -name nbd"$NBD""p*")
 
           for part in $parts; do
-            mount_disk $part
+            mount_disk "$part"
           done
         fi
       '';
