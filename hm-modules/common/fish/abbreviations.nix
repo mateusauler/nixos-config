@@ -65,11 +65,6 @@ lib.mkIf cfg.enable {
       nrt = "sudo true && sudo nixos-rebuild --flake ${dots-path} test ${nom-suffix}";
       nrbt = "sudo true && sudo nixos-rebuild --flake ${dots-path} boot ${nom-suffix}";
 
-      nrbf = "nixos-rebuild --flake ${dots-path} --show-trace build --fast ${nom-suffix}";
-      nrsf = "sudo true && sudo nixos-rebuild --flake ${dots-path} switch --fast ${nom-suffix}";
-      nrtf = "sudo true && sudo nixos-rebuild --flake ${dots-path} test --fast ${nom-suffix}";
-      nrbtf = "sudo true && sudo nixos-rebuild --flake ${dots-path} boot --fast ${nom-suffix}";
-
       nfc = "nix flake check --show-trace ${nom-suffix}";
 
       # Utilities & common commands
