@@ -1,4 +1,9 @@
-{ ... }:
+{
+  inputs,
+  nixpkgs-channel,
+  pkgs-unstable,
+  ...
+}:
 
 {
   nixpkgs.overlays = [
@@ -10,5 +15,12 @@
           '';
       });
     })
+    (
+      if (nixpkgs-channel == "unstable") then
+        inputs.jujutsu.overlays.default
+      else
+        # Jujutsu package in stable is insecure
+        (_: _: { inherit (pkgs-unstable) jujutsu lazyjj; })
+    )
   ];
 }

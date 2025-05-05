@@ -47,7 +47,11 @@
   };
 
   outputs =
-    inputs@{ nixpkgs-stable, nixpkgs-unstable, jujutsu, ... }:
+    inputs@{
+      nixpkgs-stable,
+      nixpkgs-unstable,
+      ...
+    }:
     let
       system = "x86_64-linux";
       default-channel = "unstable";
@@ -66,22 +70,11 @@
       pkgs-args = {
         localSystem = system;
         config.allowUnfree = true;
+        inherit overlays;
       };
 
-      pkgs-stable = import nixpkgs-stable (
-        pkgs-args
-        // {
-          inherit overlays;
-        }
-      );
-      pkgs-unstable = import nixpkgs-unstable (
-        pkgs-args
-        // {
-          overlays = overlays ++ [
-            jujutsu.overlays.default
-          ];
-        }
-      );
+      pkgs-stable = import nixpkgs-stable pkgs-args;
+      pkgs-unstable = import nixpkgs-unstable pkgs-args;
       pkgs = if default-channel == "stable" then pkgs-stable else pkgs-unstable;
 
       inherit (pkgs) lib;
