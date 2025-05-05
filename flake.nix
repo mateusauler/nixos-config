@@ -44,6 +44,11 @@
       url = "github:jj-vcs/jj";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    waybar = {
+      url = "github:Alexays/Waybar/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =

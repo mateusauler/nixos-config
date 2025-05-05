@@ -1,6 +1,7 @@
 {
   inputs,
   nixpkgs-channel,
+  pkgs,
   pkgs-unstable,
   ...
 }:
@@ -22,5 +23,8 @@
         # Jujutsu package in stable is insecure
         (_: _: { inherit (pkgs-unstable) jujutsu lazyjj; })
     )
+    (_: _: {
+      waybar-git = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar;
+    })
   ];
 }
