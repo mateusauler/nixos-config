@@ -104,10 +104,15 @@ lib.mkIf cfg.enable {
       j = "jj";
 
       ja = "jj abandon";
+      jbd = "jj bookmark delete";
+      jbf = "jj bookmark forget";
       jb = "jj bookmark";
+      jbl = "jj bookmark list --tracked";
       jbm = "jj bookmark move --allow-backwards";
-      jbmt = "${jbm} --from 'trunk()' --to $(jj log -r '::@ ~ empty()' -n 1 -T 'change_id' --no-graph)";
+      jbmt = "${jbm} --from 'trunk()::@' --to $(jj log -r '::@ ~ empty()' -n 1 -T 'change_id' --no-graph)";
+      jbs = "jj bookmark set";
       jc = "jj commit";
+      jde = "jj diffedit";
       jdi = "jj diff";
       jd = "jj desc";
       je = "jj edit";
@@ -117,10 +122,17 @@ lib.mkIf cfg.enable {
       jlp = "jj log -p";
       jn = "jj new";
       jnt = "jj new 'trunk()'";
+      jo = "jj op";
+      jol = "jj op log";
+      jor = "jj op restore";
+      jpc = "jj git push --change @";
       jp = "jj git push";
+      jpn = "jj git push --allow-new";
+      jpt = "jj git push --tracked";
       jre = "jj resolve";
       jr = "jj rebase";
       jrl = "jj resolve -l";
+      jrt = "jj rebase --destination 'trunk()'";
       jsh = "jj show";
       js = "jj status";
       jsp = "jj split";
