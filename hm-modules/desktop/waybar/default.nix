@@ -1,4 +1,10 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  nixpkgs-channel,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.waybar;
@@ -14,5 +20,10 @@ in
     ./style.nix
   ];
 
-  config = lib.mkIf cfg.enable { programs.waybar.enable = true; };
+  config = lib.mkIf cfg.enable {
+    programs.waybar = {
+      enable = true;
+      package = if nixpkgs-channel == "unstable" then pkgs.waybar-git else pkgs.waybar;
+    };
+  };
 }

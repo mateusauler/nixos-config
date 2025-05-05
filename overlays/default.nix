@@ -1,6 +1,7 @@
 {
   inputs,
   nixpkgs-channel,
+  pkgs,
   pkgs-unstable,
   ...
 }:
@@ -14,6 +15,7 @@
             sed -i -E 's/Exec\s*=\s*nsxiv\s*(.*)$/Exec=nsxiv -a \1/' $out/share/applications/nsxiv.desktop
           '';
       });
+      waybar-git = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar;
     })
     (
       if (nixpkgs-channel == "unstable") then
