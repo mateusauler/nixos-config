@@ -35,7 +35,7 @@ in
     programs.home-manager.enable = true;
 
     modules = pkgs.lib.enableModules module-names // {
-      hyprland.autostart.apply-wallpaper.enable = ! config.stylix.enable;
+      hyprland.autostart.apply-wallpaper.enable = !config.stylix.enable;
     };
 
     programs.zoxide = {
@@ -44,6 +44,8 @@ in
       enableBashIntegration = true;
       options = [ "--cmd cd" ];
     };
+
+    programs.fish.shellAbbrs.dots = lib.mkIf config.dots.clone "cd ${config.dots.path}";
 
     home = {
       sessionVariables = {

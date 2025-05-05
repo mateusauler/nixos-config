@@ -16,5 +16,6 @@ in
         database = "sqlite";
       };
     };
+    programs.fish.shellAbbrs.z = "zathura";
   };
 }

@@ -121,6 +121,11 @@ in
       vim = lib.mkIf cfg.vimAlias "nvim";
     };
 
+    programs.fish.shellAbbrs = {
+      n = "nvim";
+      ni = lib.mkIf cfg.neovide.enable "neovide";
+    };
+
     # Re-source the config on running nvim instances
     xdg.configFile."nvim/init.lua".onChange = # bash
       ''
