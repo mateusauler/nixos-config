@@ -27,6 +27,7 @@ in
           name = git.userName;
           email = git.userEmail;
         };
+        git.write-change-id-header = true;
         revset-aliases."immutable_heads()" = "builtin_immutable_heads() | (trunk().. & ~mine())";
         ui = {
           pager = ":builtin";
