@@ -11,26 +11,25 @@ in
 {
   options.modules.vscodium.enable = lib.mkEnableOption "VSCodium";
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.home.username != "root") {
     programs.vscode = {
-      enable = config.home.username != "root";
+      enable = true;
       package = pkgs.vscodium;
 
-      userSettings = {
-        "editor.fontLigatures" = true;
-        "editor.minimap.enabled" = false;
-        "files.autoSave" = "afterDelay";
-        "files.autoSaveDelay" = 500;
-        "files.trimTrailingWhitespace" = true;
-        "python.languageServer" = "Jedi";
-        "redhat.telemetry.enabled" = false;
-        "update.showReleaseNotes" = false;
-        "yaml.maxItemsComputed" = 50000;
-      };
+      profiles.default = {
+        userSettings = {
+          "editor.fontLigatures" = true;
+          "editor.minimap.enabled" = false;
+          "files.autoSave" = "afterDelay";
+          "files.autoSaveDelay" = 500;
+          "files.trimTrailingWhitespace" = true;
+          "python.languageServer" = "Jedi";
+          "redhat.telemetry.enabled" = false;
+          "update.showReleaseNotes" = false;
+          "yaml.maxItemsComputed" = 50000;
+        };
 
-      extensions =
-        with pkgs.vscode-extensions;
-        [
+        extensions = with pkgs.vscode-extensions; [
           mkhl.direnv
 
           # C/C++
@@ -65,6 +64,7 @@ in
           # YAML
           redhat.vscode-yaml
         ];
+      };
     };
   };
 }
