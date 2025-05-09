@@ -14,6 +14,15 @@ creation_rules:
         - *work
       pgp:
         - *pgp
+  - path_regex: users/mateus/keys.txt$
+    key_groups:
+    -
+      age:
+        - *glados
+        - *wheatley
+        - *work
+      pgp:
+        - *pgp
   - path_regex: users/mateus/password$
     key_groups:
     -

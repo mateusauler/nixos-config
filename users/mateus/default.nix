@@ -8,6 +8,7 @@
 let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   username = "mateus";
+  home = config.users.users.${username}.home;
 in
 lib.mkIf (builtins.elem username config.enabledUsers) {
   users.users.${username} = {
@@ -41,20 +42,24 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
     ];
   };
 
-  services.syncthing =
-    let
-      home = config.users.users.${username}.home;
-    in
-    {
-      enable = lib.mkDefault true;
-      openDefaultPorts = true;
-      user = username;
-      dataDir = home;
-    };
+  services.syncthing = {
+    enable = lib.mkDefault true;
+    openDefaultPorts = true;
+    user = username;
+    dataDir = home;
+  };
 
-  sops.secrets."password-${username}" = {
-    sopsFile = ./password;
-    format = "binary";
-    neededForUsers = true;
+  sops.secrets = {
+    "password-${username}" = {
+      sopsFile = ./password;
+      format = "binary";
+      neededForUsers = true;
+    };
+    "keys.txt" = {
+      sopsFile = ./keys.txt;
+      format = "binary";
+      owner = username;
+      path = "${home}/.config/sops/age/keys.txt";
+    };
   };
 }
