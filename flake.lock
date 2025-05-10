@@ -1134,6 +1134,7 @@
         "sops-nix": "sops-nix",
         "stylix-stable": "stylix-stable",
         "stylix-unstable": "stylix-unstable",
+        "updated-anytype-nixpkgs": "updated-anytype-nixpkgs",
         "waybar": "waybar"
       }
     },
@@ -1528,6 +1529,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "updated-anytype-nixpkgs": {
+      "locked": {
+        "lastModified": 1746823729,
+        "narHash": "sha256-6E3jRDNK9w1gwDsreG6ZS8Ec0Dv35DkDqKzxZATEUts=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9e58ed7ba759d81c98f033b7f5eba21ca68f53b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "pull/405704/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
