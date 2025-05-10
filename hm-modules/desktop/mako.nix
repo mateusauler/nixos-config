@@ -9,10 +9,12 @@ in
   config = lib.mkIf cfg.enable {
     services.mako = {
       enable = true;
-      borderRadius = 5;
-      borderSize = 2;
-      ignoreTimeout = true;
-      defaultTimeout = 15000;
+      settings = {
+        borderRadius = 5;
+        borderSize = 2;
+        ignoreTimeout = true;
+        defaultTimeout = 15000;
+      };
     };
   };
 }
