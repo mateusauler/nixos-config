@@ -81,6 +81,7 @@ in
       rustdesk-flutter
       session-desktop
       signal-desktop
+      sops
       spotify
       swww
       vlc
