@@ -75,7 +75,8 @@ in
       jpc = "jj git push --change @";
       jp = "jj git push";
       jpn = "jj git push --allow-new";
-      jpt = "jj git push --tracked";
+      jpt = "jj git push --revisions 'trunk()'";
+      jptr = "jj git push --tracked";
       jre = "jj resolve";
       jr = "jj rebase";
       jrl = "jj resolve -l";
