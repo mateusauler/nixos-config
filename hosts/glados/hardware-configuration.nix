@@ -67,14 +67,28 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  hardware.graphics = {
+  # https://wiki.nixos.org/w/index.php?title=AMD_GPU
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [ "L+    /opt/rocm   -    -    -     -    ${rocmEnv}" ];
+
+  hardware.graphics = with pkgs; {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [
+    extraPackages = [
       amdvlk
-      driversi686Linux.amdvlk
       rocmPackages.clr
       rocmPackages.clr.icd
     ];
+    extraPackages32 = [ driversi686Linux.amdvlk ];
   };
 }

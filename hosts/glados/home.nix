@@ -14,7 +14,7 @@ in
   };
 
   wayland.windowManager.hyprland.settings = {
-    "$mon1" = "DP-3";
+    "$mon1" = "DP-2";
     "$mon2" = "HDMI-A-1";
     "$mon3" = "$mon2";
 
