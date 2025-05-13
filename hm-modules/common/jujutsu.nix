@@ -83,6 +83,7 @@ in
       jsh = "jj show";
       js = "jj status";
       jsp = "jj split";
+      jsqi = "jj squash -i";
       jsq = "jj squash";
       ju = "jj undo";
 
