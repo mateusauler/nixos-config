@@ -10,10 +10,7 @@ in
     programs.nixcord = {
       enable = true;
       discord.enable = true;
-      vesktop = {
-        enable = true;
-        useSystemVencord = false; # https://github.com/NixOS/nixpkgs/pull/399932
-      };
+      vesktop.enable = true;
       config = {
         disableMinSize = true;
         plugins = {
