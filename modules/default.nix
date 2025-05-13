@@ -34,6 +34,7 @@ in
     boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
     networking.networkmanager.enable = mkDefault true;
+    networking.useDHCP = lib.mkDefault true;
 
     home-manager.backupFileExtension = "hm-backup";
 
