@@ -61,7 +61,7 @@ lib.mkIf cfg.enable {
               chmod 0400 ${ssh-key-path}
               echo >> ${ssh-key-path}
             else
-              echo Didn't deploy ${k}.
+              echo "Didn't deploy ${k}."
             fi
           ''
       );
