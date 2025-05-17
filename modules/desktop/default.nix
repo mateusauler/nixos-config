@@ -6,13 +6,13 @@
 }:
 
 let
-  inherit (lib) mkDefault;
   cfg = config.modules.desktop;
   module-names = [
     "barrier"
     "distrobox"
     "localsend"
     "pipewire"
+    "protonvpn"
     "wally"
   ];
 in
@@ -28,6 +28,7 @@ in
     ./gaming.nix
     ./localsend.nix
     ./pipewire.nix
+    ./protonvpn.nix
     ./virt-manager
     ./wally.nix
   ];
@@ -48,11 +49,6 @@ in
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
       ];
-    };
-
-    services.mullvad-vpn = {
-      enable = mkDefault true;
-      package = mkDefault pkgs.mullvad-vpn;
     };
 
     programs.fuse.userAllowOther = true;
