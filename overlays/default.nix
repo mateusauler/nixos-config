@@ -25,18 +25,5 @@
         # Jujutsu package in stable is insecure
         (_: _: { inherit (pkgs-unstable) jujutsu lazyjj; })
     )
-
-    # https://github.com/NixOS/nixpkgs/issues/405673
-    (lib.optional (nixpkgs-channel == "unstable") (
-      final: prev: {
-        inherit
-          (import inputs.updated-anytype-nixpkgs {
-            inherit (prev.stdenv.hostPlatform) system;
-            config.allowUnfree = true;
-          })
-          anytype
-          ;
-      }
-    ))
   ];
 }

@@ -49,9 +49,6 @@
       url = "github:Alexays/Waybar/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    # https://github.com/NixOS/nixpkgs/pull/405704
-    updated-anytype-nixpkgs.url = "github:nixos/nixpkgs/pull/405704/head";
   };
 
   outputs =
