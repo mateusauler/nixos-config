@@ -47,6 +47,8 @@ in
 
     programs.fish.shellAbbrs.dots = lib.mkIf config.dots.clone "cd ${config.dots.path}";
 
+    programs.ssh.enable = lib.mkDefault true;
+
     home = {
       sessionVariables = {
         TERMINAL = "$TERM";
