@@ -73,7 +73,6 @@ lib.mkIf cfg.enable {
       sourceSelector = {
         winbar = true;
         showScrolledOffParentNode = true;
-        contentLayout = "focus";
       };
 
       window = {
