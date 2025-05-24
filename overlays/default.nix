@@ -2,7 +2,6 @@
   inputs,
   lib,
   nixpkgs-channel,
-  pkgs-unstable,
   ...
 }:
 
@@ -18,12 +17,6 @@
       waybar-git = inputs.waybar.packages.${prev.stdenv.hostPlatform.system}.waybar;
     })
 
-    (
-      if (nixpkgs-channel == "unstable") then
-        inputs.jujutsu.overlays.default
-      else
-        # Jujutsu package in stable is insecure
-        (_: _: { inherit (pkgs-unstable) jujutsu lazyjj; })
-    )
+    (lib.optional (nixpkgs-channel == "unstable") inputs.jujutsu.overlays.default)
   ];
 }
