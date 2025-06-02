@@ -963,11 +963,11 @@
     "private-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1748456804,
-        "narHash": "sha256-EjfA+0s24Kxfm/mg5subi+PRXPxiI+DTIEDl+3OqsJA=",
+        "lastModified": 1748900179,
+        "narHash": "sha256-bWKzyd1NFdJ6+E0aQpiji0u3HSmg7iywhwbeP3Vg2pE=",
         "ref": "refs/heads/master",
-        "rev": "cfce6d3d19f1686987e91d6cd9cd804d24c01d21",
-        "revCount": 169,
+        "rev": "10b011128d2eb82f46b11a5dec1bfa6302f6f4e4",
+        "revCount": 170,
         "type": "git",
         "url": "ssh://git@github.com/mateusauler/nixos-private-config"
       },
