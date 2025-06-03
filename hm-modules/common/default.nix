@@ -6,6 +6,7 @@
     ./bat.nix
     ./btop.nix
     ./direnv.nix
+    ./docker.nix
     ./eza.nix
     ./fish
     ./git.nix
