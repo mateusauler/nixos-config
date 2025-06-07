@@ -114,6 +114,21 @@ in
 
         (mapNSilent "<leader>h" "<Cmd>noh<CR>" "Clear highlighting")
       ];
+
+      diagnostic.settings = {
+        virtual_text = false;
+        virtual_lines.current_line = true;
+        signs.text =
+          config.lib.nixvim.mkRaw # lua
+            ''
+              {
+                [vim.diagnostic.severity.ERROR] = ' ',
+                [vim.diagnostic.severity.WARN]  = ' ',
+                [vim.diagnostic.severity.INFO]  = ' ',
+                [vim.diagnostic.severity.HINT]  = '󰌵 ',
+              }
+            '';
+      };
     };
 
     shell-aliases = {
