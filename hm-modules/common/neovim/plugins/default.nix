@@ -36,6 +36,10 @@ in
         rustc
       ];
 
+      dependencies = {
+        tree-sitter.enable = cfg-plug.treesitter.enable;
+      };
+
       plugins = {
         auto-session.enable = true;
         bufferline.enable = true;
