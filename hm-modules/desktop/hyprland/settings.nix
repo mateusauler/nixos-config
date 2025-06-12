@@ -121,61 +121,61 @@ in
     workspace = [ "s[true], gapsout:80, gapsin:20" ];
 
     windowrulev2 = lib.flatten [
-      "workspace 2 silent, class:(librewolf)"
-      "workspace 3 silent, class:((V|v)esktop)"
-      "workspace 3 silent, class:((D|d)iscord)"
-      "workspace 4 silent, class:((F|f)erdium)"
-      "workspace 5 silent, class:((Z|z)enity)"
-      "workspace 5 silent, class:((S|s)team)"
-      "workspace 5 silent, title:((S|s)team)"
-      "float,              title:((S|s)team (S|s)ettings)"
-      "workspace special silent, class:(org\\.keepassxc\\.KeePassXC), title:(.*)(- KeePassXC), floating:0"
-      "float,                    class:(org\\.keepassxc\\.KeePassXC), title:(Access Request)"
-      "center,                   class:(org\\.keepassxc\\.KeePassXC), title:(Unlock Database - KeePassXC)"
-      "workspace special silent, title:^(Spotify)( Premium)?$"
+      "workspace 2 silent, class:librewolf"
+      "workspace 3 silent, class:[Vv]esktop"
+      "workspace 3 silent, class:[Dd]iscord"
+      "workspace 4 silent, class:[Ff]erdium"
+      "workspace 5 silent, class:[Zz]enity"
+      "workspace 5 silent, class:[Ss]team"
+      "workspace 5 silent, title:[Ss]team"
+      "float,              title:[Ss]team [Ss]ettings"
+      "workspace special silent, class:org\\.keepassxc\\.KeePassXC, title:.*- KeePassXC, floating:0"
+      "float,                    class:org\\.keepassxc\\.KeePassXC, title:Access Request"
+      "center,                   class:org\\.keepassxc\\.KeePassXC, title:Unlock Database - KeePassXC"
+      "workspace special silent, title:^Spotify( Premium)?$"
 
       # Browser screen sharing indicator
-      "move 50% 100%-32,         title:^(.*— Sharing Indicator)"
-      "minsize 52 32,            title:^(.*— Sharing Indicator)"
-      "float,                    title:^(.*— Sharing Indicator)"
-      "fullscreenstate 0 2,      title:^(.*— Sharing Indicator)"
-      "suppressevent fullscreen, title:^(.*— Sharing Indicator)"
-      "noinitialfocus,           title:^(.*— Sharing Indicator)"
-      "noborder,                 title:^(.*— Sharing Indicator)"
+      "move 50% 100%-32,         title:— Sharing Indicator"
+      "minsize 52 32,            title:— Sharing Indicator"
+      "float,                    title:— Sharing Indicator"
+      "fullscreenstate 0 2,      title:— Sharing Indicator"
+      "suppressevent fullscreen, title:— Sharing Indicator"
+      "noinitialfocus,           title:— Sharing Indicator"
+      "noborder,                 title:— Sharing Indicator"
 
       # CopyQ
-      "float,  class:(com\\.github\\.hluk\\.copyq)"
-      "center, class:(com\\.github\\.hluk\\.copyq)"
-      "pin,    class:(com\\.github\\.hluk\\.copyq)"
+      "float,  class:com\\.github\\.hluk\\.copyq"
+      "center, class:com\\.github\\.hluk\\.copyq"
+      "pin,    class:com\\.github\\.hluk\\.copyq"
 
       # Mega
-      "float, class:(nz\\.co\\.mega\\.)"
+      "float, class:nz\\.co\\.mega\\."
 
       # mpv
-      "monitor $mon1, class:(mpv)"
-      "fullscreen,    class:(mpv)"
+      "monitor $mon1, class:mpv"
+      "fullscreen,    class:mpv"
 
       # nsxiv
-      "tile, class:(Nsxiv)"
+      "tile, class:Nsxiv"
 
       # XWaylandVideoBridge
-      "opacity 0.0 override 0.0 override, class:^(xwaylandvideobridge)$"
-      "noanim,                            class:^(xwaylandvideobridge)$"
-      "nofocus,                           class:^(xwaylandvideobridge)$"
-      "noinitialfocus,                    class:^(xwaylandvideobridge)$"
+      "opacity 0.0 override 0.0 override, class:^xwaylandvideobridge$"
+      "noanim,                            class:^xwaylandvideobridge$"
+      "nofocus,                           class:^xwaylandvideobridge$"
+      "noinitialfocus,                    class:^xwaylandvideobridge$"
 
       # Kdeconnect presentation pointer
-      "noblur, class:(kdeconnect.daemon)"
-      "xray 1, class:(kdeconnect.daemon)"
-      "noanim, class:(kdeconnect.daemon)"
-      "suppressevent fullscreen, class:(kdeconnect.daemon)"
-      "size 100% 100%, class:(kdeconnect.daemon)"
-      "noshadow, class:(kdeconnect.daemon)"
-      "noborder, class:(kdeconnect.daemon)"
-      "center, class:(kdeconnect.daemon)"
+      "noblur,                   class:kdeconnect.daemon"
+      "xray 1,                   class:kdeconnect.daemon"
+      "noanim,                   class:kdeconnect.daemon"
+      "suppressevent fullscreen, class:kdeconnect.daemon"
+      "size 100% 100%,           class:kdeconnect.daemon"
+      "noshadow,                 class:kdeconnect.daemon"
+      "noborder,                 class:kdeconnect.daemon"
+      "center,                   class:kdeconnect.daemon"
 
       # QEMU
-      "float, class:(qemu)"
+      "float, class:qemu"
 
       (lib.concatMap
         (game: [
@@ -183,13 +183,13 @@ in
           "workspace 10,  ${game}"
         ])
         [
-          "class:(steam_app.*)" # Steam games
-          "class:(gamescope)"
-          "class:(factorio)"
-          "class:(cs2)"
-          "title:(shapez)"
-          "class:(Lightning.bin.x86_64)" # Opus Magnum and maybe others
-          "class:(VampireSurvivors.exe)"
+          "class:steam_app.*" # Steam games
+          "class:gamescope"
+          "class:factorio"
+          "class:cs2"
+          "title:shapez( 2)?"
+          "class:Lightning.bin.x86_64" # Opus Magnum and maybe others
+          "class:VampireSurvivors.exe"
         ]
       )
     ];
