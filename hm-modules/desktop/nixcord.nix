@@ -58,6 +58,10 @@ in
           };
           imageZoom.enable = true;
           memberCount.enable = true;
+          mentionAvatars = {
+            enable = true;
+            showAtSymbol = false;
+          };
           messageClickActions.enable = true;
           messageLatency.enable = true;
           messageLinkEmbeds.enable = true;
