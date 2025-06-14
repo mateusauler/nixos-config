@@ -58,6 +58,10 @@ in
           };
           imageZoom.enable = true;
           memberCount.enable = true;
+          mentionAvatars = {
+            enable = true;
+            showAtSymbol = false;
+          };
           messageClickActions.enable = true;
           messageLatency.enable = true;
           messageLinkEmbeds.enable = true;
@@ -65,6 +69,7 @@ in
           moreCommands.enable = true;
           moreKaomoji.enable = true;
           mutualGroupDMs.enable = true;
+          newGuildSettings.enable = true;
           noOnboardingDelay.enable = true;
           noPendingCount = {
             enable = true;
@@ -86,12 +91,17 @@ in
           petpet.enable = true;
           platformIndicators.enable = true;
           previewMessage.enable = true;
+          relationshipNotifier = {
+            enable = true;
+            notices = true;
+          };
           replaceGoogleSearch = {
             enable = true;
             customEngineName = "DDG";
             customEngineURL = "https://duckduckgo.com/?q=";
           };
           serverInfo.enable = true;
+          showAllMessageButtons.enable = true;
           showHiddenThings.enable = true;
           showTimeoutDuration.enable = true;
           silentMessageToggle = {
@@ -113,6 +123,7 @@ in
             useSpotifyUris = true;
           };
           spotifyShareCommands.enable = true;
+          stickerPaste.enable = true;
           streamerModeOnStream.enable = true;
           typingIndicator.enable = true;
           typingTweaks.enable = true;
