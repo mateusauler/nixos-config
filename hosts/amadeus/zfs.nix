@@ -3,6 +3,7 @@
 {
   boot.supportedFilesystems.zfs = true;
   boot.zfs.extraPools = [ "tank" ];
+  sops.secrets."zfs/tank".sopsFile = ./secrets.yaml;
   services.zfs = {
     autoScrub = {
       enable = true;
