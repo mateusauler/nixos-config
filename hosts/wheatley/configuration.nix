@@ -3,6 +3,7 @@
 let
   module-names = [
     "desktop"
+    "syncthing"
     "zswap"
   ];
 in

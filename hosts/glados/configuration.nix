@@ -6,6 +6,7 @@ let
     "efi"
     "gaming"
     "virt-manager"
+    "syncthing"
     "zswap"
   ];
 in

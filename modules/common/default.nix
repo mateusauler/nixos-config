@@ -10,6 +10,7 @@
     ./locale.nix
     ./nix.nix
     ./openssh.nix
+    ./syncthing.nix
     ./zswap.nix
   ];
 }

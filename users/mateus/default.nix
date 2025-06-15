@@ -42,9 +42,7 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
     ];
   };
 
-  services.syncthing = {
-    enable = lib.mkDefault true;
-    openDefaultPorts = true;
+  services.syncthing = lib.mkIf (!config.modules.server.enable) {
     user = username;
     dataDir = home;
   };
