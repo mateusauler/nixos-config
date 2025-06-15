@@ -59,7 +59,7 @@ flake_root=$(realpath "$(dirname "$0")")
 
 function deploy_local
 {
-	sudo nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}"
+	sudo nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}" --verbose --log-format internal-json 2>&1 | nom --json
 }
 
 function deploy_remote
@@ -72,7 +72,7 @@ function deploy_remote
 			shift
 		fi
 
-		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
+		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}" --verbose --log-format internal-json 2>&1 | nom --json
 	done
 }
 
