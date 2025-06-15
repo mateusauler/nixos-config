@@ -55,7 +55,7 @@ lib.mkIf (builtins.elem username config.enabledUsers) {
       format = "binary";
       neededForUsers = true;
     };
-    "keys.txt" = {
+    "keys.txt" = lib.mkIf (!config.modules.server.enable) {
       sopsFile = ./keys.txt;
       format = "binary";
       owner = username;
