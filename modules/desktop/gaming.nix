@@ -44,6 +44,8 @@ in
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;
+      extest.enable = true;
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
   };
 }
