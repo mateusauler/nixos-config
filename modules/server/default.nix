@@ -11,8 +11,6 @@ in
 {
   options.modules.server.enable = lib.mkEnableOption "server";
 
-  imports = [ ./google-ddns.nix ];
-
   config = lib.mkIf cfg.enable {
     # Use stable kernel
     boot.kernelPackages = pkgs.linuxPackages;
