@@ -20,7 +20,5 @@ in
   networking.hostName = "amadeus";
   networking.hostId = "a40227d9";
 
-  services.rustdesk-server.enable = true;
-
   system.stateVersion = "23.11";
 }
