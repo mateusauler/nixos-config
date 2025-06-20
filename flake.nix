@@ -35,11 +35,6 @@
 
     stylix-unstable.url = "github:danth/stylix";
 
-    jujutsu = {
-      url = "github:jj-vcs/jj";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     waybar = {
       url = "github:Alexays/Waybar/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

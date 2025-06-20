@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  nixpkgs-channel,
   ...
 }:
 
@@ -16,9 +15,5 @@
       });
       waybar-git = inputs.waybar.packages.${prev.stdenv.hostPlatform.system}.waybar;
     })
-
-    (lib.optionals (nixpkgs-channel == "unstable") [
-      inputs.jujutsu.overlays.default
-    ])
   ];
 }
