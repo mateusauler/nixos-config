@@ -2,7 +2,7 @@
 
 let
   dots-path = with config.dots; if clone then path else nix-uri;
-  nom-suffix = "--verbose --log-format internal-json 2>&1 | nom --json";
+  nom-suffix = "--log-format internal-json 2>&1 | nom --json";
 in
 {
   programs.fish.shellAbbrs = rec {
