@@ -3,6 +3,7 @@
 let
   module-names = [
     "server"
+    "syncthing"
     "zswap"
   ];
 in
@@ -14,6 +15,11 @@ in
   ];
 
   modules = lib.enableModules module-names;
+
+  services.syncthing = {
+    configDir = "/var/lib/syncthing/config";
+    dataDir = "/tank/syncthing";
+  };
 
   enabledUsers = [ "mateus" ];
 
