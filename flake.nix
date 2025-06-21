@@ -34,9 +34,10 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    stylix-stable.url = "github:danth/stylix/release-25.05";
+    stylix-stable.url = "github:nix-community/stylix/release-25.05";
 
-    stylix-unstable.url = "github:danth/stylix";
+    # https://github.com/nix-community/stylix/issues/1525
+    stylix-unstable.url = "github:nix-community/stylix/pull/1527/head";
 
     waybar = {
       url = "github:Alexays/Waybar/master";
