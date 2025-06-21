@@ -58,6 +58,8 @@ in
 
     services.swapspace.enable = mkDefault true;
 
+    services.netbird.enable = true;
+
     # Don't allow non-wheel users to execute the sudo binary
     security.sudo.execWheelOnly = true;
 
