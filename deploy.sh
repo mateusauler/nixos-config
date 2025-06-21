@@ -72,7 +72,9 @@ function deploy_remote
 			shift
 		fi
 
-		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}" --log-format internal-json 2>&1 | nom --json
+		# This is deprecated. But this script - for whatever reason - invokes the old nixos-rebuild that doesn't accept --ask-sudo-password...
+		export NIX_SSHOPTS="-t"
+		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
 	done
 }
 
