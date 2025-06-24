@@ -2,12 +2,13 @@
 
 function usage {
 	echo "Usage:"
-	echo "  $0 OPTIONS [nixos-rebuild parameters]"
+	echo "  $0 OPTIONS <nixos-rebuild parameters>"
 	echo
 	echo "Options:"
 	echo "  -h, --host             comma-separated list of hosts to deploy (can be specified multiple times)"
 	echo "  -a, --addr, --address  optional comma-separated list of addresses to deploy (matched in order to each host)"
 	echo "                         if a host does not have a matching address, its hostname is used instead"
+	echo "  -n, --nom              pass  nixos-rebuild output through nom"
 	echo "  --help                 display this message"
 }
 
@@ -26,8 +27,10 @@ source .env
 EXTRA_ARGS=()
 HOSTS=()
 ADDRESSES=()
+NOM=false
+SUDO=
 
-while [[ $# -gt 0 ]]; do
+while (( $# > 0 )); do
 	case $1 in
 		-h|--host)
 			(( $# <= 1 )) && missing_argument "$1"
@@ -39,6 +42,11 @@ while [[ $# -gt 0 ]]; do
 			(( $# <= 1 )) && missing_argument "$1"
 			ADDRESSES+=("${2//,/ }")
 			shift 2
+			;;
+
+		-n|--nom)
+			NOM=true
+			shift
 			;;
 
 		--help)
@@ -55,9 +63,23 @@ done
 
 flake_root=$(realpath "$(dirname "$0")")
 
+function run
+{
+	# Run sudo to unlock it for the next run, since nom grabs stderr output
+	[[ -n $SUDO ]] && $SUDO true
+
+	if $NOM
+	then
+		$SUDO "$@" --log-format internal-json 2>&1 | nom --json
+	else
+		$SUDO "$@"
+	fi
+}
+
 function deploy_local
 {
-	sudo nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}" --log-format internal-json 2>&1 | nom --json
+	SUDO=sudo
+	run nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}"
 }
 
 function deploy_remote
@@ -72,7 +94,7 @@ function deploy_remote
 
 		# This is deprecated. But this script - for whatever reason - invokes the old nixos-rebuild that doesn't accept --ask-sudo-password...
 		export NIX_SSHOPTS="-t"
-		nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
+		run nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
 	done
 }
 
