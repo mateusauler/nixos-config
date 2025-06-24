@@ -2,7 +2,7 @@
 
 function usage {
 	echo "Usage:"
-	echo "  $0 OPTIONS [nixos-rebuild parameters] OPERATION"
+	echo "  $0 OPTIONS [nixos-rebuild parameters]"
 	echo
 	echo "Options:"
 	echo "  -h, --host             comma-separated list of hosts to deploy (can be specified multiple times)"
@@ -53,9 +53,7 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
-echo "${EXTRA_ARGS[@]}" | grep -qvwE "boot|switch|test" && error "Missing nixos-rebuild operation (boot, switch or test)"
 flake_root=$(realpath "$(dirname "$0")")
-
 
 function deploy_local
 {
