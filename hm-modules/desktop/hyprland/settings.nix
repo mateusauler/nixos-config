@@ -34,6 +34,7 @@ in
 
     input = {
       kb_layout = "br";
+      kb_options = "caps:swapescape";
 
       repeat_rate = 50;
       repeat_delay = 400;
@@ -304,8 +305,14 @@ in
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
     ];
 
-    device =
-      map
+
+    device = lib.flatten [
+      {
+        name = "zsa-technology-labs-moonlander-mark-i";
+        kb_options = "";
+      }
+
+      (map
         (name: {
           sensitivity = -0.93;
           name = "logitech-g903-${name}";
@@ -315,6 +322,8 @@ in
           "lightspeed-wireless-gaming-mouse-w/-hero-1"
           "lightspeed-wireless-gaming-mouse-w/-hero-2"
           "ls-1"
-        ];
+        ]
+      )
+    ];
   };
 }
