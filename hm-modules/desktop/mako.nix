@@ -10,10 +10,10 @@ in
     services.mako = {
       enable = true;
       settings = {
-        borderRadius = 5;
-        borderSize = 2;
-        ignoreTimeout = true;
-        defaultTimeout = 15000;
+        border-radius = 5;
+        border-size = 2;
+        ignore-timeout = true;
+        default-timeout = 15000;
       };
     };
   };
