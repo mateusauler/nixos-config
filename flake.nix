@@ -2,7 +2,8 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # https://github.com/NixOS/nixpkgs/issues/420134
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/?rev=08f22084e6085d19bcfb4be30d1ca76ecb96fe54";
 
     # https://github.com/NixOS/nixpkgs/pull/418461
     nixpkgs-pr-418461.url = "github:nixos/nixpkgs/pull/418461/head";
