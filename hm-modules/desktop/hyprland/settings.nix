@@ -310,6 +310,9 @@ in
       {
         name = "zsa-technology-labs-moonlander-mark-i";
         kb_options = "";
+        # Use actual keys for triggering binds. (Eg. trigger Mod+Esc with the Escape key, instead of Caps)
+        # https://wiki.hypr.land/Configuring/Uncommon-tips--tricks/#switchable-keyboard-layouts
+        resolve_binds_by_sym = 1;
       }
 
       (map
