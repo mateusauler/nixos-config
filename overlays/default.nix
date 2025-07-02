@@ -1,11 +1,13 @@
 {
   inputs,
   lib,
+  private-config,
   ...
 }:
 
 {
   nixpkgs.overlays = lib.flatten [
+    private-config.overlays
     (final: prev: {
       nsxiv = prev.nsxiv.overrideAttrs (old: {
         postInstall = # bash
