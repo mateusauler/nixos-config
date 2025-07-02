@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  nixosConfig,
   pkgs,
   ...
 }:
@@ -11,7 +12,7 @@ let
 in
 {
   options.modules.docker = {
-    enable = pkgs.lib.mkEnableOption "docker";
+    enable = pkgs.lib.mkEnableOption "docker" // { default = nixosConfig.modules.docker.enable; };
     settings = lib.mkOption {
       type = jsonFormat.type;
       default = { };
