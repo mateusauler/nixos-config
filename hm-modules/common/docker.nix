@@ -29,5 +29,18 @@ in
       };
       credsStore = "secretservice";
     };
+    programs.fish.shellAbbrs = {
+      dc = "docker compose";
+
+      dca = "docker compose attach";
+      dcb = "docker compose build";
+      dcc = "docker compose create";
+      dcd = "docker compose down";
+      dcl = "docker compose logs";
+      dclf = "docker compose logs -f";
+      dcr = "docker compose run --rm";
+      dcs = "docker compose stop";
+      dcu = "docker compose up";
+    };
   };
 }
