@@ -1,12 +1,46 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
-{
-  services.unifi = {
-    enable = true;
-    openFirewall = true;
-    unifiPackage = pkgs.unifi;
-    mongodbPackage = pkgs.mongodb-7_0;
+let
+  firewall = {
+    allowedTCPPorts = [
+      8080 # UAP to inform controller
+      8880 # HTTP portal redirect, if guest portal is enabled
+      8843 # HTTPS portal redirect, ditto
+      6789 # UniFi mobile speed test
+      8443 # Web GUI
+    ];
+    allowedUDPPorts = [
+      3478 # STUN
+      10001 # Device discovery
+    ];
   };
+in
+{
+  networking = { inherit firewall; };
 
-  networking.firewall.allowedTCPPorts = [ 8443 ];
+  containers.unifi = {
+    autoStart = true;
+
+    bindMounts."/var/lib/unifi" = {
+      hostPath = "/tank/containers/unifi";
+      isReadOnly = false;
+    };
+
+    config =
+      { ... }:
+      {
+        services.unifi.enable = true;
+
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "unifi-controller"
+            "mongodb"
+          ];
+
+        networking = { inherit firewall; };
+
+        system.stateVersion = "25.05";
+      };
+  };
 }
