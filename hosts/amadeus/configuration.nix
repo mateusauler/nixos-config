@@ -12,6 +12,7 @@ in
     ./hardware-configuration.nix
     ./rustdesk.nix
     ./syncthing.nix
+    ./unifi.nix
     ./zfs.nix
   ];
 
