@@ -11,7 +11,6 @@ in
   imports = [
     ./hardware-configuration.nix
     ./pihole.nix
-    ./rustdesk.nix
     ./syncthing.nix
     ./unifi.nix
     ./zfs.nix
