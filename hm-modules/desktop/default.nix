@@ -74,6 +74,7 @@ in
       firefox
       gimp
       keepassxc
+      libreoffice-fresh
       nsxiv
       onlyoffice-bin
       qbittorrent
