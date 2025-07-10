@@ -52,6 +52,10 @@
             }
 
             { url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"; }
+            { url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt"; }
+            { url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/fake.txt"; }
+            { url = "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt"; }
+            { url = "https://big.oisd.nl"; }
 
             # https://firebog.net/
 
