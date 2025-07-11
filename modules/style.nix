@@ -57,8 +57,8 @@ in
       };
 
       monospace = {
-        name = "FiraCode Nerd Font";
-        package = (if pkgs ? nerd-fonts then pkgs.nerd-fonts.fira-code else pkgs.nerdfonts);
+        name = "FiraCode Nerd Font Mono";
+        package =  pkgs.nerd-fonts.fira-code;
       };
 
       sansSerif = {
@@ -80,6 +80,7 @@ in
     packages = with pkgs; [
       font-awesome
       liberation_ttf
+      nerd-fonts.arimo
       noto-fonts
       noto-fonts-cjk-sans
     ];
