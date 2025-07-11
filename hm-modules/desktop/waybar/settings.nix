@@ -64,7 +64,7 @@ lib.mkIf cfg.enable {
     };
 
     clock = {
-      format = "  {:%H:%M:%S    %a %d/%m/%Y}";
+      format = " {:%H:%M:%S  %a %d/%m/%Y}";
       interval = 1;
 
       tooltip-format = "<big>{:%Y}</big>\n\n<tt><small>{calendar}</small></tt>";
@@ -148,8 +148,8 @@ lib.mkIf cfg.enable {
     };
 
     mpris = {
-      format        = "{dynamic}  {player_icon}";
-      format-paused = "{dynamic}  {status_icon}";
+      format        = "{dynamic} {player_icon}";
+      format-paused = "{dynamic} {status_icon}";
       player-icons = {
         default = "";
         mpv     = "";
@@ -163,7 +163,7 @@ lib.mkIf cfg.enable {
     };
 
     pulseaudio = {
-      format                 = "{icon}  {volume}% {format_source}";
+      format                 = "{icon} {volume}% {format_source}";
       format-bluetooth       = "{volume}% {desc} {format_source}";
       format-bluetooth-muted = " {desc} {format_source}";
       format-muted           = " {format_source}";

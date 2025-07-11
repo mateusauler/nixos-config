@@ -19,7 +19,7 @@ lib.mkIf cfg.enable {
     # css
     ''
       * {
-        font-family: FontAwesome, ${fonts.sansSerif.name}, Roboto, Helvetica, Arial, sans-serif;
+        font-family: Arimo Nerd Font Propo;
         font-size: ${toString (fonts.sizes.desktop)}pt;
       }
 
