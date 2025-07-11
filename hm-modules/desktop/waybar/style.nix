@@ -19,7 +19,7 @@ lib.mkIf cfg.enable {
     # css
     ''
       * {
-        font-family: Arimo Nerd Font Propo;
+        font-family: Symbols Nerd Font Mono, Arimo Nerd Font Propo;
         font-size: ${toString (fonts.sizes.desktop)}pt;
       }
 

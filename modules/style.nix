@@ -81,6 +81,7 @@ in
       font-awesome
       liberation_ttf
       nerd-fonts.arimo
+      nerd-fonts.symbols-only
       noto-fonts
       noto-fonts-cjk-sans
     ];
