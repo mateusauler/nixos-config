@@ -2,7 +2,13 @@
 
 {
   networking.firewall = {
+    # DNS
     allowedUDPPorts = [ 53 ];
+    allowedTCPPorts = [ 53 ];
+
+    # DHCP
+    interfaces.eno0.allowedUDPPorts = [ 67 ];
+
     # Only allow connecting to the web interface from netbird
     interfaces.wt0.allowedTCPPorts = [
       80
@@ -13,6 +19,9 @@
   containers.pihole = {
     autoStart = true;
 
+    # For DHCP
+    additionalCapabilities = [ "CAP_NET_ADMIN" ];
+
     # Currently not available in stable
     nixpkgs = nixpkgs-unstable;
 
@@ -21,10 +30,19 @@
       {
         environment.enableAllTerminfo = true;
 
+        networking.hostName = config.networking.hostName;
+        networking.firewall.enable = false;
+
+        services.pihole-web = {
+          enable = true;
+          ports = [
+            "80r"
+            "443s"
+          ];
+        };
+
         services.pihole-ftl = {
           enable = true;
-          openFirewallWebserver = true;
-          useDnsmasqConfig = true;
 
           queryLogDeleter = {
             enable = true;
@@ -38,7 +56,26 @@
               "2620:fe::fe"
               "2620:fe::9"
             ];
+
+            dhcp = {
+              active = true;
+              router = "192.168.0.1";
+              start = "192.168.2.1";
+              end = "192.168.253.250";
+              netmask = "255.255.0.0";
+              leaseTime = "1d";
+              ipv6 = true;
+              rapidCommit = true;
+              multiDNS = true;
+            };
+
+            misc.dnsmasq_lines = [
+              # This DHCP server is the only one on the network
+              "dhcp-authoritative"
+            ];
+
             # misc.readOnly = false;
+
             webserver.interface = {
               boxed = false;
               theme = "default-darker";
@@ -103,17 +140,6 @@
             { url = "https://lists.cyberhost.uk/malware.txt"; }
           ];
         };
-
-        services.pihole-web = {
-          enable = true;
-          ports = [
-            "80r"
-            "443s"
-          ];
-        };
-
-        networking.hostName = config.networking.hostName;
-        networking.firewall.allowedUDPPorts = [ 53 ];
 
         system.stateVersion = "25.05";
       };
