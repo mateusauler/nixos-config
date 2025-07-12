@@ -101,7 +101,6 @@ in
             customEngineURL = "https://duckduckgo.com/?q=";
           };
           serverInfo.enable = true;
-          showAllMessageButtons.enable = true;
           showHiddenChannels.enable = true;
           showHiddenThings.enable = true;
           showTimeoutDuration.enable = true;
