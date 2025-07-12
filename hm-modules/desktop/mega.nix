@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ megacmd ];
 
-    modules.hyprland.extraAutostart.megacmd = "mega-cmd-server";
+    modules.desktop.autostart = "mega-cmd-server";
 
     modules.mega.syncdir = lib.mkDefault "${config.home.homeDirectory}/mega";
 

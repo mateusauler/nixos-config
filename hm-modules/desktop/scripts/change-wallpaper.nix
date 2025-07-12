@@ -15,15 +15,11 @@ in
 {
   options.modules.change-wallpaper = {
     enable = lib.mkEnableOption "change-wallpaper";
-    command =
-      with lib.types;
-      lib.mkOption {
-        type = nullOr str;
-        default = null;
-      };
+    command = lib.mkOption { type = with lib.types; nullOr str; };
+    daemon = lib.mkOption { type = with lib.types; nullOr str; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && !config.stylix.enable) {
     home = {
       activation = {
         clone-wallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] (
@@ -48,6 +44,8 @@ in
         in
         [ change-wallpaper ];
     };
+
+    modules.desktop.autostart = cfg.daemon;
 
     xdg.desktopEntries.chw = {
       name = "Change Wallpaper";
