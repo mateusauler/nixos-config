@@ -72,7 +72,7 @@ in
       bruno
       devenv
       firefox
-      gimp
+      gimp3
       keepassxc
       libreoffice-fresh
       nsxiv
