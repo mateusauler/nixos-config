@@ -38,10 +38,11 @@ in
 
     home-manager.backupFileExtension = "hm-backup";
 
+    programs.dconf.enable = true;
+
     environment = {
       enableAllTerminfo = true;
       systemPackages = with pkgs; [
-        dconf
         fd
         file
         ripgrep
@@ -79,6 +80,7 @@ in
       gnupg.agent = {
         enable = true;
         enableSSHSupport = mkDefault true;
+        pinentryPackage = pkgs.pinentry-gnome3;
       };
     };
   };

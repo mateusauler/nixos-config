@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  pkgs,
   private-config,
   ...
 }:
@@ -16,6 +17,13 @@
           '';
       });
       waybar-git = inputs.waybar.packages.${prev.stdenv.hostPlatform.system}.waybar;
+      niri-unstable = pkgs.symlinkJoin {
+        inherit (prev.niri-unstable) name cargoBuildNoDefaultFeatures cargoBuildFeatures;
+        paths = [ prev.niri-unstable ];
+        postBuild = ''
+          install -Dm755 "${./niri-session}" "$out/bin/niri-session"
+        '';
+      };
     })
   ];
 }

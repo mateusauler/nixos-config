@@ -17,6 +17,7 @@ lib.mkIf cfg.enable {
     modules-left = [
       "hyprland/workspaces"
       "hyprland/window"
+      "niri/workspaces"
     ];
 
     modules-center = [ "clock" ];
