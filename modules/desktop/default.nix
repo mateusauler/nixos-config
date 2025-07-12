@@ -10,7 +10,6 @@ let
   module-names = [
     "barrier"
     "distrobox"
-    "localsend"
     "pipewire"
     "protonvpn"
     "wally"
@@ -26,7 +25,6 @@ in
     ./bluetooth.nix
     ./distrobox.nix
     ./gaming.nix
-    ./localsend.nix
     ./pipewire.nix
     ./protonvpn.nix
     ./virt-manager
@@ -77,6 +75,8 @@ in
     programs.kdeconnect.enable = true;
 
     programs.adb.enable = true;
+
+    programs.localsend.enable = true;
 
     environment.systemPackages = with pkgs; [
       nodejs
