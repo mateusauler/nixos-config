@@ -12,6 +12,7 @@ in
   options.modules.copyq.enable = lib.mkEnableOption "CopyQ";
 
   config = lib.mkIf cfg.enable {
+    modules.desktop.autostart = "copyq --start-server";
     home = {
       packages = [ pkgs.copyq ];
       # TODO: Link configs with home-manager if not cloning (maybe always link configs?)

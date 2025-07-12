@@ -8,9 +8,7 @@ let
 in
 {
   modules = pkgs.lib.enableModules module-names // {
-    hyprland.extraAutostart = {
-      networkmanagerapplet = "nm-applet";
-    };
+    desktop.autostart = "nm-applet";
     git.gpgKey = "A09DC0933C374BFC2B5A269F80A5D62F6EB7D9F0";
     power-menu.actions.set.firmware.enable = false;
   };

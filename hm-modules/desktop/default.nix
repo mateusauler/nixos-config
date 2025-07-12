@@ -29,7 +29,17 @@ let
   ];
 in
 {
-  options.modules.desktop.enable = lib.mkEnableOption "desktop";
+  options.modules.desktop = {
+    enable = lib.mkEnableOption "desktop";
+    autostart = lib.mkOption {
+      type =
+        with lib.types;
+        either (listOf str) str
+        // {
+          merge = loc: defs: defs |> map (v: v.value) |> lib.flatten;
+        };
+    };
+  };
 
   imports = [
     ./chromium.nix
@@ -37,10 +47,8 @@ in
     ./dolphin.nix
     ./ferdium.nix
     ./gtk.nix
-    ./hyprland
     ./kitty.nix
     ./librewolf
-    ./mako.nix
     ./mega.nix
     ./meld.nix
     ./mpv.nix
@@ -49,18 +57,18 @@ in
     ./rofi
     ./scripts
     ./smm.nix
-    ./swaylock.nix
     ./vscodium.nix
-    ./waybar
-    ./wofi.nix
+    ./wayland
     ./xresources.nix
     ./zathura.nix
   ];
 
   config = lib.mkIf cfg.enable {
     modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
-      change-wallpaper.command = "swww img";
-      hyprland.autostart.apply-wallpaper.command = "swww-daemon";
+      change-wallpaper = {
+        command = "swww img";
+        daemon = "swww-daemon";
+      };
     };
 
     qt.enable = true;
@@ -85,7 +93,6 @@ in
       spotify
       swww
       vlc
-      wl-clipboard
       yt-dlp
     ];
   };

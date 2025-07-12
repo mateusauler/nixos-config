@@ -27,9 +27,10 @@ in
       "NIXOS_OZONE_WL,1"
     ];
 
-    exec-once = [
+    exec-once = lib.flatten [
       "kitty"
       "keepassxc"
+      config.modules.desktop.autostart
     ];
 
     input = {
@@ -109,11 +110,11 @@ in
 
       initial_workspace_tracking = 2;
 
-      middle_click_paste = !cfg.disable-middle-paste;
+      middle_click_paste = !config.modules.wayland.disable-middle-paste;
     };
 
     binds = {
-      movefocus_cycles_fullscreen = false;
+      movefocus_cycles_fullscreen = true;
       scroll_event_delay = 80;
     };
 
@@ -130,10 +131,11 @@ in
       "workspace 5 silent, class:[Ss]team"
       "workspace 5 silent, title:[Ss]team"
       "float,              title:[Ss]team [Ss]ettings"
+      "workspace special silent, title:^Spotify( Premium)?$"
+
       "workspace special silent, class:org\\.keepassxc\\.KeePassXC, title:.*- KeePassXC, floating:0"
       "float,                    class:org\\.keepassxc\\.KeePassXC, title:Access Request"
       "center,                   class:org\\.keepassxc\\.KeePassXC, title:Unlock Database - KeePassXC"
-      "workspace special silent, title:^Spotify( Premium)?$"
 
       # Browser screen sharing indicator
       "move 50% 100%-32,         title:— Sharing Indicator"
@@ -215,7 +217,7 @@ in
       "${modKey} SHIFT,   W, exec, $BROWSER_PRIV"
       "${modKey} CONTROL, W, exec, $BROWSER_PROF"
       "${modKey},         C, exec, copyq show"
-      "${modKey},         E, exec, ${cfg.file-manager}"
+      "${modKey},         E, exec, ${config.modules.wayland.file-manager}"
 
       (
         if config.modules.rofi.enable then
@@ -304,7 +306,6 @@ in
       ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
     ];
-
 
     device = lib.flatten [
       {
