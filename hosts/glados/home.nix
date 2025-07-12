@@ -13,6 +13,23 @@ in
     git.gpgKey = "A09DC0933C374BFC2B5A269F80A5D62F6EB7D9F0";
   };
 
+  programs.niri.settings.outputs = {
+    "DP-2" = {
+      focus-at-startup = true;
+      variable-refresh-rate = true;
+      position = {
+        x = 0;
+        y = 0;
+      };
+    };
+    "HDMI-A-1" = {
+      position = {
+        x = -1920;
+        y = 360;
+      };
+    };
+  };
+
   wayland.windowManager.hyprland.settings = {
     "$mon1" = "DP-2";
     "$mon2" = "HDMI-A-1";

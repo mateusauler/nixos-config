@@ -25,6 +25,7 @@ in
     ./bluetooth.nix
     ./distrobox.nix
     ./gaming.nix
+    ./niri.nix
     ./pipewire.nix
     ./protonvpn.nix
     ./virt-manager
@@ -37,7 +38,6 @@ in
     xdg.portal = {
       enable = true;
       config = {
-        common.default = [ "gtk" ];
         hyprland.default = [
           "gtk"
           "hyprland"
@@ -48,8 +48,6 @@ in
         xdg-desktop-portal-hyprland
       ];
     };
-
-    programs.fuse.userAllowOther = true;
 
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
@@ -67,16 +65,16 @@ in
 
     modules = lib.enableModules module-names;
 
-    programs.wireshark = {
-      enable = true;
-      package = pkgs.wireshark;
+    programs = {
+      adb.enable = true;
+      fuse.userAllowOther = true;
+      kdeconnect.enable = true;
+      localsend.enable = true;
+      wireshark = {
+        enable = true;
+        package = pkgs.wireshark;
+      };
     };
-
-    programs.kdeconnect.enable = true;
-
-    programs.adb.enable = true;
-
-    programs.localsend.enable = true;
 
     environment.systemPackages = with pkgs; [
       nodejs
