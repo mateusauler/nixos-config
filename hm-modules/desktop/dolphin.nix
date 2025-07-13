@@ -14,6 +14,6 @@ in
   config = lib.mkIf cfg.enable {
     modules.wayland.file-manager = "dolphin";
     modules.xdg.file-manager = "dolphin.desktop";
-    home.packages = [ pkgs.libsForQt5.dolphin ];
+    home.packages = [ pkgs.kdePackages.dolphin ];
   };
 }
