@@ -9,6 +9,10 @@
 let
   cfg = config.modules.niri;
   module-names = [ ];
+  workspaces-by-number = (lib.genAttrs (map toString (lib.range 1 9)) (name: name)) // {
+    "0" = "10";
+  };
+  special = "";
 in
 {
   options.modules.niri = {
@@ -59,6 +63,9 @@ in
             ];
           }) config.modules.desktop.autostart)
           { command = [ "kitty" ]; }
+          { command = [ "keepassxc" ]; }
+          { command = [ "localsend_app" ]; }
+          { command = [ "spotify" ]; }
         ];
 
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite-unstable;
@@ -66,15 +73,29 @@ in
         screenshot-path = "${config.xdg.userDirs.pictures}/screenshots/%Y/%m/%d/%Y-%m-%d_%H-%M-%S.png";
 
         hotkey-overlay.skip-at-startup = true;
-        clipboard.disable-primary = true;
+        clipboard.disable-primary = config.modules.wayland.disable-middle-paste;
         prefer-no-csd = true;
 
-        workspaces = {
-
-        };
+        workspaces =
+          lib.range 0 9
+          |>
+            builtins.foldl'
+              (
+                acc: name:
+                acc
+                // {
+                  ${toString name}.name = toString (name + 1);
+                }
+              )
+              {
+                ${special} = { };
+              };
 
         input = {
-          focus-follows-mouse.enable = true;
+          focus-follows-mouse = {
+            enable = true;
+            max-scroll-amount = "95%";
+          };
 
           keyboard = {
             repeat-delay = 400;
@@ -181,7 +202,18 @@ in
             "XF86AudioPause".action = spawn "playerctl" "play-pause";
             "XF86AudioNext".action = spawn "playerctl" "next";
             "XF86AudioPrev".action = spawn "playerctl" "previous";
-          };
+
+            "Mod+S".action.focus-workspace = special;
+            "Mod+Shift+S".action.move-column-to-workspace = special;
+          }
+          // (
+            workspaces-by-number
+            |> lib.mapAttrs' (n: v: lib.nameValuePair "Mod+${n}" { action.focus-workspace = v; })
+          )
+          // (
+            workspaces-by-number
+            |> lib.mapAttrs' (n: v: lib.nameValuePair "Mod+Shift+${n}" { action.move-column-to-workspace = v; })
+          );
 
         layout = {
           preset-column-widths = [
@@ -195,7 +227,115 @@ in
             { proportion = 1.0 / 3.0; }
             { proportion = 2.0 / 3.0; }
           ];
+
+          default-column-width.proportion = 1.0 / 2.0;
+
+          tab-indicator = {
+            gaps-between-tabs = 5;
+            corner-radius = 5;
+          };
         };
+
+        window-rules = [
+          # General
+          {
+            geometry-corner-radius = (
+              lib.genAttrs [
+                "bottom-left"
+                "bottom-right"
+                "top-left"
+                "top-right"
+              ] (a: 5.0)
+            );
+            clip-to-geometry = true;
+          }
+
+          # Window Specific
+          {
+            matches = [ { app-id = "librewolf"; } ];
+            open-on-workspace = "2";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [
+              { app-id = "[Vv]esktop"; }
+              { app-id = "[Dd]iscord"; }
+            ];
+            open-on-workspace = "3";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [ { app-id = "[Ff]erdium"; } ];
+            open-on-workspace = "4";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [
+              { app-id = "[Zz]enity"; }
+              { app-id = "[Ss]team"; }
+              { title = "[Ss]team"; }
+            ];
+            open-on-workspace = "5";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [ { title = "[Ss]team [Ss]ettings"; } ];
+            open-floating = true;
+          }
+          {
+            matches = [
+              { app-id = "org\\.keepassxc\\.KeePassXC"; }
+              { app-id = "spotify"; }
+              { app-id = "localsend_app"; }
+            ];
+            excludes = [
+              {
+                app-id = "org\\.keepassxc\\.KeePassXC";
+                title = "Access Request";
+              }
+              { title = "Unlock Database - KeePassXC"; }
+            ];
+            open-on-workspace = special;
+            open-focused = false;
+            default-column-width.proportion = 1.0 / 3.0;
+          }
+          {
+            matches = [
+              {
+                app-id = "org\\.keepassxc\\.KeePassXC";
+                title = "Access Request";
+              }
+              { title = "Unlock Database - KeePassXC"; }
+            ];
+            open-floating = true;
+            open-focused = true;
+          }
+          {
+            matches = [ { app-id = "mpv"; } ];
+            open-fullscreen = true;
+          }
+
+          # Games
+          {
+            matches = [
+              { app-id = "steam_app.*"; } # Steam games
+              { app-id = "gamescope"; }
+              { app-id = "factorio"; }
+              { app-id = "cs2"; }
+              { title = "shapez( 2)?"; }
+              { app-id = "Lightning.bin.x86_64"; } # Opus Magnum and maybe others
+              { app-id = "VampireSurvivors.exe"; }
+            ];
+            open-on-workspace = "10";
+            open-focused = true;
+          }
+        ];
+
+        gestures.hot-corners.enable = false;
       };
     };
   };
