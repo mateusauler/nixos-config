@@ -2,7 +2,7 @@
 
 let
   cfg = config.modules.hyprland;
-  workspaces = (lib.attrsets.genAttrs (map toString (lib.range 1 9)) (name: name)) // {
+  workspaces = (lib.genAttrs (map toString (lib.range 1 9)) (name: name)) // {
     "0" = "10";
   };
   directionsHJKL = {
