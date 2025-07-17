@@ -88,11 +88,6 @@ in
           };
 
           power-key-handling.enable = false;
-
-          warp-mouse-to-focus = {
-            enable = true;
-            mode = "center-xy";
-          };
         };
 
         cursor = {
@@ -133,10 +128,20 @@ in
             "Mod+K".action = focus-window-or-monitor-up;
             "Mod+L".action = focus-column-or-monitor-right;
 
+            "Mod+Ctrl+H".action = focus-monitor-left;
+            "Mod+Ctrl+J".action = focus-monitor-down;
+            "Mod+Ctrl+K".action = focus-monitor-up;
+            "Mod+Ctrl+L".action = focus-monitor-right;
+
             "Mod+Shift+H".action = move-column-left-or-to-monitor-left;
             "Mod+Shift+J".action = move-window-down;
             "Mod+Shift+K".action = move-window-up;
             "Mod+Shift+L".action = move-column-right-or-to-monitor-right;
+
+            "Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
+            "Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
+            "Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
+            "Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
 
             "Mod+U".action = focus-workspace-down;
             "Mod+I".action = focus-workspace-up;
