@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   osConfig,
   pkgs,
   ...
@@ -9,21 +10,61 @@
 let
   cfg = config.modules.niri;
   module-names = [ ];
-  workspaces-by-number = (lib.genAttrs (map toString (lib.range 1 9)) (name: name)) // {
+
+  inherit (lib) mkOption mkEnableOption;
+
+  # keyboard key => identifier
+  workspaces-by-key = (lib.range 1 9 |> map toString |> (l: lib.genAttrs l (n: n))) // {
     "0" = "10";
   };
+
   special = "";
+
+  # Get an output's port. Or, recursively, the previous output's port. Stopping at 1.
+  output-port =
+    output-number:
+    if output-number <= 0 then
+      null
+    else
+      cfg.outputs.${toString output-number}.name or (output-port <| output-number - 1);
 in
 {
   options.modules.niri = {
-    enable = lib.mkEnableOption "niri" // {
+    enable = mkEnableOption "niri" // {
       default = osConfig.programs.niri.enable;
       readOnly = true;
     };
-    auto-run-command = lib.mkOption {
+    auto-run-command = mkOption {
       default = "bash -c niri-session";
       readOnly = true;
     };
+    outputs =
+      let
+        inherit (lib.types) submodule nullOr;
+
+        # Get a nested element type's subOptions
+        subOptions = opt: opt.type.nestedTypes.elemType.getSubOptions [ ];
+
+        type =
+          nullOr
+          <| submodule {
+            # Reuse niri's original output module's options
+            options =
+              options.programs.niri.settings
+              |> subOptions
+              |> (s: s.outputs)
+              |> subOptions
+              |> lib.filterAttrs (n: v: n != "_module") # Unneeded metadata
+            ;
+          };
+      in
+      lib.genAttrs [ "1" "2" "3" ] (
+        _:
+        mkOption {
+          inherit type;
+          default = null;
+        }
+      );
   };
 
   config = lib.mkIf cfg.enable {
@@ -55,13 +96,17 @@ in
         };
 
         spawn-at-startup = lib.flatten [
-          (map (c: {
-            command = [
-              "bash"
-              "-c"
-              c
-            ];
-          }) config.modules.desktop.autostart)
+          (
+            config.modules.desktop.autostart
+            |> map (command: {
+              command = [
+                "bash"
+                "-c"
+                command
+              ];
+            })
+          )
+
           { command = [ "kitty" ]; }
           { command = [ "keepassxc" ]; }
           { command = [ "localsend_app" ]; }
@@ -76,19 +121,29 @@ in
         clipboard.disable-primary = config.modules.wayland.disable-middle-paste;
         prefer-no-csd = true;
 
+        # Remove custom port option
+        outputs = lib.filterAttrs (_: v: v != null) cfg.outputs;
+
+        # Workspaces are numbered 0 to 9 and named 1 to 10.
+        # There is also the special workspace.
         workspaces =
           lib.range 0 9
           |>
             builtins.foldl'
               (
                 acc: name:
-                acc
-                // {
+                lib.recursiveUpdate acc {
                   ${toString name}.name = toString (name + 1);
                 }
               )
+              # Extra workspace settings
               {
-                ${special} = { };
+                ${special}.open-on-output = output-port 1;
+                "0".open-on-output = output-port 1;
+                "1".open-on-output = output-port 1;
+                "2".open-on-output = output-port 3;
+                "3".open-on-output = output-port 2;
+                "4".open-on-output = output-port 2;
               };
 
         input = {
@@ -129,12 +184,8 @@ in
             "Mod+C".action = spawn "copyq" "show";
             "Mod+E".action.spawn = config.modules.wayland.file-manager;
 
-            "Mod+Escape".action = lib.mkIf config.modules.power-menu.enable (spawn "power-menu");
-
             "Mod+D".action = sh "pkill wofi || wofi --show drun --prompt ''";
             "Mod+Shift+D".action = sh "pkill wofi || wofi --show run --prompt ''";
-
-            "Mod+B".action = lib.mkIf config.modules.waybar.enable (sh "pkill waybar || waybar");
 
             "Print".action.screenshot.show-pointer = false;
             "Mod+Print".action.screenshot-window.write-to-disk = true;
@@ -209,12 +260,18 @@ in
             "Mod+Shift+S".action.move-column-to-workspace = special;
           }
           // (
-            workspaces-by-number
+            workspaces-by-key
             |> lib.mapAttrs' (n: v: lib.nameValuePair "Mod+${n}" { action.focus-workspace = v; })
           )
           // (
-            workspaces-by-number
+            workspaces-by-key
             |> lib.mapAttrs' (n: v: lib.nameValuePair "Mod+Shift+${n}" { action.move-column-to-workspace = v; })
+          )
+          // (
+            { "Mod+Escape".action = spawn "power-menu"; } |> lib.optionalAttrs config.modules.power-menu.enable
+          )
+          // (
+            { "Mod+B".action = sh "pkill waybar || waybar"; } |> lib.optionalAttrs config.modules.waybar.enable
           );
 
         layout = {
@@ -247,7 +304,7 @@ in
                 "bottom-right"
                 "top-left"
                 "top-right"
-              ] (a: 5.0)
+              ] (_: 5.0)
             );
             clip-to-geometry = true;
           }
