@@ -23,7 +23,10 @@ in
       default = config.modules.hyprland.enable || config.modules.niri.enable;
     };
     disable-middle-paste = lib.mkOption { default = true; };
-    file-manager = lib.mkOption { type = lib.types.str; };
+    file-manager = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+    };
     auto-run-module = lib.mkOption {
       default = "niri";
       type = lib.types.nullOr lib.types.str;
