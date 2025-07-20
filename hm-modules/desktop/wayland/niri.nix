@@ -140,10 +140,9 @@ in
               {
                 ${special}.open-on-output = output-port 1;
                 "0".open-on-output = output-port 1;
-                "1".open-on-output = output-port 1;
+                "1".open-on-output = output-port 2;
                 "2".open-on-output = output-port 3;
-                "3".open-on-output = output-port 2;
-                "4".open-on-output = output-port 2;
+                "3".open-on-output = output-port 3;
               };
 
         input = {
@@ -170,6 +169,123 @@ in
           hide-after-inactive-ms = 2000;
           hide-when-typing = true;
         };
+
+        layout = {
+          preset-column-widths = [
+            { proportion = 1.0 / 2.0; }
+            { proportion = 1.0 / 3.0; }
+            { proportion = 2.0 / 3.0; }
+          ];
+
+          preset-window-heights = [
+            { proportion = 1.0 / 2.0; }
+            { proportion = 1.0 / 3.0; }
+            { proportion = 2.0 / 3.0; }
+          ];
+
+          default-column-width.proportion = 1.0 / 2.0;
+
+          tab-indicator = {
+            gaps-between-tabs = 5;
+            corner-radius = 5;
+          };
+        };
+
+        window-rules = [
+          # General
+          {
+            geometry-corner-radius = (
+              lib.genAttrs [
+                "bottom-left"
+                "bottom-right"
+                "top-left"
+                "top-right"
+              ] (_: 5.0)
+            );
+            clip-to-geometry = true;
+          }
+
+          # Window Specific
+          {
+            matches = [
+              { app-id = "[Vv]esktop"; }
+              { app-id = "[Dd]iscord"; }
+            ];
+            open-on-workspace = "2";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [ { app-id = "[Ff]erdium"; } ];
+            open-on-workspace = "3";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [
+              { app-id = "[Zz]enity"; }
+              { app-id = "[Ss]team"; }
+              { title = "[Ss]team"; }
+            ];
+            open-on-workspace = "4";
+            open-focused = false;
+            open-maximized = true;
+          }
+          {
+            matches = [ { title = "[Ss]team [Ss]ettings"; } ];
+            open-floating = true;
+          }
+          {
+            matches = [
+              { app-id = "org\\.keepassxc\\.KeePassXC"; }
+              { app-id = "spotify"; }
+              { app-id = "localsend_app"; }
+            ];
+            excludes = [
+              {
+                app-id = "org\\.keepassxc\\.KeePassXC";
+                title = "Access Request";
+              }
+              { title = "Unlock Database - KeePassXC"; }
+            ];
+            open-on-workspace = special;
+            open-focused = false;
+            default-column-width.proportion = 1.0 / 3.0;
+          }
+          {
+            matches = [
+              {
+                app-id = "org\\.keepassxc\\.KeePassXC";
+                title = "Access Request";
+              }
+              { title = "Unlock Database - KeePassXC"; }
+            ];
+            open-floating = true;
+            open-focused = true;
+          }
+          {
+            matches = [ { app-id = "mpv"; } ];
+            open-fullscreen = true;
+            open-on-output = output-port 1;
+          }
+
+          # Games
+          {
+            matches = [
+              { app-id = "steam_app.*"; } # Steam games
+              { app-id = "gamescope"; }
+              { app-id = "factorio"; }
+              { app-id = "cs2"; }
+              { title = "shapez( 2)?"; }
+              { app-id = "Lightning.bin.x86_64"; } # Opus Magnum and maybe others
+              { app-id = "VampireSurvivors.exe"; }
+            ];
+            open-on-workspace = "10";
+            open-focused = true;
+          }
+        ];
+
+        gestures.hot-corners.enable = false;
 
         binds =
           with config.lib.niri.actions;
@@ -307,128 +423,6 @@ in
           // (
             { "Mod+B".action = sh "pkill waybar || waybar"; } |> lib.optionalAttrs config.modules.waybar.enable
           );
-
-        layout = {
-          preset-column-widths = [
-            { proportion = 1.0 / 2.0; }
-            { proportion = 1.0 / 3.0; }
-            { proportion = 2.0 / 3.0; }
-          ];
-
-          preset-window-heights = [
-            { proportion = 1.0 / 2.0; }
-            { proportion = 1.0 / 3.0; }
-            { proportion = 2.0 / 3.0; }
-          ];
-
-          default-column-width.proportion = 1.0 / 2.0;
-
-          tab-indicator = {
-            gaps-between-tabs = 5;
-            corner-radius = 5;
-          };
-        };
-
-        window-rules = [
-          # General
-          {
-            geometry-corner-radius = (
-              lib.genAttrs [
-                "bottom-left"
-                "bottom-right"
-                "top-left"
-                "top-right"
-              ] (_: 5.0)
-            );
-            clip-to-geometry = true;
-          }
-
-          # Window Specific
-          {
-            matches = [ { app-id = "librewolf"; } ];
-            open-on-workspace = "2";
-            open-focused = false;
-            open-maximized = true;
-          }
-          {
-            matches = [
-              { app-id = "[Vv]esktop"; }
-              { app-id = "[Dd]iscord"; }
-            ];
-            open-on-workspace = "3";
-            open-focused = false;
-            open-maximized = true;
-          }
-          {
-            matches = [ { app-id = "[Ff]erdium"; } ];
-            open-on-workspace = "4";
-            open-focused = false;
-            open-maximized = true;
-          }
-          {
-            matches = [
-              { app-id = "[Zz]enity"; }
-              { app-id = "[Ss]team"; }
-              { title = "[Ss]team"; }
-            ];
-            open-on-workspace = "5";
-            open-focused = false;
-            open-maximized = true;
-          }
-          {
-            matches = [ { title = "[Ss]team [Ss]ettings"; } ];
-            open-floating = true;
-          }
-          {
-            matches = [
-              { app-id = "org\\.keepassxc\\.KeePassXC"; }
-              { app-id = "spotify"; }
-              { app-id = "localsend_app"; }
-            ];
-            excludes = [
-              {
-                app-id = "org\\.keepassxc\\.KeePassXC";
-                title = "Access Request";
-              }
-              { title = "Unlock Database - KeePassXC"; }
-            ];
-            open-on-workspace = special;
-            open-focused = false;
-            default-column-width.proportion = 1.0 / 3.0;
-          }
-          {
-            matches = [
-              {
-                app-id = "org\\.keepassxc\\.KeePassXC";
-                title = "Access Request";
-              }
-              { title = "Unlock Database - KeePassXC"; }
-            ];
-            open-floating = true;
-            open-focused = true;
-          }
-          {
-            matches = [ { app-id = "mpv"; } ];
-            open-fullscreen = true;
-          }
-
-          # Games
-          {
-            matches = [
-              { app-id = "steam_app.*"; } # Steam games
-              { app-id = "gamescope"; }
-              { app-id = "factorio"; }
-              { app-id = "cs2"; }
-              { title = "shapez( 2)?"; }
-              { app-id = "Lightning.bin.x86_64"; } # Opus Magnum and maybe others
-              { app-id = "VampireSurvivors.exe"; }
-            ];
-            open-on-workspace = "10";
-            open-focused = true;
-          }
-        ];
-
-        gestures.hot-corners.enable = false;
       };
     };
   };
