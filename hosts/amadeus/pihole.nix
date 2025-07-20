@@ -17,9 +17,16 @@
     nixpkgs = nixpkgs-unstable;
 
     config =
-      { ... }:
+      { pkgs, ... }:
       {
         environment.enableAllTerminfo = true;
+
+        systemd.services.pihole-update-gravity = {
+          path = [ pkgs.pihole ];
+          script = "pihole -g";
+          after = [ "pihole-ftl-setup.service" ];
+          startAt = "daily";
+        };
 
         services.pihole-ftl = {
           enable = true;
