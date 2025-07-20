@@ -256,7 +256,41 @@ in
             "XF86AudioNext".action = spawn "playerctl" "next";
             "XF86AudioPrev".action = spawn "playerctl" "previous";
 
-            "Mod+S".action.focus-workspace = special;
+            "Mod+S".action.spawn = toString (
+              pkgs.writeShellScript "special-focus" ''
+                # The currently focused workspace
+                current_workspace=$(niri msg -j workspaces | jq -r '.[] | select(.is_focused).name')
+                if [[ $current_workspace == ${special} ]]
+                then
+                  niri msg action focus-workspace-previous
+                else
+                  # The currently focused output
+                  output=$(niri msg -j focused-output | jq -r .name)
+                  # The output that the special workspace is currently in
+                  special_output=$(niri msg -j workspaces | jq -r '.[] | select(.name == "${special}").output')
+
+                  if [[ $output != $special_output ]]
+                  then
+                    # Is the special workspace active in its current output?
+                    if $(niri msg -j workspaces | jq -r '.[] | select(.name == "${special}").is_active')
+                    then
+                      # Focus the previous workspace in the special workspace's output
+                      niri msg action focus-workspace ${special}
+                      niri msg action focus-workspace-previous
+                    fi
+
+                    # Move the special workspace to the new output
+                    niri msg action move-workspace-to-monitor --reference ${special} $output
+                  fi
+
+                  # The special workspace should be the last one
+                  niri msg action move-workspace-to-index --reference ${special} $(niri msg -j workspaces | jq '. | length')
+
+                  niri msg action focus-workspace ${special}
+                  niri msg action focus-column-first
+                fi
+              ''
+            );
             "Mod+Shift+S".action.move-column-to-workspace = special;
           }
           // (
