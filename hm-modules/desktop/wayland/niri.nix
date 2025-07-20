@@ -285,6 +285,8 @@ in
           }
         ];
 
+        overview.backdrop-color = config.lib.stylix.colors.base00;
+
         gestures.hot-corners.enable = false;
 
         binds =
