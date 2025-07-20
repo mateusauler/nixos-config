@@ -10,6 +10,7 @@ let
   module-names = [
     "barrier"
     "distrobox"
+    "niri"
     "pipewire"
     "protonvpn"
     "wally"

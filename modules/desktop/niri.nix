@@ -5,13 +5,20 @@
   ...
 }:
 
+let
+  cfg = config.modules.niri;
+in
 {
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
+  options.modules.niri.enable = lib.mkEnableOption "niri";
 
-  systemd.user.services.polkit-gnome-authentication-agent-1.enable =
-    lib.mkIf config.programs.niri.enable (lib.mkForce false);
-  services.gnome.gnome-keyring.enable = lib.mkIf config.programs.niri.enable (lib.mkForce false);
+  config = lib.mkIf cfg.enable {
+    programs.niri = {
+      enable = true;
+      package = pkgs.niri-unstable;
+    };
+
+    systemd.user.services.polkit-gnome-authentication-agent-1.enable =
+      lib.mkIf config.programs.niri.enable (lib.mkForce false);
+    services.gnome.gnome-keyring.enable = lib.mkIf config.programs.niri.enable (lib.mkForce false);
+  };
 }
