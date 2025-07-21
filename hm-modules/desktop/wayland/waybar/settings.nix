@@ -183,7 +183,8 @@ lib.mkIf cfg.enable {
           ""
         ];
       };
-      on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+      on-click = "${lib.getExe pkgs.pwvucontrol}";
+      on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
       ignored-sinks = [ "Easy Effects Sink" ];
     };
   };
