@@ -311,6 +311,7 @@ in
             "Mod+Shift+Q".action = close-window;
 
             "Mod+Tab".action = focus-workspace-previous;
+            "Mod+Ctrl+Tab".action = focus-window-previous;
 
             "Mod+O".action = toggle-overview;
             "Mod+G".action = toggle-column-tabbed-display;
