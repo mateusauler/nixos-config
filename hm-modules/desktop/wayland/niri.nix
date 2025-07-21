@@ -423,7 +423,12 @@ in
             { "Mod+Escape".action = spawn "power-menu"; } |> lib.optionalAttrs config.modules.power-menu.enable
           )
           // (
-            { "Mod+B".action = sh "pkill waybar || waybar"; } |> lib.optionalAttrs config.modules.waybar.enable
+            {
+              "Mod+B".action = sh "pkill -SIGUSR1 waybar || waybar"; # Toggle
+              "Mod+Shift+B".action = sh "pkill -SIGUSR2 waybar || waybar"; # Reload
+              "Mod+Ctrl+B".action = sh "pkill -SIGINT waybar || waybar"; # Quit
+            }
+            |> lib.optionalAttrs config.modules.waybar.enable
           );
       };
     };
