@@ -375,12 +375,20 @@ in
             "XF86AudioPrev".action = spawn "playerctl" "previous";
 
             "Mod+S".action.spawn = toString (
+              let
+                slowdown = config.programs.niri.settings.animations.slowdown;
+                animation-delay = toString (0.275 * (if slowdown != null then slowdown else 1));
+              in
               pkgs.writeShellScript "special-focus" ''
                 # The currently focused workspace
                 current_workspace=$(niri msg -j workspaces | jq -r '.[] | select(.is_focused).name')
                 if [[ $current_workspace == ${special} ]]
                 then
                   niri msg action focus-workspace-previous
+                  # Let the animation finish
+                  sleep ${animation-delay}
+                  # The special workspace should be the last one
+                  niri msg action move-workspace-to-index --reference ${special} $(niri msg -j workspaces | jq '. | length')
                 else
                   # The currently focused output
                   output=$(niri msg -j focused-output | jq -r .name)
@@ -395,14 +403,17 @@ in
                       # Focus the previous workspace in the special workspace's output
                       niri msg action focus-workspace ${special}
                       niri msg action focus-workspace-previous
+                      # Let the animation finish
+                      sleep ${animation-delay}
                     fi
 
                     # Move the special workspace to the new output
                     niri msg action move-workspace-to-monitor --reference ${special} $output
                   fi
 
-                  # The special workspace should be the last one
-                  niri msg action move-workspace-to-index --reference ${special} $(niri msg -j workspaces | jq '. | length')
+                  # Move the special workspace to the next position so that the animation isn't so horrible
+                  current_workspace_index=$(niri msg -j workspaces | jq -r '.[] | select(.is_focused).idx')
+                  niri msg action move-workspace-to-index --reference ${special} $((current_workspace_index + 1))
 
                   niri msg action focus-workspace ${special}
                   niri msg action focus-column-first
