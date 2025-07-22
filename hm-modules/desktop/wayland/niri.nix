@@ -417,7 +417,6 @@ in
                   niri msg action move-workspace-to-index --reference ${special} $((current_workspace_index + 1))
 
                   niri msg action focus-workspace ${special}
-                  niri msg action focus-column-first
                 fi
               ''
             );
