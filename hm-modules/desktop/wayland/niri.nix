@@ -172,15 +172,19 @@ in
 
         layout = {
           preset-column-widths = [
-            { proportion = 1.0 / 2.0; }
-            { proportion = 1.0 / 3.0; }
-            { proportion = 2.0 / 3.0; }
+            { proportion = 1. / 2.; }
+            { proportion = 1. / 4.; }
+            { proportion = 1. / 3.; }
+            { proportion = 2. / 3.; }
+            { proportion = 3. / 4.; }
           ];
 
           preset-window-heights = [
-            { proportion = 1.0 / 2.0; }
-            { proportion = 1.0 / 3.0; }
-            { proportion = 2.0 / 3.0; }
+            { proportion = 1. / 2.; }
+            { proportion = 1. / 4.; }
+            { proportion = 1. / 3.; }
+            { proportion = 2. / 3.; }
+            { proportion = 3. / 4.; }
           ];
 
           default-column-width.proportion = 1.0 / 2.0;
