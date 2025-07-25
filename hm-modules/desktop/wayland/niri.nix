@@ -312,7 +312,10 @@ in
             "Print".action.screenshot.show-pointer = false;
             "Mod+Print".action.screenshot-window.write-to-disk = true;
 
-            "Mod+Shift+Q".action = close-window;
+            "Mod+Shift+Q" = {
+              action = close-window;
+              allow-inhibiting = false;
+            };
 
             "Mod+Tab".action = focus-workspace-previous;
             "Mod+Ctrl+Tab".action = focus-window-previous;
