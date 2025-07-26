@@ -14,10 +14,10 @@ in
         columns = 3;
         image_size = 24;
         insensitive = true;
-        lines = 10;
         run-always_parse_args = true;
         run-exec_search = true;
         width = 700;
+        height = 300;
       };
     };
   };
