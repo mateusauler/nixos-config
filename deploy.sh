@@ -87,17 +87,23 @@ function deploy_remote
 {
 	for host in "${HOSTS[@]}"
 	do
-		addr="$host"
+		addr=("$host")
 
-		if (( $# > 0 ))
-		then
-			addr="$1"
+		# An address was explicitly provided for the host
+		if (( $# > 0 )); then
+			# Split address and port
+			IFS=":" read -r -a addr <<< "$1"
 			shift
 		fi
 
 		# This is deprecated. But this script - for whatever reason - invokes the old nixos-rebuild that doesn't accept --ask-sudo-password...
-		export NIX_SSHOPTS="-t"
-		run --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
+		NIX_SSHOPTS="-t"
+		if (( ${#addr[@]} > 1 ))
+		then
+			NIX_SSHOPTS+=" -p ${addr[1]}"
+		fi
+		export NIX_SSHOPTS
+		run --flake "$flake_root#$host" --target-host "${addr[0]}" --use-remote-sudo "${EXTRA_ARGS[@]}"
 	done
 }
 
