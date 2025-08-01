@@ -79,6 +79,7 @@ in
       brave
       bruno
       devenv
+      ente-auth
       firefox
       gimp3
       keepassxc
