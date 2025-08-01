@@ -109,8 +109,9 @@ in
 
           { command = [ "kitty" ]; }
           { command = [ "keepassxc" ]; }
-          { command = [ "localsend_app" ]; }
           { command = [ "spotify" ]; }
+          { command = [ "enteauth" ]; }
+          { command = [ "localsend_app" ]; }
         ];
 
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite-unstable;
@@ -244,6 +245,7 @@ in
               { app-id = "org\\.keepassxc\\.KeePassXC"; }
               { app-id = "spotify"; }
               { app-id = "localsend_app"; }
+              { app-id = "io.ente.auth"; }
             ];
             excludes = [
               {
@@ -254,7 +256,7 @@ in
             ];
             open-on-workspace = special;
             open-focused = false;
-            default-column-width.proportion = 1.0 / 3.0;
+            default-column-width.proportion = 1.0 / 4.0;
           }
           {
             matches = [
