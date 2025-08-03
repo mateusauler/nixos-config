@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  nixpkgs-channel,
   pkgs,
   private-config,
   ...
@@ -51,5 +52,10 @@
           '';
         };
     })
+    (lib.optional (nixpkgs-channel == "unstable") (
+      final: prev: {
+        inherit (import inputs.nixpkgs-pr-427099 { inherit (prev.stdenv.hostPlatform) system; }) satisfactorymodmanager;
+      }
+    ))
   ];
 }
