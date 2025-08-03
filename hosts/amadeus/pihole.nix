@@ -31,7 +31,8 @@
         services.pihole-ftl = {
           enable = true;
           openFirewallWebserver = true;
-          useDnsmasqConfig = true;
+          # https://github.com/NixOS/nixpkgs/issues/429395
+          # useDnsmasqConfig = true;
 
           queryLogDeleter = {
             enable = true;
