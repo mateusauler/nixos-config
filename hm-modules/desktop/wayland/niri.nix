@@ -72,7 +72,11 @@ in
       power-menu.actions.set.logout.command = "systemctl --user stop niri";
     };
 
-    home.packages = [ pkgs.xwayland-satellite-unstable ];
+    home.packages = with pkgs; [
+      # https://github.com/sodiboo/niri-flake/issues/437
+      nautilus
+      xwayland-satellite-unstable
+    ];
 
     services.gnome-keyring.enable = lib.mkForce false;
 
