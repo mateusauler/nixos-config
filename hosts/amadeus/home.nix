@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  module-names = [ "server" ];
+  module-names = [ ];
 in
 {
   modules = pkgs.lib.enableModules module-names;

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -30,7 +31,10 @@ let
 in
 {
   options.modules.desktop = {
-    enable = lib.mkEnableOption "desktop";
+    enable = lib.mkEnableOption "desktop" // {
+      default = osConfig.modules.desktop.enable;
+      readOnly = true;
+    };
     autostart = lib.mkOption {
       type =
         with lib.types;

@@ -7,7 +7,7 @@
 
 let
   cfg = config.modules.xdg.compliance;
-  inherit (config.xdg) cacheHome configHome dataHome  stateHome;
+  inherit (config.xdg) cacheHome configHome dataHome stateHome;
 in
 {
   # https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
