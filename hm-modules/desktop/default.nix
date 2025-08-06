@@ -68,7 +68,7 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
+    modules = pkgs.lib.enableModules module-names {
       change-wallpaper = {
         command = "swww img";
         daemon = "swww-daemon";

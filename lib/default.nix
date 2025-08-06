@@ -1,4 +1,4 @@
-{ ... }@args:
+args:
 
 {
   cloneRepo          = import ./clone-repo.nix            args;

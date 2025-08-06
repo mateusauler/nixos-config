@@ -64,7 +64,7 @@ in
       };
     };
 
-    modules = lib.enableModules module-names;
+    modules = lib.enableModules module-names { };
 
     programs = {
       adb.enable = true;

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   module-names = [
@@ -6,7 +6,7 @@ let
   ];
 in
 {
-  modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
+  modules = pkgs.lib.enableModules module-names {
     desktop.autostart = "nm-applet";
     git.gpgKey = "A09DC0933C374BFC2B5A269F80A5D62F6EB7D9F0";
     power-menu.actions.set.firmware.enable = false;

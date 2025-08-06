@@ -13,7 +13,7 @@ in
 {
   imports = [ ./hardware-configuration.nix ];
 
-  modules = lib.enableModules module-names;
+  modules = lib.enableModules module-names { };
 
   enabledUsers = [ "mateus" ];
 
