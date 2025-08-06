@@ -67,7 +67,7 @@ in
       ''test -z "$WAYLAND_DISPLAY" -a "$XDG_VTNR" = 1 && ${command}''
     );
 
-    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
+    modules = pkgs.lib.enableModules module-names {
       desktop.autostart = lib.flatten [
         # "wl-clip-persist --clipboard regular"
         "wlsunset -s 18:00 -S 7:00 -t 4500"

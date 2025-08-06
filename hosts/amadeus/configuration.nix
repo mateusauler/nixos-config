@@ -16,7 +16,7 @@ in
     ./zfs.nix
   ];
 
-  modules = lib.enableModules module-names;
+  modules = lib.enableModules module-names { };
   enabledUsers = [ "mateus" ];
 
   networking.hostName = "amadeus";

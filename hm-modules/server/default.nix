@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    modules = pkgs.lib.enableModules module-names;
+    modules = pkgs.lib.enableModules module-names { };
     dots.clone = false;
   };
 }

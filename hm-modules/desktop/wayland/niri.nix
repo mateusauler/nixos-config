@@ -9,7 +9,6 @@
 
 let
   cfg = config.modules.niri;
-  module-names = [ ];
 
   inherit (lib) mkOption mkEnableOption;
 
@@ -68,9 +67,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    modules = lib.recursiveUpdate (pkgs.lib.enableModules module-names) {
-      power-menu.actions.set.logout.command = "systemctl --user stop niri";
-    };
+    modules.power-menu.actions.set.logout.command = "systemctl --user stop niri";
 
     home.packages = with pkgs; [
       # https://github.com/sodiboo/niri-flake/issues/437

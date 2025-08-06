@@ -34,7 +34,7 @@ in
   config = {
     programs.home-manager.enable = true;
 
-    modules = pkgs.lib.enableModules module-names;
+    modules = pkgs.lib.enableModules module-names { };
 
     programs.zoxide = {
       enable = lib.mkDefault true;

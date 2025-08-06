@@ -29,7 +29,7 @@ in
   config = {
     sops.gnupg.sshKeyPaths = [ ];
 
-    modules = lib.enableModules module-names;
+    modules = lib.enableModules module-names { };
 
     boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
