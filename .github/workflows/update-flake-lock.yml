@@ -34,7 +34,6 @@ jobs:
             echo EOF
           } >> "$GITHUB_OUTPUT"
 
-
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
@@ -48,4 +47,3 @@ jobs:
           commit_user_name: Flake Bot
           commit_author: Flake Bot <actions@github.com>
           skip_dirty_check: false
-          skip_fetch: true
