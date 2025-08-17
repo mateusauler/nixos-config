@@ -5,8 +5,8 @@
     allowedUDPPorts = [ 53 ];
     # Only allow connecting to the web interface from netbird
     interfaces.wt0.allowedTCPPorts = [
-      80
-      443
+      8081
+      4443
     ];
   };
 
@@ -115,13 +115,12 @@
         services.pihole-web = {
           enable = true;
           ports = [
-            "80r"
-            "443s"
+            "8081"
+            "4443s"
           ];
         };
 
         networking.hostName = config.networking.hostName;
-        networking.firewall.allowedUDPPorts = [ 53 ];
 
         system.stateVersion = "25.05";
       };
