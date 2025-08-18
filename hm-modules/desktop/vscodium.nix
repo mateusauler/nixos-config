@@ -12,9 +12,19 @@ in
   options.modules.vscodium.enable = lib.mkEnableOption "VSCodium";
 
   config = lib.mkIf (cfg.enable && config.home.username != "root") {
+    xdg.configFile."VSCodium/product.json".text = ''
+      {
+        "extensionsGallery": {
+          "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+          "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+          "itemUrl": "https://marketplace.visualstudio.com/items"
+        }
+      }
+    '';
+
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      package = pkgs.vscodium.fhs;
 
       profiles.default = {
         userSettings = {
