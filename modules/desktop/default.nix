@@ -78,7 +78,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      nodejs
       pwvucontrol
     ];
   };

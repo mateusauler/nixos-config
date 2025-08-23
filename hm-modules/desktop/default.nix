@@ -77,6 +77,8 @@ in
 
     qt.enable = true;
 
+    xdg.configFile."npm/npmrc".text = "cafile=/etc/ssl/certs/ca-certificates.crt";
+
     home.packages = with pkgs; [
       anytype
       at-spi2-core
@@ -88,6 +90,7 @@ in
       gimp3
       keepassxc
       libreoffice-fresh
+      nodejs
       nsxiv
       onlyoffice-bin
       qbittorrent
