@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-function usage {
+function usage
+{
 	echo "Usage:"
 	echo "  $0 OPTIONS <nixos-rebuild parameters>"
 	echo
@@ -12,13 +13,15 @@ function usage {
 	echo "  --help                 display this message"
 }
 
-function error {
-	echo -e "Error: $1\n" 1>&2
+function error
+{
+	echo -e "Error: $1\n" >&2
 	usage
 	exit 1
 }
 
-function missing_argument {
+function missing_argument
+{
 	error "Missing argument for $1 parameter"
 }
 
@@ -30,7 +33,8 @@ ADDRESSES=()
 NOM=false
 SUDO=
 
-while (( $# > 0 )); do
+while (( $# > 0 ))
+do
 	case $1 in
 		-h|--host)
 			(( $# <= 1 )) && missing_argument "$1"
@@ -68,37 +72,37 @@ function run
 	# Run sudo to unlock it for the next run, since nom grabs stderr output
 	[[ -n $SUDO ]] && $SUDO true
 
-	if $NOM
-	then
-		$SUDO "$@" --log-format internal-json 2>&1 | nom --json
-	else
-		$SUDO "$@"
-	fi
+	$NOM && local nom_suffix="--log-format internal-json 2>&1 | nom --json"
+
+	eval "$SUDO nixos-rebuild $* $nom_suffix"
 }
 
 function deploy_local
 {
 	SUDO=sudo
-	run nixos-rebuild --flake "$flake_root" "${EXTRA_ARGS[@]}"
+	run --flake "$flake_root" "${EXTRA_ARGS[@]}"
 }
 
 function deploy_remote
 {
-	for host in "${HOSTS[@]}"; do
+	for host in "${HOSTS[@]}"
+	do
 		addr="$host"
 
-		if (( $# > 0 )); then
+		if (( $# > 0 ))
+		then
 			addr="$1"
 			shift
 		fi
 
 		# This is deprecated. But this script - for whatever reason - invokes the old nixos-rebuild that doesn't accept --ask-sudo-password...
 		export NIX_SSHOPTS="-t"
-		run nixos-rebuild --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
+		run --flake "$flake_root#$host" --target-host "$addr" --use-remote-sudo "${EXTRA_ARGS[@]}"
 	done
 }
 
-if (( ${#HOSTS[@]} <= 0 )); then
+if (( ${#HOSTS[@]} <= 0 ))
+then
 	deploy_local
 else
 	deploy_remote "${ADDRESSES[@]}"
