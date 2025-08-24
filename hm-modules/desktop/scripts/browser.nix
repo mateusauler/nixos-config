@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  options,
   ...
 }:
 
@@ -13,78 +12,61 @@ in
 {
   options.modules.browser = {
     enable = lib.mkEnableOption "browser";
-    commandName = mkOption { default = "librewolf"; };
-    module = mkOption { default = options.modules.librewolf; };
-    videoPlayer = mkOption {
-      default = {
-        package = pkgs.mpv;
-        executableName = "mpv";
-      };
-    };
+    browserCommand = mkOption { default = lib.getExe config.programs.librewolf.package; };
+    videoPlayer = mkOption { default = lib.getExe pkgs.mpv; };
   };
 
   config = lib.mkIf cfg.enable {
-    # Use the module option to set the dependent module
-    modules.librewolf.enable = true;
     home.sessionVariables = {
       BROWSER = "browser";
       BROWSER_PRIV = "browser -p";
       BROWSER_PROF = "browser --ProfileManager";
     };
-    home.packages =
-      let
-        browser =
-          pkgs.writeShellScriptBin "browser" # bash
-            ''
-              browser_cmd="${cfg.commandName} --new-tab"
-              video_player="${cfg.videoPlayer.package}/bin/${cfg.videoPlayer.executableName}"
 
-              run_cmd="$browser_cmd"
-              run_args=""
+    home.packages = [
+      (pkgs.writeShellScriptBin "browser" # bash
+        ''
+          browser_cmd="${cfg.browserCommand} --new-tab"
 
-              args="$@"
+          run_cmd="$browser_cmd"
+          run_args=""
 
-              private=0
+          set_priv() {
+            case $run_cmd in
+              $browser_cmd)
+                append_arg_start "--private-window"
+                ;;
+              *)
+                ;;
+            esac
+          }
 
-              set_priv() {
-                case $run_cmd in
-                  $browser_cmd)
-                    append_arg_start "--private-window"
-                    ;;
-                  *)
-                    ;;
-                esac
-              }
+          append_arg() {
+            run_args="$run_args $1"
+          }
 
-              append_arg(){
-                run_args="$run_args $1"
-              }
+          append_arg_start() {
+            run_args="$1 $run_args"
+          }
 
-              append_arg_start(){
-                run_args="$1 $run_args"
-              }
+          for arg in "$@"
+          do
+            echo "$arg" | grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com|instagram\.com/reel)" > /dev/null && run_cmd="${cfg.videoPlayer}"
 
-              for a in $args; do
-                echo "$a" | grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com|instagram\.com/reel)" > /dev/null && run_cmd="$video_player"
-
-                case $a in
-                  -p|-P)
-                    private=1
-                    ;;
-                  *)
-                    append_arg $a
-                esac
-              done
-
-              if [ $private -eq 1 ] ; then
+            case $arg in
+              -p|-P)
                 set_priv
-              fi
+                ;;
+              *)
+                append_arg $arg
+            esac
+          done
 
-              printf "%b" "$run_cmd $run_args\n"
-              exec $run_cmd $run_args > /dev/null &
-            '';
-      in
-      [ browser ];
+          printf "%b\n" "$run_cmd $run_args"
+          exec $run_cmd $run_args > /dev/null &
+        ''
+      )
+    ];
 
     xdg.desktopEntries.browser = {
       name = "Browser wrapper";
@@ -125,6 +107,8 @@ in
       };
     };
 
-    xdg.mimeApps.defaultApplications = lib.genAttrs config.xdg.desktopEntries.browser.mimeType (_: "browser.desktop");
+    xdg.mimeApps.defaultApplications = lib.genAttrs config.xdg.desktopEntries.browser.mimeType (
+      _: "browser.desktop"
+    );
   };
 }
