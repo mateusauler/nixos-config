@@ -4,7 +4,6 @@ let
   module-names = [
     "libvirtd"
     "steam-xdg"
-    "smm"
   ];
 
   output-ports = {
