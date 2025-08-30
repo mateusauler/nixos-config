@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  nixpkgs-channel,
-  pkgs,
   ...
 }:
 
@@ -22,9 +20,6 @@ in
 
   config = lib.mkIf cfg.enable {
     modules.desktop.autostart = "waybar";
-    programs.waybar = {
-      enable = true;
-      package = if nixpkgs-channel == "unstable" then pkgs.waybar-git else pkgs.waybar;
-    };
+    programs.waybar.enable = true;
   };
 }
