@@ -14,11 +14,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.niri = {
       enable = true;
-      package = pkgs.niri-unstable;
+      package = pkgs.niri-stable;
     };
 
-    systemd.user.services.polkit-gnome-authentication-agent-1.enable =
-      lib.mkIf config.programs.niri.enable (lib.mkForce false);
-    services.gnome.gnome-keyring.enable = lib.mkIf config.programs.niri.enable (lib.mkForce false);
+    systemd.user.services.polkit-gnome-authentication-agent-1.enable = lib.mkForce false;
+    services.gnome.gnome-keyring.enable = lib.mkForce false;
   };
 }

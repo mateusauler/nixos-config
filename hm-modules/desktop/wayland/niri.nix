@@ -72,7 +72,7 @@ in
     home.packages = with pkgs; [
       # https://github.com/sodiboo/niri-flake/issues/437
       nautilus
-      xwayland-satellite-unstable
+      xwayland-satellite
     ];
 
     services.gnome-keyring.enable = lib.mkForce false;
