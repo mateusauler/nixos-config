@@ -38,7 +38,6 @@ in
           copyEmojiMarkdown.enable = true;
           copyFileContents.enable = true;
           customIdle.enable = true;
-          emoteCloner.enable = true;
           experiments.enable = true;
           fakeNitro = {
             enable = true;
