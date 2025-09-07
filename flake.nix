@@ -31,8 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    niri.url = "github:sodiboo/niri-flake";
-
     stylix-stable.url = "github:nix-community/stylix/release-25.05";
 
     stylix-unstable.url = "github:nix-community/stylix";
@@ -42,7 +40,6 @@
     inputs@{
       nixpkgs-stable,
       nixpkgs-unstable,
-      niri,
       ...
     }:
     let
@@ -50,7 +47,6 @@
       default-channel = "unstable";
 
       overlays = [
-        niri.overlays.niri
         (final: prev: {
           lib =
             prev.lib

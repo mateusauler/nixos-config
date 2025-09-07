@@ -28,8 +28,6 @@ in
     ];
 
     exec-once = lib.flatten [
-      "kitty"
-      "keepassxc"
       config.modules.desktop.autostart
     ];
 

@@ -60,7 +60,6 @@ nixpkgs.lib.nixosSystem rec {
   };
 
   modules = [
-    inputs.niri.nixosModules.niri
     stylix.nixosModules.stylix
     configPath
     ../modules

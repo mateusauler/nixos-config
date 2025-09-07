@@ -15,9 +15,9 @@
             sed -i -E 's/Exec\s*=\s*nsxiv\s*(.*)$/Exec=nsxiv -a \1/' $out/share/applications/nsxiv.desktop
           '';
       });
-      niri-stable = pkgs.symlinkJoin {
-        inherit (prev.niri-stable) name cargoBuildNoDefaultFeatures cargoBuildFeatures;
-        paths = [ prev.niri-stable ];
+      niri = pkgs.symlinkJoin {
+        inherit (prev.niri) name cargoBuildNoDefaultFeatures cargoBuildFeatures;
+        paths = [ prev.niri ];
         postBuild = ''
           install -Dm755 "${./niri-session}" "$out/bin/niri-session"
         '';

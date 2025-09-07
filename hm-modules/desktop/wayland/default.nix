@@ -72,6 +72,11 @@ in
         # "wl-clip-persist --clipboard regular"
         "wlsunset -s 18:00 -S 7:00 -t 4500"
         (lib.optional osConfig.programs.kdeconnect.enable "kdeconnect-indicator")
+        "kitty"
+        "keepassxc"
+        "spotify"
+        "enteauth"
+        "localsend_app"
       ];
     };
   };
