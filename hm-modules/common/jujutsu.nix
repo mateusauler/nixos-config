@@ -16,7 +16,7 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
     };
-    lazyjj = pkgs.lib.mkTrueEnableOption "Lazyjj";
+    lazyjj = pkgs.lib.mkEnableOption "Lazyjj";
   };
 
   config = lib.mkIf cfg.enable {
