@@ -56,6 +56,7 @@ in
             greetMode = "Message";
           };
           imageZoom.enable = true;
+          consoleJanitor.enable = true;
           memberCount.enable = true;
           mentionAvatars = {
             enable = true;
