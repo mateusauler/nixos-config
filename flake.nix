@@ -34,6 +34,8 @@
     stylix-stable.url = "github:nix-community/stylix/release-25.05";
 
     stylix-unstable.url = "github:nix-community/stylix";
+
+    nixarr.url = "github:rasmus-kirk/nixarr";
   };
 
   outputs =

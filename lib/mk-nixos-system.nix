@@ -52,7 +52,7 @@ let
   configPath = dir + /configuration.nix;
   inherit (import configPath (args // { inherit (pkgs) lib; })) enabledUsers;
 in
-nixpkgs.lib.nixosSystem rec {
+nixpkgs.lib.nixosSystem {
   inherit system pkgs;
 
   specialArgs = specialArgs' // {
@@ -61,6 +61,7 @@ nixpkgs.lib.nixosSystem rec {
 
   modules = [
     stylix.nixosModules.stylix
+    inputs.nixarr.nixosModules.default
     configPath
     ../modules
     ../overlays
