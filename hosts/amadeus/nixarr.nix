@@ -77,7 +77,14 @@ in
       extraAllowedIps = [ "100.69.*" ];
       vpn.enable = true;
       flood.enable = true;
-      extraSettings.rpc-host-whitelist = config.networking.hostName;
+      extraSettings = {
+        download-queue-enabled = true;
+        download-queue-size = 1;
+        ratio-limit-enabled = true;
+        ratio-limit = 3;
+        rpc-host-whitelist = config.networking.hostName;
+        utp-enabled = true;
+      };
     };
 
     jellyfin.enable = true;
