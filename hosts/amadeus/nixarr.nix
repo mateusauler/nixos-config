@@ -141,6 +141,24 @@ in
       };
     };
 
+    recyclarr = {
+      enable = true;
+      configFile = pkgs.writeText "recyclarr-config" ''
+        radarr:
+          movies:
+            api_key: !env_var RADARR_API_KEY
+            base_url: http://localhost:${toString servicePorts.radarr}
+            quality_definition:
+              type: movie
+        sonarr:
+          series:
+            api_key: !env_var SONARR_API_KEY
+            base_url: http://localhost:${toString servicePorts.sonarr}
+            quality_definition:
+              type: series
+      '';
+    };
+
     jellyfin.enable = true;
     jellyseerr.enable = true;
     radarr.enable = true;
