@@ -29,6 +29,16 @@ let
       ${command}
     fi
   '';
+
+  servicePorts = {
+    bazarr = config.nixarr.bazarr.port;
+    jellyfin = 8096;
+    jellyseerr = 5055;
+    prowlarr = config.nixarr.prowlarr.port;
+    radarr = config.nixarr.radarr.port;
+    sonarr = 8989;
+    transmission = config.nixarr.transmission.uiPort;
+  };
 in
 {
   sops.secrets.vpn-config.sopsFile = ./secrets.yaml;
@@ -60,6 +70,50 @@ in
     ];
   };
 
+  sops.secrets = {
+    "ssl/cert" = {
+      sopsFile = ./secrets.yaml;
+      owner = "nginx";
+    };
+    "ssl/key" = {
+      sopsFile = ./secrets.yaml;
+      owner = "nginx";
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = lib.mkForce false;
+    recommendedProxySettings = true;
+    virtualHosts =
+      let
+        genVhost =
+          name: port:
+          lib.nameValuePair "${name}.auler.dev" {
+            sslCertificate = config.sops.secrets."ssl/cert".path;
+            sslCertificateKey = config.sops.secrets."ssl/key".path;
+            addSSL = true;
+            locations."/" = {
+              proxyPass = "http://localhost:${toString port}";
+              proxyWebsockets = true;
+            };
+          };
+      in
+      lib.mapAttrs' genVhost servicePorts;
+  };
+
+  containers.pihole.config =
+    { ... }:
+    {
+      services.pihole-ftl.settings.dns.cnameRecords =
+        servicePorts |> builtins.attrNames |> map (n: "${n}.auler.dev,amadeus.auler.dev");
+    };
+
+  networking.firewall.interfaces.wt0.allowedTCPPorts = [
+    80
+    443
+  ];
+
   nixarr = {
     enable = true;
 
@@ -82,7 +136,7 @@ in
         download-queue-size = 1;
         ratio-limit-enabled = true;
         ratio-limit = 3;
-        rpc-host-whitelist = config.networking.hostName;
+        rpc-host-whitelist = "${config.networking.hostName},transmission.auler.dev";
         utp-enabled = true;
       };
     };

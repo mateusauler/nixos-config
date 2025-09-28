@@ -40,12 +40,17 @@
           };
 
           settings = {
-            dns.upstreams = [
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
-            ];
+            dns = {
+              upstreams = [
+                "9.9.9.9"
+                "149.112.112.112"
+                "2620:fe::fe"
+                "2620:fe::9"
+              ];
+              hosts = [
+                "100.69.71.75 amadeus.auler.dev"
+              ];
+            };
             # misc.readOnly = false;
             webserver.interface = {
               boxed = false;
