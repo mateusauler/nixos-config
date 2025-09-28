@@ -12,4 +12,9 @@ in
 
   networking.firewall.interfaces.wt0.allowedTCPPorts =
     lib.optional config.services.syncthing.enable gui-port;
+
+  modules.proxy.services."syncthing-${config.networking.hostName}" = {
+    port = gui-port;
+    protocol = "https";
+  };
 }

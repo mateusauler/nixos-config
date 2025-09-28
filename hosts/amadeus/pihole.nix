@@ -1,14 +1,9 @@
 { config, nixpkgs-unstable, ... }:
 
 {
-  networking.firewall = {
-    allowedUDPPorts = [ 53 ];
-    # Only allow connecting to the web interface from netbird
-    interfaces.wt0.allowedTCPPorts = [
-      8081
-      4443
-    ];
-  };
+  networking.firewall.allowedUDPPorts = [ 53 ];
+
+  modules.proxy.services.pihole.port = 8081;
 
   containers.pihole = {
     autoStart = true;
@@ -40,17 +35,12 @@
           };
 
           settings = {
-            dns = {
-              upstreams = [
-                "9.9.9.9"
-                "149.112.112.112"
-                "2620:fe::fe"
-                "2620:fe::9"
-              ];
-              hosts = [
-                "100.69.71.75 amadeus.auler.dev"
-              ];
-            };
+            dns.upstreams = [
+              "9.9.9.9"
+              "149.112.112.112"
+              "2620:fe::fe"
+              "2620:fe::9"
+            ];
             # misc.readOnly = false;
             webserver.interface = {
               boxed = false;
@@ -119,10 +109,7 @@
 
         services.pihole-web = {
           enable = true;
-          ports = [
-            "8081"
-            "4443s"
-          ];
+          ports = [ (toString config.modules.proxy.services.pihole.port) ];
         };
 
         networking.hostName = config.networking.hostName;

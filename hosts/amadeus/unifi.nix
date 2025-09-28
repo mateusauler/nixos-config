@@ -18,6 +18,11 @@ in
 {
   networking = { inherit firewall; };
 
+  modules.proxy.services.unifi = {
+    port = 8443;
+    protocol = "https";
+  };
+
   containers.unifi = {
     autoStart = true;
 

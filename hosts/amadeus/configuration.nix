@@ -2,6 +2,7 @@
 
 let
   module-names = [
+    "proxy"
     "server"
     "syncthing"
     "zswap"
@@ -12,6 +13,7 @@ in
     ./hardware-configuration.nix
     ./pihole.nix
     ./nixarr.nix
+    ./proxy.nix
     ./syncthing.nix
     ./unifi.nix
     ./zfs.nix

@@ -9,6 +9,10 @@ let
   transmissionConfig = "${config.nixarr.transmission.stateDir}/.config/transmission-daemon/settings.json";
   transmissionService = config.systemd.services.transmission.name;
 
+  proxy = config.modules.proxy;
+  services = proxy.services;
+  nixarr = config.nixarr;
+
   awk = "${pkgs.gawk}/bin/awk";
   jq = lib.getExe pkgs.jq;
   natpmpc = lib.getExe pkgs.libnatpmp;
@@ -29,16 +33,6 @@ let
       ${command}
     fi
   '';
-
-  servicePorts = {
-    bazarr = config.nixarr.bazarr.port;
-    jellyfin = 8096;
-    jellyseerr = 5055;
-    prowlarr = config.nixarr.prowlarr.port;
-    radarr = config.nixarr.radarr.port;
-    sonarr = 8989;
-    transmission = config.nixarr.transmission.uiPort;
-  };
 in
 {
   sops.secrets.vpn-config.sopsFile = ./secrets.yaml;
@@ -70,49 +64,15 @@ in
     ];
   };
 
-  sops.secrets = {
-    "ssl/cert" = {
-      sopsFile = ./secrets.yaml;
-      owner = "nginx";
-    };
-    "ssl/key" = {
-      sopsFile = ./secrets.yaml;
-      owner = "nginx";
-    };
+  modules.proxy.services = {
+    bazarr.port = nixarr.bazarr.port;
+    jellyfin.port = 8096;
+    jellyseerr.port = 5055;
+    prowlarr.port = nixarr.prowlarr.port;
+    radarr.port = nixarr.radarr.port;
+    sonarr.port = 8989;
+    transmission.port = nixarr.transmission.uiPort;
   };
-
-  services.nginx = {
-    enable = true;
-    recommendedTlsSettings = lib.mkForce false;
-    recommendedProxySettings = true;
-    virtualHosts =
-      let
-        genVhost =
-          name: port:
-          lib.nameValuePair "${name}.auler.dev" {
-            sslCertificate = config.sops.secrets."ssl/cert".path;
-            sslCertificateKey = config.sops.secrets."ssl/key".path;
-            addSSL = true;
-            locations."/" = {
-              proxyPass = "http://localhost:${toString port}";
-              proxyWebsockets = true;
-            };
-          };
-      in
-      lib.mapAttrs' genVhost servicePorts;
-  };
-
-  containers.pihole.config =
-    { ... }:
-    {
-      services.pihole-ftl.settings.dns.cnameRecords =
-        servicePorts |> builtins.attrNames |> map (n: "${n}.auler.dev,amadeus.auler.dev");
-    };
-
-  networking.firewall.interfaces.wt0.allowedTCPPorts = [
-    80
-    443
-  ];
 
   nixarr = {
     enable = true;
@@ -136,7 +96,7 @@ in
         download-queue-size = 1;
         ratio-limit-enabled = true;
         ratio-limit = 3;
-        rpc-host-whitelist = "${config.networking.hostName},transmission.auler.dev";
+        rpc-host-whitelist = "${config.networking.hostName},transmission.${proxy.baseDomain}";
         utp-enabled = true;
       };
     };
@@ -147,13 +107,13 @@ in
         radarr:
           movies:
             api_key: !env_var RADARR_API_KEY
-            base_url: http://localhost:${toString servicePorts.radarr}
+            base_url: http://localhost:${toString services.radarr.port}
             quality_definition:
               type: movie
         sonarr:
           series:
             api_key: !env_var SONARR_API_KEY
-            base_url: http://localhost:${toString servicePorts.sonarr}
+            base_url: http://localhost:${toString services.sonarr.port}
             quality_definition:
               type: series
       '';
