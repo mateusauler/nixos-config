@@ -123,7 +123,7 @@ in
     jellyseerr.enable = true;
     radarr.enable = true;
     sonarr.enable = true;
-    bazarr.enable = true;
+    bazarr.enable = false;
     prowlarr.enable = true;
   };
 }
