@@ -35,12 +35,15 @@
           };
 
           settings = {
-            dns.upstreams = [
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
-            ];
+            dns = {
+              upstreams = [
+                "9.9.9.9"
+                "149.112.112.112"
+                "2620:fe::fe"
+                "2620:fe::9"
+              ];
+              rateLimit.count = 10000;
+            };
             # misc.readOnly = false;
             webserver.interface = {
               boxed = false;
