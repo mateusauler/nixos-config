@@ -73,6 +73,8 @@ in
       swaylock.nodelay = true;
     };
 
+    boot.kernel.sysctl."vm.swappiness" = 10;
+
     programs = {
       fish.enable = true;
       nix-ld.enable = true;

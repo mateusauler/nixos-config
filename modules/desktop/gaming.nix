@@ -20,7 +20,6 @@ in
       "vm.compaction_proactiveness" = 0;
       "vm.min_free_kbytes" = 1048576;
       "vm.page_lock_unfairness" = 1;
-      "vm.swappiness" = 10;
       "vm.watermark_boost_factor" = 1;
       "vm.watermark_scale_factor" = 500;
       "vm.zone_reclaim_mode" = 0;
