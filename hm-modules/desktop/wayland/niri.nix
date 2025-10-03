@@ -274,11 +274,11 @@ in
         }
 
         tab-indicator {
-          gap 5
-          width 4
+          gap 0
+          width 7
           length total-proportion=0.5
           position "left"
-          gaps-between-tabs 5
+          gaps-between-tabs 0
           corner-radius 5
         }
 

@@ -42,7 +42,10 @@ in
     ./wofi.nix
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = {
+    modules.wayland.enable = lib.mkIf (config.home.userName == "root") (lib.mkForce false);
+  }
+  // lib.mkIf cfg.enable {
     home.packages =
       with pkgs;
       lib.flatten [
