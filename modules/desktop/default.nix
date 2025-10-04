@@ -8,7 +8,6 @@
 let
   cfg = config.modules.desktop;
   module-names = [
-    "barrier"
     "distrobox"
     "niri"
     "pipewire"
@@ -22,7 +21,6 @@ in
   };
 
   imports = [
-    ./barrier.nix
     ./bluetooth.nix
     ./distrobox.nix
     ./gaming.nix
