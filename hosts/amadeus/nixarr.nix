@@ -9,7 +9,7 @@ let
   transmissionConfig = "${config.nixarr.transmission.stateDir}/.config/transmission-daemon/settings.json";
   transmissionService = config.systemd.services.transmission.name;
 
-  proxy = config.modules.proxy;
+  inherit (config.modules) proxy dns;
   services = proxy.services;
   nixarr = config.nixarr;
 
@@ -96,7 +96,7 @@ in
         download-queue-size = 1;
         ratio-limit-enabled = true;
         ratio-limit = 3;
-        rpc-host-whitelist = "${config.networking.hostName},transmission.${proxy.baseDomain}";
+        rpc-host-whitelist = "${config.networking.hostName},transmission.${dns.baseDomain}";
         utp-enabled = true;
       };
     };

@@ -10,8 +10,8 @@ let
 in
 {
   imports = [
+    ./dns.nix
     ./hardware-configuration.nix
-    ./pihole.nix
     ./nixarr.nix
     ./proxy.nix
     ./syncthing.nix
