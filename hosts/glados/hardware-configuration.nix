@@ -76,10 +76,8 @@
     enable = true;
     enable32Bit = true;
     extraPackages = [
-      amdvlk
       rocmPackages.clr
       rocmPackages.clr.icd
     ];
-    extraPackages32 = [ driversi686Linux.amdvlk ];
   };
 }
