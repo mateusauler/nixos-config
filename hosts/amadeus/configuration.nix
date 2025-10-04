@@ -25,5 +25,7 @@ in
   networking.hostName = "amadeus";
   networking.hostId = "a40227d9";
 
+  services.swapspace.enable = false;
+
   system.stateVersion = "23.11";
 }
