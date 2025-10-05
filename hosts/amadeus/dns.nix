@@ -27,7 +27,7 @@ let
     vpn = "100.69.0.0/16";
   };
 
-  getIp =
+  getAddr =
     { address, vpnAddress, ... }: isVpn: if (isVpn && vpnAddress != null) then vpnAddress else address;
 
   getNetTypeName = isVpn: if isVpn then "vpn" else "lan";
@@ -49,13 +49,13 @@ let
             $TTL 10
             $ORIGIN ${baseDomain}.
 
-            @    IN   SOA  ns1. hostmaster.${baseDomain}. 1 3600 600 604800 3600
-            @    IN   NS   ns1.
-            ns1  IN   A    ${getIp cfg.records.${hostName} isVpn}
+            @    IN   SOA  ns1 hostmaster 1 3600 600 604800 3600
+            @    IN   NS   ns1
+            ns1  IN   A    ${getAddr cfg.records.${hostName} isVpn}
 
             ${
               cfg.records
-              |> lib.mapAttrsToList (name: { type, ... }@record: "${name} IN ${type} ${getIp record isVpn}")
+              |> lib.mapAttrsToList (name: { type, ... }@record: "${name} IN ${type} ${getAddr record isVpn}")
               |> lib.concatLines
             }
           ''}";
@@ -67,26 +67,28 @@ in
   options.modules.dns = {
     baseDomain = mkReadOnly "auler.dev";
     records = mkOption {
-      type = attrsOf (submodule {
-        options = {
-          type = mkOption {
-            type = enum [
-              "A"
-              "AAAA"
-              "CNAME"
-            ];
-            default = "CNAME";
-          };
-          address = mkOption {
-            type = str;
-            default = hostName;
-          };
-          vpnAddress = mkOption {
-            type = nullOr str;
-            default = null;
+      type =
+        attrsOf
+        <| submodule {
+          options = {
+            type = mkOption {
+              type = enum [
+                "A"
+                "AAAA"
+                "CNAME"
+              ];
+              default = "CNAME";
+            };
+            address = mkOption {
+              type = str;
+              default = hostName;
+            };
+            vpnAddress = mkOption {
+              type = nullOr str;
+              default = null;
+            };
           };
         };
-      });
     };
   };
 
