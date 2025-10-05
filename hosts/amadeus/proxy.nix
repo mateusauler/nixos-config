@@ -12,6 +12,7 @@ let
     attrsOf
     enum
     int
+    listOf
     str
     submodule
     ;
@@ -21,22 +22,35 @@ in
   options.modules.proxy = {
     enable = mkEnableOption "Proxy module";
     services = mkOption {
-      type = attrsOf (submodule {
-        options = {
-          host = mkOption {
-            type = str;
-            default = "${config.networking.hostName}";
-          };
-          port = mkOption { type = int; };
-          protocol = mkOption {
-            type = enum [
-              "http"
-              "https"
-            ];
-            default = "http";
+      type =
+        attrsOf
+        <| submodule {
+          options = {
+            host = mkOption {
+              type = str;
+              default = "${config.networking.hostName}";
+            };
+            port = mkOption { type = int; };
+            externalPorts = mkOption {
+              type =
+                listOf
+                <| submodule {
+                  options = {
+                    port = mkOption { type = int; };
+                    ssl = mkOption { default = false; };
+                  };
+                };
+              default = [ ];
+            };
+            protocol = mkOption {
+              type = enum [
+                "http"
+                "https"
+              ];
+              default = "http";
+            };
           };
         };
-      });
     };
   };
 
@@ -71,8 +85,26 @@ in
               host,
               port,
               protocol,
+              externalPorts,
             }:
             lib.nameValuePair "${name}.${dns.baseDomain}" {
+              listen =
+                externalPorts
+                ++ [
+                  {
+                    port = 443;
+                    ssl = true;
+                  }
+                  {
+                    port = 80;
+                    ssl = false;
+                  }
+                ]
+                |> map (e: [
+                  (e // { addr = "0.0.0.0"; })
+                  (e // { addr = "[::0]"; })
+                ])
+                |> lib.flatten;
               sslCertificate = config.sops.secrets."ssl/cert".path;
               sslCertificateKey = config.sops.secrets."ssl/key".path;
               addSSL = true;
