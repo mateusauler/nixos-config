@@ -66,7 +66,15 @@ in
 
   modules.proxy.services = {
     bazarr.port = nixarr.bazarr.port;
-    jellyfin.port = 8096;
+    jellyfin = {
+      port = 8096;
+      externalPorts = [
+        {
+          port = 8920;
+          ssl = true;
+        }
+      ];
+    };
     jellyseerr.port = 5055;
     prowlarr.port = nixarr.prowlarr.port;
     radarr.port = nixarr.radarr.port;
