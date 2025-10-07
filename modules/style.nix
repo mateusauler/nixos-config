@@ -33,8 +33,8 @@ in
     };
 
     image = pkgs.fetchurl {
-      url = "https://github.com/mateusauler/wallpapers/blob/b2a40a2d2660700149aaf49ad5bae7f6c5618af1/1deddf6160ff3160.png?raw=true";
-      hash = "sha256-BDe4EPXOXGQowbuZGPjAqfHwDQRTLi9kAPDCpfo+DeU=";
+      url = "https://raw.githubusercontent.com/mateusauler/wallpapers/refs/heads/master/tropic_island_night.jpg";
+      hash = "sha256-Fm800h7CbEHqcPDL7oKSBSIpGBhEWLFS6ioV5qM0SVw=";
     };
 
     opacity = {
