@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -60,6 +61,10 @@ in
       443
     ];
 
+    networking.firewall.allowedUDPPorts = [
+      443 # QUIC
+    ];
+
     modules.dns.records = cfg.services |> builtins.mapAttrs (_: _: { });
 
     sops.secrets = {
@@ -75,6 +80,7 @@ in
 
     services.nginx = {
       enable = true;
+      package = pkgs.nginxQuic;
       recommendedTlsSettings = true;
       recommendedProxySettings = true;
       virtualHosts =
@@ -107,6 +113,7 @@ in
                 |> lib.flatten;
               sslCertificate = config.sops.secrets."ssl/cert".path;
               sslCertificateKey = config.sops.secrets."ssl/key".path;
+              quic = true;
               addSSL = true;
               locations."/" = {
                 proxyPass = "${protocol}://${host}:${toString port}";
