@@ -75,6 +75,11 @@ in
       };
     };
 
+    programs.gh = {
+      enable = lib.mkDefault true;
+      settings.git_protocol = "ssh";
+    };
+
     qt.enable = true;
 
     xdg.configFile."npm/npmrc".text = "cafile=/etc/ssl/certs/ca-certificates.crt";
