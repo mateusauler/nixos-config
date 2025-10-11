@@ -55,15 +55,6 @@ lib.mkIf cfg.enable {
           settings.plugins.black.enable = true;
         };
         pyright.enable = true;
-        rust_analyzer = {
-          enable = cfg-plug.rust-tools.enable;
-          installCargo = true;
-          installRustc = true;
-          settings.workspace.symbol.search = {
-            kind = "all_symbols";
-            scope = "workspace_and_dependencies";
-          };
-        };
         texlab.enable = true;
       };
     };
