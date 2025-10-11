@@ -2,7 +2,6 @@
 
 let
   module-names = [
-    "libvirtd"
     "steam-xdg"
   ];
 

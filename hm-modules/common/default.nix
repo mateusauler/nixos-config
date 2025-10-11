@@ -11,7 +11,6 @@
     ./fish
     ./git.nix
     ./jujutsu.nix
-    ./libvirtd.nix
     ./neovim
     ./shell-aliases.nix
     ./wget.nix

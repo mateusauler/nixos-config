@@ -25,10 +25,6 @@ in
           package = pkgs.qemu_kvm;
           runAsRoot = mkDefault false;
           swtpm.enable = true;
-          ovmf = {
-            enable = true;
-            packages = [ pkgs.OVMFFull.fd ];
-          };
         };
       };
     };
