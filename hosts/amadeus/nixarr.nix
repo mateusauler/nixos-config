@@ -101,7 +101,7 @@ in
       flood.enable = true;
       extraSettings = {
         download-queue-enabled = true;
-        download-queue-size = 1;
+        download-queue-size = 5;
         ratio-limit-enabled = true;
         ratio-limit = 3;
         rpc-host-whitelist = "${config.networking.hostName},transmission.${dns.baseDomain}";
