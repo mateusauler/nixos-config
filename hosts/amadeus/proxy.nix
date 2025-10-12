@@ -83,6 +83,7 @@ in
       package = pkgs.nginxQuic;
       recommendedTlsSettings = true;
       recommendedProxySettings = true;
+      proxyTimeout = "30m";
       virtualHosts =
         let
           genVhost =
