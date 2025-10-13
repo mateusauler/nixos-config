@@ -35,7 +35,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: |
             Bump flake.lock
