@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -45,6 +46,16 @@ in
         thumbfast
         uosc
       ];
+    };
+    services = lib.optionalAttrs (options.services ? jellyfin-mpv-shim) {
+      jellyfin-mpv-shim = {
+        enable = true;
+        settings = {
+          mpv_ext = true;
+          mpv_ext_path = lib.getExe config.programs.mpv.finalPackage;
+          connect_retry_mins = 1;
+        };
+      };
     };
   };
 }
