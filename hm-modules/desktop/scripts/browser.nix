@@ -13,7 +13,11 @@ in
   options.modules.browser = {
     enable = lib.mkEnableOption "browser";
     browserCommand = mkOption { default = lib.getExe config.programs.librewolf.package; };
-    videoPlayer = mkOption { default = lib.getExe pkgs.mpv; };
+    videoPlayer = mkOption {
+      default = lib.getExe (
+        if config.programs.mpv.enable then config.programs.mpv.finalPackage else pkgs.mpv
+      );
+    };
   };
 
   config = lib.mkIf cfg.enable {
