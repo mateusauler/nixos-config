@@ -12,7 +12,7 @@ in
   imports = [
     ./dns.nix
     ./hardware-configuration.nix
-    ./nixarr.nix
+    ./nixarr
     ./proxy.nix
     ./syncthing.nix
     ./unifi.nix

@@ -10,8 +10,8 @@ let
   transmissionService = config.systemd.services.transmission.name;
 
   inherit (config.modules) proxy dns;
-  services = proxy.services;
-  nixarr = config.nixarr;
+  inherit (proxy) services;
+  inherit (config) nixarr;
 
   awk = "${pkgs.gawk}/bin/awk";
   jq = lib.getExe pkgs.jq;
@@ -35,9 +35,13 @@ let
   '';
 in
 {
-  sops.secrets.vpn-config.sopsFile = ./secrets.yaml;
+  imports = [
+    ./qbittorrent.nix
+  ];
 
-  systemd = lib.mkIf (config.nixarr.transmission.vpn.enable) {
+  sops.secrets.vpn-config.sopsFile = ../secrets.yaml;
+
+  systemd = lib.mkIf (nixarr.transmission.enable && nixarr.transmission.vpn.enable) {
     services.protonvpn-port-updater = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "network-online.target" ];
@@ -79,7 +83,7 @@ in
     prowlarr.port = nixarr.prowlarr.port;
     radarr.port = nixarr.radarr.port;
     sonarr.port = 8989;
-    transmission.port = nixarr.transmission.uiPort;
+    transmission = lib.mkIf nixarr.transmission.enable { port = nixarr.transmission.uiPort; };
   };
 
   nixarr = {
@@ -95,7 +99,7 @@ in
     };
 
     transmission = {
-      enable = true;
+      enable = false;
       extraAllowedIps = [ "100.69.*" ];
       vpn.enable = true;
       flood.enable = true;
