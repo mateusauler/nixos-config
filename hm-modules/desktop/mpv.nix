@@ -51,9 +51,10 @@ in
       jellyfin-mpv-shim = {
         enable = true;
         settings = {
+          connect_retry_mins = 1;
           mpv_ext = true;
           mpv_ext_path = lib.getExe config.programs.mpv.finalPackage;
-          connect_retry_mins = 1;
+          remote_kbps = 2147483;
         };
       };
     };
