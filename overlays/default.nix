@@ -1,5 +1,7 @@
 {
   lib,
+  inputs,
+  nixpkgs-channel,
   pkgs,
   private-config,
   ...
@@ -50,5 +52,10 @@
           '';
         };
     })
+    (lib.optional (nixpkgs-channel == "unstable") (
+      final: prev: {
+        inherit (import inputs.nixpkgs-pr-454590 { inherit (prev.stdenv.hostPlatform) system; }) copyq;
+      }
+    ))
   ];
 }
