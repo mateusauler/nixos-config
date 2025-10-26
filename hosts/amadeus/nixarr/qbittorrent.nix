@@ -13,7 +13,7 @@ in
     serverConfig = {
       BitTorrent = {
         MergeTrackersEnabled = true;
-        Session = {
+        Session = rec {
           AddExtensionToIncompleteFiles = true;
           AddTorrentToTopOfQueue = true;
           AnonymousModeEnabled = true;
@@ -26,8 +26,8 @@ in
           };
           MaxActiveCheckingTorrents = 5;
           MaxActiveDownloads = 5;
-          MaxActiveTorrents = 35;
-          MaxActiveUploads = 30;
+          MaxActiveTorrents = MaxActiveDownloads + MaxActiveUploads;
+          MaxActiveUploads = 100;
           GlobalMaxRatio = 1.1;
           Preallocation = true;
           QueueingSystemEnabled = true;
