@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (config.services) qbittorrent;
@@ -54,12 +54,56 @@ in
     "d '${savePath}/sonarr'      0755 ${qbittorrent.user} ${qbittorrent.group} - -"
   ];
 
+  sops.secrets.qbittorrent-password = {
+    sopsFile = ../secrets.yaml;
+    owner = qbittorrent.user;
+  };
+
+  systemd.timers.qbittorrent-clear-torrents = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";
+      Unit = config.systemd.services.qbittorrent-clear-torrents.name;
+    };
+  };
+
   systemd.services.qbittorrent = {
     serviceConfig.IOSchedulingPriority = 7;
     vpnConfinement = {
       enable = true;
       vpnNamespace = "wg";
     };
+  };
+
+  systemd.services.qbittorrent-clear-torrents = {
+    requires = [ config.systemd.services.qbittorrent.name ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = qbittorrent.user;
+      Group = qbittorrent.group;
+    };
+    path = with pkgs; [
+      jq
+      qbittorrent-cli
+    ];
+    script =
+      let
+        inherit (config.modules.proxy.services.qbittorrent) host;
+        conn-args = ''
+          --url http://${host}:${toString port} \
+          --username qbittorrent \
+          --password "$(cat ${config.sops.secrets.qbittorrent-password.path})"'';
+      in
+      # bash
+      ''
+        torrents=$(qbt torrent list ${conn-args} -F json | jq -r '.[] | select(.state == "pausedUP" and .category == "imported") | { name, hash }')
+        if [[ -n $torrents ]]
+        then
+          echo Deleting:
+          jq -r .name <<< $torrents
+          jq -r .hash <<< $torrents | xargs qbt torrent delete --with-files ${conn-args}
+        fi
+      '';
   };
 
   vpnNamespaces.wg.portMappings = [
