@@ -8,7 +8,7 @@ in
 {
   modules = pkgs.lib.enableModules module-names {
     desktop.autostart = "nm-applet";
-    git.gpgKey = "A09DC0933C374BFC2B5A269F80A5D62F6EB7D9F0";
+    git.gpgKey = "82BE10715363265100DF88519AEA7E01F75F5E92";
     power-menu.actions.set.firmware.enable = false;
   };
 
