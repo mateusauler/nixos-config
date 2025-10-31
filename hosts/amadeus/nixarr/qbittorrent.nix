@@ -29,6 +29,7 @@ in
           MaxActiveTorrents = MaxActiveDownloads + MaxActiveUploads;
           MaxActiveUploads = 100;
           GlobalMaxRatio = 1.1;
+          GlobalMaxInactiveSeedingMinutes = 1440;
           Preallocation = true;
           QueueingSystemEnabled = true;
           ReannounceWhenAddressChanged = true;
