@@ -97,7 +97,7 @@ in
       libreoffice-fresh
       nodejs
       nsxiv
-      onlyoffice-bin
+      onlyoffice-desktopeditors
       qbittorrent
       rustdesk-flutter
       session-desktop

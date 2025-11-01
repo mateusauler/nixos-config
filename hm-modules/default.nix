@@ -57,7 +57,7 @@ in
       };
 
       packages = with pkgs; [
-        du-dust
+        dust
         htop-vim
         jq
         nix-output-monitor
