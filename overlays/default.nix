@@ -50,5 +50,10 @@
           '';
         };
     })
+    (lib.optional (nixpkgs-channel == "unstable") (
+      final: prev: {
+        inherit (import inputs.nixpkgs-pr-457209 { inherit (prev.stdenv.hostPlatform) system; }) vesktop;
+      }
+    ))
   ];
 }
