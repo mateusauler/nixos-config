@@ -46,10 +46,10 @@ let
         zone "${baseDomain}" {
           type master;
           file "${pkgs.writeText "${baseDomain}-zone-${netTypeName}.db" ''
-            $TTL 10
+            $TTL 600
             $ORIGIN ${baseDomain}.
 
-            @    IN   SOA  ns1 hostmaster 1 3600 600 604800 3600
+            @    IN   SOA  ns1 hostmaster 2 3600 600 604800 3600
             @    IN   NS   ns1
             ns1  IN   A    ${getAddr cfg.records.${hostName} isVpn}
 
