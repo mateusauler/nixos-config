@@ -4,8 +4,6 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-pr-457209.url = "github:nixos/nixpkgs/pull/457209/head";
-
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
