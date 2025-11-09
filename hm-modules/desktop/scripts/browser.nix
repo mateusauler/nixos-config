@@ -8,6 +8,8 @@
 let
   cfg = config.modules.browser;
   inherit (lib) mkOption;
+
+  notify-send = lib.getExe pkgs.libnotify;
 in
 {
   options.modules.browser = {
@@ -18,6 +20,7 @@ in
         if config.programs.mpv.enable then config.programs.mpv.finalPackage else pkgs.mpv
       );
     };
+    playerParams = mkOption { default = "--msg-level=all=error"; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -38,7 +41,7 @@ in
           set_priv() {
             case $run_cmd in
               $browser_cmd)
-                append_arg_start "--private-window"
+                prepend_arg "--private-window"
                 ;;
               *)
                 ;;
@@ -49,13 +52,21 @@ in
             run_args="$run_args $1"
           }
 
-          append_arg_start() {
+          prepend_arg() {
             run_args="$1 $run_args"
+          }
+
+          set_player() {
+            run_cmd="${cfg.videoPlayer}"
+            prepend_arg "${cfg.playerParams}"
           }
 
           for arg in "$@"
           do
-            echo "$arg" | grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com|instagram\.com/reel)" > /dev/null && run_cmd="${cfg.videoPlayer}"
+            if grep -E "(youtube\.com/(watch|shorts)|youtu\.be|tiktok\.com|instagram\.com/reel)" > /dev/null <<< "$arg"
+            then
+              set_player
+            fi
 
             case $arg in
               -p|-P)
@@ -63,11 +74,19 @@ in
                 ;;
               *)
                 append_arg $arg
+                ;;
             esac
           done
 
           printf "%b\n" "$run_cmd $run_args"
-          exec $run_cmd $run_args > /dev/null &
+          ${notify-send} Browser "$(basename "$run_cmd") $run_args"
+
+          msg=$($run_cmd $run_args)
+          if [[ $? -ne 0 ]]
+          then
+            printf "%b" "$msg"
+            ${notify-send} Error "$msg"
+          fi
         ''
       )
     ];
