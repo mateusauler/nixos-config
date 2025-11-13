@@ -386,6 +386,7 @@ in
         Mod+Period { consume-or-expel-window-right; }
 
         Mod+R { switch-preset-column-width; }
+        Mod+Shift+R { switch-preset-column-width-back; }
 
         Mod+Z      { center-visible-columns; }
         Mod+Ctrl+Z { expand-column-to-available-width; }
