@@ -58,6 +58,9 @@
           python313Packages
           python312Packages
           ;
+        inherit (import inputs.nixpkgs-pr-461661 { inherit (prev.stdenv.hostPlatform) system; })
+          rustdesk-flutter
+          ;
       }
     ))
   ];

@@ -6,6 +6,8 @@
 
     nixpkgs-pr-461528.url = "github:nixos/nixpkgs/pull/461528/head";
 
+    nixpkgs-pr-461661.url = "github:nixos/nixpkgs/pull/461661/head";
+
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
