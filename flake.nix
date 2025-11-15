@@ -20,7 +20,7 @@
 
     private-config = {
       # url = "path:/home/mateus/repos/nixos-private-config";
-      url = "git+ssh://git@github.com/mateusauler/nixos-private-config";
+      url = "git+ssh://git@codeberg.org/mateusauler/nixos-private-config.git";
       flake = false;
     };
 

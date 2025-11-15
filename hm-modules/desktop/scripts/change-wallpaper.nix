@@ -25,7 +25,7 @@ in
         clone-wallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] (
           pkgs.lib.cloneRepo {
             path = wall-dir;
-            url = "https://github.com/mateusauler/wallpapers";
+            url = "https://codeberg.org/mateusauler/wallpapers";
           }
         );
       };

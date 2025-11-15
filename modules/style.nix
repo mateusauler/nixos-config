@@ -33,7 +33,7 @@ in
     };
 
     image = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/mateusauler/wallpapers/refs/heads/master/tropic_island_night.jpg";
+      url = "https://codeberg.org/mateusauler/wallpapers/raw/branch/master/tropic_island_night.jpg";
       hash = "sha256-Fm800h7CbEHqcPDL7oKSBSIpGBhEWLFS6ioV5qM0SVw=";
     };
 

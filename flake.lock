@@ -841,17 +841,17 @@
     "private-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1760917968,
-        "narHash": "sha256-7nkctRjQT4htGmDTR4/u8WHnsKHZBzh1+mqVQrO/P5k=",
+        "lastModified": 1763227708,
+        "narHash": "sha256-srNH5vLdvARwp5XdkJpXObQrnmNLh1CGOQfRR1SRIA8=",
         "ref": "refs/heads/master",
-        "rev": "6566802f0dadfd555bfd3de117f26126df4ed6da",
-        "revCount": 200,
+        "rev": "9577b1e3cd87ba22f8b0f107e3da63718d35e292",
+        "revCount": 201,
         "type": "git",
-        "url": "ssh://git@github.com/mateusauler/nixos-private-config"
+        "url": "ssh://git@codeberg.org/mateusauler/nixos-private-config.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/mateusauler/nixos-private-config"
+        "url": "ssh://git@codeberg.org/mateusauler/nixos-private-config.git"
       }
     },
     "root": {

@@ -20,9 +20,9 @@ in
   options.dots = {
     clone = lib.mkOption { default = true; };
     path = lib.mkOption { default = "~/nixos"; };
-    url = lib.mkOption { default = "https://github.com/mateusauler/nixos-config"; };
-    ssh-uri = lib.mkOption { default = "git@github.com:mateusauler/nixos-config.git"; };
-    nix-uri = lib.mkOption { default = "github:mateusauler/nixos-config"; };
+    url = lib.mkOption { default = "https://codeberg.org/mateusauler/nixos-config"; };
+    ssh-uri = lib.mkOption { default = "git@codeberg.org:mateusauler/nixos-config.git"; };
+    nix-uri = lib.mkOption { default = "git+https://codeberg.org/mateusauler/nixos-config"; };
   };
 
   imports = [
